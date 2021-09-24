@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		479C452234C491D09BF5A3F0 /* Pods_SwiftMVVMTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1517339AC43FA239BDE3758 /* Pods_SwiftMVVMTP.framework */; };
+		FE44EE9526FD731400EC9F85 /* TestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EE9426FD731400EC9F85 /* TestCell.swift */; };
+		FE44EE9B26FD751500EC9F85 /* TestModuleServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EE9A26FD751500EC9F85 /* TestModuleServiceImpl.swift */; };
+		FE44EE9D26FD755300EC9F85 /* TestModuleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EE9C26FD755300EC9F85 /* TestModuleService.swift */; };
+		FE44EEA026FD75B900EC9F85 /* DataTestRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EE9F26FD75B900EC9F85 /* DataTestRequest.swift */; };
+		FE44EEA226FD75F500EC9F85 /* DataTestResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EEA126FD75F500EC9F85 /* DataTestResponse.swift */; };
+		FE44EEA426FD766B00EC9F85 /* TestModuleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EEA326FD766B00EC9F85 /* TestModuleRepository.swift */; };
+		FE44EEA626FD767E00EC9F85 /* TestModuleRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EEA526FD767E00EC9F85 /* TestModuleRepositoryImpl.swift */; };
+		FE44EEA926FD78B600EC9F85 /* Codable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EEA826FD78B600EC9F85 /* Codable+Extensions.swift */; };
+		FE44EEAB26FDA0A100EC9F85 /* TestModuleRemoteSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EEAA26FDA0A100EC9F85 /* TestModuleRemoteSource.swift */; };
+		FE44EEAD26FDA0D700EC9F85 /* TestModuleRemoteSourceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EEAC26FDA0D700EC9F85 /* TestModuleRemoteSourceImpl.swift */; };
+		FE44EEAF26FDA26900EC9F85 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EEAE26FDA26900EC9F85 /* ApiError.swift */; };
 		FE6F2BA726FCBC3F007CE4BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BA626FCBC3F007CE4BF /* AppDelegate.swift */; };
 		FE6F2BA926FCBC3F007CE4BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BA826FCBC3F007CE4BF /* SceneDelegate.swift */; };
 		FE6F2BAB26FCBC3F007CE4BF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BAA26FCBC3F007CE4BF /* ViewController.swift */; };
@@ -16,6 +28,21 @@
 		FE6F2BBE26FCBC43007CE4BF /* SwiftMVVMTPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BBD26FCBC43007CE4BF /* SwiftMVVMTPTests.swift */; };
 		FE6F2BC826FCBC43007CE4BF /* SwiftMVVMTPUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BC726FCBC43007CE4BF /* SwiftMVVMTPUITests.swift */; };
 		FE6F2BCA26FCBC43007CE4BF /* SwiftMVVMTPUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BC926FCBC43007CE4BF /* SwiftMVVMTPUITestsLaunchTests.swift */; };
+		FE6F2BDC26FCC558007CE4BF /* AppBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BDB26FCC558007CE4BF /* AppBaseViewController.swift */; };
+		FE6F2BDF26FCC5E2007CE4BF /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BDE26FCC5E2007CE4BF /* BaseViewController.swift */; };
+		FE6F2BE126FCC7B3007CE4BF /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BE026FCC7B3007CE4BF /* BaseViewModel.swift */; };
+		FE6F2BE926FCCA7E007CE4BF /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BE726FCCA7E007CE4BF /* ActivityIndicator.swift */; };
+		FE6F2BEA26FCCA7E007CE4BF /* ErrorTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BE826FCCA7E007CE4BF /* ErrorTracker.swift */; };
+		FE6F2BEC26FCCADC007CE4BF /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BEB26FCCADC007CE4BF /* Observable.swift */; };
+		FE6F2BF026FCCCB5007CE4BF /* ApiResponseDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BEF26FCCCB5007CE4BF /* ApiResponseDto.swift */; };
+		FE6F2BF226FCCDF9007CE4BF /* ApiRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BF126FCCDF9007CE4BF /* ApiRequestManager.swift */; };
+		FE6F2BF526FCCF98007CE4BF /* ApiMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BF426FCCF98007CE4BF /* ApiMethod.swift */; };
+		FE6F2BF826FCDB45007CE4BF /* ParseDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BF726FCDB45007CE4BF /* ParseDataError.swift */; };
+		FE6F2BFA26FCE10D007CE4BF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BF926FCE10D007CE4BF /* Constants.swift */; };
+		FE6F2BFD26FCE190007CE4BF /* TestPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BFC26FCE190007CE4BF /* TestPageViewController.swift */; };
+		FE6F2BFF26FCE19B007CE4BF /* TestPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BFE26FCE19B007CE4BF /* TestPageViewModel.swift */; };
+		FE6F2C0226FCE20E007CE4BF /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2C0126FCE20E007CE4BF /* Dependency.swift */; };
+		FEEC606D26FDF36000DDA47E /* RxBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC606C26FDF36000DDA47E /* RxBinding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +63,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		59826F893747A61A9FDA1390 /* Pods-SwiftMVVMTP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftMVVMTP.debug.xcconfig"; path = "Target Support Files/Pods-SwiftMVVMTP/Pods-SwiftMVVMTP.debug.xcconfig"; sourceTree = "<group>"; };
+		E1517339AC43FA239BDE3758 /* Pods_SwiftMVVMTP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftMVVMTP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAF1BFFAE0D4641BA387E3FC /* Pods-SwiftMVVMTP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftMVVMTP.release.xcconfig"; path = "Target Support Files/Pods-SwiftMVVMTP/Pods-SwiftMVVMTP.release.xcconfig"; sourceTree = "<group>"; };
+		FE44EE9426FD731400EC9F85 /* TestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCell.swift; sourceTree = "<group>"; };
+		FE44EE9A26FD751500EC9F85 /* TestModuleServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleServiceImpl.swift; sourceTree = "<group>"; };
+		FE44EE9C26FD755300EC9F85 /* TestModuleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleService.swift; sourceTree = "<group>"; };
+		FE44EE9F26FD75B900EC9F85 /* DataTestRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTestRequest.swift; sourceTree = "<group>"; };
+		FE44EEA126FD75F500EC9F85 /* DataTestResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTestResponse.swift; sourceTree = "<group>"; };
+		FE44EEA326FD766B00EC9F85 /* TestModuleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleRepository.swift; sourceTree = "<group>"; };
+		FE44EEA526FD767E00EC9F85 /* TestModuleRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleRepositoryImpl.swift; sourceTree = "<group>"; };
+		FE44EEA826FD78B600EC9F85 /* Codable+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Extensions.swift"; sourceTree = "<group>"; };
+		FE44EEAA26FDA0A100EC9F85 /* TestModuleRemoteSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleRemoteSource.swift; sourceTree = "<group>"; };
+		FE44EEAC26FDA0D700EC9F85 /* TestModuleRemoteSourceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleRemoteSourceImpl.swift; sourceTree = "<group>"; };
+		FE44EEAE26FDA26900EC9F85 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		FE6F2BA326FCBC3F007CE4BF /* SwiftMVVMTP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftMVVMTP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE6F2BA626FCBC3F007CE4BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE6F2BA826FCBC3F007CE4BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +90,22 @@
 		FE6F2BC326FCBC43007CE4BF /* SwiftMVVMTPUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftMVVMTPUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE6F2BC726FCBC43007CE4BF /* SwiftMVVMTPUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMVVMTPUITests.swift; sourceTree = "<group>"; };
 		FE6F2BC926FCBC43007CE4BF /* SwiftMVVMTPUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMVVMTPUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		FE6F2BDB26FCC558007CE4BF /* AppBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBaseViewController.swift; sourceTree = "<group>"; };
+		FE6F2BDE26FCC5E2007CE4BF /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		FE6F2BE026FCC7B3007CE4BF /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		FE6F2BE726FCCA7E007CE4BF /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		FE6F2BE826FCCA7E007CE4BF /* ErrorTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorTracker.swift; sourceTree = "<group>"; };
+		FE6F2BEB26FCCADC007CE4BF /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		FE6F2BEF26FCCCB5007CE4BF /* ApiResponseDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponseDto.swift; sourceTree = "<group>"; };
+		FE6F2BF126FCCDF9007CE4BF /* ApiRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequestManager.swift; sourceTree = "<group>"; };
+		FE6F2BF426FCCF98007CE4BF /* ApiMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiMethod.swift; sourceTree = "<group>"; };
+		FE6F2BF726FCDB45007CE4BF /* ParseDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseDataError.swift; sourceTree = "<group>"; };
+		FE6F2BF926FCE10D007CE4BF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		FE6F2BFC26FCE190007CE4BF /* TestPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPageViewController.swift; sourceTree = "<group>"; };
+		FE6F2BFE26FCE19B007CE4BF /* TestPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPageViewModel.swift; sourceTree = "<group>"; };
+		FE6F2C0126FCE20E007CE4BF /* Dependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
+		FED8239226FDBC5D006E08D5 /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
+		FEEC606C26FDF36000DDA47E /* RxBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxBinding.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				479C452234C491D09BF5A3F0 /* Pods_SwiftMVVMTP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +134,87 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		57967A642B51B2F432FD0763 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E1517339AC43FA239BDE3758 /* Pods_SwiftMVVMTP.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E8A6BA2B1DB5A8C588C73D6C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				59826F893747A61A9FDA1390 /* Pods-SwiftMVVMTP.debug.xcconfig */,
+				EAF1BFFAE0D4641BA387E3FC /* Pods-SwiftMVVMTP.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		FE44EE9326FD72F300EC9F85 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FE44EE9426FD731400EC9F85 /* TestCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FE44EE9626FD746D00EC9F85 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				FE44EE9A26FD751500EC9F85 /* TestModuleServiceImpl.swift */,
+				FE44EE9C26FD755300EC9F85 /* TestModuleService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		FE44EE9726FD747A00EC9F85 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				FE44EEA326FD766B00EC9F85 /* TestModuleRepository.swift */,
+				FE44EEA526FD767E00EC9F85 /* TestModuleRepositoryImpl.swift */,
+				FE44EEAA26FDA0A100EC9F85 /* TestModuleRemoteSource.swift */,
+				FE44EEAC26FDA0D700EC9F85 /* TestModuleRemoteSourceImpl.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		FE44EE9826FD74C300EC9F85 /* TestModule */ = {
+			isa = PBXGroup;
+			children = (
+				FE44EE9E26FD759D00EC9F85 /* Models */,
+				FE44EE9926FD74F700EC9F85 /* Page */,
+				FE44EE9726FD747A00EC9F85 /* Repositories */,
+				FE44EE9626FD746D00EC9F85 /* Service */,
+			);
+			path = TestModule;
+			sourceTree = "<group>";
+		};
+		FE44EE9926FD74F700EC9F85 /* Page */ = {
+			isa = PBXGroup;
+			children = (
+				FE6F2BFB26FCE177007CE4BF /* TestPage */,
+			);
+			path = Page;
+			sourceTree = "<group>";
+		};
+		FE44EE9E26FD759D00EC9F85 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FE44EE9F26FD75B900EC9F85 /* DataTestRequest.swift */,
+				FE44EEA126FD75F500EC9F85 /* DataTestResponse.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FE44EEA726FD789400EC9F85 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FE44EEA826FD78B600EC9F85 /* Codable+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		FE6F2B9A26FCBC3F007CE4BF = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +222,8 @@
 				FE6F2BBC26FCBC43007CE4BF /* SwiftMVVMTPTests */,
 				FE6F2BC626FCBC43007CE4BF /* SwiftMVVMTPUITests */,
 				FE6F2BA426FCBC3F007CE4BF /* Products */,
+				E8A6BA2B1DB5A8C588C73D6C /* Pods */,
+				57967A642B51B2F432FD0763 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,6 +240,8 @@
 		FE6F2BA526FCBC3F007CE4BF /* SwiftMVVMTP */ = {
 			isa = PBXGroup;
 			children = (
+				FE6F2BD726FCC3E6007CE4BF /* Common */,
+				FE6F2BD626FCC3D2007CE4BF /* Core */,
 				FE6F2BA626FCBC3F007CE4BF /* AppDelegate.swift */,
 				FE6F2BA826FCBC3F007CE4BF /* SceneDelegate.swift */,
 				FE6F2BAA26FCBC3F007CE4BF /* ViewController.swift */,
@@ -106,6 +249,7 @@
 				FE6F2BAF26FCBC42007CE4BF /* Assets.xcassets */,
 				FE6F2BB126FCBC42007CE4BF /* LaunchScreen.storyboard */,
 				FE6F2BB426FCBC42007CE4BF /* Info.plist */,
+				FED8239226FDBC5D006E08D5 /* BridgeHeader.h */,
 			);
 			path = SwiftMVVMTP;
 			sourceTree = "<group>";
@@ -127,6 +271,110 @@
 			path = SwiftMVVMTPUITests;
 			sourceTree = "<group>";
 		};
+		FE6F2BD626FCC3D2007CE4BF /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				FE44EEA726FD789400EC9F85 /* Extensions */,
+				FE6F2C0026FCE1FE007CE4BF /* Dependency */,
+				FE6F2BF626FCDB3A007CE4BF /* Error */,
+				FE6F2BED26FCCC95007CE4BF /* Domain */,
+				FE6F2BE226FCC823007CE4BF /* Rx */,
+				FE6F2BD826FCC478007CE4BF /* Base */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		FE6F2BD726FCC3E6007CE4BF /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				FE44EE9826FD74C300EC9F85 /* TestModule */,
+				FE6F2BF926FCE10D007CE4BF /* Constants.swift */,
+				FE6F2BDD26FCC5C6007CE4BF /* Base */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		FE6F2BD826FCC478007CE4BF /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				FE6F2BDB26FCC558007CE4BF /* AppBaseViewController.swift */,
+				FE6F2BE026FCC7B3007CE4BF /* BaseViewModel.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		FE6F2BDD26FCC5C6007CE4BF /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				FE6F2BDE26FCC5E2007CE4BF /* BaseViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		FE6F2BE226FCC823007CE4BF /* Rx */ = {
+			isa = PBXGroup;
+			children = (
+				FE6F2BE726FCCA7E007CE4BF /* ActivityIndicator.swift */,
+				FE6F2BE826FCCA7E007CE4BF /* ErrorTracker.swift */,
+				FE6F2BEB26FCCADC007CE4BF /* Observable.swift */,
+				FEEC606C26FDF36000DDA47E /* RxBinding.swift */,
+			);
+			path = Rx;
+			sourceTree = "<group>";
+		};
+		FE6F2BED26FCCC95007CE4BF /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				FE6F2BF326FCCF83007CE4BF /* Helper */,
+				FE6F2BEE26FCCCA4007CE4BF /* Model */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		FE6F2BEE26FCCCA4007CE4BF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FE6F2BEF26FCCCB5007CE4BF /* ApiResponseDto.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FE6F2BF326FCCF83007CE4BF /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				FE6F2BF126FCCDF9007CE4BF /* ApiRequestManager.swift */,
+				FE6F2BF426FCCF98007CE4BF /* ApiMethod.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		FE6F2BF626FCDB3A007CE4BF /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				FE6F2BF726FCDB45007CE4BF /* ParseDataError.swift */,
+				FE44EEAE26FDA26900EC9F85 /* ApiError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		FE6F2BFB26FCE177007CE4BF /* TestPage */ = {
+			isa = PBXGroup;
+			children = (
+				FE44EE9326FD72F300EC9F85 /* Views */,
+				FE6F2BFC26FCE190007CE4BF /* TestPageViewController.swift */,
+				FE6F2BFE26FCE19B007CE4BF /* TestPageViewModel.swift */,
+			);
+			path = TestPage;
+			sourceTree = "<group>";
+		};
+		FE6F2C0026FCE1FE007CE4BF /* Dependency */ = {
+			isa = PBXGroup;
+			children = (
+				FE6F2C0126FCE20E007CE4BF /* Dependency.swift */,
+			);
+			path = Dependency;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -134,9 +382,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FE6F2BCD26FCBC43007CE4BF /* Build configuration list for PBXNativeTarget "SwiftMVVMTP" */;
 			buildPhases = (
+				FDF8573ABDCEA7E659BCBCE3 /* [CP] Check Pods Manifest.lock */,
 				FE6F2B9F26FCBC3F007CE4BF /* Sources */,
 				FE6F2BA026FCBC3F007CE4BF /* Frameworks */,
 				FE6F2BA126FCBC3F007CE4BF /* Resources */,
+				E086C05E37EF8A7C3322F58D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -253,13 +503,81 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		E086C05E37EF8A7C3322F58D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SwiftMVVMTP/Pods-SwiftMVVMTP-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SwiftMVVMTP/Pods-SwiftMVVMTP-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SwiftMVVMTP/Pods-SwiftMVVMTP-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FDF8573ABDCEA7E659BCBCE3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SwiftMVVMTP-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		FE6F2B9F26FCBC3F007CE4BF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE6F2BDF26FCC5E2007CE4BF /* BaseViewController.swift in Sources */,
+				FE6F2BE126FCC7B3007CE4BF /* BaseViewModel.swift in Sources */,
+				FE44EEA426FD766B00EC9F85 /* TestModuleRepository.swift in Sources */,
+				FE44EEA226FD75F500EC9F85 /* DataTestResponse.swift in Sources */,
+				FE6F2BF526FCCF98007CE4BF /* ApiMethod.swift in Sources */,
+				FE44EE9B26FD751500EC9F85 /* TestModuleServiceImpl.swift in Sources */,
+				FE6F2BFD26FCE190007CE4BF /* TestPageViewController.swift in Sources */,
+				FEEC606D26FDF36000DDA47E /* RxBinding.swift in Sources */,
 				FE6F2BAB26FCBC3F007CE4BF /* ViewController.swift in Sources */,
+				FE6F2BF026FCCCB5007CE4BF /* ApiResponseDto.swift in Sources */,
+				FE44EEA626FD767E00EC9F85 /* TestModuleRepositoryImpl.swift in Sources */,
+				FE6F2BF826FCDB45007CE4BF /* ParseDataError.swift in Sources */,
+				FE6F2BEA26FCCA7E007CE4BF /* ErrorTracker.swift in Sources */,
+				FE44EE9D26FD755300EC9F85 /* TestModuleService.swift in Sources */,
+				FE44EEA926FD78B600EC9F85 /* Codable+Extensions.swift in Sources */,
+				FE6F2BEC26FCCADC007CE4BF /* Observable.swift in Sources */,
 				FE6F2BA726FCBC3F007CE4BF /* AppDelegate.swift in Sources */,
+				FE6F2BE926FCCA7E007CE4BF /* ActivityIndicator.swift in Sources */,
+				FE6F2BFF26FCE19B007CE4BF /* TestPageViewModel.swift in Sources */,
+				FE6F2BDC26FCC558007CE4BF /* AppBaseViewController.swift in Sources */,
+				FE44EE9526FD731400EC9F85 /* TestCell.swift in Sources */,
+				FE44EEAD26FDA0D700EC9F85 /* TestModuleRemoteSourceImpl.swift in Sources */,
+				FE44EEAF26FDA26900EC9F85 /* ApiError.swift in Sources */,
+				FE44EEAB26FDA0A100EC9F85 /* TestModuleRemoteSource.swift in Sources */,
+				FE6F2BFA26FCE10D007CE4BF /* Constants.swift in Sources */,
+				FE6F2BF226FCCDF9007CE4BF /* ApiRequestManager.swift in Sources */,
+				FE44EEA026FD75B900EC9F85 /* DataTestRequest.swift in Sources */,
+				FE6F2C0226FCE20E007CE4BF /* Dependency.swift in Sources */,
 				FE6F2BA926FCBC3F007CE4BF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -434,6 +752,7 @@
 		};
 		FE6F2BCE26FCBC43007CE4BF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 59826F893747A61A9FDA1390 /* Pods-SwiftMVVMTP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -451,9 +770,36 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"MBProgressHUD\"",
+					"-framework",
+					"\"RxAlamofire\"",
+					"-framework",
+					"\"RxAppState\"",
+					"-framework",
+					"\"RxCocoa\"",
+					"-framework",
+					"\"RxRelay\"",
+					"-framework",
+					"\"RxSwift\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"QuartzCore\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = TrucPham.SwiftMVVMTP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = SwiftMVVMTP/BridgeHeader.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -461,6 +807,7 @@
 		};
 		FE6F2BCF26FCBC43007CE4BF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EAF1BFFAE0D4641BA387E3FC /* Pods-SwiftMVVMTP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -478,9 +825,36 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"MBProgressHUD\"",
+					"-framework",
+					"\"RxAlamofire\"",
+					"-framework",
+					"\"RxAppState\"",
+					"-framework",
+					"\"RxCocoa\"",
+					"-framework",
+					"\"RxRelay\"",
+					"-framework",
+					"\"RxSwift\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"QuartzCore\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = TrucPham.SwiftMVVMTP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = SwiftMVVMTP/BridgeHeader.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
