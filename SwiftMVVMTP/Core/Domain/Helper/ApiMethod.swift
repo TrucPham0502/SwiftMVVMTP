@@ -41,6 +41,10 @@ struct ApiMethod {
             self.url = url
             self.parameters = parameters
         }
+        init(_ url : String) {
+            self.url = url
+            self.parameters = nil
+        }
     }
 
 }

@@ -8,4 +8,5 @@ target 'SwiftMVVMTP' do
   pod 'RxAlamofire'
   pod 'MBProgressHUD'
   pod 'RxAppState'
+  pod 'Kingfisher'
 end

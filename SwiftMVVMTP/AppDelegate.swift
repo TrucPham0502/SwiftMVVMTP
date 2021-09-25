@@ -14,11 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        Dependency.shared.register(TestModuleService.self, service: TestModuleServiceImpl.self)
-        Dependency.shared.register(TestModuleRepository.self, service: TestModuleRepositoryImpl.self)
-        Dependency.shared.register(TestModuleRepository.self, service: TestModuleRepositoryImpl.self)
-        Dependency.shared.register(TestModuleRemoteSource.self, service: TestModuleRemoteSourceImpl.self)
-        
+       
+        Dependency.shared.build([TestModule(), MovieModule()])
         
         return true
     }

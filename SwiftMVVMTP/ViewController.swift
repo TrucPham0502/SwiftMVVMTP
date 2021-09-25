@@ -20,8 +20,7 @@ class ViewController: UIViewController {
     }()
     
     @objc func buttonTap(_ sender : Any?){
-        let vc = TestPageViewController()
-        self.present(vc, animated: true, completion: nil)
+        self.view.window?.rootViewController = UINavigationController(rootViewController: MovieHomeViewController())
     }
     
     override func viewDidLoad() {
