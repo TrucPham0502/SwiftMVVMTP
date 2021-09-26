@@ -33,7 +33,7 @@ class MovieRemoteSourceImpl : NSObject, MovieRemoteSource {
         return data
     }
     func hhtqEpisode(_ input : HHTQEpisodeRequest) -> Observable<ApiResponseDto<HHTQEpisodeResponse>> {
-        @ApiMethod.Post("\(Constants.appEndPointUrl)hhtq/getepisode", parameters: input)
+        @ApiMethod.Post("\(host)hhtq/getepisode", parameters: input)
         var data : Observable<ApiResponseDto<HHTQEpisodeResponse>>
         return data
     }

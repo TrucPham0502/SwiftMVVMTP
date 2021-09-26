@@ -139,6 +139,40 @@ class RxPlayerHelper : NSObject {
         }
     }
     
+    func openPlayer(_ controller : UIViewController, data : EpisodeModel) -> Observable<VideoPlayer?> {
+        let episode : Observable<EpisodeModel?> = {
+            Observable.deferred({() ->  Observable<EpisodeModel?> in
+                if let url = data.link, url.contains(PageType.hhtq.rawValue) {
+                    return self.movieService.hhtqEpisode(.init(url: url)).map({res -> EpisodeModel? in
+                        guard let id = res?.id, let url = res?.url, let type = res?.type else { return nil}
+                        return  EpisodeModel(episode: data.episode, id: id, link: url, isNew: data.isNew, type: type)
+                    })
+                }
+                return Observable.just(data)
+            })
+        }()
+        return episode.flatMap({[weak self] _res -> Observable<VideoPlayer?>  in
+            if let _self = self, let res = _res, let id = res.id {
+                switch res.type {
+                case .dailymotion:
+                    return _self.openPlayer(controller, videoType: .dailymotion(id: id))
+                case .fileone:
+                    if let url = data.link {
+                        return _self.openPlayer(controller, videoType: .fileone(id: id, url: url))
+                    }
+                case .fembed:
+                    return _self.openPlayer(controller, videoType: .fembed(id: id))
+                case .normal:
+                    if let _url = data.link {
+                        return _self.openPlayer(controller, videoType: .normal(url: _url))
+                    }
+                    
+                }
+            }
+            return Observable.just(nil)
+        })
+    }
+    
     func getFembed(id : String) -> Observable<[VideoResolution]>{
         guard let _v = self.videos[id], case let VideoPlayer.fembed(video) = _v else {
             return self.movieService.fembedData(id).map({res in
@@ -146,7 +180,7 @@ class RxPlayerHelper : NSObject {
                     if let _url = v.file, let url = URL(string: _url) {
                         return VideoResolution(id: UUID().uuidString, resolution: v.label ?? "unkown", url: url, bandWidth: 0)
                     }
-                   return nil
+                    return nil
                 })
             }).do(onNext: {
                 self.videos[id] = VideoPlayer.fembed(.init(id: id, resolutions: $0))
@@ -183,7 +217,7 @@ class RxPlayerHelper : NSObject {
                     if let res = v as? [String : Any], let url = URL(string: res["LINK"] as! String), let resolution = res["RESOLUTION"] as? Substring {
                         return VideoResolution(id: UUID().uuidString, resolution: String(resolution), url: url, bandWidth: Double((res["BANDWIDTH"] as? Substring) ?? "0"))
                     }
-                   return nil
+                    return nil
                 })
             }).do(onNext: {
                 self.videos[id] = VideoPlayer.dailymotion(.init(id: id, resolutions: $0))

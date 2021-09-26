@@ -16,7 +16,6 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         let poster : String?
         let urlPage : String?
     }
-    var hhtqEpisodeSubject : PublishRelay<String> = .init()
     fileprivate var scrollOffsetY: CGFloat = 0
     var dataRequire : DetailViewModel?
     var headerHeight: CGFloat = 300
@@ -195,7 +194,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         guard let url = self.dataRequire?.urlPage else {
             return
         }
-        let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).mapToVoid().asDriverOnErrorJustComplete(), url: url, pageType: self.pageType, hhtqEpisode: self.hhtqEpisodeSubject.asDriverOnErrorJustComplete()))
+        let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).mapToVoid().asDriverOnErrorJustComplete(), url: url, pageType: self.pageType))
         output.item.drive(onNext: { (data, content) in
             self.data = data
             self.contents = content
@@ -294,9 +293,9 @@ extension MovieDetailViewController : UICollectionViewDelegate {
                         UIAction(title: $0.resolution, image: nil, identifier: UIAction.Identifier(rawValue: $0.id)) { action in
                             switch videoFromId {
                             case .dailymotion:
-                                RxPlayerHelper.shared.openPlayer(self, videoType: .dailymotion(id: id, resolationId: action.identifier.rawValue)).subscribe().dispose()
+                                RxPlayerHelper.shared.openPlayer(self, videoType: .dailymotion(id: id, resolationId: action.identifier.rawValue)).subscribe().disposed(by: self.disposeBag)
                             case .fembed:
-                                RxPlayerHelper.shared.openPlayer(self, videoType: .fembed(id: id, resolationId: action.identifier.rawValue)).subscribe().dispose()
+                                RxPlayerHelper.shared.openPlayer(self, videoType: .fembed(id: id, resolationId: action.identifier.rawValue)).subscribe().disposed(by: self.disposeBag)
                             default: break
                             }
                             
@@ -309,10 +308,10 @@ extension MovieDetailViewController : UICollectionViewDelegate {
                     UIAction(title: "Play Video", handler: { _ in
                         switch d.type {
                         case .dailymotion:
-                            RxPlayerHelper.shared.openPlayer(self, videoType: .dailymotion(id: id)).subscribe().dispose()
+                            RxPlayerHelper.shared.openPlayer(self, videoType: .dailymotion(id: id)).subscribe().disposed(by: self.disposeBag)
                         case .fileone:
                             if let urlString = d.link {
-                                RxPlayerHelper.shared.openPlayer(self, videoType: .fileone(id: id, url: urlString)).subscribe().dispose()
+                                RxPlayerHelper.shared.openPlayer(self, videoType: .fileone(id: id, url: urlString)).subscribe().disposed(by: self.disposeBag)
                             }
                         default:
                             break
@@ -327,54 +326,7 @@ extension MovieDetailViewController : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let data = self.data[indexPath.row]
-        switch self.pageType {
-        case .hhkungfu:
-            playVideo(data: data)
-        case .hhtq:
-            if let url = data.link, url.contains(pageType.rawValue) {
-                self.hhtqEpisodeSubject.accept(url)
-                
-//                ApiHelper.request(url: Config.setPageType(pageType: .hhtq).urlhhtqGetEpisode, input: HHTQEpisodeRequest(url: data.link), method: .post) { (res : HHTQEpisodeResponse) in
-//                    guard let id = res.id, let url = res.url else { return }
-//                    let ep = EpisodeModel(episode: data.episode, id: id, link: url, isNew: data.isNew, type: res.type)
-//                    self.data[indexPath.row] = ep
-//                    self.playVideo(data: ep)
-//                } failedBlock: { err in
-//                    self.handleError(error: err)
-//                }
-            }
-            else {
-                self.playVideo(data: data)
-            }
-            
-            
-        default:
-            break
-        }
-        
-        
-        
-    }
-    
-    private func playVideo(data : EpisodeModel){
-//        guard let id = data.id else {
-//            return
-//        }
-//        switch data.type {
-//        case .dailymotion:
-//            RxPlayerHelper.shared.openPlayer(self, videoType: .dailymotion(id: id))
-//        case .fileone:
-//            if let url = data.link {
-//                RxPlayerHelper.shared.openPlayer(self, videoType: .fileone(id: id, url: url))
-//            }
-//        case .fembed:
-//            RxPlayerHelper.shared.openPlayer(self, videoType: .fembed(id: id))
-//        case .normal:
-//            guard let _url = data.link else {
-//                return
-//            }
-//            RxPlayerHelper.shared.openPlayer(self, videoType: .normal(url: _url))
-//        }
+        RxPlayerHelper.shared.openPlayer(self, data: data).subscribe().disposed(by: self.disposeBag)
     }
     
 }
