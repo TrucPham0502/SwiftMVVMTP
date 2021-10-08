@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -813,7 +813,7 @@
 		9BF5A64C50CB33B289C05AA332ADBCA0 /* RxTextStorageDelegateProxy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RxTextStorageDelegateProxy.swift; path = RxCocoa/iOS/Proxies/RxTextStorageDelegateProxy.swift; sourceTree = "<group>"; };
 		9C31BA164E42714118D845EB1DB599E7 /* Bag+Rx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Bag+Rx.swift"; path = "RxSwift/Extensions/Bag+Rx.swift"; sourceTree = "<group>"; };
 		9C6416A11DFF8B444D86742F7D7061F9 /* Map.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Map.swift; path = RxSwift/Observables/Map.swift; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DD5C009C1124809E38326BA00B7320C /* ExtensionHelpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtensionHelpers.swift; path = Sources/Utility/ExtensionHelpers.swift; sourceTree = "<group>"; };
 		9FC85C1676F08C9A99DFB549ABBB33DF /* RxCocoa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = RxCocoa.release.xcconfig; sourceTree = "<group>"; };
 		A2E86FD267F2F2EE0CB4ECE4E2D33706 /* Kingfisher-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Kingfisher-umbrella.h"; sourceTree = "<group>"; };
@@ -1066,7 +1066,6 @@
 				EB5A9782E618F1031F83F25D77711631 /* MBProgressHUD.m */,
 				8F1F40839783711E927A44D7B1DD1FA1 /* Support Files */,
 			);
-			name = MBProgressHUD;
 			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
@@ -1079,7 +1078,6 @@
 				577DEE546AF16C24708CBAE523472C92 /* Utils.swift */,
 				5FAF2869F0AB2114D3BC9B9B4A764AD6 /* Support Files */,
 			);
-			name = RxRelay;
 			path = RxRelay;
 			sourceTree = "<group>";
 		};
@@ -1159,7 +1157,6 @@
 				4343A16D7F2BD714CA15E4E71EE991B1 /* WKInterfaceImage+Kingfisher.swift */,
 				4248AE3BD8B3DEBFC407497809E7C9AD /* Support Files */,
 			);
-			name = Kingfisher;
 			path = Kingfisher;
 			sourceTree = "<group>";
 		};
@@ -1379,7 +1376,6 @@
 				CABCC9CFDE3D7F75651ACCE6B3AD9B71 /* Zip+Collection.swift */,
 				86C70D609D741D3D7600A4CCDC1DB36E /* Support Files */,
 			);
-			name = RxSwift;
 			path = RxSwift;
 			sourceTree = "<group>";
 		};
@@ -1444,7 +1440,6 @@
 				53021C97B9C19033B47BAC8B52A12DDF /* Core */,
 				4ACDBF5C66336DAD8F886F7B0DE52368 /* Support Files */,
 			);
-			name = RxAlamofire;
 			path = RxAlamofire;
 			sourceTree = "<group>";
 		};
@@ -1621,7 +1616,6 @@
 				D2AF3F368C40F69DDE61A700361E3877 /* WKWebView+Rx.swift */,
 				900B7095B8D6BA392D632E609C35B020 /* Support Files */,
 			);
-			name = RxCocoa;
 			path = RxCocoa;
 			sourceTree = "<group>";
 		};
@@ -1704,7 +1698,6 @@
 				5E94F8737871DE56C0356D2107FEF0CE /* Validation.swift */,
 				1012DC504964CCB8857B928B7B67F287 /* Support Files */,
 			);
-			name = Alamofire;
 			path = Alamofire;
 			sourceTree = "<group>";
 		};
@@ -1715,7 +1708,6 @@
 				689E86F4A96EE77FF533CC74A9469A57 /* UIViewController+Rx.swift */,
 				56FAB0E049A675B43A6DE1F4073AF20A /* Support Files */,
 			);
-			name = RxAppState;
 			path = RxAppState;
 			sourceTree = "<group>";
 		};
@@ -1991,7 +1983,7 @@
 				LastUpgradeCheck = 1240;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
