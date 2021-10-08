@@ -14,7 +14,7 @@ struct Constants {
     static var appEndPointUrl : String {
         #if targetEnvironment(simulator)
         // Simulator
-        return "http://192.168.46.103:8000/"
+        return "http://192.168.46.104:8000/"
         #else
         // Device
         @Dependency.InfoDictionary(key: InfoDictionary.appEndPointUrl.rawValue)

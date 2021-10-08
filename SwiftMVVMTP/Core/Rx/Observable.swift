@@ -30,7 +30,7 @@ extension ObservableType {
 
 class WrapperSubject<Element>: ObservableType, ObserverType {
     func subscribe<Observer>(_ observer: Observer) -> Disposable where Observer : ObserverType, Element == Observer.Element { fatalError() }
-    func on(_ event: Event<Element>) { fatalError() }
+    func on(_ event: Event<Element >) { fatalError() }
 }
 @propertyWrapper
 class  BehaviorRelayProperty<Element>: WrapperSubject<Element> {
@@ -41,11 +41,12 @@ class  BehaviorRelayProperty<Element>: WrapperSubject<Element> {
     }
     
     private let subject: BehaviorSubject<Element>
-    
     init(value: Element) {
         self.wrappedValue = value
         self.subject = BehaviorSubject(value: wrappedValue)
     }
+    
+    
     
     var projectedValue: WrapperSubject<Element> {
         return self
@@ -66,6 +67,8 @@ class  BehaviorRelayProperty<Element>: WrapperSubject<Element> {
         }
     }
 }
+
+
 
 @propertyWrapper
 class ObservableProperty<Element>: ObservableType {
@@ -90,3 +93,39 @@ class ObservableProperty<Element>: ObservableType {
         return subject.subscribe(observer)
     }
 }
+
+@propertyWrapper
+struct Proxy<EnclosingType, Value> {
+    typealias ValueKeyPath = ReferenceWritableKeyPath<EnclosingType, Value>
+    typealias SelfKeyPath = ReferenceWritableKeyPath<EnclosingType, Self>
+
+    static subscript(
+        _enclosingInstance instance: EnclosingType,
+        wrapped wrappedKeyPath: ValueKeyPath,
+        storage storageKeyPath: SelfKeyPath
+    ) -> Value {
+        get {
+            let keyPath = instance[keyPath: storageKeyPath].keyPath
+            return instance[keyPath: keyPath]
+        }
+        set {
+            let keyPath = instance[keyPath: storageKeyPath].keyPath
+            instance[keyPath: keyPath] = newValue
+        }
+    }
+
+    @available(*, unavailable,
+        message: "@Proxy can only be applied to classes"
+    )
+    var wrappedValue: Value {
+        get { fatalError() }
+        set { fatalError() }
+    }
+
+    private let keyPath: ValueKeyPath
+
+    init(_ keyPath: ValueKeyPath) {
+        self.keyPath = keyPath
+    }
+}
+

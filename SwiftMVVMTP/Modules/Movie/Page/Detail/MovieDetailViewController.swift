@@ -75,10 +75,11 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         return v
     }()
     
-    lazy var posterImage : UIImageView = {
-        let v = UIImageView(frame: .init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: headerHeight))
+    lazy var videoPlayer : VideoPlayerView = {
+        let v = VideoPlayerView(frame: .init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: headerHeight))
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.contentMode = .scaleToFill
+        v.backgroundColor = .black
+        v.videoURL = URL(string: "https://proxy-05.sg1.dailymotion.com/sec(DMVFQRw3IpRsWkd6JQfLaCjpI4EotQebY5Q8OgxMzKQU8lpyVNQ81cCu7Bmm4m21IGrk_ujwSwUa4qmIl0MbQA)/video/636/997/490799636_mp4_h264_aac_hq.mp4")
         return v
     }()
     
@@ -133,7 +134,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         self.view.isHidden = true
         self.view.addSubview(scrollView)
         self.scrollView.addSubview(containerView)
-        [posterImage, closeImage, collectionViewEpisode, titleView,contentView].forEach({self.containerView.addSubview($0)})
+        [videoPlayer, closeImage, collectionViewEpisode, titleView,contentView].forEach({self.containerView.addSubview($0)})
         
         
         self.heightCollectionView = self.collectionViewEpisode.heightAnchor.constraint(equalToConstant: getSizeCollectionView())
@@ -153,10 +154,10 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             //            self.containerView.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor),
             
             
-            posterImage.topAnchor.constraint(equalTo: self.containerView.topAnchor),
-            posterImage.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor),
-            posterImage.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor),
-            posterImage.heightAnchor.constraint(equalToConstant: headerHeight),
+            videoPlayer.topAnchor.constraint(equalTo: self.containerView.topAnchor),
+            videoPlayer.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor),
+            videoPlayer.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor),
+            videoPlayer.heightAnchor.constraint(equalToConstant: headerHeight),
             
             
             closeImage.topAnchor.constraint(equalTo: self.containerView.safeAreaLayoutGuide.topAnchor, constant: 10),
@@ -164,7 +165,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             closeImage.heightAnchor.constraint(equalToConstant: 30),
             closeImage.widthAnchor.constraint(equalToConstant: 30),
             
-            titleView.topAnchor.constraint(equalTo: self.posterImage.bottomAnchor, constant: 20),
+            titleView.topAnchor.constraint(equalTo: self.videoPlayer.bottomAnchor, constant: 20),
             titleView.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 25),
             titleView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -25),
             
@@ -184,7 +185,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         ])
         if let poster = dataRequire?.poster {
             ImageLoader.load(url: poster) { image in
-                self.posterImage.image = image.cropToBounds(size: self.posterImage.bounds.size)
+//                self.posterImage.image = image.cropToBounds(size: self.posterImage.bounds.size)
             }
         }
     }

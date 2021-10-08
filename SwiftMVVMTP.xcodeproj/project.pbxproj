@@ -81,6 +81,17 @@
 		FEEC60C526FF033100DDA47E /* HHTQEpisodeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC60C426FF033100DDA47E /* HHTQEpisodeRequest.swift */; };
 		FEEC60C726FF4B2B00DDA47E /* MovieModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC60C626FF4B2B00DDA47E /* MovieModule.swift */; };
 		FEEC60C926FF4B7200DDA47E /* TestModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC60C826FF4B7200DDA47E /* TestModule.swift */; };
+		FEF76AAF270F4AFE0050B807 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF76AA5270F4AFD0050B807 /* Math.swift */; };
+		FEF76AB0270F4AFE0050B807 /* CircleRippleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF76AA6270F4AFD0050B807 /* CircleRippleView.swift */; };
+		FEF76AB1270F4AFE0050B807 /* ControlButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF76AA7270F4AFD0050B807 /* ControlButtons.swift */; };
+		FEF76AB2270F4AFE0050B807 /* TextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF76AA8270F4AFD0050B807 /* TextLayer.swift */; };
+		FEF76AB3270F4AFE0050B807 /* VideoPlayerControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF76AA9270F4AFD0050B807 /* VideoPlayerControls.swift */; };
+		FEF76AB4270F4AFE0050B807 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF76AAA270F4AFD0050B807 /* Loader.swift */; };
+		FEF76AB5270F4AFE0050B807 /* Scrubber.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF76AAB270F4AFD0050B807 /* Scrubber.swift */; };
+		FEF76AB6270F4AFE0050B807 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF76AAC270F4AFE0050B807 /* AppConstants.swift */; };
+		FEF76AB7270F4AFE0050B807 /* ResizeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF76AAD270F4AFE0050B807 /* ResizeButton.swift */; };
+		FEF76AB8270F4AFE0050B807 /* Ripple.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF76AAE270F4AFE0050B807 /* Ripple.swift */; };
+		FEF76ABA270F4B160050B807 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF76AB9270F4B160050B807 /* VideoPlayerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -182,6 +193,17 @@
 		FEEC60C426FF033100DDA47E /* HHTQEpisodeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HHTQEpisodeRequest.swift; sourceTree = "<group>"; };
 		FEEC60C626FF4B2B00DDA47E /* MovieModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModule.swift; sourceTree = "<group>"; };
 		FEEC60C826FF4B7200DDA47E /* TestModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModule.swift; sourceTree = "<group>"; };
+		FEF76AA5270F4AFD0050B807 /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
+		FEF76AA6270F4AFD0050B807 /* CircleRippleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleRippleView.swift; sourceTree = "<group>"; };
+		FEF76AA7270F4AFD0050B807 /* ControlButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlButtons.swift; sourceTree = "<group>"; };
+		FEF76AA8270F4AFD0050B807 /* TextLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextLayer.swift; sourceTree = "<group>"; };
+		FEF76AA9270F4AFD0050B807 /* VideoPlayerControls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerControls.swift; sourceTree = "<group>"; };
+		FEF76AAA270F4AFD0050B807 /* Loader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
+		FEF76AAB270F4AFD0050B807 /* Scrubber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scrubber.swift; sourceTree = "<group>"; };
+		FEF76AAC270F4AFE0050B807 /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		FEF76AAD270F4AFE0050B807 /* ResizeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResizeButton.swift; sourceTree = "<group>"; };
+		FEF76AAE270F4AFE0050B807 /* Ripple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ripple.swift; sourceTree = "<group>"; };
+		FEF76AB9270F4B160050B807 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -588,7 +610,18 @@
 		FEEC60BD26FEEAB600DDA47E /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				FEF76AAC270F4AFE0050B807 /* AppConstants.swift */,
+				FEF76AA6270F4AFD0050B807 /* CircleRippleView.swift */,
+				FEF76AA7270F4AFD0050B807 /* ControlButtons.swift */,
+				FEF76AAA270F4AFD0050B807 /* Loader.swift */,
+				FEF76AA5270F4AFD0050B807 /* Math.swift */,
+				FEF76AAD270F4AFE0050B807 /* ResizeButton.swift */,
+				FEF76AAE270F4AFE0050B807 /* Ripple.swift */,
+				FEF76AAB270F4AFD0050B807 /* Scrubber.swift */,
+				FEF76AA8270F4AFD0050B807 /* TextLayer.swift */,
+				FEF76AA9270F4AFD0050B807 /* VideoPlayerControls.swift */,
 				FEEC60BE26FEEAC100DDA47E /* RxPlayerHelper.swift */,
+				FEF76AB9270F4B160050B807 /* VideoPlayerView.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -776,25 +809,34 @@
 				FE44EEA426FD766B00EC9F85 /* TestModuleRepository.swift in Sources */,
 				FEEC60A426FE503300DDA47E /* MovieRepository.swift in Sources */,
 				FE44EEA226FD75F500EC9F85 /* DataTestResponse.swift in Sources */,
+				FEF76AB2270F4AFE0050B807 /* TextLayer.swift in Sources */,
 				FE6F2BF526FCCF98007CE4BF /* ApiMethod.swift in Sources */,
 				FEEC60B726FEE56600DDA47E /* MovieDetailResponse.swift in Sources */,
+				FEF76ABA270F4B160050B807 /* VideoPlayerView.swift in Sources */,
 				FEEC60B326FEE49D00DDA47E /* EpisodeCollectionViewCell.swift in Sources */,
+				FEF76AB4270F4AFE0050B807 /* Loader.swift in Sources */,
 				FE44EE9B26FD751500EC9F85 /* TestModuleServiceImpl.swift in Sources */,
 				FEEC608526FE3C6100DDA47E /* UIMovieHomeConfig.swift in Sources */,
 				FEEC607726FE38F800DDA47E /* MovieHomeViewController.swift in Sources */,
 				FE6F2BFD26FCE190007CE4BF /* TestPageViewController.swift in Sources */,
 				FEEC60B026FED4E300DDA47E /* MovieDetailViewModel.swift in Sources */,
+				FEF76AB0270F4AFE0050B807 /* CircleRippleView.swift in Sources */,
+				FEF76AB6270F4AFE0050B807 /* AppConstants.swift in Sources */,
 				FEEC606D26FDF36000DDA47E /* RxBinding.swift in Sources */,
 				FEEC60C526FF033100DDA47E /* HHTQEpisodeRequest.swift in Sources */,
+				FEF76AB3270F4AFE0050B807 /* VideoPlayerControls.swift in Sources */,
 				FEEC60B526FEE54000DDA47E /* MovieDetailRequest.swift in Sources */,
 				FE6F2BAB26FCBC3F007CE4BF /* ViewController.swift in Sources */,
 				FEEC608926FE3F5D00DDA47E /* UIView+Extensions.swift in Sources */,
 				FE6F2BF026FCCCB5007CE4BF /* ApiResponseDto.swift in Sources */,
 				FE44EEA626FD767E00EC9F85 /* TestModuleRepositoryImpl.swift in Sources */,
+				FEF76AB8270F4AFE0050B807 /* Ripple.swift in Sources */,
 				FEEC607F26FE3B5500DDA47E /* MovieCollectionLayout.swift in Sources */,
 				FEEC608F26FE473700DDA47E /* GlidingCollection.swift in Sources */,
 				FE6F2BF826FCDB45007CE4BF /* ParseDataError.swift in Sources */,
+				FEF76AB7270F4AFE0050B807 /* ResizeButton.swift in Sources */,
 				FE6F2BEA26FCCA7E007CE4BF /* ErrorTracker.swift in Sources */,
+				FEF76AAF270F4AFE0050B807 /* Math.swift in Sources */,
 				FE44EE9D26FD755300EC9F85 /* TestModuleService.swift in Sources */,
 				FEEC60A626FE504300DDA47E /* MovieRepositoryImpl.swift in Sources */,
 				FEEC60B926FEE8FD00DDA47E /* UIImage+Extensions.swift in Sources */,
@@ -826,11 +868,13 @@
 				FEEC60A026FE4FA300DDA47E /* MovieService.swift in Sources */,
 				FE6F2BF226FCCDF9007CE4BF /* ApiRequestManager.swift in Sources */,
 				FE44EEA026FD75B900EC9F85 /* DataTestRequest.swift in Sources */,
+				FEF76AB5270F4AFE0050B807 /* Scrubber.swift in Sources */,
 				FEEC608D26FE400D00DDA47E /* UILabel+Extensions.swift in Sources */,
 				FEEC60BF26FEEAC100DDA47E /* RxPlayerHelper.swift in Sources */,
 				FEEC60C126FEF12D00DDA47E /* BaseRepository.swift in Sources */,
 				FEEC60AA26FE505E00DDA47E /* MovieRemoteSourceImpl.swift in Sources */,
 				FEEC609526FE48A100DDA47E /* TransitionDriver.swift in Sources */,
+				FEF76AB1270F4AFE0050B807 /* ControlButtons.swift in Sources */,
 				FEEC608326FE3BED00DDA47E /* MovieCollectionViewCell.swift in Sources */,
 				FEEC60C926FF4B7200DDA47E /* TestModule.swift in Sources */,
 				FE6F2C0226FCE20E007CE4BF /* Dependency.swift in Sources */,

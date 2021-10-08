@@ -15,7 +15,7 @@ protocol ViewModelElement {
    
 }
 
-class BaseViewModel<I, O> : ViewModelElement {
+class BaseViewModel<I, O> : NSObject, ViewModelElement {
     let activityIndicator = ActivityIndicator()
     let errorTracker = ErrorTracker()
     let disposeBag = DisposeBag()

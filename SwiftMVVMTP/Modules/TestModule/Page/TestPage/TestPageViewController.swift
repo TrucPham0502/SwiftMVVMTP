@@ -11,10 +11,12 @@ import RxAppState
 import RxCocoa
 class TestPageViewController : BaseViewController<TestPageViewModel> {
     override func buildViewModel() -> TestPageViewModel {
-        return TestPageViewModel()
+        let vm = TestPageViewModel()
+        return vm
     }
     
-    private lazy var textFieldSearch : UITextField = {
+    
+     lazy var textFieldSearch : UITextField = {
         let v = UITextField()
         v.placeholder = "Search..."
         v.translatesAutoresizingMaskIntoConstraints = false
@@ -52,6 +54,7 @@ class TestPageViewController : BaseViewController<TestPageViewModel> {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        print( self.viewModel.textSearch)
         self.view.backgroundColor = .white
         [tableView, textFieldSearch].forEach({self.view.addSubview($0)})
         NSLayoutConstraint.activate([
