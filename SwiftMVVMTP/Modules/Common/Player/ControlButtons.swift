@@ -19,24 +19,33 @@ class PlayPauseButton: UIImageView {
     var tap : (PlayPauseButton) -> () = {_ in }
     var buttonState: ButtonState = .play {
         didSet {
-            UIView.animate(withDuration: 0.2, animations: {
-                let extendedFrame = self.frame.insetBy(dx: -10, dy: -10)
-                self.frame = extendedFrame
-                self.alpha = 0
-            }, completion:{(finished) in
-                switch self.buttonState {
-                case .pause:
-                    self.image = UIImage(named: "ic_pause")
-                default:
-                    self.image = UIImage(named: "ic_play")
+            if oldValue != buttonState {
+                let setImage = {
+                    switch self.buttonState {
+                    case .pause:
+                        self.image = UIImage(named: "ic_pause")
+                    default:
+                        self.image = UIImage(named: "ic_play")
+                    }
                 }
-                UIView.animate(withDuration: 0.2,animations:{
-                    let extendedFrame = self.frame.insetBy(dx: 10, dy: 10)
-                    self.frame = extendedFrame
-                    self.alpha = 1
-                },completion:nil)
-            })
-            
+                if self.alpha != 0 {
+                    UIView.animate(withDuration: 0.2, animations: {
+                        let extendedFrame = self.frame.insetBy(dx: -10, dy: -10)
+                        self.frame = extendedFrame
+                        self.alpha = 0
+                    }, completion:{(finished) in
+                        setImage()
+                        UIView.animate(withDuration: 0.2,animations:{
+                            let extendedFrame = self.frame.insetBy(dx: 10, dy: 10)
+                            self.frame = extendedFrame
+                            self.alpha = 1
+                        },completion:nil)
+                    })
+                }
+                else {
+                    setImage()
+                }
+            }
         }
     }
     override init(frame: CGRect) {
@@ -107,9 +116,6 @@ class ResizeButton: UIButton {
         super.layoutSubviews()
     }
     
-    @objc fileprivate func changeState() {
-        buttonState = isSelected ? .large : .small
-    }
     
     private func commonInit() {
         if #available(iOS 15, *) {
@@ -121,7 +127,6 @@ class ResizeButton: UIButton {
         
         self.setImage(UIImage(named: "ic_resize_large"), for: .normal)
         self.setImage(UIImage(named: "ic_resize_small"), for: .selected)
-        addTarget(self, action: #selector(changeState), for: .touchUpInside)
     }
 }
 

@@ -82,7 +82,7 @@ class RxPlayerHelper : NSObject {
         return playerController
     }()
     private override init() {}
-    func openPlayer(_ controller : UIViewController, videoType : VideoType) -> Observable<VideoPlayer?> {
+    func openPlayer(_ controller : UIViewController, videoType : VideoType, openVideoController : Bool = true) -> Observable<VideoPlayer?> {
         viewController = controller
         switch videoType {
         case let .dailymotion(id, resolationId):
@@ -90,15 +90,26 @@ class RxPlayerHelper : NSObject {
                 if let resolationId = resolationId, let first = video.first(where: {
                     return $0.id == resolationId
                 }) {
-                    return self.playerVideo(url: first.url).map({
-                        self.videos[id]
-                    })
+                    if openVideoController {
+                        return self.playerVideo(url: first.url).map({
+                            self.videos[id]
+                        })
+                    }
+                    else {
+                        return Observable.just(self.videos[id])
+                    }
+                    
                 }
                 else {
                     if let lastResolution = video.last {
-                        return self.playerVideo(url: lastResolution.url).map({
-                            self.videos[id]
-                        })
+                        if openVideoController {
+                            return self.playerVideo(url: lastResolution.url).map({
+                                self.videos[id]
+                            })
+                        }
+                        else {
+                            return Observable.just(self.videos[id])
+                        }
                     }
                 }
                 return Observable.just(nil)
@@ -106,24 +117,40 @@ class RxPlayerHelper : NSObject {
         case let .fileone(id, url):
             return self.getFileOne(id: id, url: url).flatMap({ _url -> Observable<VideoPlayer?>  in
                 guard let _url = _url else { return Observable.just(nil) }
-                return self.playerVideo(url: _url).map({
-                    self.videos[id]
-                })
+                if openVideoController {
+                    return self.playerVideo(url: _url).map({
+                        self.videos[id]
+                    })
+                }
+                else {
+                    return Observable.just(self.videos[id])
+                }
             })
         case let .fembed(id, resolationId):
             return self.getFembed(id: id).flatMap({video -> Observable<VideoPlayer?> in
                 if let resolationId = resolationId, let first = video.first(where: {
                     return $0.id == resolationId
                 }) {
-                    return self.playerVideo(url: first.url).map({
-                        self.videos[id]
-                    })
+                    if openVideoController {
+                        return self.playerVideo(url: first.url).map({
+                            self.videos[id]
+                        })
+                    }
+                    else {
+                        return Observable.just(self.videos[id])
+                    }
                 }
                 else {
                     if let lastResolution = video.last {
-                        return self.playerVideo(url: lastResolution.url).map({
-                            self.videos[id]
-                        })
+                        if openVideoController {
+                            return self.playerVideo(url: lastResolution.url).map({
+                                self.videos[id]
+                            })
+                        }
+                        else {
+                            return Observable.just(self.videos[id])
+                        }
+                        
                     }
                 }
                 return Observable.just(nil)
@@ -132,14 +159,20 @@ class RxPlayerHelper : NSObject {
             guard let url = URL(string: url) else {
                 return Observable.just(nil)
             }
-            return self.playerVideo(url: url).map({
-                VideoPlayer.normal(.init(url: url))
-            })
+            if openVideoController {
+                return self.playerVideo(url: url).map({
+                    VideoPlayer.normal(.init(url: url))
+                })
+            }
+            else {
+                return Observable.just( VideoPlayer.normal(.init(url: url)))
+            }
+            
             
         }
     }
     
-    func openPlayer(_ controller : UIViewController, data : EpisodeModel) -> Observable<VideoPlayer?> {
+    func openPlayer(_ controller : UIViewController, data : EpisodeModel, openVideoController : Bool = true) -> Observable<VideoPlayer?> {
         let episode : Observable<EpisodeModel?> = {
             Observable.deferred({() ->  Observable<EpisodeModel?> in
                 if let url = data.link, url.contains(PageType.hhtq.rawValue) {
@@ -155,16 +188,16 @@ class RxPlayerHelper : NSObject {
             if let _self = self, let res = _res, let id = res.id {
                 switch res.type {
                 case .dailymotion:
-                    return _self.openPlayer(controller, videoType: .dailymotion(id: id))
+                    return _self.openPlayer(controller, videoType: .dailymotion(id: id), openVideoController: openVideoController)
                 case .fileone:
                     if let url = data.link {
-                        return _self.openPlayer(controller, videoType: .fileone(id: id, url: url))
+                        return _self.openPlayer(controller, videoType: .fileone(id: id, url: url), openVideoController: openVideoController)
                     }
                 case .fembed:
-                    return _self.openPlayer(controller, videoType: .fembed(id: id))
+                    return _self.openPlayer(controller, videoType: .fembed(id: id), openVideoController: openVideoController)
                 case .normal:
                     if let _url = data.link {
-                        return _self.openPlayer(controller, videoType: .normal(url: _url))
+                        return _self.openPlayer(controller, videoType: .normal(url: _url), openVideoController: openVideoController)
                     }
                     
                 }
@@ -225,6 +258,39 @@ class RxPlayerHelper : NSObject {
         }
         return Observable.just(video.resolutions)
         
+    }
+    
+    func getUrl(_ type: VideoPlayer, resolationId: String? = nil) ->  [URL] {
+        switch type {
+        case .dailymotion(let d):
+            if let resolationId = resolationId, !resolationId.isEmpty {
+                return d.resolutions.compactMap({
+                    if resolationId == $0.id {
+                        return  $0.url
+                    }
+                    return nil
+                })
+            }
+            return d.resolutions.compactMap({
+                $0.url
+            })
+        case .fembed(let d):
+            if let resolationId = resolationId, !resolationId.isEmpty {
+                return d.resolutions.compactMap({
+                    if resolationId == $0.id {
+                        return  $0.url
+                    }
+                    return nil
+                })
+            }
+            return d.resolutions.map({
+                $0.url
+            })
+        case .fileone(let d):
+            return [d.url]
+        case .normal(let d):
+           return [d.url]
+        }
     }
     
     

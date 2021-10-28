@@ -19,6 +19,7 @@
 		FE44EEAB26FDA0A100EC9F85 /* TestModuleRemoteSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EEAA26FDA0A100EC9F85 /* TestModuleRemoteSource.swift */; };
 		FE44EEAD26FDA0D700EC9F85 /* TestModuleRemoteSourceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EEAC26FDA0D700EC9F85 /* TestModuleRemoteSourceImpl.swift */; };
 		FE44EEAF26FDA26900EC9F85 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EEAE26FDA26900EC9F85 /* ApiError.swift */; };
+		FE4C8FF92719A336001255A0 /* AppAVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4C8FF82719A336001255A0 /* AppAVPlayer.swift */; };
 		FE6F2BA726FCBC3F007CE4BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BA626FCBC3F007CE4BF /* AppDelegate.swift */; };
 		FE6F2BA926FCBC3F007CE4BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BA826FCBC3F007CE4BF /* SceneDelegate.swift */; };
 		FE6F2BAB26FCBC3F007CE4BF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BAA26FCBC3F007CE4BF /* ViewController.swift */; };
@@ -92,6 +93,8 @@
 		FEF76AB7270F4AFE0050B807 /* ResizeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF76AAD270F4AFE0050B807 /* ResizeButton.swift */; };
 		FEF76AB8270F4AFE0050B807 /* Ripple.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF76AAE270F4AFE0050B807 /* Ripple.swift */; };
 		FEF76ABA270F4B160050B807 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF76AB9270F4B160050B807 /* VideoPlayerView.swift */; };
+		FEF76ABD270FF8640050B807 /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = FEF76ABC270FF8640050B807 /* video.mp4 */; };
+		FEFADB80271E569D00DAEAFA /* BaseViewLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFADB7F271E569D00DAEAFA /* BaseViewLogic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +129,7 @@
 		FE44EEAA26FDA0A100EC9F85 /* TestModuleRemoteSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleRemoteSource.swift; sourceTree = "<group>"; };
 		FE44EEAC26FDA0D700EC9F85 /* TestModuleRemoteSourceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleRemoteSourceImpl.swift; sourceTree = "<group>"; };
 		FE44EEAE26FDA26900EC9F85 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		FE4C8FF82719A336001255A0 /* AppAVPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAVPlayer.swift; sourceTree = "<group>"; };
 		FE6F2BA326FCBC3F007CE4BF /* SwiftMVVMTP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftMVVMTP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE6F2BA626FCBC3F007CE4BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE6F2BA826FCBC3F007CE4BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -204,6 +208,8 @@
 		FEF76AAD270F4AFE0050B807 /* ResizeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResizeButton.swift; sourceTree = "<group>"; };
 		FEF76AAE270F4AFE0050B807 /* Ripple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ripple.swift; sourceTree = "<group>"; };
 		FEF76AB9270F4B160050B807 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
+		FEF76ABC270FF8640050B807 /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
+		FEFADB7F271E569D00DAEAFA /* BaseViewLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewLogic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -395,6 +401,7 @@
 		FE6F2BD726FCC3E6007CE4BF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				FEF76ABB270FF84E0050B807 /* Resource */,
 				FEEC60BC26FEEAAC00DDA47E /* Common */,
 				FEEC606E26FE36D000DDA47E /* Movie */,
 				FE44EE9826FD74C300EC9F85 /* TestModule */,
@@ -409,6 +416,7 @@
 			children = (
 				FE6F2BDB26FCC558007CE4BF /* AppBaseViewController.swift */,
 				FE6F2BE026FCC7B3007CE4BF /* BaseViewModel.swift */,
+				FEFADB7F271E569D00DAEAFA /* BaseViewLogic.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -610,6 +618,7 @@
 		FEEC60BD26FEEAB600DDA47E /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				FE4C8FF82719A336001255A0 /* AppAVPlayer.swift */,
 				FEF76AAC270F4AFE0050B807 /* AppConstants.swift */,
 				FEF76AA6270F4AFD0050B807 /* CircleRippleView.swift */,
 				FEF76AA7270F4AFD0050B807 /* ControlButtons.swift */,
@@ -624,6 +633,14 @@
 				FEF76AB9270F4B160050B807 /* VideoPlayerView.swift */,
 			);
 			path = Player;
+			sourceTree = "<group>";
+		};
+		FEF76ABB270FF84E0050B807 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				FEF76ABC270FF8640050B807 /* video.mp4 */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -735,6 +752,7 @@
 				FE6F2BB326FCBC42007CE4BF /* LaunchScreen.storyboard in Resources */,
 				FE6F2BB026FCBC42007CE4BF /* Assets.xcassets in Resources */,
 				FE6F2BAE26FCBC3F007CE4BF /* Main.storyboard in Resources */,
+				FEF76ABD270FF8640050B807 /* video.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -865,7 +883,9 @@
 				FE6F2BFA26FCE10D007CE4BF /* Constants.swift in Sources */,
 				FEEC607B26FE39F700DDA47E /* UISearchBar+Extensions.swift in Sources */,
 				FEEC609A26FE4C3500DDA47E /* ImageLoader.swift in Sources */,
+				FE4C8FF92719A336001255A0 /* AppAVPlayer.swift in Sources */,
 				FEEC60A026FE4FA300DDA47E /* MovieService.swift in Sources */,
+				FEFADB80271E569D00DAEAFA /* BaseViewLogic.swift in Sources */,
 				FE6F2BF226FCCDF9007CE4BF /* ApiRequestManager.swift in Sources */,
 				FE44EEA026FD75B900EC9F85 /* DataTestRequest.swift in Sources */,
 				FEF76AB5270F4AFE0050B807 /* Scrubber.swift in Sources */,
@@ -1059,6 +1079,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7755R4CX4U;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SwiftMVVMTP/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1097,7 +1118,7 @@
 					"-framework",
 					"\"QuartzCore\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = TrucPham.SwiftMVVMTP;
+				PRODUCT_BUNDLE_IDENTIFIER = beta.ftel.cmr.camera;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = SwiftMVVMTP/BridgeHeader.h;
@@ -1115,6 +1136,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7755R4CX4U;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SwiftMVVMTP/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1153,7 +1175,7 @@
 					"-framework",
 					"\"QuartzCore\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = TrucPham.SwiftMVVMTP;
+				PRODUCT_BUNDLE_IDENTIFIER = beta.ftel.cmr.camera;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = SwiftMVVMTP/BridgeHeader.h;

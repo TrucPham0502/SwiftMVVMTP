@@ -9,9 +9,9 @@ import Foundation
 import RxSwift
 class TestModuleRemoteSourceImpl : NSObject, TestModuleRemoteSource {
     
+    @POST<[DataTestResponse]>
     func getDataTest(_ input: DataTestRequest) -> Observable<ApiResponseDto<[DataTestResponse]>> {
-        @ApiMethod.Post("Constants.host", parameters: input)
-        var data : Observable<ApiResponseDto<[DataTestResponse]>>
-        return data
+        ApiParameter.url("Constants.host")
+        ApiParameter.parameter(input)
     }
 }

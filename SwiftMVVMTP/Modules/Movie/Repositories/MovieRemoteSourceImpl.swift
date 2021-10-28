@@ -9,37 +9,39 @@ import Foundation
 import RxSwift
 class MovieRemoteSourceImpl : NSObject, MovieRemoteSource {
     let host = Constants.appEndPointUrl + "api/"
+    
+    @POST<[MovieHomeResponse]>
     func getMovieHome(_ input: MovieHomeRequest, pageType : PageType) -> Observable<ApiResponseDto<[MovieHomeResponse]>> {
-        @ApiMethod.Post("\(host)\(pageType.rawValue)/list", parameters: input)
-        var data : Observable<ApiResponseDto<[MovieHomeResponse]>>
-        return data
+        ApiParameter.url("\(host)\(pageType.rawValue)/list")
+        ApiParameter.parameter(input)
     }
     
+    
+    @GET<String>
     func dailymotionM3u8(_ id : String) ->  Observable<ApiResponseDto<String>> {
-        @ApiMethod.Get(String(format: "\(host)dailymotion?id=%@", id))
-        var dataM3u8 : Observable<ApiResponseDto<String>>
-        return dataM3u8
+        ApiParameter.url(String(format: "\(host)dailymotion?id=%@", id))
     }
     
+    @POST<FileOneResponse>
     func fileOneData(_ input: FileOneRequest) -> Observable<ApiResponseDto<FileOneResponse>> {
-        @ApiMethod.Post("\(host)fileone", parameters: input)
-        var data : Observable<ApiResponseDto<FileOneResponse>>
-        return data
+        ApiParameter.url("\(host)fileone")
+        ApiParameter.parameter(input)
     }
     
+    @POST<[FembedResponse]>
     func fembedData(_ id: String) -> Observable<ApiResponseDto<[FembedResponse]>>{
-        @ApiMethod.Post(String(format: "\(host)fembed?id=%@", id))
-        var data :Observable<ApiResponseDto<[FembedResponse]>>
-        return data
+        ApiParameter.url(String(format: "\(host)fembed?id=%@", id))
     }
+    
+    @POST<HHTQEpisodeResponse>
     func hhtqEpisode(_ input : HHTQEpisodeRequest) -> Observable<ApiResponseDto<HHTQEpisodeResponse>> {
-        @ApiMethod.Post("\(host)hhtq/getepisode", parameters: input)
-        var data : Observable<ApiResponseDto<HHTQEpisodeResponse>>
-        return data
+        ApiParameter.url("\(host)hhtq/getepisode")
+        ApiParameter.parameter(input)
     }
+    
+    @POST<MovieDetailResponse>
     func movieDetail(_ input : MovieDetailRequest, pageType : PageType) -> Observable<ApiResponseDto<MovieDetailResponse>> {
-        @ApiMethod.Post("\(host)\(pageType.rawValue)/detail", parameters: input)
-        var data :  Observable<ApiResponseDto<MovieDetailResponse>>
-        return data
+        ApiParameter.url("\(host)\(pageType.rawValue)/detail")
+        ApiParameter.parameter(input)
     }
 }

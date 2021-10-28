@@ -14,5 +14,6 @@ protocol MovieRemoteSource {
     func fembedData(_ id: String) -> Observable<ApiResponseDto<[FembedResponse]>>
     func hhtqEpisode(_ input : HHTQEpisodeRequest) -> Observable<ApiResponseDto<HHTQEpisodeResponse>>
     func movieDetail(_ input : MovieDetailRequest, pageType : PageType) -> Observable<ApiResponseDto<MovieDetailResponse>>
+    
 }
 

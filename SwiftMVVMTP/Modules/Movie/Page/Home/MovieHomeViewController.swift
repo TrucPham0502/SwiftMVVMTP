@@ -82,8 +82,8 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
             guard let _self = self else { return }
             _self.titlesItem = titles
             _self.collectionItems = item
-            _self.glidingView.reloadData()
             _self.reloadCollection()
+            _self.glidingView.reloadData()
             if let url = item.first?.first?.poster {
                 ImageLoader.load(url: url) { image in
                     _self.backgroundImage.image = image
@@ -130,8 +130,8 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     }
     func reloadCollection()
     {
-        cellsIsOpen = self.collectionItems.map({ d -> Array in
-            Array(repeating: false, count: d.count)
+        cellsIsOpen = self.collectionItems.map({ ds -> Array in
+            Array(repeating: false, count: ds.count)
         })
         DispatchQueue.main.async {
             self.collectionView.reloadData()

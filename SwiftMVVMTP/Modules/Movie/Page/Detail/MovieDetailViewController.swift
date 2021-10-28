@@ -9,7 +9,9 @@ import Foundation
 import RxCocoa
 class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     override func buildViewModel() -> MovieDetailViewModel {
-        return MovieDetailViewModel()
+        let vm = MovieDetailViewModel()
+        vm.viewLogic = self
+        return vm
     }
     var pageType : PageType = .unknown
     struct DetailViewModel {
@@ -24,6 +26,8 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     var data : [EpisodeModel] = []
     var contents = ""
     var episodeItemSize : CGSize = .init(width: 50, height: 50)
+    
+    var openVideo = PublishRelay<EpisodeModel>()
     
     private lazy var scrollView : UIScrollView = {
         let v = UIScrollView()
@@ -48,6 +52,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     private lazy var backgroundImage : UIImageView = {
         let v = UIImageView(frame: .init(origin: .zero, size: UIScreen.main.bounds.size))
         v.contentMode = .scaleAspectFill
+        v.clipsToBounds = true
         v.translatesAutoresizingMaskIntoConstraints = false
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -76,10 +81,11 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     }()
     
     lazy var videoPlayer : VideoPlayerView = {
-        let v = VideoPlayerView(frame: .init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: headerHeight))
-        v.translatesAutoresizingMaskIntoConstraints = false
+        let v = VideoPlayerView()
+        v.setFrame(frame: .init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: headerHeight))
+        v.setControlFrame(v.bounds)
+        
         v.backgroundColor = .black
-        v.videoURL = URL(string: "https://proxy-05.sg1.dailymotion.com/sec(DMVFQRw3IpRsWkd6JQfLaCjpI4EotQebY5Q8OgxMzKQU8lpyVNQ81cCu7Bmm4m21IGrk_ujwSwUa4qmIl0MbQA)/video/636/997/490799636_mp4_h264_aac_hq.mp4")
         return v
     }()
     
@@ -128,13 +134,16 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         
     }
     
+    
     override func prepareUI() {
         super.prepareUI()
         self.view.backgroundColor = .white
         self.view.isHidden = true
         self.view.addSubview(scrollView)
+        self.view.addSubview(videoPlayer)
+        self.view.addSubview(closeImage)
         self.scrollView.addSubview(containerView)
-        [videoPlayer, closeImage, collectionViewEpisode, titleView,contentView].forEach({self.containerView.addSubview($0)})
+        [collectionViewEpisode, titleView,contentView].forEach({self.containerView.addSubview($0)})
         
         
         self.heightCollectionView = self.collectionViewEpisode.heightAnchor.constraint(equalToConstant: getSizeCollectionView())
@@ -146,26 +155,19 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             
             
-            self.containerView.topAnchor.constraint(equalTo: self.scrollView.topAnchor),
+            self.containerView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: headerHeight),
             self.containerView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor),
             self.containerView.trailingAnchor.constraint(equalTo: self.scrollView.trailingAnchor),
             self.containerView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor),
             self.containerView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor),
             //            self.containerView.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor),
-            
-            
-            videoPlayer.topAnchor.constraint(equalTo: self.containerView.topAnchor),
-            videoPlayer.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor),
-            videoPlayer.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor),
-            videoPlayer.heightAnchor.constraint(equalToConstant: headerHeight),
-            
-            
-            closeImage.topAnchor.constraint(equalTo: self.containerView.safeAreaLayoutGuide.topAnchor, constant: 10),
-            closeImage.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -20),
+           
+            closeImage.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            closeImage.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
             closeImage.heightAnchor.constraint(equalToConstant: 30),
             closeImage.widthAnchor.constraint(equalToConstant: 30),
             
-            titleView.topAnchor.constraint(equalTo: self.videoPlayer.bottomAnchor, constant: 20),
+            titleView.topAnchor.constraint(equalTo: self.containerView.topAnchor, constant: 20),
             titleView.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 25),
             titleView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -25),
             
@@ -180,14 +182,18 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             contentView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -20),
             contentView.bottomAnchor.constraint(equalTo: self.containerView.bottomAnchor, constant: -50),
             
-            
-            
         ])
         if let poster = dataRequire?.poster {
             ImageLoader.load(url: poster) { image in
-//                self.posterImage.image = image.cropToBounds(size: self.posterImage.bounds.size)
+                self.backgroundImage.image = image
             }
         }
+        
+//        videoPlayer.setConstaints(.init(
+//            left: videoPlayer.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor),
+//            right: videoPlayer.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor),
+//            top: videoPlayer.topAnchor.constraint(equalTo: self.containerView.topAnchor),
+//            height: videoPlayer.heightAnchor.constraint(equalToConstant: headerHeight)))
     }
     
     override func performBinding() {
@@ -195,7 +201,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         guard let url = self.dataRequire?.urlPage else {
             return
         }
-        let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).mapToVoid().asDriverOnErrorJustComplete(), url: url, pageType: self.pageType))
+        let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).mapToVoid().asDriverOnErrorJustComplete(), openVideo: self.openVideo.asDriverOnErrorJustComplete(), url: url, pageType: self.pageType))
         output.item.drive(onNext: { (data, content) in
             self.data = data
             self.contents = content
@@ -208,6 +214,10 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             }
             self.heightCollectionView?.constant = self.getSizeCollectionView()
             self.collectionViewEpisode.reloadData()
+        }).disposed(by: self.disposeBag)
+        
+        output.openVideo.drive(onNext: {[weak self] url in
+            self?.videoPlayer.videoURL = url
         }).disposed(by: self.disposeBag)
     }
     
@@ -222,6 +232,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.view.isHidden = false
+        videoPlayer.videoURL = URL(string: "https://proxy-28.sg1.dailymotion.com/sec(vxZ7tmRVFI2aYs0jV7JU4kvV5sWcUnkZgol91cwYr9Auyg2Ak07d1MQ0tZ1WzkEWFrt0JSS1m6uT7gKDWjSSiw)/video/569/033/492330965_mp4_h264_aac_hq.mp4#cell=sg1")
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -294,9 +305,17 @@ extension MovieDetailViewController : UICollectionViewDelegate {
                         UIAction(title: $0.resolution, image: nil, identifier: UIAction.Identifier(rawValue: $0.id)) { action in
                             switch videoFromId {
                             case .dailymotion:
-                                RxPlayerHelper.shared.openPlayer(self, videoType: .dailymotion(id: id, resolationId: action.identifier.rawValue)).subscribe().disposed(by: self.disposeBag)
+                                RxPlayerHelper.shared.openPlayer(self, videoType: .dailymotion(id: id, resolationId: action.identifier.rawValue), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
+                                    guard let data = d else { return }
+                                    let urls = RxPlayerHelper.shared.getUrl(data)
+                                    self.videoPlayer.videoURL = urls.first
+                                }).disposed(by: self.disposeBag)
                             case .fembed:
-                                RxPlayerHelper.shared.openPlayer(self, videoType: .fembed(id: id, resolationId: action.identifier.rawValue)).subscribe().disposed(by: self.disposeBag)
+                                RxPlayerHelper.shared.openPlayer(self, videoType: .fembed(id: id, resolationId: action.identifier.rawValue), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
+                                    guard let data = d else { return }
+                                    let urls = RxPlayerHelper.shared.getUrl(data)
+                                    self.videoPlayer.videoURL = urls.first
+                                }).disposed(by: self.disposeBag)
                             default: break
                             }
                             
@@ -309,10 +328,18 @@ extension MovieDetailViewController : UICollectionViewDelegate {
                     UIAction(title: "Play Video", handler: { _ in
                         switch d.type {
                         case .dailymotion:
-                            RxPlayerHelper.shared.openPlayer(self, videoType: .dailymotion(id: id)).subscribe().disposed(by: self.disposeBag)
+                            RxPlayerHelper.shared.openPlayer(self, videoType: .dailymotion(id: id), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
+                                guard let data = d else { return }
+                                let urls = RxPlayerHelper.shared.getUrl(data)
+                                self.videoPlayer.videoURL = urls.first
+                            }).disposed(by: self.disposeBag)
                         case .fileone:
                             if let urlString = d.link {
-                                RxPlayerHelper.shared.openPlayer(self, videoType: .fileone(id: id, url: urlString)).subscribe().disposed(by: self.disposeBag)
+                                RxPlayerHelper.shared.openPlayer(self, videoType: .fileone(id: id, url: urlString), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
+                                    guard let data = d else { return }
+                                    let urls = RxPlayerHelper.shared.getUrl(data)
+                                    self.videoPlayer.videoURL = urls.first
+                                }).disposed(by: self.disposeBag)
                             }
                         default:
                             break
@@ -325,9 +352,10 @@ extension MovieDetailViewController : UICollectionViewDelegate {
         })
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let data = self.data[indexPath.row]
-        RxPlayerHelper.shared.openPlayer(self, data: data).subscribe().disposed(by: self.disposeBag)
+        self.openVideo.accept(data)
     }
     
 }
@@ -339,4 +367,7 @@ extension MovieDetailViewController : UIScrollViewDelegate {
     //        }
     //        scrollOffsetY = scrollView.contentOffset.y
     //    }
+}
+extension MovieDetailViewController : MovieDetailViewLogic {
+    
 }
