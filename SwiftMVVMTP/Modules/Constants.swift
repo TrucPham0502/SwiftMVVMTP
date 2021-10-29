@@ -10,18 +10,8 @@ enum InfoDictionary : String {
     case appEndPointUrl = "AppEndPointUrl"
 }
 struct Constants {
-    
-    static var appEndPointUrl : String {
-        #if targetEnvironment(simulator)
-        // Simulator
-        return "http://21.64.7.156:8000/"
-        #else
-        // Device
-        @Dependency.InfoDictionary(key: InfoDictionary.appEndPointUrl.rawValue)
-        var appEndPointUrl : String
-        return appEndPointUrl
-        #endif
-    }
+    @Dependency.InfoDictionary(key: InfoDictionary.appEndPointUrl.rawValue)
+    static var appEndPointUrl : String
     
     
     

@@ -76,7 +76,11 @@ class RxPlayerHelper : NSObject {
         playerController.allowsPictureInPicturePlayback = true
         playerController.delegate = self
         playerController.showsPlaybackControls = true
-        playerController.canStartPictureInPictureAutomaticallyFromInline = true
+        if #available(iOS 14.2, *) {
+            playerController.canStartPictureInPictureAutomaticallyFromInline = true
+        } else {
+            // Fallback on earlier versions
+        }
         
         playerController.videoGravity = .resizeAspect
         return playerController

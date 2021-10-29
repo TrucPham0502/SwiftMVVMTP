@@ -115,6 +115,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		11331C83FD29963EACBCD787 /* Pods-SwiftMVVMTP.prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftMVVMTP.prod.xcconfig"; path = "Target Support Files/Pods-SwiftMVVMTP/Pods-SwiftMVVMTP.prod.xcconfig"; sourceTree = "<group>"; };
+		26BA3687B48E27270E377BAD /* Pods-SwiftMVVMTP.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftMVVMTP.beta.xcconfig"; path = "Target Support Files/Pods-SwiftMVVMTP/Pods-SwiftMVVMTP.beta.xcconfig"; sourceTree = "<group>"; };
 		59826F893747A61A9FDA1390 /* Pods-SwiftMVVMTP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftMVVMTP.debug.xcconfig"; path = "Target Support Files/Pods-SwiftMVVMTP/Pods-SwiftMVVMTP.debug.xcconfig"; sourceTree = "<group>"; };
 		E1517339AC43FA239BDE3758 /* Pods_SwiftMVVMTP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftMVVMTP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAF1BFFAE0D4641BA387E3FC /* Pods-SwiftMVVMTP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftMVVMTP.release.xcconfig"; path = "Target Support Files/Pods-SwiftMVVMTP/Pods-SwiftMVVMTP.release.xcconfig"; sourceTree = "<group>"; };
@@ -130,7 +132,7 @@
 		FE44EEAC26FDA0D700EC9F85 /* TestModuleRemoteSourceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleRemoteSourceImpl.swift; sourceTree = "<group>"; };
 		FE44EEAE26FDA26900EC9F85 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		FE4C8FF82719A336001255A0 /* AppAVPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAVPlayer.swift; sourceTree = "<group>"; };
-		FE6F2BA326FCBC3F007CE4BF /* SwiftMVVMTP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftMVVMTP.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE6F2BA326FCBC3F007CE4BF /* SwiftMVVMTP BETA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftMVVMTP BETA.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE6F2BA626FCBC3F007CE4BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE6F2BA826FCBC3F007CE4BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		FE6F2BAA26FCBC3F007CE4BF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -251,6 +253,8 @@
 			children = (
 				59826F893747A61A9FDA1390 /* Pods-SwiftMVVMTP.debug.xcconfig */,
 				EAF1BFFAE0D4641BA387E3FC /* Pods-SwiftMVVMTP.release.xcconfig */,
+				26BA3687B48E27270E377BAD /* Pods-SwiftMVVMTP.beta.xcconfig */,
+				11331C83FD29963EACBCD787 /* Pods-SwiftMVVMTP.prod.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -343,7 +347,7 @@
 		FE6F2BA426FCBC3F007CE4BF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FE6F2BA326FCBC3F007CE4BF /* SwiftMVVMTP.app */,
+				FE6F2BA326FCBC3F007CE4BF /* SwiftMVVMTP BETA.app */,
 				FE6F2BB926FCBC43007CE4BF /* SwiftMVVMTPTests.xctest */,
 				FE6F2BC326FCBC43007CE4BF /* SwiftMVVMTPUITests.xctest */,
 			);
@@ -654,7 +658,7 @@
 				FE6F2B9F26FCBC3F007CE4BF /* Sources */,
 				FE6F2BA026FCBC3F007CE4BF /* Frameworks */,
 				FE6F2BA126FCBC3F007CE4BF /* Resources */,
-				E086C05E37EF8A7C3322F58D /* [CP] Embed Pods Frameworks */,
+				44A8403398AE01AE377498C5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -662,7 +666,7 @@
 			);
 			name = SwiftMVVMTP;
 			productName = SwiftMVVMTP;
-			productReference = FE6F2BA326FCBC3F007CE4BF /* SwiftMVVMTP.app */;
+			productReference = FE6F2BA326FCBC3F007CE4BF /* SwiftMVVMTP BETA.app */;
 			productType = "com.apple.product-type.application";
 		};
 		FE6F2BB826FCBC43007CE4BF /* SwiftMVVMTPTests */ = {
@@ -725,7 +729,7 @@
 				};
 			};
 			buildConfigurationList = FE6F2B9E26FCBC3F007CE4BF /* Build configuration list for PBXProject "SwiftMVVMTP" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -773,7 +777,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		E086C05E37EF8A7C3322F58D /* [CP] Embed Pods Frameworks */ = {
+		44A8403398AE01AE377498C5 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -954,7 +958,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		FE6F2BCB26FCBC43007CE4BF /* Debug */ = {
+		FE6F2BCB26FCBC43007CE4BF /* BETA */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1005,7 +1009,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1013,9 +1017,9 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = Debug;
+			name = BETA;
 		};
-		FE6F2BCC26FCBC43007CE4BF /* Release */ = {
+		FE6F2BCC26FCBC43007CE4BF /* PROD */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1060,7 +1064,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1068,13 +1072,13 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = Release;
+			name = PROD;
 		};
-		FE6F2BCE26FCBC43007CE4BF /* Debug */ = {
+		FE6F2BCE26FCBC43007CE4BF /* BETA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 59826F893747A61A9FDA1390 /* Pods-SwiftMVVMTP.debug.xcconfig */;
+			baseConfigurationReference = 26BA3687B48E27270E377BAD /* Pods-SwiftMVVMTP.beta.xcconfig */;
 			buildSettings = {
-				APP_ENDPOINT_URL = "https://tpmovie-ios.herokuapp.com/";
+				APP_ENDPOINT_URL = "http://21.64.7.156:8000/";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -1119,17 +1123,17 @@
 					"\"QuartzCore\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = beta.ftel.cmr.camera;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME) BETA";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = SwiftMVVMTP/BridgeHeader.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = Debug;
+			name = BETA;
 		};
-		FE6F2BCF26FCBC43007CE4BF /* Release */ = {
+		FE6F2BCF26FCBC43007CE4BF /* PROD */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EAF1BFFAE0D4641BA387E3FC /* Pods-SwiftMVVMTP.release.xcconfig */;
+			baseConfigurationReference = 11331C83FD29963EACBCD787 /* Pods-SwiftMVVMTP.prod.xcconfig */;
 			buildSettings = {
 				APP_ENDPOINT_URL = "https://tpmovie-ios.herokuapp.com/";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1149,6 +1153,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1176,15 +1181,16 @@
 					"\"QuartzCore\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = beta.ftel.cmr.camera;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME) PROD";
+				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = SwiftMVVMTP/BridgeHeader.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = Release;
+			name = PROD;
 		};
-		FE6F2BD126FCBC43007CE4BF /* Debug */ = {
+		FE6F2BD126FCBC43007CE4BF /* BETA */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -1206,9 +1212,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftMVVMTP.app/SwiftMVVMTP";
 			};
-			name = Debug;
+			name = BETA;
 		};
-		FE6F2BD226FCBC43007CE4BF /* Release */ = {
+		FE6F2BD226FCBC43007CE4BF /* PROD */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -1230,9 +1236,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftMVVMTP.app/SwiftMVVMTP";
 			};
-			name = Release;
+			name = PROD;
 		};
-		FE6F2BD426FCBC43007CE4BF /* Debug */ = {
+		FE6F2BD426FCBC43007CE4BF /* BETA */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -1252,9 +1258,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = SwiftMVVMTP;
 			};
-			name = Debug;
+			name = BETA;
 		};
-		FE6F2BD526FCBC43007CE4BF /* Release */ = {
+		FE6F2BD526FCBC43007CE4BF /* PROD */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -1274,7 +1280,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = SwiftMVVMTP;
 			};
-			name = Release;
+			name = PROD;
 		};
 /* End XCBuildConfiguration section */
 
@@ -1282,38 +1288,38 @@
 		FE6F2B9E26FCBC3F007CE4BF /* Build configuration list for PBXProject "SwiftMVVMTP" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FE6F2BCB26FCBC43007CE4BF /* Debug */,
-				FE6F2BCC26FCBC43007CE4BF /* Release */,
+				FE6F2BCB26FCBC43007CE4BF /* BETA */,
+				FE6F2BCC26FCBC43007CE4BF /* PROD */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = PROD;
 		};
 		FE6F2BCD26FCBC43007CE4BF /* Build configuration list for PBXNativeTarget "SwiftMVVMTP" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FE6F2BCE26FCBC43007CE4BF /* Debug */,
-				FE6F2BCF26FCBC43007CE4BF /* Release */,
+				FE6F2BCE26FCBC43007CE4BF /* BETA */,
+				FE6F2BCF26FCBC43007CE4BF /* PROD */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = PROD;
 		};
 		FE6F2BD026FCBC43007CE4BF /* Build configuration list for PBXNativeTarget "SwiftMVVMTPTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FE6F2BD126FCBC43007CE4BF /* Debug */,
-				FE6F2BD226FCBC43007CE4BF /* Release */,
+				FE6F2BD126FCBC43007CE4BF /* BETA */,
+				FE6F2BD226FCBC43007CE4BF /* PROD */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = PROD;
 		};
 		FE6F2BD326FCBC43007CE4BF /* Build configuration list for PBXNativeTarget "SwiftMVVMTPUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FE6F2BD426FCBC43007CE4BF /* Debug */,
-				FE6F2BD526FCBC43007CE4BF /* Release */,
+				FE6F2BD426FCBC43007CE4BF /* BETA */,
+				FE6F2BD526FCBC43007CE4BF /* PROD */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = PROD;
 		};
 /* End XCConfigurationList section */
 	};
