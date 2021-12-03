@@ -8,21 +8,21 @@
 import UIKit
 import Localize
 
+enum Language : String {
+    case vietnamese = "vi", english = "en", none
+}
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
        
         // add Module
-        Dependency.shared.build([TestModule(), MovieModule()])
+       initModule()
         
         // language
-        Localize.update(provider: .json)
-        Localize.update(fileName: "lang")
-        Localize.update(defaultLanguage: "vi")
+        initLanguage()
+        
         return true
     }
 
@@ -39,9 +39,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    //MARK: Language
+    func changeLanguage(language: Language) {
+        Localize.update(language: language.rawValue)
+    }
+    private func initLanguage(){
+        Localize.update(provider: .json)
+        Localize.update(fileName: "lang")
+        Localize.update(defaultLanguage: Language.vietnamese.rawValue)
+    }
+    var currentLanguage : Language {
+        return Language(rawValue: Localize.currentLanguage) ?? .none
+    }
     
-    func changeLanguage(language: String) {
-        Localize.update(language: language)
+    //MARK: Module
+    private func initModule(){
+        Dependency.shared.build([TestModule(), MovieModule()])
     }
 
 }

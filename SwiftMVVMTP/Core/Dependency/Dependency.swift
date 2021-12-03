@@ -6,7 +6,7 @@
 //
 
 import Foundation
-protocol Module  {
+protocol Module {
     func register(_ dependency : Dependency)
 }
 
