@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Localize
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,8 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
        
+        // add Module
         Dependency.shared.build([TestModule(), MovieModule()])
         
+        // language
+        Localize.update(provider: .json)
+        Localize.update(fileName: "lang")
+        Localize.update(defaultLanguage: "vi")
         return true
     }
 
@@ -33,7 +39,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
+    
+    func changeLanguage(language: String) {
+        Localize.update(language: language)
+    }
 
 }
 

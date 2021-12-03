@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double RxAppStateVersionNumber;
-FOUNDATION_EXPORT const unsigned char RxAppStateVersionString[];
+FOUNDATION_EXPORT double LocalizeVersionNumber;
+FOUNDATION_EXPORT const unsigned char LocalizeVersionString[];
 

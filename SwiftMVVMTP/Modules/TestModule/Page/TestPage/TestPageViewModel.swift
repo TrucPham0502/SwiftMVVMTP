@@ -12,7 +12,7 @@ class TestPageViewModel : BaseViewModel<TestPageViewModel.Input, TestPageViewMod
     @Dependency.Inject
     var service : TestModuleService
     
-    @BehaviorRelayProperty(value: "123")
+    @BehaviorRelayProperty(value: "hello".localized)
     var textSearch: String
     
     @BehaviorRelayProperty(value: [])

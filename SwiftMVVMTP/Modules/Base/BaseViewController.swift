@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
-class BaseViewController<VM : ViewModelElement> : AppBaseViewController {
+class BaseViewController<VM : ViewModelType> : AppBaseViewController {
     private var fetching: Driver<Bool>?
     var viewModel: VM!
     func performBinding() {
@@ -42,3 +42,7 @@ class BaseViewController<VM : ViewModelElement> : AppBaseViewController {
         debugPrint("---------------\(String(describing: type(of: self))) disposed-------------")
     }
 }
+
+
+
+

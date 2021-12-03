@@ -77,3 +77,21 @@ func <-> <T : Comparable>(subject: PublishSubject<T?>, variable: BehaviorRelay<T
     
     return Disposables.create(bindToUIDisposable, bindToVariable)
 }
+
+extension Reactive where Base : UIViewController {
+    var viewDidLoad : Observable<Void> {
+        return methodInvoked(#selector(UIViewController.viewDidLoad)).map { _ in return }
+    }
+    var viewWillAppear : Observable<Bool> {
+        return methodInvoked(#selector(UIViewController.viewWillAppear(_:))).map { $0[0] as! Bool }
+    }
+    var viewDidAppear : Observable<Bool> {
+        return methodInvoked(#selector(UIViewController.viewDidAppear(_:))).map { $0[0] as! Bool }
+    }
+    var viewDidDisappear : Observable<Bool> {
+        return methodInvoked(#selector(UIViewController.viewDidDisappear(_:))).map { $0[0] as! Bool }
+    }
+    var viewWillDisappear : Observable<Bool> {
+        return methodInvoked(#selector(UIViewController.viewWillDisappear(_:))).map { $0[0] as! Bool }
+    }
+}

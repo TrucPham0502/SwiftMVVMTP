@@ -6,10 +6,10 @@
 //
 
 import Foundation
-class MovieModule : Dependency.Module {
-    override func register(_ dependency: Dependency) {
-        dependency.register(MovieRemoteSource.self, service: MovieRemoteSourceImpl.self)
-        dependency.register(MovieRepository.self, service: MovieRepositoryImpl.self)
-        dependency.register(MovieService.self, service: MovieServiceImpl.self)
+class MovieModule : Module {
+    func register(_ dependency: Dependency) {
+        dependency.register(MovieRemoteSource.self) { MovieRemoteSourceImpl() }
+        dependency.register(MovieRepository.self){ MovieRepositoryImpl() }
+        dependency.register(MovieService.self){ MovieServiceImpl() }
     }
 }

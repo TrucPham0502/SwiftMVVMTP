@@ -6,10 +6,10 @@
 //
 
 import Foundation
-class TestModule : Dependency.Module {
-    override func register(_ dependency: Dependency) {
-        dependency.register(TestModuleService.self, service: TestModuleServiceImpl.self)
-        dependency.register(TestModuleRepository.self, service: TestModuleRepositoryImpl.self)
-        dependency.register(TestModuleRemoteSource.self, service: TestModuleRemoteSourceImpl.self)
+class TestModule : Module {
+    func register(_ dependency: Dependency) {
+        dependency.register(TestModuleService.self) { TestModuleServiceImpl() }
+        dependency.register(TestModuleRepository.self) { TestModuleRepositoryImpl() }
+        dependency.register(TestModuleRemoteSource.self) { TestModuleRemoteSourceImpl() }
     }
 }

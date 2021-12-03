@@ -7,6 +7,6 @@ target 'SwiftMVVMTP' do
   pod 'RxCocoa', '~> 5'
   pod 'RxAlamofire'
   pod 'MBProgressHUD'
-  pod 'RxAppState'
   pod 'Kingfisher'
+  pod 'Localize'
 end

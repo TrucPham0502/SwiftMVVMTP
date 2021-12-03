@@ -7,7 +7,7 @@
 
 import Foundation
 import RxSwift
-class MovieServiceImpl : NSObject, MovieService {
+class MovieServiceImpl : MovieService {
     @Dependency.Inject
     var repository : MovieRepository
     func getMovieHome(_ input: MovieHomeRequest) -> Observable<([MovieCategory], [[MovieCollectionViewCellModel]])> {

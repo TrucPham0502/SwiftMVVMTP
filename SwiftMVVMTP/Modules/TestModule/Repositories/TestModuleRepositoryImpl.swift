@@ -7,7 +7,7 @@
 
 import Foundation
 import RxSwift
-class TestModuleRepositoryImpl : NSObject, TestModuleRepository {
+class TestModuleRepositoryImpl : TestModuleRepository {
     @Dependency.Inject
     var repository : TestModuleRemoteSource
     func getDataTest(_ input: DataTestRequest) -> Observable<[DataTestResponse]> {

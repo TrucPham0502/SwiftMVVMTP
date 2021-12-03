@@ -7,7 +7,7 @@
 
 import Foundation
 import RxSwift
-class BaseRepository : NSObject{
+class BaseRepository {
     func unwrap<T>(_ data : ApiResponseDto<T>) -> Observable<T?> {
         if data.returnCode == .success {
             return Observable.just(data.data)

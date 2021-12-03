@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-class MovieRemoteSourceImpl : NSObject, MovieRemoteSource {
+class MovieRemoteSourceImpl : MovieRemoteSource {
     let host = Constants.appEndPointUrl + "api/"
     
     @POST<[MovieHomeResponse]>

@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import RxAppState
 import RxCocoa
 class TestPageViewController : BaseViewController<TestPageViewModel> {
     override func buildViewModel() -> TestPageViewModel {

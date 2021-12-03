@@ -7,7 +7,7 @@
 
 import Foundation
 import RxSwift
-class TestModuleRemoteSourceImpl : NSObject, TestModuleRemoteSource {
+class TestModuleRemoteSourceImpl : TestModuleRemoteSource {
     
     @POST<[DataTestResponse]>
     func getDataTest(_ input: DataTestRequest) -> Observable<ApiResponseDto<[DataTestResponse]>> {

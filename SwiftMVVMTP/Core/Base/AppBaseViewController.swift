@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 import MBProgressHUD
-class AppBaseViewController: ViewController {
+class AppBaseViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     

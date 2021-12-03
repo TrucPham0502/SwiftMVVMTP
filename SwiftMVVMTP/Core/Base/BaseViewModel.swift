@@ -9,19 +9,21 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-protocol ViewModelElement {
+protocol ViewModelType {
+    associatedtype Input
+    associatedtype Output
     var activityIndicator : ActivityIndicator { get }
     var errorTracker: ErrorTracker { get }
-   
+    func transform(input: Input) -> Output
 }
 
-class BaseViewModel<I, O> : NSObject, ViewModelElement {
+class BaseViewModel<Input, Output> : NSObject, ViewModelType {
     let activityIndicator = ActivityIndicator()
     let errorTracker = ErrorTracker()
     let disposeBag = DisposeBag()
     
-    public func transform(input: I) -> O {
-        var o: O!
+    func transform(input: Input) -> Output {
+        var o: Output!
         return o
     }
     
