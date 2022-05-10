@@ -9,7 +9,16 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+
+
 infix operator <->
+infix operator >>
+
+// prepare class instance
+func >> <T>(object: T, f: (T) -> Void) -> T {
+    f(object)
+    return object
+}
 
 func <-> <T>(property: ControlProperty<T>, variable: BehaviorRelay<T>) -> Disposable {
     let bindToUIDisposable = variable.asObservable()

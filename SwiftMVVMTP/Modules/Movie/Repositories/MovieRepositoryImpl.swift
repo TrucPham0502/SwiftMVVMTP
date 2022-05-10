@@ -12,16 +12,11 @@ class MovieRepositoryImpl : BaseRepository , MovieRepository {
     var remoteSource : MovieRemoteSource
     
     func getMovieHome(_ input: MovieHomeRequest, pageType : PageType) -> Observable<[MovieHomeResponse]> {
-        return remoteSource.getMovieHome(input, pageType: pageType).flatMap({ d -> Observable<[MovieHomeResponse]>  in
-            return self.unwrap(d).map({
-                return $0 ?? []
-            })
-        })
+        return remoteSource.getMovieHome(input, pageType: pageType).validResponse()
     }
     
     func dailymotionM3u8(_ id : String) ->  Observable<[Any]> {
-        return remoteSource.dailymotionM3u8(id).flatMap({
-            return self.unwrap($0).flatMap({responseString -> Observable<[Any]> in
+        return remoteSource.dailymotionM3u8(id).validResponse().flatMap({responseString -> Observable<[Any]> in
                 var resultArr = [Any]()
                 let tmpStr = "#EXT-X-STREAM-INF:"
                 let ArrayCop = responseString?.components(separatedBy: tmpStr)
@@ -47,36 +42,18 @@ class MovieRepositoryImpl : BaseRepository , MovieRepository {
                 }
                 return Observable.just(resultArr)
             })
-            
-        })
     }
     
     func fileOneData(_ input: FileOneRequest) -> Observable<FileOneResponse?> {
-        return remoteSource.fileOneData(input).flatMap({
-            return self.unwrap($0).map({ res in
-                return res
-            })
-        })
+        return remoteSource.fileOneData(input).validResponse()
     }
     func fembedData(_ id: String) -> Observable<[FembedResponse]> {
-        return remoteSource.fembedData(id).flatMap({
-            return self.unwrap($0).map({ res in
-                return res ?? []
-            })
-        })
+        return remoteSource.fembedData(id).validResponse()
     }
     func hhtqEpisode(_ input : HHTQEpisodeRequest) -> Observable<HHTQEpisodeResponse?> {
-        return remoteSource.hhtqEpisode(input).flatMap({
-            return self.unwrap($0).map({
-                return $0
-            })
-        })
+        return remoteSource.hhtqEpisode(input).validResponse()
     }
     func movieDetail(_ input : MovieDetailRequest, pageType : PageType) -> Observable<MovieDetailResponse?> {
-        return remoteSource.movieDetail(input, pageType: pageType).flatMap({
-            return self.unwrap($0).map({
-                return $0
-            })
-        })
+        return remoteSource.movieDetail(input, pageType: pageType).validResponse()
     }
 }

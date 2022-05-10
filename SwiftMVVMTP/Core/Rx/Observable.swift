@@ -52,7 +52,7 @@ class  BehaviorRelayProperty<Element>: WrapperSubject<Element> {
         return self
     }
     
-   
+    
     
     override func subscribe<Observer>(_ observer: Observer) -> Disposable where Observer : ObserverType, Element == Observer.Element {
         return subject.subscribe(observer)
@@ -98,7 +98,7 @@ class ObservableProperty<Element>: ObservableType {
 struct Proxy<EnclosingType, Value> {
     typealias ValueKeyPath = ReferenceWritableKeyPath<EnclosingType, Value>
     typealias SelfKeyPath = ReferenceWritableKeyPath<EnclosingType, Self>
-
+    
     static subscript(
         _enclosingInstance instance: EnclosingType,
         wrapped wrappedKeyPath: ValueKeyPath,
@@ -113,19 +113,41 @@ struct Proxy<EnclosingType, Value> {
             instance[keyPath: keyPath] = newValue
         }
     }
-
+    
     @available(*, unavailable,
-        message: "@Proxy can only be applied to classes"
+                message: "@Proxy can only be applied to classes"
     )
     var wrappedValue: Value {
         get { fatalError() }
         set { fatalError() }
     }
-
+    
     private let keyPath: ValueKeyPath
-
+    
     init(_ keyPath: ValueKeyPath) {
         self.keyPath = keyPath
     }
 }
+
+
+extension ObservableConvertibleType where Element : ApiResponseDtoType  {
+    func validResponse() -> Observable<Element.Element?> {
+        return self.asObservable().flatMap{data -> Observable<Element.Element?> in
+            if data.returnCode == .success {
+                return Observable.just(data.data)
+            }
+            return Observable.error(ApiError(parseClass: String(describing: self), errorMessage: data.returnMessage, errorCode: data.returnCode?.rawValue))
+        }
+    }
+    func validResponse<T>() -> Observable<Element.Element> where Element.Element == Array<T> {
+        return self.asObservable().flatMap{data -> Observable<Element.Element> in
+            if data.returnCode == .success {
+                return Observable.just(data.data ?? [])
+            }
+            return Observable.error(ApiError(parseClass: String(describing: self), errorMessage: data.returnMessage, errorCode: data.returnCode?.rawValue))
+        }
+    }
+}
+
+
 

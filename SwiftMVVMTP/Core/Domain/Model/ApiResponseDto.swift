@@ -6,7 +6,13 @@
 //
 
 import Foundation
-struct ApiResponseDto<Element: Codable>: Codable {
+protocol ApiResponseDtoType {
+    associatedtype Element : Codable
+    var returnCode: ReturnCode? { get }
+    var returnMessage: String? { get }
+    var data: Element? { get }
+}
+struct ApiResponseDto<Element: Codable>: Codable, ApiResponseDtoType {
     let returnCode: ReturnCode?
     let returnMessage: String?
     let data: Element?
