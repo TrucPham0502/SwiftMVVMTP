@@ -29,7 +29,6 @@ class MovieDetailViewModel : BaseViewModel<MovieDetailViewModel.Input, MovieDeta
         let viewWillAppear: Driver<Void>
         let openVideo : Driver<EpisodeModel>
         let url : String
-        let pageType : PageType
     }
     struct Output {
         let item: Driver<DataType>
@@ -40,7 +39,7 @@ class MovieDetailViewModel : BaseViewModel<MovieDetailViewModel.Input, MovieDeta
         input.viewWillAppear.flatMap({
             return Observable.deferred({[weak self] () -> Observable<DataType> in
                 guard let _self = self else { return Observable.just(([], "")) }
-                return _self.service.movieDetail(.init(url: input.url), pageType: input.pageType)
+                return _self.service.movieDetail(.init(url: input.url))
             }).trackError(self.errorTracker)
                 .trackActivity(self.activityIndicator)
                 .asDriverOnErrorJustComplete()

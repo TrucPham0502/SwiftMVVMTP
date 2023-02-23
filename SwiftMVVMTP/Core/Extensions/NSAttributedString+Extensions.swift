@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 extension NSAttributedString {
     func size(considering maxWidth: CGFloat = UIScreen.main.bounds.width) -> CGSize {
         let constraintBox = CGSize(width: maxWidth, height: .greatestFiniteMagnitude)

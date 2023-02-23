@@ -7,26 +7,39 @@
 
 import Foundation
 enum VideoTypeResponse : String, Codable {
-    case fileone = "fileone"
+    case m3u8 = "m3u8"
+    case normal = "default"
     case dailymotion = "dailymotion"
-    case fembed = "fembed"
-    case normal = "normal"
     init(from decoder: Decoder) throws {
         self = try VideoTypeResponse(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .normal
     }
 }
-// MARK: - DetailMovieResponse
+
+// MARK: - MovieDetailResponse
 struct MovieDetailResponse: Codable {
-    let episodes: [Episode]?
     let contents: [String]?
+    let episodes: [Episode]?
     // MARK: - Episode
     struct Episode: Codable {
-        let episode: Int?
-        let id: String?
-        let link: String?
+        let dataPostID, dataServer, dataEpisodeSlug: String?
         let isNew: Bool?
-        let type: VideoTypeResponse
+        let dataPosition: DataPosition?
+        let dataEmbed: String?
+        let episode: String?
+
+        enum CodingKeys: String, CodingKey {
+            case dataPostID = "dataPostId"
+            case dataServer, dataEpisodeSlug, isNew, dataPosition, dataEmbed,episode
+        }
+        
+        enum DataPosition: String, Codable {
+            case empty = ""
+            case first = "first"
+            case last = "last"
+        }
     }
-    
-    
 }
+
+
+
+

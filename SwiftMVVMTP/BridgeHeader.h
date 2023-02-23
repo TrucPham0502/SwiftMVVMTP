@@ -7,5 +7,5 @@
 
 #ifndef BridgeHeader_h
 #define BridgeHeader_h
-#import <MBProgressHUD/MBProgressHUD.h>
+//#import <MBProgressHUD/MBProgressHUD.h>
 #endif /* BridgeHeader_h */

@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 import RxSwift
-fileprivate struct ApiMethod {
+struct ApiMethod {
     @propertyWrapper
     struct Post<T : Codable> {
         let url : String
@@ -55,22 +55,24 @@ fileprivate struct ApiMethod {
 }
 
 enum ApiParameter {
-    case url(String)
+    case url(endpoint: String, path: String)
     case parameter(Codable)
 }
 
-struct EmptyResponse : Codable {
+struct Nothing: Codable, Hashable {
+    init() {}
+    static var nothing: Nothing { return .init() }
 }
 
 @resultBuilder
 struct POST<T : Codable> {
     static func buildBlock(_ paramters: ApiParameter...) -> Observable<ApiResponseDto<T>> {
         var url = ""
-        var paramter : Codable = EmptyResponse()
+        var paramter : Codable = Nothing.nothing
         paramters.forEach({
             switch $0 {
-            case .url(let d):
-                url = d
+            case .url(let endpoint, let path):
+                url = "\(endpoint)\(path)"
             case .parameter(let d):
                 paramter = d
             }
@@ -85,11 +87,11 @@ struct POST<T : Codable> {
 struct GET<T : Codable> {
     static func buildBlock(_ paramters: ApiParameter...) -> Observable<ApiResponseDto<T>> {
         var url = ""
-        var paramter : Codable = EmptyResponse()
+        var paramter : Codable = Nothing.nothing
         paramters.forEach({
             switch $0 {
-            case .url(let d):
-                url = d
+            case .url(let endpoint, let path):
+                url = "\(endpoint)\(path)"
             case .parameter(let d):
                 paramter = d
             }

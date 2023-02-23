@@ -190,6 +190,11 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
             self.loadMore(section: indexPath.section)
         }
     }
+    #if os(iOS) && targetEnvironment(macCatalyst)
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollViewDidEndDecelerating(scrollView)
+    }
+    #endif
     
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -207,6 +212,7 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
         }
     }
     
+    
     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         if let cell = self.collectionView.currentCell {
             cell.cellIsOpen(false)
@@ -223,7 +229,6 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
     func navigationToDetail(cell: MovieCollectionViewCell, data: MovieCollectionViewCellModel?, index : Int){
         let titleData = self.titlesItem[index]
         let vc = MovieDetailViewController()
-        vc.pageType = titleData.pageType
         vc.dataRequire = .init(poster: data?.poster, urlPage: data?.url)
         vc.titleView.text = data?.name
         pushToViewController(vc)
@@ -284,7 +289,7 @@ extension MovieHomeViewController : UISearchResultsUpdating {
     
 }
 struct MovieCategory {
-    var urlPage: String?
-    let title : String?
+    var nextPage: Int
+    let title : String
     let pageType : PageType
 }

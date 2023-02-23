@@ -13,7 +13,6 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         vm.viewLogic = self
         return vm
     }
-    var pageType : PageType = .unknown
     struct DetailViewModel {
         let poster : String?
         let urlPage : String?
@@ -201,7 +200,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         guard let url = self.dataRequire?.urlPage else {
             return
         }
-        let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).mapToVoid().asDriverOnErrorJustComplete(), openVideo: self.openVideo.asDriverOnErrorJustComplete(), url: url, pageType: self.pageType))
+        let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).mapToVoid().asDriverOnErrorJustComplete(), openVideo: self.openVideo.asDriverOnErrorJustComplete(), url: url))
         output.item.drive(onNext: { (data, content) in
             self.data = data
             self.contents = content
@@ -232,7 +231,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.view.isHidden = false
-        videoPlayer.videoURL = URL(string: "https://proxy-28.sg1.dailymotion.com/sec(vxZ7tmRVFI2aYs0jV7JU4kvV5sWcUnkZgol91cwYr9Auyg2Ak07d1MQ0tZ1WzkEWFrt0JSS1m6uT7gKDWjSSiw)/video/569/033/492330965_mp4_h264_aac_hq.mp4#cell=sg1")
+        videoPlayer.videoURL = URL(string: "https://hhhkungfu.tv/Dis-m3u8/64DBrXF3hEiqkKrSGZQN7o7tJ2aKtoAuL.m3u8?prx=gps&v=2022")
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -263,7 +262,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     fileprivate func getScreen() -> UIImage? {
         let backImageSize = self.view.bounds.size
         let backImageOrigin = CGPoint(x: 0, y:  0)
-        return view.takeSnapshot(CGRect(origin: backImageOrigin, size: backImageSize))
+        return self.view.takeSnapshot(CGRect(origin: backImageOrigin, size: backImageSize))
     }
 }
 
@@ -287,70 +286,70 @@ extension MovieDetailViewController : UICollectionViewDataSource {
 
 extension MovieDetailViewController : UICollectionViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        let d = self.data[indexPath.row]
-        return UIContextMenuConfiguration(identifier: (d.id ?? "") as NSCopying, previewProvider: {
-            return nil
-        }, actionProvider: { suggestedActions in
-            if let id = d.id {
-                if let videoFromId = RxPlayerHelper.shared.videos[id] {
-                    var resolutions : [VideoResolution] = []
-                    if case let VideoPlayer.dailymotion(v) = videoFromId {
-                        resolutions = v.resolutions
-                    }
-                    else if case let VideoPlayer.fembed(v) = videoFromId {
-                        resolutions = v.resolutions
-                    }
-                    let menu = UIMenu(title: "Select resolution", children: resolutions.map({
-                        UIAction(title: $0.resolution, image: nil, identifier: UIAction.Identifier(rawValue: $0.id)) { action in
-                            switch videoFromId {
-                            case .dailymotion:
-                                RxPlayerHelper.shared.openPlayer(self, videoType: .dailymotion(id: id, resolationId: action.identifier.rawValue), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
-                                    guard let data = d else { return }
-                                    let urls = RxPlayerHelper.shared.getUrl(data)
-                                    self.videoPlayer.videoURL = urls.first
-                                }).disposed(by: self.disposeBag)
-                            case .fembed:
-                                RxPlayerHelper.shared.openPlayer(self, videoType: .fembed(id: id, resolationId: action.identifier.rawValue), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
-                                    guard let data = d else { return }
-                                    let urls = RxPlayerHelper.shared.getUrl(data)
-                                    self.videoPlayer.videoURL = urls.first
-                                }).disposed(by: self.disposeBag)
-                            default: break
-                            }
-                            
-                            
-                        }
-                    }))
-                    return menu
-                }
-                return UIMenu(title: "Menu", children: [
-                    UIAction(title: "Play Video", handler: { _ in
-                        switch d.type {
-                        case .dailymotion:
-                            RxPlayerHelper.shared.openPlayer(self, videoType: .dailymotion(id: id), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
-                                guard let data = d else { return }
-                                let urls = RxPlayerHelper.shared.getUrl(data)
-                                self.videoPlayer.videoURL = urls.first
-                            }).disposed(by: self.disposeBag)
-                        case .fileone:
-                            if let urlString = d.link {
-                                RxPlayerHelper.shared.openPlayer(self, videoType: .fileone(id: id, url: urlString), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
-                                    guard let data = d else { return }
-                                    let urls = RxPlayerHelper.shared.getUrl(data)
-                                    self.videoPlayer.videoURL = urls.first
-                                }).disposed(by: self.disposeBag)
-                            }
-                        default:
-                            break
-                        }
-                        
-                    })
-                ])
-            }
-            return nil
-        })
-    }
+//    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+//        let d = self.data[indexPath.row]
+//        return UIContextMenuConfiguration(identifier: (d.id ?? "") as NSCopying, previewProvider: {
+//            return nil
+//        }, actionProvider: { suggestedActions in
+//            if let id = d.id {
+//                if let videoFromId = RxPlayerHelper.shared.videos[id] {
+//                    var resolutions : [VideoResolution] = []
+//                    if case let VideoPlayer.dailymotion(v) = videoFromId {
+//                        resolutions = v.resolutions
+//                    }
+//                    else if case let VideoPlayer.fembed(v) = videoFromId {
+//                        resolutions = v.resolutions
+//                    }
+//                    let menu = UIMenu(title: "Select resolution", children: resolutions.map({
+//                        UIAction(title: $0.resolution, image: nil, identifier: UIAction.Identifier(rawValue: $0.id)) { action in
+//                            switch videoFromId {
+//                            case .dailymotion:
+//                                RxPlayerHelper.shared.openPlayer(self, videoType: .dailymotion(id: id, resolationId: action.identifier.rawValue), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
+//                                    guard let data = d else { return }
+//                                    let urls = RxPlayerHelper.shared.getUrl(data)
+//                                    self.videoPlayer.videoURL = urls.first
+//                                }).disposed(by: self.disposeBag)
+//                            case .fembed:
+//                                RxPlayerHelper.shared.openPlayer(self, videoType: .fembed(id: id, resolationId: action.identifier.rawValue), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
+//                                    guard let data = d else { return }
+//                                    let urls = RxPlayerHelper.shared.getUrl(data)
+//                                    self.videoPlayer.videoURL = urls.first
+//                                }).disposed(by: self.disposeBag)
+//                            default: break
+//                            }
+//
+//
+//                        }
+//                    }))
+//                    return menu
+//                }
+//                return UIMenu(title: "Menu", children: [
+//                    UIAction(title: "Play Video", handler: { _ in
+//                        switch d.type {
+//                        case .dailymotion:
+//                            RxPlayerHelper.shared.openPlayer(self, videoType: .dailymotion(id: id), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
+//                                guard let data = d else { return }
+//                                let urls = RxPlayerHelper.shared.getUrl(data)
+//                                self.videoPlayer.videoURL = urls.first
+//                            }).disposed(by: self.disposeBag)
+//                        case .fileone:
+//                            if let urlString = d.link {
+//                                RxPlayerHelper.shared.openPlayer(self, videoType: .fileone(id: id, url: urlString), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
+//                                    guard let data = d else { return }
+//                                    let urls = RxPlayerHelper.shared.getUrl(data)
+//                                    self.videoPlayer.videoURL = urls.first
+//                                }).disposed(by: self.disposeBag)
+//                            }
+//                        default:
+//                            break
+//                        }
+//
+//                    })
+//                ])
+//            }
+//            return nil
+//        })
+//    }
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

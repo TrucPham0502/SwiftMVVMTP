@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 extension CGFloat {
     func scaleWidthByScreen() -> CGFloat {
         return self * UIScreen.main.bounds.width / 390

@@ -7,5 +7,5 @@
 
 import Foundation
 struct MovieHomeRequest: Codable {
-    let urlPage: String?
+    let pagenumber: Int?
 }

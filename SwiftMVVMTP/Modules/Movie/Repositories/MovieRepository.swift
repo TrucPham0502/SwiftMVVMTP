@@ -8,15 +8,11 @@
 import Foundation
 import RxSwift
 protocol MovieRepository {
-    func getMovieHome(_ input : MovieHomeRequest,  pageType : PageType) -> Observable<[MovieHomeResponse]>
-    func dailymotionM3u8(_ id : String) ->  Observable<[Any]>
-    func fileOneData(_ input: FileOneRequest) -> Observable<FileOneResponse?>
-    func fembedData(_ id: String) -> Observable<[FembedResponse]>
-    func hhtqEpisode(_ input : HHTQEpisodeRequest) -> Observable<HHTQEpisodeResponse?>
-    func movieDetail(_ input : MovieDetailRequest, pageType : PageType) -> Observable<MovieDetailResponse?>
-}
-extension MovieRepository {
-    func getMovieHome(_ input : MovieHomeRequest) -> Observable<[MovieHomeResponse]> {
-        return getMovieHome(input, pageType: .unknown)
-    }
+    func getMovieHome(_ input : MovieHomeRequest) -> Observable<[MovieHomeResponse]>
+    func dailymotionM3u8(_ url : String) ->  Observable<[Any]>
+//    func fileOneData(_ input: FileOneRequest) -> Observable<FileOneResponse?>
+//    func fembedData(_ id: String) -> Observable<[FembedResponse]>
+//    func hhtqEpisode(_ input : HHTQEpisodeRequest) -> Observable<HHTQEpisodeResponse?>
+    func movieDetail(_ input : MovieDetailRequest) -> Observable<MovieDetailResponse?>
+    func getEpisodeDetail(_ input : EpisodeDetailRequest) -> Observable<EpisodeDetailResponse?>
 }

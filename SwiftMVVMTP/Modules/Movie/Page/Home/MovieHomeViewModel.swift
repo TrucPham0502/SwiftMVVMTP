@@ -10,7 +10,7 @@ import RxCocoa
 import RxSwift
 class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeViewModel.Output> {
     typealias LoadMoreType = (session : Int, data : [MovieCollectionViewCellModel])
-    typealias ItemType = ([MovieCategory], [[MovieCollectionViewCellModel]])
+    typealias ItemType = (titleData: [MovieCategory], data: [[MovieCollectionViewCellModel]])
     @Dependency.Inject
     var service : MovieService
     struct Input  {
@@ -30,7 +30,7 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
         input.viewWillAppear.flatMap({[weak self] _ in
             guard let _self = self else { return Driver.just(([], [])) }
             return Observable.deferred {() ->  Observable<ItemType> in
-                return _self.service.getMovieHome(.init(urlPage: nil))
+                return _self.service.getMovieHome(.init(pagenumber: nil))
             }.trackActivity(_self.activityIndicator)
                 .trackError(_self.errorTracker)
                 .asDriverOnErrorJustComplete()
@@ -40,11 +40,11 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
             return Observable.deferred { [weak self] () ->  Observable<LoadMoreType> in
                 guard let _self = self else {  return Observable.just((section,[])) }
                 let titleData = _self.item.0[section]
-                guard let urlPage = titleData.urlPage, !urlPage.isEmpty, titleData.pageType == .hhkungfu else {
-                    return Observable.just((section,[]))
-                }
-                return _self.service.movieLoadMore(.init(urlPage: urlPage)).flatMap({
-                    return Observable.just((section,$0))
+                return _self.service.movieLoadMore(.init(pagenumber: titleData.nextPage)).do(onNext: {[weak self] data in
+                    guard let _self = self else { return }
+                    _self.item.0[section].nextPage = data.pageNumber
+                }).flatMap({
+                    return Observable.just((section,$0.data))
                 })
             }.trackError(self.errorTracker).asDriverOnErrorJustComplete()
         })

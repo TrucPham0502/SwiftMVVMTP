@@ -11,12 +11,12 @@ class MovieRepositoryImpl : BaseRepository , MovieRepository {
     @Dependency.Inject
     var remoteSource : MovieRemoteSource
     
-    func getMovieHome(_ input: MovieHomeRequest, pageType : PageType) -> Observable<[MovieHomeResponse]> {
-        return remoteSource.getMovieHome(input, pageType: pageType).validResponse()
+    func getMovieHome(_ input: MovieHomeRequest) -> Observable<[MovieHomeResponse]> {
+        return remoteSource.getMovieHome(input).validResponse()
     }
     
-    func dailymotionM3u8(_ id : String) ->  Observable<[Any]> {
-        return remoteSource.dailymotionM3u8(id).validResponse().flatMap({responseString -> Observable<[Any]> in
+    func dailymotionM3u8(_ url : String) ->  Observable<[Any]> {
+        return remoteSource.dailymotionM3u8(url).validResponse().flatMap({responseString -> Observable<[Any]> in
                 var resultArr = [Any]()
                 let tmpStr = "#EXT-X-STREAM-INF:"
                 let ArrayCop = responseString?.components(separatedBy: tmpStr)
@@ -44,16 +44,20 @@ class MovieRepositoryImpl : BaseRepository , MovieRepository {
             })
     }
     
-    func fileOneData(_ input: FileOneRequest) -> Observable<FileOneResponse?> {
-        return remoteSource.fileOneData(input).validResponse()
+//    func fileOneData(_ input: FileOneRequest) -> Observable<FileOneResponse?> {
+//        return remoteSource.fileOneData(input).validResponse()
+//    }
+//    func fembedData(_ id: String) -> Observable<[FembedResponse]> {
+//        return remoteSource.fembedData(id).validResponse()
+//    }
+//    func hhtqEpisode(_ input : HHTQEpisodeRequest) -> Observable<HHTQEpisodeResponse?> {
+//        return remoteSource.hhtqEpisode(input).validResponse()
+//    }
+    func movieDetail(_ input : MovieDetailRequest) -> Observable<MovieDetailResponse?> {
+        return remoteSource.movieDetail(input).validResponse()
     }
-    func fembedData(_ id: String) -> Observable<[FembedResponse]> {
-        return remoteSource.fembedData(id).validResponse()
-    }
-    func hhtqEpisode(_ input : HHTQEpisodeRequest) -> Observable<HHTQEpisodeResponse?> {
-        return remoteSource.hhtqEpisode(input).validResponse()
-    }
-    func movieDetail(_ input : MovieDetailRequest, pageType : PageType) -> Observable<MovieDetailResponse?> {
-        return remoteSource.movieDetail(input, pageType: pageType).validResponse()
+    
+    func getEpisodeDetail(_ input : EpisodeDetailRequest) -> Observable<EpisodeDetailResponse?> {
+        return remoteSource.getEpisodeDetail(input).validResponse()
     }
 }

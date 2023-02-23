@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 class EpisodeCollectionViewCell: UICollectionViewCell {
     lazy var titleView : UILabel = {
         let v = UILabel()
@@ -66,10 +67,4 @@ class EpisodeCollectionViewCell: UICollectionViewCell {
     }
 }
 
-struct EpisodeModel {
-    let episode: Int?
-    let id: String?
-    let link: String?
-    let isNew: Bool?
-    let type: VideoTypeResponse
-}
+

@@ -58,7 +58,8 @@ class ApiRequestManager<O : Codable> {
                     let parseData = try decoder.decode(ApiResponseDto<O>.self, from: data)
                     return Observable.just(parseData)
                 } catch {
-                    return Observable.error(ParseDataError(parseClass: String(describing: O.self), errorMessage: "invalidJSONData"))
+                    print(error.localizedDescription)
+                    return Observable.error(ParseDataError(parseClass: String(describing: O.self), errorMessage: error.localizedDescription))
                 }
         }
         

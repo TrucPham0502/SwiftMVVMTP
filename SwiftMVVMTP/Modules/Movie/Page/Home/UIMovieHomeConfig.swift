@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 public struct UIMovieHomeConfig {
     public var yOffsetItem = CGFloat(40)
     /// Shared instance of configuration.

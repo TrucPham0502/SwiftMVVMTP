@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 extension UIImage {
     func cropToBounds(size : CGSize) -> UIImage {
         let width = size.width

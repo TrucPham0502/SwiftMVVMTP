@@ -11,7 +11,7 @@ class TestModuleRemoteSourceImpl : TestModuleRemoteSource {
     
     @POST<[DataTestResponse]>
     func getDataTest(_ input: DataTestRequest) -> Observable<ApiResponseDto<[DataTestResponse]>> {
-        ApiParameter.url("Constants.host")
+        ApiParameter.url(endpoint: "", path: "Constants.host")
         ApiParameter.parameter(input)
     }
 }
