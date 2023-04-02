@@ -8,7 +8,11 @@
 import Foundation
 import RxSwift
 protocol MovieRemoteSource {
-    func getMovieHome(_ input : MovieHomeRequest) -> Observable<ApiResponseDto<[MovieHomeResponse]>>
+    func getMovies(_ input : MoviesRequest) -> Observable<ApiResponseDto<[MoviesResponse]>>
+    func searchMovies(_ input : SearchMoviesRequest) -> Observable<ApiResponseDto<[MoviesResponse]>>
+    
+    
+    
     func dailymotionM3u8(_ url : String) ->  Observable<ApiResponseDto<String>>
 //    func fileOneData(_ input: FileOneRequest) -> Observable<ApiResponseDto<FileOneResponse>>
 //    func fembedData(_ id: String) -> Observable<ApiResponseDto<[FembedResponse]>>

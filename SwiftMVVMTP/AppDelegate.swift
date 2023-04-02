@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // language
         initLanguage()
         
+        self.window?.rootViewController = MovieHomeViewController()
+        
         return true
     }
     

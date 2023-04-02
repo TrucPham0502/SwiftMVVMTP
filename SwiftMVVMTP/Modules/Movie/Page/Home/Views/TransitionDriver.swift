@@ -197,7 +197,7 @@ extension TransitionDriver {
         self.titleFrame = cell.customTitle.frame
         cell.customTitle.attributedText = textAttr
         if let widthfrontContainer = cell.frontContainerView.getConstraint(.width) {
-            cell.titleConstraintBottom?.constant = cell.customTitle.labelSize(considering:  widthfrontContainer.constant - 50).height + 20
+            cell.titleConstraint.bottom?.constant = cell.customTitle.labelSize(considering:  widthfrontContainer.constant - 50).height + 20
             if let widthTitle = cell.customTitle.getConstraint(.width) {
                 widthTitle.constant = widthfrontContainer.constant - 40
             }
@@ -207,7 +207,7 @@ extension TransitionDriver {
     }
     
     fileprivate func openFrontViewConfigureConstraints(_ cell: MovieCollectionViewCell, height: CGFloat, insets: CGFloat) {
-        guard let frontConstraintY = cell.frontConstraintY else {
+        guard let frontConstraintY = cell.frontConstraint.centerY else {
             return
         }
         if let heightConstraint = cell.frontContainerView.getConstraint(.height) {
@@ -226,7 +226,7 @@ extension TransitionDriver {
     }
 
     fileprivate func openBackViewConfigureConstraints(_ cell: MovieCollectionViewCell, height: CGFloat, insets: CGFloat) {
-        guard let backConstraintY = cell.backConstraintY else {
+        guard let backConstraintY = cell.backConstraint.centerY else {
             return
         }
         if let heightConstraint = cell.backContainerView.getConstraint(.height) {
@@ -244,7 +244,7 @@ extension TransitionDriver {
     }
 
     fileprivate func closeBackViewConfigurationConstraints(_ cell: MovieCollectionViewCell?) {
-        guard let cell = cell, let backConstraintY = cell.backConstraintY else { return }
+        guard let cell = cell, let backConstraintY = cell.backConstraint.centerY else { return }
 
         let heightConstraint = cell.backContainerView.getConstraint(.height)
         heightConstraint?.constant = backViewFrame.size.height
@@ -257,7 +257,7 @@ extension TransitionDriver {
 
     fileprivate func closeTitleViewConfigurationConstraints(_ cell: MovieCollectionViewCell) {
         cell.customTitle.attributedText = self.titleAttribute
-        cell.titleConstraintBottom?.constant = self.titleFrame.origin.y - self.frontViewFrame.height
+        cell.titleConstraint.bottom?.constant = self.titleFrame.origin.y - self.frontViewFrame.height
         if let leadingTitle = cell.customTitle.getConstraint(.leading) {
             leadingTitle.constant = self.titleFrame.origin.x
         }
@@ -267,7 +267,7 @@ extension TransitionDriver {
     }
     
     fileprivate func closeFrontViewConfigurationConstraints(_ cell: MovieCollectionViewCell?) {
-        guard let cell = cell, let frontConstraintY = cell.frontConstraintY else { return }
+        guard let cell = cell, let frontConstraintY = cell.frontConstraint.centerY else { return }
 
         if let heightConstraint = cell.frontContainerView.getConstraint(.height) {
             heightConstraint.constant = frontViewFrame.size.height
@@ -281,7 +281,7 @@ extension TransitionDriver {
     }
 
     fileprivate func configureCellBeforeClose(_ cell: MovieCollectionViewCell, offset: CGFloat) {
-        guard let frontConstraintY = cell.frontConstraintY, let backConstraintY = cell.backConstraintY else {
+        guard let frontConstraintY = cell.frontConstraint.centerY, let backConstraintY = cell.backConstraint.centerY else {
             return
         }
         frontConstraintY.constant -= offset

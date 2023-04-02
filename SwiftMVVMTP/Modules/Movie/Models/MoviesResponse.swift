@@ -15,7 +15,7 @@ enum PageType : String, Codable {
     }
 }
 // MARK: - MovieHomeResponseElement
-struct MovieHomeResponse: Codable {
+struct MoviesResponse: Codable {
     let title: String?
     let nextPage: Int?
     let data: [Datum]?
@@ -27,6 +27,7 @@ struct MovieHomeResponse: Codable {
         let poster: String?
         let name: String?
         let picTag: PicTag?
+        let episode: String?
     }
 
     enum PicTag: String, Codable {

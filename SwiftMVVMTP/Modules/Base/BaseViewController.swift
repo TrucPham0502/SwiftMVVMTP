@@ -24,6 +24,8 @@ class BaseViewController<VM : ViewModelType> : AppBaseViewController {
         super.viewDidLoad()
         self.viewModel = buildViewModel()
         self.performBinding()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -36,6 +38,9 @@ class BaseViewController<VM : ViewModelType> : AppBaseViewController {
     }
     func buildViewModel() -> VM {
         fatalError("can not found View Model of \(String(describing: type(of: self)))")
+    }
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     deinit {

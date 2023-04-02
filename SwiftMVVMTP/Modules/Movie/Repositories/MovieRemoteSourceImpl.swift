@@ -11,11 +11,18 @@ import RxSwift
 class MovieRemoteSourceImpl : MovieRemoteSource {
     let host = Constants.appEndPointUrl + "api/"
     
-    @POST<[MovieHomeResponse]>
-    func getMovieHome(_ input: MovieHomeRequest) -> Observable<ApiResponseDto<[MovieHomeResponse]>> {
+    @POST<[MoviesResponse]>
+    func getMovies(_ input: MoviesRequest) -> Observable<ApiResponseDto<[MoviesResponse]>> {
         ApiParameter.url(endpoint: host, path: "movie/list")
         ApiParameter.parameter(input)
     }
+    
+    @POST<[MoviesResponse]>
+    func searchMovies(_ input : SearchMoviesRequest) -> Observable<ApiResponseDto<[MoviesResponse]>> {
+        ApiParameter.url(endpoint: host, path: "movie/search")
+        ApiParameter.parameter(input)
+    }
+    
     
     
     @GET<String>

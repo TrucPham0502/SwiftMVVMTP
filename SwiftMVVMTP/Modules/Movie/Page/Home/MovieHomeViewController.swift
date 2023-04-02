@@ -19,15 +19,15 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     fileprivate var cellsIsOpen = [[Bool]]()
     fileprivate var transitionDriver : TransitionDriver?
     fileprivate var itemSize = UIMovieHomeConfig.shared.cardsSize
-    private lazy var searchController : UISearchController = {
-        let v = UISearchController(searchResultsController: nil)
-        v.searchResultsUpdater = self
-        v.searchBar.searchBarStyle = .minimal
-        v.searchBar.placeholder = "Search..."
-        v.searchBar.tintColor = .white
-        v.searchBar.clearBackgroundColor()
-        v.searchBar.changePlaceholderColor(.white)
-        v.searchBar.setImageLeftColor(.white)
+    private lazy var searchbar : CustomSearchBar = {
+        let v = CustomSearchBar()
+        v.searchBarStyle = .minimal
+        v.placeholder = "Search..."
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.tintColor = .white
+        v.clearBackgroundColor()
+        v.changePlaceholderColor(.white)
+        v.setImageLeftColor(.white)
         return v
     }()
     
@@ -46,7 +46,7 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
         let v = UIView()
         v.backgroundColor = .clear
         v.clipsToBounds = true
-        v.addSubview(searchController.searchBar)
+        v.addSubview(searchbar)
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
@@ -76,7 +76,7 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     
     override func performBinding() {
         super.performBinding()
-        let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).mapToVoid().asDriverOnErrorJustComplete(), loadMore: self.loadMoreSubject.asDriverOnErrorJustComplete()))
+        let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).mapToVoid(), loadMore: self.loadMoreSubject.asObservable(), searchbar: self.searchbar.textField!.rx.text.orEmpty.asObservable().debounce(.seconds(1), scheduler: MainScheduler.instance)))
         
         output.item.drive(onNext: {[weak self] (titles, item) in
             guard let _self = self else { return }
@@ -103,6 +103,10 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
         //        getData()
         
     }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+    }
     override func prepareUI(){
         self.view.backgroundColor =  .white
         [backgroundImage, glidingView, headerView].forEach{
@@ -119,6 +123,10 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
             headerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
             headerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
             headerView.heightAnchor.constraint(equalToConstant: 60),
+            
+            searchbar.topAnchor.constraint(equalTo: self.headerView.topAnchor),
+            searchbar.leadingAnchor.constraint(equalTo: self.headerView.leadingAnchor, constant: 16),
+            searchbar.trailingAnchor.constraint(equalTo: self.headerView.trailingAnchor, constant: -16),
             
             
             glidingView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 60),
@@ -162,15 +170,12 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
             return
         }
         let section = glidingView.expandedItemIndex
-//        cell.configureCellViewConstraintsWithSize(itemSize)
-        
         let index = indexPath.row % collectionItems[section].count
         let info = collectionItems[section][index]
-        if let url = info.poster {
-            ImageLoader.load(url: url, imageView: cell.backgroundImageView, imageDefault: UIImage(named: "poster_not_found"))
+        if !info.poster.isEmpty {
+            ImageLoader.load(url: info.poster, imageView: cell.backgroundImageView, imageDefault: UIImage(named: "poster_not_found"))
         }
-        cell.customTitle.text = info.name
-        cell.tagView.text = info.tag
+        cell.model = info
         cell.cellIsOpen(cellsIsOpen[section][index], animated: false)
         cell.backViewAction = {_ in
             self.navigationToDetail(cell: cell, data: info, index: section)
@@ -262,34 +267,19 @@ extension MovieHomeViewController: GlidingCollectionDatasource {
     }
     
     func glidingCollection(_ collection: GlidingCollection, itemAtIndex index: Int) -> String {
-        return "– " + (self.titlesItem[index].title ?? "unknown")
+        return "– " + self.titlesItem[index].title
     }
     
     
 }
 extension MovieHomeViewController : GlidingCollectionDelegate {
     func glidingCollection(_ collection: GlidingCollection, didExpandItemAt index: Int) {
-        if let poster = self.collectionItems[index][0].poster {
+        let poster = self.collectionItems[index][0].poster
+        if !poster.isEmpty  {
             ImageLoader.load(url: poster) { image in
                 self.backgroundImage.image = image
             }
         }
         
     }
-}
-
-extension MovieHomeViewController : UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        //        if let section = self.glidingView.expandedItemIndex {
-        //            let data =
-        //        }
-        
-    }
-    
-    
-}
-struct MovieCategory {
-    var nextPage: Int
-    let title : String
-    let pageType : PageType
 }

@@ -9,6 +9,7 @@ import Foundation
 import Alamofire
 import RxSwift
 struct ApiMethod {
+   
     @propertyWrapper
     struct Post<T : Codable> {
         let url : String

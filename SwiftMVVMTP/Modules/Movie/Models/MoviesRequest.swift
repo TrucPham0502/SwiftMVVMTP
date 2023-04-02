@@ -6,6 +6,9 @@
 //
 
 import Foundation
-struct MovieHomeRequest: Codable {
-    let pagenumber: Int?
+struct MoviesRequest: Codable {
+    let page: Int?
+}
+struct SearchMoviesRequest: Codable {
+    let key: String
 }

@@ -11,12 +11,19 @@ class MovieRepositoryImpl : BaseRepository , MovieRepository {
     @Dependency.Inject
     var remoteSource : MovieRemoteSource
     
-    func getMovieHome(_ input: MovieHomeRequest) -> Observable<[MovieHomeResponse]> {
-        return remoteSource.getMovieHome(input).validResponse()
+    func getMovies(_ input: MoviesRequest) -> Observable<[MoviesResponse]> {
+        return remoteSource.getMovies(input).valid()
     }
     
+    func searchMovies(_ input: SearchMoviesRequest) -> Observable<[MoviesResponse]> {
+        return remoteSource.searchMovies(input).valid()
+    }
+    
+    
+    
+    
     func dailymotionM3u8(_ url : String) ->  Observable<[Any]> {
-        return remoteSource.dailymotionM3u8(url).validResponse().flatMap({responseString -> Observable<[Any]> in
+        return remoteSource.dailymotionM3u8(url).valid().flatMap({responseString -> Observable<[Any]> in
                 var resultArr = [Any]()
                 let tmpStr = "#EXT-X-STREAM-INF:"
                 let ArrayCop = responseString?.components(separatedBy: tmpStr)
@@ -54,10 +61,10 @@ class MovieRepositoryImpl : BaseRepository , MovieRepository {
 //        return remoteSource.hhtqEpisode(input).validResponse()
 //    }
     func movieDetail(_ input : MovieDetailRequest) -> Observable<MovieDetailResponse?> {
-        return remoteSource.movieDetail(input).validResponse()
+        return remoteSource.movieDetail(input).valid()
     }
     
     func getEpisodeDetail(_ input : EpisodeDetailRequest) -> Observable<EpisodeDetailResponse?> {
-        return remoteSource.getEpisodeDetail(input).validResponse()
+        return remoteSource.getEpisodeDetail(input).valid()
     }
 }

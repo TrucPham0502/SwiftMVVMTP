@@ -83,6 +83,10 @@ extension UISearchBar {
         }
     }
     
+    func removeRightView(){
+        textField?.rightView = nil
+    }
+    
     func setLeftImage(_ image: UIImage,
                       with padding: CGFloat = 0,
                       tintColor: UIColor) {

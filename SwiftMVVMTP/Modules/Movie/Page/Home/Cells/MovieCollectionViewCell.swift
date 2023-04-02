@@ -8,12 +8,14 @@
 import Foundation
 import UIKit
 struct MovieCollectionViewCellModel {
-    let url : String?
-    let name : String?
-    let poster : String?
-    let tag : String?
+    let url : String
+    let name : String
+    let poster : String
+    let tag : String
+    let episode: String
 }
 class MovieCollectionViewCell : UICollectionViewCell {
+    let titleFont : UIFont = .boldSystemFont(ofSize: 18)
     var yOffset: CGFloat = UIMovieHomeConfig.shared.yOffsetItem
     var contentSize : CGSize = UIMovieHomeConfig.shared.cardsSize
     var ySpacing: CGFloat = CGFloat.greatestFiniteMagnitude
@@ -23,6 +25,21 @@ class MovieCollectionViewCell : UICollectionViewCell {
     var btnDotsAction : () -> () = {}
     var backViewAction : (UIView) -> () = {_ in }
     var frontViewAction : (UIView) -> () = {_ in }
+    
+    var model : MovieCollectionViewCellModel? {
+        didSet {
+            guard let model = model else {
+                return
+            }
+            self.customTitle.text = model.name
+            self.tagView.text = "\(model.episode) (\(model.tag)) "
+            updateConstraintTitle()
+        }
+    }
+    
+    var backConstraint = AppConstants()
+    var frontConstraint = AppConstants()
+    var titleConstraint = AppConstants()
     
     lazy var backContainerView: UIView = {
         let v = UIView(frame: .init(origin: .zero, size: contentSize))
@@ -44,8 +61,6 @@ class MovieCollectionViewCell : UICollectionViewCell {
         return v
     }()
     
-    
-    
     lazy var frontContainerView: UIView = {
         let v = UIView(frame: .init(origin: .zero, size: contentSize))
         v.translatesAutoresizingMaskIntoConstraints = false
@@ -54,23 +69,22 @@ class MovieCollectionViewCell : UICollectionViewCell {
         v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(frontViewTap)))
         return v
     }()
-    
-    
-    var backConstraintY: NSLayoutConstraint?
-    var frontConstraintY: NSLayoutConstraint?
-    var titleConstraintBottom: NSLayoutConstraint?
-    
+   
+    let gradientLayer = CAGradientLayer()
     lazy var backgroundImageView: UIImageView = {
         let v = UIImageView(frame: .init(x: 0, y: 0, width: contentSize.width, height: contentSize.height))
         v.translatesAutoresizingMaskIntoConstraints = false
+        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.7).cgColor]
+        v.layer.addSublayer(gradientLayer)
         return v
     }()
+    
     lazy var customTitle: UILabel = {
         let v = UILabel()
         v.numberOfLines = 2
         v.lineBreakMode = .byTruncatingTail
         v.textColor = .white
-        v.font = .systemFont(ofSize: 20)
+        v.font = titleFont
         v.textAlignment = .center
         v.layer.shadowRadius = 2
         v.layer.shadowOffset = CGSize(width: 0, height: 3)
@@ -97,106 +111,44 @@ class MovieCollectionViewCell : UICollectionViewCell {
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        commonInit()
+        prepareUI()
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        commonInit()
+        prepareUI()
     }
-    fileprivate func commonInit() {
+    fileprivate func prepareUI() {
         configurationViews()
         shadowView = createShadowViewOnView(frontContainerView)
     }
     
-    @objc func dotsTap(_ sender : Any?){
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        gradientLayer.frame.size = self.frontContainerView.frame.size
+    }
+    
+    @objc private func dotsTap(_ sender : Any?){
         btnDotsAction()
     }
-    @objc func backViewTap(_ sender : Any?){
+    @objc private func backViewTap(_ sender : Any?){
         backViewAction(self.backContainerView)
     }
-    @objc func frontViewTap(_ sender : Any?){
+    @objc private func frontViewTap(_ sender : Any?){
         frontViewAction(self.frontContainerView)
     }
-}
-
-extension MovieCollectionViewCell {
     
-    /**
-     Open or close cell.
-     */
-    public func cellIsOpen(_ isOpen: Bool, animated: Bool = true) {
-        guard let frontConstraintY = frontConstraintY, let backConstraintY = backConstraintY else  {
-            return
-        }
-        if isOpen == isOpened { return }
-        
-        if ySpacing == .greatestFiniteMagnitude {
-            frontConstraintY.constant = isOpen == true ? -frontContainerView.bounds.size.height / 6 : 0
-            backConstraintY.constant = isOpen == true ? frontContainerView.bounds.size.height / 6 - yOffset / 2 : 0
-        } else {
-            frontConstraintY.constant = isOpen == true ? -ySpacing / 2 : 0
-            backConstraintY.constant = isOpen == true ? ySpacing / 2 : 0
-        }
-        
-        if let widthConstant = backContainerView.getConstraint(.width) {
-            if additionalWidth == .greatestFiniteMagnitude {
-                widthConstant.constant = isOpen == true ? frontContainerView.bounds.size.width + yOffset : frontContainerView.bounds.size.width
-            } else {
-                widthConstant.constant = isOpen == true ? frontContainerView.bounds.size.width + additionalWidth : frontContainerView.bounds.size.width
-            }
-        }
-        
-        if let heightConstant = backContainerView.getConstraint(.height) {
-            if additionalHeight == .greatestFiniteMagnitude {
-                heightConstant.constant = isOpen == true ? frontContainerView.bounds.size.height + yOffset : frontContainerView.bounds.size.height
-            } else {
-                heightConstant.constant = isOpen == true ? frontContainerView.bounds.size.height + additionalHeight : frontContainerView.bounds.size.height
-            }
-        }
-        //title
-        
-        self.customTitle.textColor = isOpen ? .darkGray.withAlphaComponent(0.7) : .white
-        let titleFont : UIFont = isOpen ? .systemFont(ofSize: 11) : .systemFont(ofSize: 20)
-        self.customTitle.font = titleFont
-        titleConstraintBottom?.constant = isOpen ?  NSAttributedString(string: self.customTitle.text ?? "", attributes: [.font : titleFont]).size(considering: self.frontContainerView.bounds.size.width - 16).height + 15 : -15
-        
-        
-        
-        
-        
-        
-        isOpened = isOpen
-        
-        if animated == true {
-            UIView.animate(withDuration: 0.3, delay: 0, options: UIView.AnimationOptions(), animations: {
-                self.contentView.layoutIfNeeded()
-                
-            }, completion: nil)
-        } else {
-            contentView.layoutIfNeeded()
+    fileprivate func updateConstraintTitle(){
+        if let titleTop = self.titleConstraint.top, let model = model {
+            titleTop.constant = !isOpened ? -NSAttributedString(string: model.name, attributes: [.font : self.titleFont]).size(considering: self.frontContainerView.frame.size.width - 32).height - 15 : 20
         }
     }
-}
-
-// MARK: Configuration
-
-extension MovieCollectionViewCell {
-    
-    fileprivate func configurationViews() {
+    private func configurationViews() {
         self.contentView.backgroundColor = .clear
-        [backContainerView, frontContainerView, customTitle].forEach({
-            self.contentView.addSubview($0)
-        })
+        [backContainerView, frontContainerView, customTitle].forEach(self.contentView.addSubview)
         
-        [backgroundImageView].forEach({
-            self.frontContainerView.addSubview($0)
-        })
+        [backgroundImageView].forEach(self.frontContainerView.addSubview)
         
-        [dotImage, tagView].forEach({
-            self.backContainerView.addSubview($0)
-        })
+        [dotImage, tagView].forEach(self.backContainerView.addSubview)
         
         constraints()
         
@@ -206,33 +158,14 @@ extension MovieCollectionViewCell {
     
     
     func constraints(){
+        backConstraint = .init(width: backContainerView.widthAnchor.constraint(equalToConstant: contentSize.width), height: backContainerView.heightAnchor.constraint(equalToConstant: contentSize.height), centerX:  backContainerView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor), centerY: self.backContainerView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor))
+
         
+        frontConstraint = .init(width: frontContainerView.widthAnchor.constraint(equalToConstant: contentSize.width), height: frontContainerView.heightAnchor.constraint(equalToConstant: contentSize.height), centerX: frontContainerView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor), centerY: self.frontContainerView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor))
+            
+        titleConstraint = .init(top: customTitle.topAnchor.constraint(equalTo: self.frontContainerView.bottomAnchor, constant: 0), width: customTitle.widthAnchor.constraint(equalToConstant: self.frontContainerView.bounds.size.width - 16), centerX: customTitle.centerXAnchor.constraint(equalTo: self.frontContainerView.centerXAnchor, constant: 0))
         
-        self.backConstraintY = self.backContainerView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor)
-        self.frontConstraintY = self.frontContainerView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor)
-        self.titleConstraintBottom = customTitle.bottomAnchor.constraint(equalTo: self.frontContainerView.bottomAnchor, constant: -15)
-        
-        
-        
-        NSLayoutConstraint.activate([
-            backConstraintY!,
-            backContainerView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor),
-            backContainerView.widthAnchor.constraint(equalToConstant: contentSize.width),
-            backContainerView.heightAnchor.constraint(equalToConstant: contentSize.height),
-            
-            frontConstraintY!,
-            frontContainerView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor),
-            frontContainerView.widthAnchor.constraint(equalToConstant: contentSize.width),
-            frontContainerView.heightAnchor.constraint(equalToConstant: contentSize.height),
-            
-            
-            titleConstraintBottom!,
-            customTitle.centerXAnchor.constraint(equalTo: self.frontContainerView.centerXAnchor, constant: 0),
-            customTitle.widthAnchor.constraint(equalToConstant: self.frontContainerView.bounds.size.width - 16),
-            
-            
-            
-        ])
+            [backConstraint,frontConstraint,titleConstraint].forEach{$0.active()}
         
         guard let backgroundImageViewSuperView = self.backgroundImageView.superview, let dotImageSuperView = self.dotImage.superview else {
             return
@@ -259,9 +192,8 @@ extension MovieCollectionViewCell {
     
     
     
-    fileprivate func createShadowViewOnView(_ view: UIView?) -> UIView? {
+    private func createShadowViewOnView(_ view: UIView?) -> UIView? {
         guard let view = view else { return nil }
-        
         let shadow = UIView(frame: .zero)
         shadow.backgroundColor = UIColor(white: 0, alpha: 0)
         shadow.translatesAutoresizingMaskIntoConstraints = false
@@ -310,6 +242,52 @@ extension MovieCollectionViewCell {
         
     }
 }
+
+extension MovieCollectionViewCell {
+    func cellIsOpen(_ isOpen: Bool, animated: Bool = true) {
+        guard let frontConstraintY = frontConstraint.centerY, let backConstraintY = backConstraint.centerY else  {
+            return
+        }
+        if isOpen == isOpened { return }
+        
+        if ySpacing == .greatestFiniteMagnitude {
+            frontConstraintY.constant = isOpen ? -frontContainerView.bounds.size.height / 6 : 0
+            backConstraintY.constant = isOpen ? frontContainerView.bounds.size.height / 6 - yOffset / 2 : 0
+        } else {
+            frontConstraintY.constant = isOpen ? -ySpacing / 2 : 0
+            backConstraintY.constant = isOpen ? ySpacing / 2 : 0
+        }
+        
+        if let widthConstant = backContainerView.getConstraint(.width) {
+            if additionalWidth == .greatestFiniteMagnitude {
+                widthConstant.constant = isOpen ? frontContainerView.bounds.size.width + yOffset : frontContainerView.bounds.size.width
+            } else {
+                widthConstant.constant = isOpen ? frontContainerView.bounds.size.width + additionalWidth : frontContainerView.bounds.size.width
+            }
+        }
+        
+        if let heightConstant = backContainerView.getConstraint(.height) {
+            if additionalHeight == .greatestFiniteMagnitude {
+                heightConstant.constant = isOpen ? frontContainerView.bounds.size.height + yOffset : frontContainerView.bounds.size.height
+            } else {
+                heightConstant.constant = isOpen ? frontContainerView.bounds.size.height + additionalHeight : frontContainerView.bounds.size.height
+            }
+        }
+        isOpened = isOpen
+        updateConstraintTitle()
+        if animated == true {
+            UIView.animate(withDuration: 0.3, delay: 0, options: UIView.AnimationOptions(), animations: {
+                self.customTitle.textColor = isOpen ? .darkGray.withAlphaComponent(0.7) : .white
+                self.customTitle.transform = !isOpen ? .init(scaleX: 1, y: 1) : .init(scaleX: 0.8, y: 0.8)
+                self.contentView.layoutIfNeeded()
+            }, completion: nil)
+        } else {
+            contentView.layoutIfNeeded()
+        }
+    }
+}
+
+
 
 // MARK: NSCoding
 

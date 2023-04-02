@@ -12,6 +12,19 @@ import RxSwift
 
 class ApiRequestManager<O : Codable> {
      let manager : Session = Alamofire.Session.default
+    func signature(data: Encodable, nonce : String, timestamp: String) -> String {
+        var dic = (try? data.asDictionary()) ?? [:]
+        dic["nonce"] = nonce
+        dic["timestamp"] = timestamp
+        let sort = dic.sorted { d1, d2 in
+            d1.key < d2.key
+        }
+        return sort.reduce("", { partialResult, item in
+            var res = partialResult
+            res += "\(item.key)=\(item.value)"
+            return res
+        })
+    }
     func request(
         _ method: HTTPMethod,
         _ url: String,
@@ -34,7 +47,13 @@ class ApiRequestManager<O : Codable> {
 //        }else{
 //            p = parameters!
 //        }
-        
+        var headers : HTTPHeaders = headers ?? [:]
+        let nonce = "sdsdsd"
+        let timestamp =  "\(Int(Date().timeIntervalSince1970))"
+        let signClient = self.signature(data: parameters!, nonce: nonce, timestamp: timestamp).hmacSHA512(key: "SIGNATURE_KEY_SECRECT") ?? ""
+        headers.add(name: "X-Auth-Signature", value: signClient)
+        headers.add(name: "X-Auth-Nonce", value: nonce)
+        headers.add(name: "X-Auth-Timestamp", value: timestamp)
         return self.manager.rx
             .request(method, url, parameters: parameters?.dictionary ?? [:], encoding: encoding, headers: headers)
             .flatMap {d in

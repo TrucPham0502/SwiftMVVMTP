@@ -8,7 +8,11 @@
 import Foundation
 import RxSwift
 protocol MovieRepository {
-    func getMovieHome(_ input : MovieHomeRequest) -> Observable<[MovieHomeResponse]>
+    func getMovies(_ input : MoviesRequest) -> Observable<[MoviesResponse]>
+    func searchMovies(_ input : SearchMoviesRequest) -> Observable<[MoviesResponse]>
+    
+    
+    
     func dailymotionM3u8(_ url : String) ->  Observable<[Any]>
 //    func fileOneData(_ input: FileOneRequest) -> Observable<FileOneResponse?>
 //    func fembedData(_ id: String) -> Observable<[FembedResponse]>
