@@ -62,9 +62,9 @@ extension TransitionDriver {
         configurateCell(copyView, backImage: backImage)
         backImageView = addImageToView(copyView.backContainerView, image: backImage)
 
-        openBackViewConfigureConstraints(copyView, height: headerHeight, insets: insets)
-        openFrontViewConfigureConstraints(copyView, height: headerHeight, insets: insets)
-        openTitleViewConfigureConstraints(copyView, textAttr: titleAttr)
+        openBackViewConfigureConstraints(copyView)
+        openFrontViewConfigureConstraints(copyView)
+        openTitleViewConfigureConstraints(copyView)
         
 
         // corner animation
@@ -128,17 +128,28 @@ extension TransitionDriver {
     }
 
     fileprivate func configurateCell(_ cell: MovieCollectionViewCell, backImage _: UIImage?) {
-        cell.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(cell)
-
+        cell.backContainerView.backgroundColor = .clear
+        cell.gradientLayer.isHidden = true
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame.size = view.bounds.size
+        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.7).cgColor, UIColor.black.withAlphaComponent(0.8).cgColor,UIColor.black.cgColor, UIColor.black.cgColor, UIColor.black.cgColor, UIColor.black.cgColor]
+        cell.backContainerView.layer.addSublayer(gradientLayer)
+        cell.contentView.bringSubviewToFront(cell.backContainerView)
+        cell.contentView.bringSubviewToFront(cell.customTitle)
+        
+        cell.customTitle.textAlignment = .left
+        cell.customTitle.font = .boldSystemFont(ofSize: 20)
+        
+//       cell.translatesAutoresizingMaskIntoConstraints = false
         // add constraints
-        NSLayoutConstraint.activate([
-            cell.widthAnchor.constraint(equalToConstant: cell.bounds.size.width),
-            cell.heightAnchor.constraint(equalToConstant: cell.bounds.size.height),
-            cell.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            cell.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        ])
-        cell.layoutIfNeeded()
+//        NSLayoutConstraint.activate([
+//            cell.widthAnchor.constraint(equalToConstant: cell.bounds.size.width),
+//            cell.heightAnchor.constraint(equalToConstant: cell.bounds.size.height),
+//            cell.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            cell.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+//        ])
+//        cell.layoutIfNeeded()
        
     }
 
@@ -192,13 +203,12 @@ extension TransitionDriver {
 
 extension TransitionDriver {
 
-    fileprivate func openTitleViewConfigureConstraints(_ cell: MovieCollectionViewCell, textAttr : NSAttributedString) {
+    fileprivate func openTitleViewConfigureConstraints(_ cell: MovieCollectionViewCell) {
         self.titleAttribute = cell.customTitle.attributedText
         self.titleFrame = cell.customTitle.frame
-        cell.customTitle.attributedText = textAttr
-        if let widthfrontContainer = cell.frontContainerView.getConstraint(.width) {
-            cell.titleConstraint.bottom?.constant = cell.customTitle.labelSize(considering:  widthfrontContainer.constant - 50).height + 20
-            if let widthTitle = cell.customTitle.getConstraint(.width) {
+        if let widthfrontContainer = cell.frontConstraint.width {
+            cell.titleConstraint.top?.constant = -250
+            if let widthTitle = cell.titleConstraint.width {
                 widthTitle.constant = widthfrontContainer.constant - 40
             }
         }
@@ -206,41 +216,47 @@ extension TransitionDriver {
         
     }
     
-    fileprivate func openFrontViewConfigureConstraints(_ cell: MovieCollectionViewCell, height: CGFloat, insets: CGFloat) {
+    fileprivate func openFrontViewConfigureConstraints(_ cell: MovieCollectionViewCell) {
         guard let frontConstraintY = cell.frontConstraint.centerY else {
             return
         }
-        if let heightConstraint = cell.frontContainerView.getConstraint(.height) {
+        let width = view.bounds.size.width
+        let height = width * cell.frontContainerView.frame.height / cell.frontContainerView.frame.width
+        if let heightConstraint = cell.frontConstraint.height {
             frontViewFrame.size.height = heightConstraint.constant
             heightConstraint.constant = height
         }
-
-        if let widthConstraint = cell.frontContainerView.getConstraint(.width) {
+        
+        if let widthConstraint = cell.frontConstraint.width {
             frontViewFrame.size.width = widthConstraint.constant
-            widthConstraint.constant = view.bounds.size.width
+            widthConstraint.constant = width
         }
 
         frontViewFrame.origin.y = frontConstraintY.constant
-        frontConstraintY.constant = -view.bounds.size.height / 2 + height / 2 + insets
+        frontConstraintY.constant = -(view.bounds.size.height - height) / 2
        
     }
 
-    fileprivate func openBackViewConfigureConstraints(_ cell: MovieCollectionViewCell, height: CGFloat, insets: CGFloat) {
+    fileprivate func openBackViewConfigureConstraints(_ cell: MovieCollectionViewCell) {
         guard let backConstraintY = cell.backConstraint.centerY else {
             return
         }
-        if let heightConstraint = cell.backContainerView.getConstraint(.height) {
+        
+        let height = view.bounds.size.height
+        let width = view.bounds.size.width
+        if let heightConstraint = cell.backConstraint.height {
             backViewFrame.size.height = heightConstraint.constant
-            heightConstraint.constant = view.bounds.size.height - height
+            heightConstraint.constant = height
         }
 
-        if let widthConstraint = cell.backContainerView.getConstraint(.width) {
+        if let widthConstraint = cell.backConstraint.width {
             backViewFrame.size.width = widthConstraint.constant
-            widthConstraint.constant = view.bounds.size.width
+            widthConstraint.constant = width
         }
 
         backViewFrame.origin.y = backConstraintY.constant
-    backConstraintY.constant = view.bounds.size.height / 2 - (view.bounds.size.height - height) / 2 + insets
+        backConstraintY.constant = 0
+        
     }
 
     fileprivate func closeBackViewConfigurationConstraints(_ cell: MovieCollectionViewCell?) {
