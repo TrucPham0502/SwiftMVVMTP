@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 struct MovieCollectionViewCellModel {
     let url : String
+    var posterImage: UIImage?
     let name : String
     let poster : String
     let tag : String
@@ -39,7 +40,7 @@ class MovieCollectionViewCell : UICollectionViewCell {
     
     var backConstraint = AppConstants()
     var frontConstraint = AppConstants()
-    var titleConstraint = AppConstants()
+    private var titleConstraint = AppConstants()
     
     lazy var backContainerView: UIView = {
         let v = UIView(frame: .init(origin: .zero, size: contentSize))
@@ -74,7 +75,6 @@ class MovieCollectionViewCell : UICollectionViewCell {
     lazy var backgroundImageView: UIImageView = {
         let v = UIImageView(frame: .init(x: 0, y: 0, width: contentSize.width, height: contentSize.height))
         v.translatesAutoresizingMaskIntoConstraints = false
-        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.7).cgColor]
         v.layer.addSublayer(gradientLayer)
         return v
     }()
@@ -124,8 +124,10 @@ class MovieCollectionViewCell : UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        gradientLayer.frame.size = self.frontContainerView.frame.size
+        gradientLayer.frame.size = self.backgroundImageView.frame.size
+        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.7).cgColor]
     }
+    
     
     @objc private func dotsTap(_ sender : Any?){
         btnDotsAction()
@@ -138,8 +140,10 @@ class MovieCollectionViewCell : UICollectionViewCell {
     }
     
     fileprivate func updateConstraintTitle(){
-        if let titleTop = self.titleConstraint.top, let model = model {
-            titleTop.constant = !isOpened ? -NSAttributedString(string: model.name, attributes: [.font : self.titleFont]).size(considering: self.frontContainerView.frame.size.width - 32).height - 15 : 20
+        if let centerY = self.titleConstraint.centerY, let model = model, let heightFront = self.frontConstraint.height {
+            let textSize = NSAttributedString(string: model.name, attributes: [.font : self.titleFont]).size(considering: self.frontContainerView.frame.size.width - 32)
+            let defaultPadding : CGFloat = 100
+            centerY.constant = isOpened ? (heightFront.constant + textSize.height ) / 2 + 15 : defaultPadding
         }
     }
     private func configurationViews() {
@@ -163,23 +167,20 @@ class MovieCollectionViewCell : UICollectionViewCell {
         
         frontConstraint = .init(width: frontContainerView.widthAnchor.constraint(equalToConstant: contentSize.width), height: frontContainerView.heightAnchor.constraint(equalToConstant: contentSize.height), centerX: frontContainerView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor), centerY: self.frontContainerView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor))
             
-        titleConstraint = .init(top: customTitle.topAnchor.constraint(equalTo: self.frontContainerView.bottomAnchor, constant: 0), width: customTitle.widthAnchor.constraint(equalToConstant: self.frontContainerView.bounds.size.width - 16), centerX: customTitle.centerXAnchor.constraint(equalTo: self.frontContainerView.centerXAnchor, constant: 0))
+        titleConstraint = .init(width: customTitle.widthAnchor.constraint(equalToConstant: self.frontContainerView.bounds.size.width - 16), centerX: customTitle.centerXAnchor.constraint(equalTo: self.frontContainerView.centerXAnchor, constant: 0), centerY: self.customTitle.centerYAnchor.constraint(equalTo: self.frontContainerView.centerYAnchor))
         
             [backConstraint,frontConstraint,titleConstraint].forEach{$0.active()}
         
-        guard let backgroundImageViewSuperView = self.backgroundImageView.superview, let dotImageSuperView = self.dotImage.superview else {
-            return
-        }
         NSLayoutConstraint.activate([
-            backgroundImageView.topAnchor.constraint(equalTo: backgroundImageViewSuperView.topAnchor),
-            backgroundImageView.leadingAnchor.constraint(equalTo: backgroundImageViewSuperView.leadingAnchor),
-            backgroundImageView.trailingAnchor.constraint(equalTo: backgroundImageViewSuperView.trailingAnchor),
-            backgroundImageView.bottomAnchor.constraint(equalTo: backgroundImageViewSuperView.bottomAnchor),
+            backgroundImageView.topAnchor.constraint(equalTo: self.frontContainerView.topAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: self.frontContainerView.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: self.frontContainerView.trailingAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: self.frontContainerView.bottomAnchor),
             
             
             
-            dotImage.bottomAnchor.constraint(equalTo: dotImageSuperView.bottomAnchor, constant: -15),
-            dotImage.trailingAnchor.constraint(equalTo: dotImageSuperView.trailingAnchor, constant: -20),
+            dotImage.bottomAnchor.constraint(equalTo: self.backContainerView.bottomAnchor, constant: -15),
+            dotImage.trailingAnchor.constraint(equalTo: self.backContainerView.trailingAnchor, constant: -20),
             dotImage.heightAnchor.constraint(equalToConstant: 19),
             dotImage.widthAnchor.constraint(equalToConstant: 4),
             
@@ -277,7 +278,7 @@ extension MovieCollectionViewCell {
         updateConstraintTitle()
         if animated == true {
             UIView.animate(withDuration: 0.3, delay: 0, options: UIView.AnimationOptions(), animations: {
-                self.customTitle.textColor = isOpen ? .darkGray.withAlphaComponent(0.7) : .white
+                self.customTitle.textColor = isOpen ? .black.withAlphaComponent(0.7) : .white
                 self.customTitle.transform = !isOpen ? .init(scaleX: 1, y: 1) : .init(scaleX: 0.8, y: 0.8)
                 self.contentView.layoutIfNeeded()
             }, completion: nil)

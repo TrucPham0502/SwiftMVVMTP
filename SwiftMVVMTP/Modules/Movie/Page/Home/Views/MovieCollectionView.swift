@@ -28,7 +28,6 @@ extension MovieCollectionView {
         collectionView.delegate = delegate
         collectionView.backgroundColor = UIColor(white: 0, alpha: 0)
         collectionView.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: MovieCollectionViewCell.self))
-        
         return collectionView
     }
     

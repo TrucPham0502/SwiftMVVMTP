@@ -19,6 +19,13 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     }
     fileprivate var scrollOffsetY: CGFloat = 0
     var dataRequire : DetailViewModel?
+    var placeHolderImage : UIImage? {
+        didSet {
+            self.backgroundImage.image = placeHolderImage
+            guard let placeHolderImage = placeHolderImage else { return }
+            self.backgroundImage.frame = .init(origin: .zero, size: .init(width: self.view.bounds.width, height: self.view.bounds.width *  placeHolderImage.size.height / placeHolderImage.size.width))
+        }
+    }
     var headerHeight: CGFloat = 300
     var transitionDriver: TransitionDriver?
     var heightCollectionView : NSLayoutConstraint?
@@ -31,7 +38,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     private lazy var scrollView : UIScrollView = {
         let v = UIScrollView()
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.backgroundColor = .white
+        v.backgroundColor = .clear
         v.showsVerticalScrollIndicator = false
         v.showsHorizontalScrollIndicator = false
         v.contentInsetAdjustmentBehavior = .never
@@ -43,21 +50,21 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     
     private lazy var containerView : UIView = {
         let v = UIView()
-        v.backgroundColor = .white
+        v.backgroundColor = .clear
         v.translatesAutoresizingMaskIntoConstraints = false
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame.size = view.bounds.size
+        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.7).cgColor, UIColor.black.withAlphaComponent(0.8).cgColor,
+                                UIColor.black.cgColor,
+                                UIColor.black.cgColor,
+                                UIColor.black.cgColor]
+        v.layer.addSublayer(gradientLayer)
         return v
     }()
     
     private lazy var backgroundImage : UIImageView = {
-        let v = UIImageView(frame: .init(origin: .zero, size: UIScreen.main.bounds.size))
-        v.contentMode = .scaleAspectFill
+        let v = UIImageView()
         v.clipsToBounds = true
-        v.translatesAutoresizingMaskIntoConstraints = false
-        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = view.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        v.addSubview(blurEffectView)
         return v
     }()
     
@@ -130,17 +137,17 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        prepareUI()
         
     }
     
     
     override func prepareUI() {
         super.prepareUI()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .red
         self.view.isHidden = true
-        self.view.addSubview(scrollView)
-        self.view.addSubview(videoPlayer)
-        self.view.addSubview(closeImage)
+//        self.view.addSubview(videoPlayer)
+        [backgroundImage, scrollView, closeImage].forEach(self.view.addSubview)
         self.scrollView.addSubview(containerView)
         [collectionViewEpisode, titleView,contentView].forEach({self.containerView.addSubview($0)})
         
@@ -152,13 +159,14 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             self.scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+
             
-            
-            self.containerView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: headerHeight),
+            self.containerView.topAnchor.constraint(equalTo: self.scrollView.topAnchor),
             self.containerView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor),
             self.containerView.trailingAnchor.constraint(equalTo: self.scrollView.trailingAnchor),
             self.containerView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor),
             self.containerView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor),
+            
             //            self.containerView.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor),
            
             closeImage.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
@@ -166,20 +174,20 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             closeImage.heightAnchor.constraint(equalToConstant: 30),
             closeImage.widthAnchor.constraint(equalToConstant: 30),
             
-            titleView.topAnchor.constraint(equalTo: self.containerView.topAnchor, constant: 20),
-            titleView.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 25),
-            titleView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -25),
+//            titleView.topAnchor.constraint(equalTo: self.containerView.topAnchor, constant: 20),
+//            titleView.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 25),
+//            titleView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -25),
             
             
-            collectionViewEpisode.topAnchor.constraint(equalTo: self.titleView.bottomAnchor, constant: 20),
-            collectionViewEpisode.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 25),
-            collectionViewEpisode.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -25),
-            heightCollectionView!,
-            
-            contentView.topAnchor.constraint(equalTo: self.collectionViewEpisode.bottomAnchor, constant: 10),
-            contentView.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 20),
-            contentView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -20),
-            contentView.bottomAnchor.constraint(equalTo: self.containerView.bottomAnchor, constant: -50),
+//            collectionViewEpisode.topAnchor.constraint(equalTo: self.titleView.bottomAnchor, constant: 20),
+//            collectionViewEpisode.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 25),
+//            collectionViewEpisode.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -25),
+//            heightCollectionView!,
+//
+//            contentView.topAnchor.constraint(equalTo: self.collectionViewEpisode.bottomAnchor, constant: 10),
+//            contentView.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 20),
+//            contentView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -20),
+//            contentView.bottomAnchor.constraint(equalTo: self.containerView.bottomAnchor, constant: -50),
             
         ])
         if let poster = dataRequire?.poster {
@@ -197,27 +205,27 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     
     override func performBinding() {
         super.performBinding()
-        guard let url = self.dataRequire?.urlPage else {
-            return
-        }
-        let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).mapToVoid().asDriverOnErrorJustComplete(), openVideo: self.openVideo.asDriverOnErrorJustComplete(), url: url))
-        output.item.drive(onNext: { (data, content) in
-            self.data = data
-            self.contents = content
-            if !self.contents.isEmpty {
-                let titleAttr = NSAttributedString(string: "Overview:\n", attributes: [.font : UIFont.systemFont(ofSize: 18), .foregroundColor : UIColor.black]).setSpaceLines(8)
-                let attr = NSAttributedString(string: self.contents, attributes: [.font : UIFont.systemFont(ofSize: 15), .foregroundColor : UIColor.darkGray]).setSpaceLines()
-                let mutableAttr = NSMutableAttributedString(attributedString: titleAttr)
-                mutableAttr.append(attr)
-                self.contentView.attributedText = mutableAttr
-            }
-            self.heightCollectionView?.constant = self.getSizeCollectionView()
-            self.collectionViewEpisode.reloadData()
-        }).disposed(by: self.disposeBag)
-        
-        output.openVideo.drive(onNext: {[weak self] url in
-            self?.videoPlayer.videoURL = url
-        }).disposed(by: self.disposeBag)
+//        guard let url = self.dataRequire?.urlPage else {
+//            return
+//        }
+//        let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).mapToVoid().asDriverOnErrorJustComplete(), openVideo: self.openVideo.asDriverOnErrorJustComplete(), url: url))
+//        output.item.drive(onNext: { (data, content) in
+//            self.data = data
+//            self.contents = content
+//            if !self.contents.isEmpty {
+//                let titleAttr = NSAttributedString(string: "Overview:\n", attributes: [.font : UIFont.systemFont(ofSize: 18), .foregroundColor : UIColor.black]).setSpaceLines(8)
+//                let attr = NSAttributedString(string: self.contents, attributes: [.font : UIFont.systemFont(ofSize: 15), .foregroundColor : UIColor.darkGray]).setSpaceLines()
+//                let mutableAttr = NSMutableAttributedString(attributedString: titleAttr)
+//                mutableAttr.append(attr)
+//                self.contentView.attributedText = mutableAttr
+//            }
+//            self.heightCollectionView?.constant = self.getSizeCollectionView()
+//            self.collectionViewEpisode.reloadData()
+//        }).disposed(by: self.disposeBag)
+//
+//        output.openVideo.drive(onNext: {[weak self] url in
+//            self?.videoPlayer.videoURL = url
+//        }).disposed(by: self.disposeBag)
     }
     
     func getSizeCollectionView() -> CGFloat {

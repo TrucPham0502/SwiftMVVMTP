@@ -31,3 +31,24 @@ class AppConstants {
         [self.left, self.right, self.bottom, self.top, self.width, self.height, self.centerX, self.centerY].forEach({ $0?.isActive = true})
     }
 }
+
+struct SaveContraint {
+    let left : CGFloat?
+    let right: CGFloat?
+    let top : CGFloat?
+    let bottom : CGFloat?
+    let centerX : CGFloat?
+    let centerY : CGFloat?
+    let height : CGFloat?
+    let width : CGFloat?
+    init(_ constraint: AppConstants? = nil){
+        self.left = constraint?.left?.constant
+        self.right = constraint?.right?.constant
+        self.top = constraint?.top?.constant
+        self.bottom = constraint?.bottom?.constant
+        self.centerX = constraint?.centerX?.constant
+        self.centerY = constraint?.centerY?.constant
+        self.height = constraint?.height?.constant
+        self.width = constraint?.width?.constant
+    }
+}

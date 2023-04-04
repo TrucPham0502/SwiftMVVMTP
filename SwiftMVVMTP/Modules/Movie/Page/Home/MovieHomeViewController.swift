@@ -172,8 +172,12 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
         let section = glidingView.expandedItemIndex
         let index = indexPath.row % collectionItems[section].count
         let info = collectionItems[section][index]
+        if let pImage = info.posterImage { cell.backgroundImageView.image = pImage }
         if !info.poster.isEmpty {
-            ImageLoader.load(url: info.poster, imageView: cell.backgroundImageView, imageDefault: UIImage(named: "poster_not_found"))
+            ImageLoader.load(url: info.poster, imageView: cell.backgroundImageView, imageDefault: UIImage(named: "poster_not_found")) {[weak self] image in
+                guard let self = self else { return }
+                self.collectionItems[section][index].posterImage = image
+            }
         }
         cell.model = info
         cell.cellIsOpen(cellsIsOpen[section][index], animated: false)
@@ -232,21 +236,23 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
     }
     
     func navigationToDetail(cell: MovieCollectionViewCell, data: MovieCollectionViewCellModel?, index : Int){
-        let titleData = self.titlesItem[index]
+//        let titleData = self.titlesItem[index]
         let vc = MovieDetailViewController()
         vc.dataRequire = .init(poster: data?.poster, urlPage: data?.url)
         vc.titleView.text = data?.name
+        
         pushToViewController(vc)
     }
     
     func pushToViewController(_ viewController: MovieDetailViewController) {
         viewController.transitionDriver = transitionDriver
-        let backImage = getBackImage(viewController, headerHeight: 0)
+        let image = self.collectionItems[self.glidingView.expandedItemIndex][self.collectionView.currentIndex].posterImage
+        viewController.placeHolderImage = image
         transitionDriver?.pushTransitionAnimationIndex(self.collectionView.currentIndex,
                                                        collecitionView: self.collectionView,
-                                                       backImage: backImage,
-                                                       headerHeight: viewController.headerHeight,
-                                                       insets: 0, titleAttr: viewController.titleView.attributedText!) {
+                                                       imageSize: image?.size ?? .zero,
+                                                       headerHeight: viewController.headerHeight) {[weak self] cell in
+            guard let self = self else { return }
             self.navigationController?.pushViewController(viewController, animated: false)
         }
     }
