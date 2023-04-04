@@ -251,7 +251,7 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
         transitionDriver?.pushTransitionAnimationIndex(self.collectionView.currentIndex,
                                                        collecitionView: self.collectionView,
                                                        imageSize: image?.size ?? .zero,
-                                                       headerHeight: viewController.headerHeight) {[weak self] cell in
+                                                       gradientColors: viewController.gradientColors) {[weak self] cell in
             guard let self = self else { return }
             self.navigationController?.pushViewController(viewController, animated: false)
         }

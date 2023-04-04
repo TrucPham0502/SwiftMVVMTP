@@ -16,7 +16,7 @@ class TransitionDriver {
     // for push animation
     fileprivate var copyCell: MovieCollectionViewCell?
     fileprivate var currentCell: MovieCollectionViewCell?
-    fileprivate var gradientLayer = CAGradientLayer()
+    fileprivate let gradientLayer = CAGradientLayer()
 
     fileprivate var leftCell: UICollectionViewCell?
     fileprivate var rightCell: UICollectionViewCell?
@@ -28,6 +28,13 @@ class TransitionDriver {
 
     init(view: UIView) {
         self.view = view
+        initGradientLayer()
+    }
+    
+    func initGradientLayer(){
+        gradientLayer.opacity = 0
+        gradientLayer.frame = self.view.bounds
+        self.view.layer.addSublayer(gradientLayer)
     }
 }
 
@@ -38,7 +45,7 @@ extension TransitionDriver {
     func pushTransitionAnimationIndex(_ currentIndex: Int,
                                       collecitionView: UICollectionView,
                                       imageSize: CGSize,
-                                      headerHeight: CGFloat,
+                                      gradientColors: [CGColor],
                                       completion: @escaping (MovieCollectionViewCell) -> Void) {
 
         guard case let cell as MovieCollectionViewCell = collecitionView.cellForItem(at: IndexPath(row: currentIndex, section: 0)) else { return }
@@ -47,14 +54,13 @@ extension TransitionDriver {
             return
         }
         copyCell = copyView
-
         // move cells
         moveCellsCurrentIndex(currentIndex, collectionView: collecitionView)
 
         currentCell = cell
         cell.isHidden = true
         
-        configurateCell(copyView)
+        configurateCell(copyView, gradientColors: gradientColors)
         openBackViewConfigureConstraints(copyView)
         openFrontViewConfigureConstraints(copyView, imageSize: imageSize)
         
@@ -62,13 +68,13 @@ extension TransitionDriver {
         // corner animation
         copyView.backContainerView.animationCornerRadius(0, duration: duration)
         copyView.frontContainerView.animationCornerRadius(0, duration: duration)
-       
-
+        
+      
+        copyView.customTitle.alpha = 0
         // constraints animation
         UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions(), animations: {
             copyView.shadowView?.alpha = 0
             copyView.backContainerView.backgroundColor = .black
-            copyView.customTitle.alpha = 0
             self.gradientLayer.opacity = 1
             self.view.layoutIfNeeded()
             copyView.setNeedsLayout()
@@ -77,7 +83,7 @@ extension TransitionDriver {
         })
     }
 
-    func popTransitionAnimationContantOffset(_ offset: CGFloat, backImage: UIImage?,completion: @escaping () -> Void) {
+    func popTransitionAnimationContantOffset(_ offset: CGFloat, completion: @escaping () -> Void) {
         guard let copyCell = self.copyCell else {
             return
         }
@@ -87,10 +93,11 @@ extension TransitionDriver {
 
         closeBackViewConfigurationConstraints(copyCell)
         closeFrontViewConfigurationConstraints(copyCell)
-        let backImageView = addImageToView(view, image: backImage)
         // corner animation
         copyCell.backContainerView.animationCornerRadius(copyCell.backContainerView.layer.cornerRadius, duration: duration)
         copyCell.frontContainerView.animationCornerRadius(copyCell.frontContainerView.layer.cornerRadius, duration: duration)
+        
+        self.gradientLayer.opacity = 0
  
         UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions(), animations: {
             copyCell.shadowView?.alpha = 1
@@ -98,15 +105,12 @@ extension TransitionDriver {
                 copyCell.customTitle.alpha = 1
             })
             copyCell.backContainerView.backgroundColor = .white
-            backImageView?.alpha = 0
             self.rightCell?.center.x -= self.step
             self.leftCell?.center.x += self.step
-            self.gradientLayer.opacity = 0
             self.view.layoutIfNeeded()
             copyCell.layoutIfNeeded()
-
         }, completion: { _ in
-            backImageView?.removeFromSuperview()
+            self.gradientLayer.removeFromSuperlayer()
             self.currentCell?.isHidden = false
             self.removeCurrentCell()
             completion()
@@ -124,40 +128,13 @@ extension TransitionDriver {
         }
     }
 
-    fileprivate func configurateCell(_ cell: MovieCollectionViewCell) {
+    fileprivate func configurateCell(_ cell: MovieCollectionViewCell, gradientColors : [CGColor]) {
         view.addSubview(cell)
         viewFrame = cell.frame
         cell.center = view.center
-        gradientLayer = CAGradientLayer()
-        gradientLayer.opacity = 0
-        gradientLayer.frame.size = view.bounds.size
+        gradientLayer.removeFromSuperlayer()
+        gradientLayer.colors = gradientColors
         view.layer.addSublayer(gradientLayer)
-        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.7).cgColor, UIColor.black.withAlphaComponent(0.8).cgColor,
-            UIColor.black.cgColor,
-            UIColor.black.cgColor,
-            UIColor.black.cgColor]
-    }
-
-    fileprivate func addImageToView(_ view: UIView, image: UIImage?) -> UIImageView? {
-        guard let image = image else { return nil }
-
-        let imageView = UIImageView(image: image)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.alpha = 1
-        
-        view.addSubview(imageView)
-
-        // add constraints
-        NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            imageView.topAnchor.constraint(equalTo: view.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
-        
-        imageView.layoutIfNeeded()
-
-        return imageView
     }
 
     fileprivate func moveCellsCurrentIndex(_ currentIndex: Int, collectionView: UICollectionView) {

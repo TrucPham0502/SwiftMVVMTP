@@ -7,6 +7,7 @@
 
 import Foundation
 import RxCocoa
+import UIKit
 class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     override func buildViewModel() -> MovieDetailViewModel {
         let vm = MovieDetailViewModel()
@@ -26,7 +27,12 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             self.backgroundImage.frame = .init(origin: .zero, size: .init(width: self.view.bounds.width, height: self.view.bounds.width *  placeHolderImage.size.height / placeHolderImage.size.width))
         }
     }
-    var headerHeight: CGFloat = 300
+    let gradientColors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.7).cgColor, UIColor.black.withAlphaComponent(0.8).cgColor,
+                          UIColor.black.cgColor,
+                          UIColor.black.cgColor,
+                          UIColor.black.cgColor]
+    var headerHeight: CGFloat = UIScreen.main.bounds.height / 2 - 100
+    var padding : CGFloat = 20
     var transitionDriver: TransitionDriver?
     var heightCollectionView : NSLayoutConstraint?
     var data : [EpisodeModel] = []
@@ -54,10 +60,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         v.translatesAutoresizingMaskIntoConstraints = false
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame.size = view.bounds.size
-        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.7).cgColor, UIColor.black.withAlphaComponent(0.8).cgColor,
-                                UIColor.black.cgColor,
-                                UIColor.black.cgColor,
-                                UIColor.black.cgColor]
+        gradientLayer.colors = gradientColors
         v.layer.addSublayer(gradientLayer)
         return v
     }()
@@ -80,8 +83,12 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     lazy var closeImage : UIButton = {
         let v = UIButton()
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.setImage(UIImage(named: "CloseButton"), for: .normal)
+        v.setImage(UIImage(named: "ic-back-white"), for: .normal)
         v.contentEdgeInsets = .zero
+        v.layer.cornerRadius = 20
+        v.contentEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
+        v.layer.borderColor = UIColor.white.cgColor
+        v.layer.borderWidth = 1
         v.addTarget(self, action: #selector(closeTap), for: .touchUpInside)
         return v
     }()
@@ -97,17 +104,72 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     
     lazy var titleView : UILabel = {
         let v = UILabel()
-        v.font = .boldSystemFont(ofSize: 20)
-        v.textAlignment = .center
+        v.font = .boldSystemFont(ofSize: 25)
+        v.textAlignment = .left
         v.numberOfLines = 0
         v.text = ""
-        v.textColor = .darkGray
+        v.textColor = .white
         v.layer.shadowRadius = 2
         v.layer.shadowOffset = CGSize(width: 0, height: 3)
         v.layer.shadowOpacity = 0.2
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
+    
+    private lazy var taglb : UILabel = {
+        let v = UILabel()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.font = .boldSystemFont(ofSize: 16)
+        v.text = "VIETSUB"
+        return v
+    }()
+    private lazy var tagView : UIView = {
+        let v = UIView()
+        v.backgroundColor = UIColor(named: "tag-color")
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.layer.cornerRadius = 3
+        v.addSubview(taglb)
+        NSLayoutConstraint.activate([
+            taglb.leadingAnchor.constraint(equalTo: v.leadingAnchor, constant: 8),
+            taglb.trailingAnchor.constraint(equalTo: v.trailingAnchor, constant: -8),
+            taglb.topAnchor.constraint(equalTo: v.topAnchor, constant: 5),
+            taglb.bottomAnchor.constraint(lessThanOrEqualTo: v.bottomAnchor, constant: -5)
+        ])
+        return v
+    }()
+    
+    private lazy var episodelb : UILabel = {
+        let v = UILabel()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.font = .systemFont(ofSize: 13)
+        v.text = "Phần 4 - Tập 73"
+        return v
+    }()
+    private lazy var episodeView : UIView = {
+        let v = UIView()
+        v.backgroundColor = UIColor(named: "episodes-color")
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.layer.cornerRadius = 10
+        let iconView : UIImageView = {
+            let v = UIImageView(image: .init(named: "ic-clapperboard-black"))
+            v.translatesAutoresizingMaskIntoConstraints = false
+            return v
+        }()
+        [episodelb, iconView].forEach(v.addSubview)
+        NSLayoutConstraint.activate([
+            iconView.leadingAnchor.constraint(equalTo: v.leadingAnchor, constant: 12),
+            iconView.widthAnchor.constraint(equalToConstant: 16),
+            iconView.heightAnchor.constraint(equalTo: iconView.widthAnchor),
+            iconView.topAnchor.constraint(equalTo: v.topAnchor, constant: 5),
+            iconView.bottomAnchor.constraint(lessThanOrEqualTo: v.bottomAnchor, constant: -5),
+            
+            episodelb.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 5),
+            episodelb.trailingAnchor.constraint(equalTo: v.trailingAnchor, constant: -12),
+            episodelb.centerYAnchor.constraint(equalTo: iconView.centerYAnchor),
+        ])
+        return v
+    }()
+    
     
     
     private lazy var collectionViewEpisode : UICollectionView = {
@@ -149,7 +211,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
 //        self.view.addSubview(videoPlayer)
         [backgroundImage, scrollView, closeImage].forEach(self.view.addSubview)
         self.scrollView.addSubview(containerView)
-        [collectionViewEpisode, titleView,contentView].forEach({self.containerView.addSubview($0)})
+        [collectionViewEpisode, titleView,tagView,episodeView, contentView].forEach({self.containerView.addSubview($0)})
         
         
         self.heightCollectionView = self.collectionViewEpisode.heightAnchor.constraint(equalToConstant: getSizeCollectionView())
@@ -169,14 +231,21 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             
             //            self.containerView.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor),
            
-            closeImage.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            closeImage.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-            closeImage.heightAnchor.constraint(equalToConstant: 30),
-            closeImage.widthAnchor.constraint(equalToConstant: 30),
+            closeImage.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: padding),
+            closeImage.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: padding),
+            closeImage.heightAnchor.constraint(equalToConstant: 40),
+            closeImage.widthAnchor.constraint(equalToConstant: 40),
             
-//            titleView.topAnchor.constraint(equalTo: self.containerView.topAnchor, constant: 20),
-//            titleView.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 25),
-//            titleView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -25),
+            titleView.topAnchor.constraint(equalTo: self.containerView.topAnchor, constant: headerHeight),
+            titleView.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: padding),
+            titleView.trailingAnchor.constraint(equalTo: self.tagView.leadingAnchor, constant: -20),
+            
+            tagView.centerYAnchor.constraint(equalTo: self.titleView.centerYAnchor),
+            tagView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding),
+            
+            episodeView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 20),
+            episodeView.trailingAnchor.constraint(lessThanOrEqualTo: self.containerView.trailingAnchor, constant: -padding),
+            episodeView.leadingAnchor.constraint(equalTo : self.containerView.leadingAnchor, constant: padding),
             
             
 //            collectionViewEpisode.topAnchor.constraint(equalTo: self.titleView.bottomAnchor, constant: 20),
@@ -260,7 +329,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         self.view.isHidden = true
         _ = self.navigationController?.popViewController(animated: false)
         let backImage = getScreen()
-        transitionDriver.popTransitionAnimationContantOffset(0, backImage: backImage) {
+        transitionDriver.popTransitionAnimationContantOffset(0) {
             
         }
         

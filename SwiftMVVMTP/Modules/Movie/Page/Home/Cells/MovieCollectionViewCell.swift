@@ -297,7 +297,6 @@ extension MovieCollectionViewCell {
         let rect = self.convert(self.bounds, to: view)
         let v = MovieCollectionViewCell(frame: rect)
         v.backgroundImageView.image = self.backgroundImageView.image
-        v.customTitle.text = self.customTitle.text
         v.cellIsOpen(self.isOpened, animated: false)
         return v
     }
