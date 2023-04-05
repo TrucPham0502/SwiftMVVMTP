@@ -41,7 +41,7 @@ extension MovieCollectionLayout {
 // MARK: override
 
 extension MovieCollectionLayout {
-
+    
     override func invalidateLayout(with context: UICollectionViewLayoutInvalidationContext) {
         super.invalidateLayout(with: context)
 
@@ -52,7 +52,7 @@ extension MovieCollectionLayout {
             lastCollectionViewSize = collectionView.bounds.size
         }
     }
-
+    
     override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
         guard let collectionView = self.collectionView else {
             return proposedContentOffset

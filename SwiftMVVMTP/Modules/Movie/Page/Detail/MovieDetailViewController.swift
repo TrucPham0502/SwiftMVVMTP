@@ -8,6 +8,15 @@
 import Foundation
 import RxCocoa
 import UIKit
+
+struct EpisodeModel {
+    let dataPostID, dataServer, dataEpisodeSlug: String?
+    let isNew: Bool
+    let dataEmbed: String
+    let episode: String
+    let url : String
+}
+
 class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     override func buildViewModel() -> MovieDetailViewModel {
         let vm = MovieDetailViewModel()
@@ -19,10 +28,6 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         let urlPage : String?
     }
     
-    var openVideo = PublishRelay<EpisodeModel>()
-    fileprivate var scrollOffsetY: CGFloat = 0
-    
-    
     var dataRequire : DetailViewModel?
     var placeHolderImage : UIImage? {
         didSet {
@@ -31,7 +36,8 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             self.backgroundImage.frame = .init(origin: .zero, size: .init(width: self.view.bounds.width, height: self.view.bounds.width *  placeHolderImage.size.height / placeHolderImage.size.width))
         }
     }
-    let gradientColors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.7).cgColor, UIColor.black.withAlphaComponent(0.8).cgColor,
+    let gradientColors = [UIColor.clear.cgColor,
+                          UIColor.black.withAlphaComponent(0.4).cgColor,
                           UIColor.black.cgColor,
                           UIColor.black.cgColor,
                           UIColor.black.cgColor]
@@ -127,7 +133,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     }()
     private lazy var tagView : UIView = {
         let v = UIView()
-        v.backgroundColor = UIColor(named: "tag-color")
+        v.backgroundColor = UIColor(named: "secondary-primary-color")
         v.translatesAutoresizingMaskIntoConstraints = false
         v.layer.cornerRadius = 3
         v.addSubview(taglb)
@@ -140,11 +146,11 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         return v
     }()
     
-    private lazy var episodelb : UILabel = {
+    private lazy var seasonlb : UILabel = {
         let v = UILabel()
         v.translatesAutoresizingMaskIntoConstraints = false
         v.font = .systemFont(ofSize: 13)
-        v.text = "Phần 4 - Tập 73"
+        v.text = ""
         return v
     }()
     private lazy var episodeView : UIView = {
@@ -157,7 +163,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             v.translatesAutoresizingMaskIntoConstraints = false
             return v
         }()
-        [episodelb, iconView].forEach(v.addSubview)
+        [seasonlb, iconView].forEach(v.addSubview)
         NSLayoutConstraint.activate([
             iconView.leadingAnchor.constraint(equalTo: v.leadingAnchor, constant: 12),
             iconView.widthAnchor.constraint(equalToConstant: 16),
@@ -165,9 +171,9 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             iconView.topAnchor.constraint(equalTo: v.topAnchor, constant: 5),
             iconView.bottomAnchor.constraint(lessThanOrEqualTo: v.bottomAnchor, constant: -5),
             
-            episodelb.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 5),
-            episodelb.trailingAnchor.constraint(equalTo: v.trailingAnchor, constant: -12),
-            episodelb.centerYAnchor.constraint(equalTo: iconView.centerYAnchor),
+            seasonlb.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 5),
+            seasonlb.trailingAnchor.constraint(equalTo: v.trailingAnchor, constant: -12),
+            seasonlb.centerYAnchor.constraint(equalTo: iconView.centerYAnchor),
         ])
         return v
     }()
@@ -180,10 +186,30 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         return v
     }()
     
+    private lazy var timelb : UILabel =  {
+        let v = UILabel()
+        v.font = .systemFont(ofSize: 14)
+        v.textColor = .white
+        v.numberOfLines = 1
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    private lazy var categoryslb : UILabel =  {
+        let v = UILabel()
+        v.font = .systemFont(ofSize: 14)
+        v.textColor = .white
+        v.numberOfLines = 1
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    
     private lazy var buttonWatch : LayeredButton = {
         let v = LayeredButton()
-        v.setTitle("Watch", for: .normal)
+        v.setTitle("Xem", for: .normal)
         v.translatesAutoresizingMaskIntoConstraints = false
+        v.addTarget(self, action: #selector(watchTap), for: .touchUpInside)
         return v
     }()
     
@@ -213,6 +239,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         flow.minimumLineSpacing = 8
         flow.minimumInteritemSpacing = 3
         let v = DynamicCollectionView(frame: .zero, collectionViewLayout: flow)
+        v.isScrollEnabled = false
         v.dataSource = self
         v.register(EpisodeCollectionViewCell.self, forCellWithReuseIdentifier: "EpisodeCollectionView")
         v.showsVerticalScrollIndicator = false
@@ -229,23 +256,31 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.containerView.alpha = 0
+        self.view.backgroundColor = .clear
         // Do any additional setup after loading the view.
         prepareUI()
         
     }
     
+    
     @objc private func bookmarksSelected(){
         isBookmarks = !isBookmarks
     }
     
+    @objc private func watchTap(){
+        if let first = self.data.first {
+            self.playVideo(url: first.url)
+        }
+    }
+    
+    
     override func prepareUI() {
         super.prepareUI()
-        self.view.backgroundColor = .black
         self.view.isHidden = true
-        [backgroundImage, gradientView, scrollView, closeImage].forEach(self.view.addSubview)
+        [backgroundImage, gradientView, scrollView, closeImage, bookmarksView].forEach(self.view.addSubview)
         self.scrollView.addSubview(containerView)
-        [titleView,tagView,episodeView, bookmarksView, buttonWatch, contentView, titleEpisodes, collectionViewEpisode].forEach(self.containerView.addSubview)
+        [titleView,tagView,episodeView, timelb,categoryslb, buttonWatch, contentView, titleEpisodes, collectionViewEpisode].forEach(self.containerView.addSubview)
         
         NSLayoutConstraint.activate([
             
@@ -268,7 +303,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             
             closeImage.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20),
             closeImage.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: padding),
-            closeImage.heightAnchor.constraint(equalToConstant: 40),
+            closeImage.heightAnchor.constraint(equalTo: closeImage.widthAnchor),
             closeImage.widthAnchor.constraint(equalToConstant: 40),
             
             titleView.topAnchor.constraint(equalTo: self.containerView.topAnchor, constant: headerHeight),
@@ -278,14 +313,22 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             tagView.centerYAnchor.constraint(equalTo: self.titleView.centerYAnchor),
             tagView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding),
             
-            episodeView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 20),
+            categoryslb.topAnchor.constraint(equalTo: self.titleView.bottomAnchor, constant: 5),
+            categoryslb.leadingAnchor.constraint(equalTo: self.titleView.leadingAnchor, constant: 5),
+            categoryslb.trailingAnchor.constraint(lessThanOrEqualTo: self.containerView.trailingAnchor, constant: -padding),
+            
+            episodeView.topAnchor.constraint(equalTo: categoryslb.bottomAnchor, constant: 20),
             episodeView.trailingAnchor.constraint(lessThanOrEqualTo: self.bookmarksView.leadingAnchor, constant: -padding),
             episodeView.leadingAnchor.constraint(equalTo : self.containerView.leadingAnchor, constant: padding),
             
-            bookmarksView.centerYAnchor.constraint(equalTo: episodeView.centerYAnchor),
-            bookmarksView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding),
+            timelb.centerYAnchor.constraint(equalTo: episodeView.centerYAnchor),
+            timelb.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding),
+            timelb.leadingAnchor.constraint(greaterThanOrEqualTo:  self.episodeView.trailingAnchor, constant: 10),
+            
+            bookmarksView.centerYAnchor.constraint(equalTo: self.closeImage.centerYAnchor),
+            bookmarksView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -padding),
             bookmarksView.heightAnchor.constraint(equalTo: bookmarksView.widthAnchor),
-            bookmarksView.widthAnchor.constraint(equalToConstant: 24),
+            bookmarksView.widthAnchor.constraint(equalToConstant: 30),
             
             
             buttonWatch.topAnchor.constraint(equalTo: self.episodeView.bottomAnchor, constant: 20),
@@ -319,15 +362,19 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     
     override func performBinding() {
         super.performBinding()
-        guard let url = self.dataRequire?.urlPage else {
-            return
-        }
-        let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).mapToVoid().asDriverOnErrorJustComplete(), openVideo: self.openVideo.asDriverOnErrorJustComplete(), url: url))
-        output.item.drive(onNext: {[weak self] (data, content, url, season) in
+        let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).map({[weak self] _ in
+            return self?.dataRequire?.urlPage ?? ""
+        }).asDriverOnErrorJustComplete()))
+        output.item.drive(onNext: {[weak self] (data, content, time, season, latest, category) in
             guard let self = self else { return }
             self.data = data
             self.contentView.text = content
-            self.episodelb.text = ""
+            self.seasonlb.text = "\(season) - \(latest)"
+            self.timelb.text = time
+            self.categoryslb.text = "(\(category))"
+            UIView.animate(withDuration: 0.3) {
+                self.containerView.alpha = 1
+            }
         }).disposed(by: self.disposeBag)
     }
     
@@ -354,23 +401,28 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     @objc func closePageTap(_ sender : Any?){
         popTransitionAnimation()
     }
-    public func popTransitionAnimation() {
+    func popTransitionAnimation() {
         guard let transitionDriver = self.transitionDriver else {
             return
         }
         self.view.isHidden = true
-        _ = self.navigationController?.popViewController(animated: false)
-        transitionDriver.popTransitionAnimationContantOffset(0) {
-        }
+//        _ = self.navigationController?.popViewController(animated: false)
+        self.dismiss(animated: false, completion: {
+            transitionDriver.popTransitionAnimationContantOffset(0) {
+            }
+        })
+        
         
     }
     
-    
-    fileprivate func getScreen() -> UIImage? {
-        let backImageSize = self.view.bounds.size
-        let backImageOrigin = CGPoint(x: 0, y:  0)
-        return self.view.takeSnapshot(CGRect(origin: backImageOrigin, size: backImageSize))
+    fileprivate func playVideo(url : String) {
+        let vc = PlayerViewController()
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.urlString = url
+        self.present(vc, animated: false, completion: nil)
     }
+    
+    
 }
 
 extension MovieDetailViewController : UICollectionViewDataSource {
@@ -382,6 +434,10 @@ extension MovieDetailViewController : UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EpisodeCollectionView", for: indexPath)
         if let cell = cell as? EpisodeCollectionViewCell {
             cell.data = self.data[indexPath.row]
+            cell.didSelected = {[weak self] data in
+                guard let self = self else { return }
+                self.playVideo(url: data.url)
+            }
         }
         return cell
     }
@@ -458,22 +514,32 @@ extension MovieDetailViewController : UICollectionViewDelegate {
     //        })
     //    }
     
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let data = self.data[indexPath.row]
-        self.openVideo.accept(data)
-    }
-    
 }
 extension MovieDetailViewController : UIScrollViewDelegate {
-    //    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    //        if scrollView.contentOffset.y < -25  {
-    //            // buttonAnimation
-    //            popTransitionAnimation()
-    //        }
-    //        scrollOffsetY = scrollView.contentOffset.y
-    //    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let scrollOffsetThreshold: CGFloat = self.headerHeight / 2
+        
+        if scrollView.contentOffset.y > scrollOffsetThreshold {
+            hideBackButton()
+        } else {
+            showBackButton()
+        }
+    }
+
+    func hideBackButton() {
+        UIView.animate(withDuration: 0.3) {
+            self.closeImage.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+            self.bookmarksView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+        }
+    }
+    func showBackButton() {
+        UIView.animate(withDuration: 0.3) {
+            self.closeImage.transform = CGAffineTransform.identity
+            self.bookmarksView.transform = CGAffineTransform.identity
+        }
+    }
 }
 extension MovieDetailViewController : MovieDetailViewLogic {
     
 }
+

@@ -22,7 +22,7 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     private lazy var searchbar : CustomSearchBar = {
         let v = CustomSearchBar()
         v.searchBarStyle = .minimal
-        v.placeholder = "Search..."
+        v.placeholder = "Tìm kiếm..."
         v.translatesAutoresizingMaskIntoConstraints = false
         v.tintColor = .white
         v.clearBackgroundColor()
@@ -240,7 +240,6 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
         let vc = MovieDetailViewController()
         vc.dataRequire = .init(poster: data?.poster, urlPage: data?.url)
         vc.titleView.text = data?.name
-        
         pushToViewController(vc)
     }
     
@@ -253,7 +252,10 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
                                                        imageSize: image?.size ?? .zero,
                                                        gradientColors: viewController.gradientColors) {[weak self] cell in
             guard let self = self else { return }
-            self.navigationController?.pushViewController(viewController, animated: false)
+//            self.navigationController?.pushViewController(viewController, animated: false)
+            let vc = UINavigationController(rootViewController: viewController)
+            vc.modalPresentationStyle = .overCurrentContext
+            self.navigationController?.present(vc, animated: false, completion: nil)
         }
     }
     

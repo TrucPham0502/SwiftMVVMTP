@@ -8,14 +8,14 @@
 import Foundation
 protocol ApiResponseDtoType {
     associatedtype Element : Codable
-    var status: ReturnCode? { get }
-    var message: String? { get }
-    var data: Element? { get }
+    var status: ReturnCode { get }
+    var message: String { get }
+    var data: Element { get }
 }
 struct ApiResponseDto<Element: Codable>: Codable, ApiResponseDtoType {
-    let status: ReturnCode?
-    let message: String?
-    let data: Element?
+    let status: ReturnCode
+    let message: String
+    let data: Element
 
     enum CodingKeys: String, CodingKey {
         case status = "status"

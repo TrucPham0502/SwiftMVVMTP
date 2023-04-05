@@ -12,3 +12,10 @@ struct MoviesRequest: Codable {
 struct SearchMoviesRequest: Codable {
     let key: String
 }
+struct MovieDetailRequest: Codable {
+    let url: String?
+}
+struct LinkAndSublinkRequest : Codable {
+    let url: String
+}
+

@@ -9,7 +9,14 @@ import Foundation
 import RxSwift
 
 class MovieRemoteSourceImpl : MovieRemoteSource {
+    
     let host = Constants.appEndPointUrl + "api/"
+    
+    @POST<LinkAndSublinkResponse>
+    func getLinkAndSublink(_ input : LinkAndSublinkRequest) -> Observable<ApiResponseDto<LinkAndSublinkResponse>> {
+        ApiParameter.url(endpoint: host, path: "movie/getLinkAndSublink")
+        ApiParameter.parameter(input)
+    }
     
     @POST<[MoviesResponse]>
     func getMovies(_ input: MoviesRequest) -> Observable<ApiResponseDto<[MoviesResponse]>> {
@@ -31,16 +38,16 @@ class MovieRemoteSourceImpl : MovieRemoteSource {
     
     
     
-    @GET<String>
-    func dailymotionM3u8(_ url : String) ->  Observable<ApiResponseDto<String>> {
-        ApiParameter.url(endpoint: url, path: "")
-    }
-    
-    @POST<EpisodeDetailResponse>
-    func getEpisodeDetail(_ input : EpisodeDetailRequest) -> Observable<ApiResponseDto<EpisodeDetailResponse>> {
-        ApiParameter.url(endpoint: host, path: "movie/episode")
-        ApiParameter.parameter(input)
-    }
+//    @GET<String>
+//    func dailymotionM3u8(_ url : String) ->  Observable<ApiResponseDto<String>> {
+//        ApiParameter.url(endpoint: url, path: "")
+//    }
+//
+//    @POST<EpisodeDetailResponse>
+//    func getEpisodeDetail(_ input : EpisodeDetailRequest) -> Observable<ApiResponseDto<EpisodeDetailResponse>> {
+//        ApiParameter.url(endpoint: host, path: "movie/episode")
+//        ApiParameter.parameter(input)
+//    }
     
 //    @POST<FileOneResponse>
 //    func fileOneData(_ input: FileOneRequest) -> Observable<ApiResponseDto<FileOneResponse>> {

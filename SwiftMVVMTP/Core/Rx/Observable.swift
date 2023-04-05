@@ -131,20 +131,12 @@ struct Proxy<EnclosingType, Value> {
 
 
 extension ObservableConvertibleType where Element : ApiResponseDtoType  {
-    func valid() -> Observable<Element.Element?> {
-        return self.asObservable().flatMap{data -> Observable<Element.Element?> in
+    func valid() -> Observable<Element.Element> {
+        return self.asObservable().flatMap{data -> Observable<Element.Element> in
             if data.status == .success {
                 return Observable.just(data.data)
             }
-            return Observable.error(ApiError(parseClass: String(describing: self), errorMessage: data.message, errorCode: data.status?.rawValue))
-        }
-    }
-    func valid<T>() -> Observable<Element.Element> where Element.Element == Array<T> {
-        return self.asObservable().flatMap{data -> Observable<Element.Element> in
-            if data.status == .success {
-                return Observable.just(data.data ?? [])
-            }
-            return Observable.error(ApiError(parseClass: String(describing: self), errorMessage: data.message, errorCode: data.status?.rawValue))
+            return Observable.error(ApiError(parseClass: String(describing: self), errorMessage: data.message, errorCode: data.status.rawValue))
         }
     }
 }

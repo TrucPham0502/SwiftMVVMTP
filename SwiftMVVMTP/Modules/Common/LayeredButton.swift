@@ -43,7 +43,7 @@ class LayeredButton: UIButton {
         }
         
         foregroundLayer.backgroundColor = UIColor(named: "primary-color")?.cgColor
-        backgroundLayer1.backgroundColor = UIColor(red: 0.16, green: 0.09, blue: 0.38, alpha: 1.00).cgColor
+        backgroundLayer1.backgroundColor = UIColor(named: "secondary-primary-color")?.cgColor
         backgroundLayer2.backgroundColor = UIColor(red: 0.01, green: 0.80, blue: 0.97, alpha: 1.00).cgColor
     }
     

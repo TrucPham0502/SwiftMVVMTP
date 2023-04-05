@@ -60,9 +60,28 @@ class MovieServiceImpl : MovieService {
         })
     }
     
-    func dailymotionM3u8(_ url : String) ->  Observable<[Any]> {
-        return repository.dailymotionM3u8(url)
+    func movieDetail(_ input : MovieDetailRequest) -> Observable<([EpisodeModel], content: String, time: String, season: String, latest: String, categorys : String)> {
+        return repository.movieDetail(input).map({ res in
+            let eps : [EpisodeModel] = res.episodes?.compactMap({ d -> EpisodeModel? in
+                return EpisodeModel(dataPostID: d.dataPostId ?? "", dataServer: d.dataServer ?? "", dataEpisodeSlug: d.dataEpisodeSlug ?? "", isNew: d.isNew ?? false, dataEmbed: d.dataEmbed ?? "", episode: d.episode ?? "", url: d.url ?? "")
+            }).reversed() ?? []
+            let content : String = res.contents?.joined(separator: "\n")  ?? ""
+            let category : String = res.categorys?.joined(separator: ", ") ?? ""
+            return (eps, content, res.time ?? "", res.season ?? "", res.latest ?? "", category)
+        })
     }
+    
+    func getLinkAndSublink(_ url : String) -> Observable<PlayerModel> {
+        return repository.getLinkAndSublink(.init(url: url)).map({x in
+            return .init(media: .init(url: x.media?.url ?? "", type: x.media?.type ?? ""), sublinks: x.sublinks?.map({ l in
+                return PlayerModel.Sublink(subsv: l.subsv ?? "", name: l.name ?? "")
+            }) ?? [])
+        })
+    }
+    
+//    func dailymotionM3u8(_ url : String) ->  Observable<[Any]> {
+//        return repository.dailymotionM3u8(url)
+//    }
 //    func fileOneData(_ input: FileOneRequest) -> Observable<FileOneResponse?> {
 //        return repository.fileOneData(input)
 //    }
@@ -72,22 +91,8 @@ class MovieServiceImpl : MovieService {
 //    func hhtqEpisode(_ input : HHTQEpisodeRequest) -> Observable<HHTQEpisodeResponse?>  {
 //        return repository.hhtqEpisode(input)
 //    }
-    func movieDetail(_ input : MovieDetailRequest) -> Observable<([EpisodeModel], content: String, url: String, season: String)> {
-        return repository.movieDetail(input).map({ res in
-            let eps : [EpisodeModel] = res?.episodes?.compactMap({ d -> EpisodeModel? in
-                return EpisodeModel(dataPostID: d.dataPostId, dataServer: d.dataServer, dataEpisodeSlug: d.dataEpisodeSlug, isNew: d.isNew, dataEmbed: d.dataEmbed, episode: d.episode)
-            }).reversed() ?? []
-            let content : String = {
-                return res?.contents?.reduce("") { res, str in
-                    let result = res ?? ""
-                    let val = str.isEmpty ? "" : " \(str)"
-                    return result.isEmpty ? str : "\(result)\n\(val)"
-                } ?? ""
-            }()
-            return (eps, content, res?.defaultUrl ?? "", res?.season ?? "")
-        })
-    }
-    func getEpisodeDetail(_ input : EpisodeDetailRequest) -> Observable<EpisodeDetailResponse?> {
-        return repository.getEpisodeDetail(input)
-    }
+    
+//    func getEpisodeDetail(_ input : EpisodeDetailRequest) -> Observable<EpisodeDetailResponse?> {
+//        return repository.getEpisodeDetail(input)
+//    }
 }

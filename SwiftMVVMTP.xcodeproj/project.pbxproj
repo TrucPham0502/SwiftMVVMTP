@@ -16,6 +16,8 @@
 		FE3B3D2129D96BEE006EB487 /* LayeredButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B3D2029D96BEE006EB487 /* LayeredButton.swift */; };
 		FE3B3D2329D97647006EB487 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B3D2229D97647006EB487 /* CustomSearchBar.swift */; };
 		FE3B3D2529D99135006EB487 /* MovieCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B3D2429D99135006EB487 /* MovieCategory.swift */; };
+		FE3C0B2629DDC44500DC27DF /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3C0B2529DDC44500DC27DF /* PlayerViewController.swift */; };
+		FE3C0B2829DDC47000DC27DF /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3C0B2729DDC47000DC27DF /* PlayerViewModel.swift */; };
 		FE44EE9526FD731400EC9F85 /* TestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EE9426FD731400EC9F85 /* TestCell.swift */; };
 		FE44EE9B26FD751500EC9F85 /* TestModuleServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EE9A26FD751500EC9F85 /* TestModuleServiceImpl.swift */; };
 		FE44EE9D26FD755300EC9F85 /* TestModuleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EE9C26FD755300EC9F85 /* TestModuleService.swift */; };
@@ -83,8 +85,6 @@
 		FEEC60AE26FED4C100DDA47E /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC60AD26FED4C100DDA47E /* MovieDetailViewController.swift */; };
 		FEEC60B026FED4E300DDA47E /* MovieDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC60AF26FED4E300DDA47E /* MovieDetailViewModel.swift */; };
 		FEEC60B326FEE49D00DDA47E /* EpisodeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC60B226FEE49D00DDA47E /* EpisodeCollectionViewCell.swift */; };
-		FEEC60B526FEE54000DDA47E /* MovieDetailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC60B426FEE54000DDA47E /* MovieDetailRequest.swift */; };
-		FEEC60B726FEE56600DDA47E /* MovieDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC60B626FEE56600DDA47E /* MovieDetailResponse.swift */; };
 		FEEC60B926FEE8FD00DDA47E /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC60B826FEE8FD00DDA47E /* UIImage+Extensions.swift */; };
 		FEEC60BB26FEE93400DDA47E /* Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC60BA26FEE93400DDA47E /* Collection+Extensions.swift */; };
 		FEEC60BF26FEEAC100DDA47E /* RxPlayerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEC60BE26FEEAC100DDA47E /* RxPlayerHelper.swift */; };
@@ -139,6 +139,8 @@
 		FE3B3D2029D96BEE006EB487 /* LayeredButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayeredButton.swift; sourceTree = "<group>"; };
 		FE3B3D2229D97647006EB487 /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		FE3B3D2429D99135006EB487 /* MovieCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCategory.swift; sourceTree = "<group>"; };
+		FE3C0B2529DDC44500DC27DF /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
+		FE3C0B2729DDC47000DC27DF /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 		FE44EE9426FD731400EC9F85 /* TestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCell.swift; sourceTree = "<group>"; };
 		FE44EE9A26FD751500EC9F85 /* TestModuleServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleServiceImpl.swift; sourceTree = "<group>"; };
 		FE44EE9C26FD755300EC9F85 /* TestModuleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleService.swift; sourceTree = "<group>"; };
@@ -212,8 +214,6 @@
 		FEEC60AD26FED4C100DDA47E /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 		FEEC60AF26FED4E300DDA47E /* MovieDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewModel.swift; sourceTree = "<group>"; };
 		FEEC60B226FEE49D00DDA47E /* EpisodeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeCollectionViewCell.swift; sourceTree = "<group>"; };
-		FEEC60B426FEE54000DDA47E /* MovieDetailRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailRequest.swift; sourceTree = "<group>"; };
-		FEEC60B626FEE56600DDA47E /* MovieDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailResponse.swift; sourceTree = "<group>"; };
 		FEEC60B826FEE8FD00DDA47E /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		FEEC60BA26FEE93400DDA47E /* Collection+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extensions.swift"; sourceTree = "<group>"; };
 		FEEC60BE26FEEAC100DDA47E /* RxPlayerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxPlayerHelper.swift; sourceTree = "<group>"; };
@@ -280,6 +280,15 @@
 				11331C83FD29963EACBCD787 /* Pods-SwiftMVVMTP.prod.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		FE3C0B2429DDC42900DC27DF /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				FE3C0B2529DDC44500DC27DF /* PlayerViewController.swift */,
+				FE3C0B2729DDC47000DC27DF /* PlayerViewModel.swift */,
+			);
+			path = Player;
 			sourceTree = "<group>";
 		};
 		FE44EE9326FD72F300EC9F85 /* Views */ = {
@@ -542,8 +551,6 @@
 			children = (
 				FEEC609B26FE4ED300DDA47E /* MoviesResponse.swift */,
 				FEEC609D26FE4EF700DDA47E /* MoviesRequest.swift */,
-				FEEC60B426FEE54000DDA47E /* MovieDetailRequest.swift */,
-				FEEC60B626FEE56600DDA47E /* MovieDetailResponse.swift */,
 				FEEC60C226FF02E200DDA47E /* HHTQEpisodeResponse.swift */,
 				FEEC60C426FF033100DDA47E /* HHTQEpisodeRequest.swift */,
 				FEDA350829263A7200F27811 /* EpisodeDetailResponse.swift */,
@@ -556,6 +563,7 @@
 		FEEC607026FE36E400DDA47E /* Page */ = {
 			isa = PBXGroup;
 			children = (
+				FE3C0B2429DDC42900DC27DF /* Player */,
 				FEEC60AC26FED47E00DDA47E /* Detail */,
 				FEEC607326FE374000DDA47E /* Home */,
 			);
@@ -873,7 +881,6 @@
 				FE3B3D1D29D8B9EA006EB487 /* HMAC.swift in Sources */,
 				FEF76AB2270F4AFE0050B807 /* TextLayer.swift in Sources */,
 				FE6F2BF526FCCF98007CE4BF /* ApiMethod.swift in Sources */,
-				FEEC60B726FEE56600DDA47E /* MovieDetailResponse.swift in Sources */,
 				FEF76ABA270F4B160050B807 /* VideoPlayerView.swift in Sources */,
 				FEEC60B326FEE49D00DDA47E /* EpisodeCollectionViewCell.swift in Sources */,
 				FEF76AB4270F4AFE0050B807 /* Loader.swift in Sources */,
@@ -889,7 +896,6 @@
 				FEEC60C526FF033100DDA47E /* HHTQEpisodeRequest.swift in Sources */,
 				FEDA350B29263AC500F27811 /* EpisodeDetailRequest.swift in Sources */,
 				FEF76AB3270F4AFE0050B807 /* VideoPlayerControls.swift in Sources */,
-				FEEC60B526FEE54000DDA47E /* MovieDetailRequest.swift in Sources */,
 				FE6F2BAB26FCBC3F007CE4BF /* ViewController.swift in Sources */,
 				FEEC608926FE3F5D00DDA47E /* UIView+Extensions.swift in Sources */,
 				FE6F2BF026FCCCB5007CE4BF /* ApiResponseDto.swift in Sources */,
@@ -921,6 +927,7 @@
 				FE3B3D2129D96BEE006EB487 /* LayeredButton.swift in Sources */,
 				FE6F2BDC26FCC558007CE4BF /* AppBaseViewController.swift in Sources */,
 				FEEC609726FE48DE00DDA47E /* CornerAnimatable+Extensions.swift in Sources */,
+				FE3C0B2629DDC44500DC27DF /* PlayerViewController.swift in Sources */,
 				FE44EE9526FD731400EC9F85 /* TestCell.swift in Sources */,
 				FEEC607D26FE3ADF00DDA47E /* MovieCollectionView.swift in Sources */,
 				FEEC609C26FE4ED300DDA47E /* MoviesResponse.swift in Sources */,
@@ -943,6 +950,7 @@
 				FE3B3D1F29D8BB08006EB487 /* String+Extensions.swift in Sources */,
 				FEEC608D26FE400D00DDA47E /* UILabel+Extensions.swift in Sources */,
 				FEEC60BF26FEEAC100DDA47E /* RxPlayerHelper.swift in Sources */,
+				FE3C0B2829DDC47000DC27DF /* PlayerViewModel.swift in Sources */,
 				FEEC60C126FEF12D00DDA47E /* BaseRepository.swift in Sources */,
 				FEEC60AA26FE505E00DDA47E /* MovieRemoteSourceImpl.swift in Sources */,
 				FEEC609526FE48A100DDA47E /* TransitionDriver.swift in Sources */,
@@ -1136,7 +1144,7 @@
 			baseConfigurationReference = 26BA3687B48E27270E377BAD /* Pods-SwiftMVVMTP.beta.xcconfig */;
 			buildSettings = {
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
-				APP_ENDPOINT_URL = "http://192.168.1.197:27010/";
+				APP_ENDPOINT_URL = "http://192.168.1.3:27010/";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SwiftMVVMTP/SwiftMVVMTP.entitlements;

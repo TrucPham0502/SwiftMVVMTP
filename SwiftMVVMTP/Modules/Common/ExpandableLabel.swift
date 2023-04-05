@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 class ExpandableLabel: UILabel {
     var maxWords = 60
+    var lineHieght : CGFloat = 23
     private var originalText: String?
     private var expanded = false {
         didSet {
@@ -40,8 +41,13 @@ class ExpandableLabel: UILabel {
         didSet {
             originalText = text
             updateText()
-            setLineHeight(17)
+           
         }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setLineHeight(lineHieght)
     }
 
     private func updateText() {

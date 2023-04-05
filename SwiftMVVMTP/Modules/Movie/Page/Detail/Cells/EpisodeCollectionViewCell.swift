@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 class EpisodeCollectionViewCell: UICollectionViewCell {
+    var didSelected : (EpisodeModel) -> () = {_ in }
     lazy var titleView : UILabel = {
         let v = UILabel()
         v.textColor = .white
@@ -36,17 +37,21 @@ class EpisodeCollectionViewCell: UICollectionViewCell {
             titleView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             titleView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
+        self.contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cellTap)))
     }
-
+    @objc func cellTap(){
+        guard let data = data else { return }
+        didSelected(data)
+    }
     
     var data : EpisodeModel? {
         didSet{
-            guard let vm = data, let ep = vm.episode else {
+            guard let vm = data, !vm.episode.isEmpty  else {
                 self.isUserInteractionEnabled = false
                 return
             }
             self.isUserInteractionEnabled = true
-            self.titleView.text = "\(ep)"
+            self.titleView.text = "\(vm.episode)"
         }
     }
 }
