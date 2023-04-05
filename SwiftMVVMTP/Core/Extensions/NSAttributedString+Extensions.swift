@@ -21,4 +21,13 @@ extension NSAttributedString {
         attr.addAttribute(.paragraphStyle, value: paraStyle, range: NSMakeRange(0, attr.length))
         return attr
     }
+    func setSpaceLines(_ pad: CGFloat = 4, minimumLineHeight: CGFloat = 0) -> NSAttributedString {
+        let attr = NSMutableAttributedString()
+        let paraStyle = NSMutableParagraphStyle()
+        attr.append(self)
+        paraStyle.lineSpacing = pad
+        paraStyle.minimumLineHeight = minimumLineHeight
+        attr.addAttribute(.paragraphStyle, value: paraStyle, range: NSMakeRange(0, attr.length))
+        return attr
+    }
 }

@@ -17,20 +17,15 @@ enum VideoTypeResponse : String, Codable {
 
 // MARK: - MovieDetailResponse
 struct MovieDetailResponse: Codable {
+    let defaultUrl : String?
+    let season : String?
     let contents: [String]?
     let episodes: [Episode]?
     // MARK: - Episode
     struct Episode: Codable {
-        let dataPostID, dataServer, dataEpisodeSlug: String?
-        let isNew: Bool?
-        let dataPosition: DataPosition?
-        let dataEmbed: String?
-        let episode: String?
-
-        enum CodingKeys: String, CodingKey {
-            case dataPostID = "dataPostId"
-            case dataServer, dataEpisodeSlug, isNew, dataPosition, dataEmbed,episode
-        }
+        let dataPostId, dataServer, dataEpisodeSlug, dataEmbed, episode,url : String?
+        let isNew : Bool?
+        let dataPosition : DataPosition?
         
         enum DataPosition: String, Codable {
             case empty = ""

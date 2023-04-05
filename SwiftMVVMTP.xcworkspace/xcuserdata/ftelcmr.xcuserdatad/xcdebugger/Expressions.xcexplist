@@ -14,10 +14,21 @@
          contextName = "MovieCollectionViewCell.layoutSubviews():MovieCollectionViewCell.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.backgroundImageView.frame">
+               value = "self.frontContainerView.frame">
             </PersistentString>
             <PersistentString
-               value = "self.frontContainerView.frame">
+               value = "self.backgroundImageView.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MovieDetailViewController.getSizeCollectionView():MovieDetailViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.data.count">
+            </PersistentString>
+            <PersistentString
+               value = " (self.episodeItemSize.height + 10) * CGFloat(numberRow)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

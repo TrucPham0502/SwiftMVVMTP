@@ -11,4 +11,7 @@ extension UILabel {
     func labelSize(considering maxWidth: CGFloat = UIScreen.main.bounds.width) -> CGSize {
         return self.attributedText?.size(considering: maxWidth) ?? .zero
     }
+    func setLineHeight(_ number: CGFloat) {
+        self.attributedText = self.attributedText?.setSpaceLines(0, minimumLineHeight: number)
+    }
 }

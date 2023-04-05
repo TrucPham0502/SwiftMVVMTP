@@ -19,6 +19,11 @@ class MovieRepositoryImpl : BaseRepository , MovieRepository {
         return remoteSource.searchMovies(input).valid()
     }
     
+    func movieDetail(_ input : MovieDetailRequest) -> Observable<MovieDetailResponse?> {
+        return remoteSource.movieDetail(input).valid()
+    }
+    
+    
     
     
     
@@ -60,9 +65,7 @@ class MovieRepositoryImpl : BaseRepository , MovieRepository {
 //    func hhtqEpisode(_ input : HHTQEpisodeRequest) -> Observable<HHTQEpisodeResponse?> {
 //        return remoteSource.hhtqEpisode(input).validResponse()
 //    }
-    func movieDetail(_ input : MovieDetailRequest) -> Observable<MovieDetailResponse?> {
-        return remoteSource.movieDetail(input).valid()
-    }
+   
     
     func getEpisodeDetail(_ input : EpisodeDetailRequest) -> Observable<EpisodeDetailResponse?> {
         return remoteSource.getEpisodeDetail(input).valid()

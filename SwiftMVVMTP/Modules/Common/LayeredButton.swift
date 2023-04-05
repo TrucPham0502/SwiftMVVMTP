@@ -38,12 +38,12 @@ class LayeredButton: UIButton {
         backgroundColor = UIColor.clear
         [backgroundLayer1, backgroundLayer2, foregroundLayer].forEach { layer in
             self.layer.addSublayer(layer)
-            layer.cornerRadius = 21.5
+            layer.cornerRadius = 15
             layer.masksToBounds = true
         }
         
-        foregroundLayer.backgroundColor = UIColor(red: 0.16, green: 0.09, blue: 0.38, alpha: 1.00).cgColor
-        backgroundLayer1.backgroundColor = UIColor(red: 0.98, green: 0.11, blue: 0.30, alpha: 1.00).cgColor
+        foregroundLayer.backgroundColor = UIColor(named: "primary-color")?.cgColor
+        backgroundLayer1.backgroundColor = UIColor(red: 0.16, green: 0.09, blue: 0.38, alpha: 1.00).cgColor
         backgroundLayer2.backgroundColor = UIColor(red: 0.01, green: 0.80, blue: 0.97, alpha: 1.00).cgColor
     }
     

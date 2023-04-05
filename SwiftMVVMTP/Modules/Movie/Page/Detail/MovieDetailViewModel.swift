@@ -15,13 +15,10 @@ class MovieDetailViewModel : BaseViewModel<MovieDetailViewModel.Input, MovieDeta
     @Dependency.Inject
     var service : MovieService
     
-    typealias DataType = ([EpisodeModel], String)
+    typealias DataType = ([EpisodeModel], content: String, url: String, season: String)
     
-    @BehaviorRelayProperty(value: ([], ""))
+    @BehaviorRelayProperty(value: ([], "", "", ""))
     var data : DataType
-    
-    @BehaviorRelayProperty(value: nil)
-    var currentUrl : URL?
     
     weak var viewLogic : MovieDetailViewLogic?
     
@@ -32,32 +29,31 @@ class MovieDetailViewModel : BaseViewModel<MovieDetailViewModel.Input, MovieDeta
     }
     struct Output {
         let item: Driver<DataType>
-        let openVideo : Driver<URL?>
     }
     
     override func transform(input: Input) -> Output {
         input.viewWillAppear.flatMap({
             return Observable.deferred({[weak self] () -> Observable<DataType> in
-                guard let _self = self else { return Observable.just(([], "")) }
+                guard let _self = self else { return Observable.just(([], "", "", "")) }
                 return _self.service.movieDetail(.init(url: input.url))
             }).trackError(self.errorTracker)
                 .trackActivity(self.activityIndicator)
                 .asDriverOnErrorJustComplete()
         }).drive(self.$data).disposed(by: self.disposeBag)
         
-        input.openVideo.flatMap({ data in
-            return Observable.deferred({[weak self] () -> Observable<URL?> in
-                guard let _self = self else { return Observable.just(nil) }
-                return RxPlayerHelper.shared.openPlayer(_self.viewLogic as! UIViewController, data: data, openVideoController: false).map { d in
-                    guard let data = d else { return nil }
-                    let urls = RxPlayerHelper.shared.getUrl(data)
-                    return urls.first
-                }
-            }).trackError(self.errorTracker)
-                .trackActivity(self.activityIndicator)
-                .asDriverOnErrorJustComplete()
-        }).drive(self.$currentUrl).disposed(by: self.disposeBag)
+//        input.openVideo.flatMap({ data in
+//            return Observable.deferred({[weak self] () -> Observable<URL?> in
+//                guard let _self = self else { return Observable.just(nil) }
+//                return RxPlayerHelper.shared.openPlayer(_self.viewLogic as! UIViewController, data: data, openVideoController: false).map { d in
+//                    guard let data = d else { return nil }
+//                    let urls = RxPlayerHelper.shared.getUrl(data)
+//                    return urls.first
+//                }
+//            }).trackError(self.errorTracker)
+//                .trackActivity(self.activityIndicator)
+//                .asDriverOnErrorJustComplete()
+//        })
         
-        return Output(item: self.$data.asDriverOnErrorJustComplete(), openVideo: self.$currentUrl.asDriverOnErrorJustComplete())
+        return Output(item: self.$data.asDriverOnErrorJustComplete())
     }
 }

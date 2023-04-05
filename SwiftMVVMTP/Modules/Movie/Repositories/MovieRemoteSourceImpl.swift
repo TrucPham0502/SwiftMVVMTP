@@ -23,6 +23,12 @@ class MovieRemoteSourceImpl : MovieRemoteSource {
         ApiParameter.parameter(input)
     }
     
+    @POST<MovieDetailResponse>
+    func movieDetail(_ input : MovieDetailRequest) -> Observable<ApiResponseDto<MovieDetailResponse>> {
+        ApiParameter.url(endpoint: host, path: "movie/detail")
+        ApiParameter.parameter(input)
+    }
+    
     
     
     @GET<String>
@@ -53,9 +59,5 @@ class MovieRemoteSourceImpl : MovieRemoteSource {
 //        ApiParameter.parameter(input)
 //    }
 //
-    @POST<MovieDetailResponse>
-    func movieDetail(_ input : MovieDetailRequest) -> Observable<ApiResponseDto<MovieDetailResponse>> {
-        ApiParameter.url(endpoint: host, path: "movie/detail")
-        ApiParameter.parameter(input)
-    }
+  
 }

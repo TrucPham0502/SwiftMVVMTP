@@ -18,7 +18,11 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         let poster : String?
         let urlPage : String?
     }
+    
+    var openVideo = PublishRelay<EpisodeModel>()
     fileprivate var scrollOffsetY: CGFloat = 0
+    
+    
     var dataRequire : DetailViewModel?
     var placeHolderImage : UIImage? {
         didSet {
@@ -34,12 +38,31 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     var headerHeight: CGFloat = UIScreen.main.bounds.height / 2 - 100
     var padding : CGFloat = 20
     var transitionDriver: TransitionDriver?
-    var heightCollectionView : NSLayoutConstraint?
-    var data : [EpisodeModel] = []
-    var contents = ""
-    var episodeItemSize : CGSize = .init(width: 50, height: 50)
+    var collectionViewConstraint: AppConstants = .init()
+    var data : [EpisodeModel] = [] {
+        didSet {
+            self.collectionViewEpisode.layoutIfNeeded()
+            self.collectionViewEpisode.reloadData()
+        }
+    }
+    var isBookmarks : Bool = false {
+        didSet {
+            self.bookmarksView.image = isBookmarks ? .init(named: "christmas-star-fill") : .init(named: "christmas-star-stroke")
+        }
+    }
     
-    var openVideo = PublishRelay<EpisodeModel>()
+    var episodeItemSize : CGSize = .init(width: 40, height: 40)
+    
+    private lazy var gradientView : UIView = {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.backgroundColor = .clear
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame.size = view.bounds.size
+        gradientLayer.colors = gradientColors
+        v.layer.addSublayer(gradientLayer)
+        return v
+    }()
     
     private lazy var scrollView : UIScrollView = {
         let v = UIScrollView()
@@ -50,6 +73,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         v.contentInsetAdjustmentBehavior = .never
         v.delegate = self
         v.contentInset = .zero
+        v.backgroundColor = .clear
         return v
     }()
     
@@ -58,25 +82,12 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         let v = UIView()
         v.backgroundColor = .clear
         v.translatesAutoresizingMaskIntoConstraints = false
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame.size = view.bounds.size
-        gradientLayer.colors = gradientColors
-        v.layer.addSublayer(gradientLayer)
         return v
     }()
     
     private lazy var backgroundImage : UIImageView = {
         let v = UIImageView()
         v.clipsToBounds = true
-        return v
-    }()
-    
-    lazy var button : UIButton = {
-        let v = UIButton()
-        v.setTitle("abc", for: .normal)
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.addTarget(self, action: #selector(closePageTap), for: .touchUpInside)
-        v.backgroundColor = .red
         return v
     }()
     
@@ -90,15 +101,6 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         v.layer.borderColor = UIColor.white.cgColor
         v.layer.borderWidth = 1
         v.addTarget(self, action: #selector(closeTap), for: .touchUpInside)
-        return v
-    }()
-    
-    lazy var videoPlayer : VideoPlayerView = {
-        let v = VideoPlayerView()
-        v.setFrame(frame: .init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: headerHeight))
-        v.setControlFrame(v.bounds)
-        
-        v.backgroundColor = .black
         return v
     }()
     
@@ -170,14 +172,47 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         return v
     }()
     
+    private lazy var bookmarksView : UIImageView = {
+        let v = UIImageView(image: .init(named: "christmas-star-stroke"))
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(bookmarksSelected)))
+        v.isUserInteractionEnabled = true
+        return v
+    }()
+    
+    private lazy var buttonWatch : LayeredButton = {
+        let v = LayeredButton()
+        v.setTitle("Watch", for: .normal)
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    lazy var contentView : ExpandableLabel = {
+        let v = ExpandableLabel()
+        v.text = "No content"
+        v.textColor = .lightGray
+        v.font = .systemFont(ofSize: 14)
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.numberOfLines = 0
+        return v
+    }()
     
     
-    private lazy var collectionViewEpisode : UICollectionView = {
+    private lazy var titleEpisodes : UILabel = {
+        let v = UILabel()
+        v.font = .boldSystemFont(ofSize: 16)
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.text = "Tập"
+        v.textColor = .white
+        return v
+    }()
+    
+    private lazy var collectionViewEpisode : DynamicCollectionView = {
         let flow = UICollectionViewFlowLayout()
         flow.itemSize = episodeItemSize
-        flow.minimumLineSpacing = 5
-        flow.minimumInteritemSpacing = 2
-        let v = UICollectionView(frame: .zero, collectionViewLayout: flow)
+        flow.minimumLineSpacing = 8
+        flow.minimumInteritemSpacing = 3
+        let v = DynamicCollectionView(frame: .zero, collectionViewLayout: flow)
         v.dataSource = self
         v.register(EpisodeCollectionViewCell.self, forCellWithReuseIdentifier: "EpisodeCollectionView")
         v.showsVerticalScrollIndicator = false
@@ -188,12 +223,9 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         return v
     }()
     
-    lazy var contentView : UILabel = {
-        let v = UILabel()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.numberOfLines = 0
-        return v
-    }()
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -203,25 +235,30 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         
     }
     
+    @objc private func bookmarksSelected(){
+        isBookmarks = !isBookmarks
+    }
     
     override func prepareUI() {
         super.prepareUI()
-        self.view.backgroundColor = .red
+        self.view.backgroundColor = .black
         self.view.isHidden = true
-//        self.view.addSubview(videoPlayer)
-        [backgroundImage, scrollView, closeImage].forEach(self.view.addSubview)
+        [backgroundImage, gradientView, scrollView, closeImage].forEach(self.view.addSubview)
         self.scrollView.addSubview(containerView)
-        [collectionViewEpisode, titleView,tagView,episodeView, contentView].forEach({self.containerView.addSubview($0)})
+        [titleView,tagView,episodeView, bookmarksView, buttonWatch, contentView, titleEpisodes, collectionViewEpisode].forEach(self.containerView.addSubview)
         
-        
-        self.heightCollectionView = self.collectionViewEpisode.heightAnchor.constraint(equalToConstant: getSizeCollectionView())
         NSLayoutConstraint.activate([
+            
+            self.gradientView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.gradientView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.gradientView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.gradientView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             
             self.scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
             self.scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-
+            
             
             self.containerView.topAnchor.constraint(equalTo: self.scrollView.topAnchor),
             self.containerView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor),
@@ -229,9 +266,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             self.containerView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor),
             self.containerView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor),
             
-            //            self.containerView.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor),
-           
-            closeImage.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: padding),
+            closeImage.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20),
             closeImage.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: padding),
             closeImage.heightAnchor.constraint(equalToConstant: 40),
             closeImage.widthAnchor.constraint(equalToConstant: 40),
@@ -244,61 +279,59 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             tagView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding),
             
             episodeView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 20),
-            episodeView.trailingAnchor.constraint(lessThanOrEqualTo: self.containerView.trailingAnchor, constant: -padding),
+            episodeView.trailingAnchor.constraint(lessThanOrEqualTo: self.bookmarksView.leadingAnchor, constant: -padding),
             episodeView.leadingAnchor.constraint(equalTo : self.containerView.leadingAnchor, constant: padding),
             
+            bookmarksView.centerYAnchor.constraint(equalTo: episodeView.centerYAnchor),
+            bookmarksView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding),
+            bookmarksView.heightAnchor.constraint(equalTo: bookmarksView.widthAnchor),
+            bookmarksView.widthAnchor.constraint(equalToConstant: 24),
             
-//            collectionViewEpisode.topAnchor.constraint(equalTo: self.titleView.bottomAnchor, constant: 20),
-//            collectionViewEpisode.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 25),
-//            collectionViewEpisode.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -25),
-//            heightCollectionView!,
-//
-//            contentView.topAnchor.constraint(equalTo: self.collectionViewEpisode.bottomAnchor, constant: 10),
-//            contentView.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 20),
-//            contentView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -20),
-//            contentView.bottomAnchor.constraint(equalTo: self.containerView.bottomAnchor, constant: -50),
+            
+            buttonWatch.topAnchor.constraint(equalTo: self.episodeView.bottomAnchor, constant: 20),
+            buttonWatch.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: padding),
+            buttonWatch.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding),
+            buttonWatch.heightAnchor.constraint(equalToConstant: 60),
+            
+            contentView.topAnchor.constraint(equalTo: self.buttonWatch.bottomAnchor, constant: 25),
+            contentView.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: padding),
+            contentView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding),
+            
+            titleEpisodes.topAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: 30),
+            titleEpisodes.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: padding),
+            
             
         ])
+        
+        collectionViewConstraint = .init(
+            left: collectionViewEpisode.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: padding),
+            right:collectionViewEpisode.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding),
+            bottom: self.collectionViewEpisode.bottomAnchor.constraint(lessThanOrEqualTo: self.containerView.bottomAnchor, constant: -padding),
+            top: collectionViewEpisode.topAnchor.constraint(equalTo: self.titleEpisodes.bottomAnchor, constant: 20))
+        collectionViewConstraint.active()
+        
         if let poster = dataRequire?.poster {
             ImageLoader.load(url: poster) { image in
                 self.backgroundImage.image = image
             }
         }
-        
-//        videoPlayer.setConstaints(.init(
-//            left: videoPlayer.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor),
-//            right: videoPlayer.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor),
-//            top: videoPlayer.topAnchor.constraint(equalTo: self.containerView.topAnchor),
-//            height: videoPlayer.heightAnchor.constraint(equalToConstant: headerHeight)))
     }
     
     override func performBinding() {
         super.performBinding()
-//        guard let url = self.dataRequire?.urlPage else {
-//            return
-//        }
-//        let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).mapToVoid().asDriverOnErrorJustComplete(), openVideo: self.openVideo.asDriverOnErrorJustComplete(), url: url))
-//        output.item.drive(onNext: { (data, content) in
-//            self.data = data
-//            self.contents = content
-//            if !self.contents.isEmpty {
-//                let titleAttr = NSAttributedString(string: "Overview:\n", attributes: [.font : UIFont.systemFont(ofSize: 18), .foregroundColor : UIColor.black]).setSpaceLines(8)
-//                let attr = NSAttributedString(string: self.contents, attributes: [.font : UIFont.systemFont(ofSize: 15), .foregroundColor : UIColor.darkGray]).setSpaceLines()
-//                let mutableAttr = NSMutableAttributedString(attributedString: titleAttr)
-//                mutableAttr.append(attr)
-//                self.contentView.attributedText = mutableAttr
-//            }
-//            self.heightCollectionView?.constant = self.getSizeCollectionView()
-//            self.collectionViewEpisode.reloadData()
-//        }).disposed(by: self.disposeBag)
-//
-//        output.openVideo.drive(onNext: {[weak self] url in
-//            self?.videoPlayer.videoURL = url
-//        }).disposed(by: self.disposeBag)
+        guard let url = self.dataRequire?.urlPage else {
+            return
+        }
+        let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).mapToVoid().asDriverOnErrorJustComplete(), openVideo: self.openVideo.asDriverOnErrorJustComplete(), url: url))
+        output.item.drive(onNext: {[weak self] (data, content, url, season) in
+            guard let self = self else { return }
+            self.data = data
+            self.contentView.text = content
+            self.episodelb.text = ""
+        }).disposed(by: self.disposeBag)
     }
     
     func getSizeCollectionView() -> CGFloat {
-        
         let numberInRow = Int(UIScreen.main.bounds.width / (self.episodeItemSize.width + 10))
         let numberRow = (self.data.count % numberInRow > 0) ? (self.data.count / numberInRow) + 1 : (self.data.count / numberInRow)
         return (self.episodeItemSize.height + 10) * CGFloat(numberRow)
@@ -308,7 +341,6 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.view.isHidden = false
-        videoPlayer.videoURL = URL(string: "https://hhhkungfu.tv/Dis-m3u8/64DBrXF3hEiqkKrSGZQN7o7tJ2aKtoAuL.m3u8?prx=gps&v=2022")
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -328,9 +360,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         }
         self.view.isHidden = true
         _ = self.navigationController?.popViewController(animated: false)
-        let backImage = getScreen()
         transitionDriver.popTransitionAnimationContantOffset(0) {
-            
         }
         
     }
@@ -363,70 +393,70 @@ extension MovieDetailViewController : UICollectionViewDataSource {
 
 extension MovieDetailViewController : UICollectionViewDelegate {
     
-//    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-//        let d = self.data[indexPath.row]
-//        return UIContextMenuConfiguration(identifier: (d.id ?? "") as NSCopying, previewProvider: {
-//            return nil
-//        }, actionProvider: { suggestedActions in
-//            if let id = d.id {
-//                if let videoFromId = RxPlayerHelper.shared.videos[id] {
-//                    var resolutions : [VideoResolution] = []
-//                    if case let VideoPlayer.dailymotion(v) = videoFromId {
-//                        resolutions = v.resolutions
-//                    }
-//                    else if case let VideoPlayer.fembed(v) = videoFromId {
-//                        resolutions = v.resolutions
-//                    }
-//                    let menu = UIMenu(title: "Select resolution", children: resolutions.map({
-//                        UIAction(title: $0.resolution, image: nil, identifier: UIAction.Identifier(rawValue: $0.id)) { action in
-//                            switch videoFromId {
-//                            case .dailymotion:
-//                                RxPlayerHelper.shared.openPlayer(self, videoType: .dailymotion(id: id, resolationId: action.identifier.rawValue), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
-//                                    guard let data = d else { return }
-//                                    let urls = RxPlayerHelper.shared.getUrl(data)
-//                                    self.videoPlayer.videoURL = urls.first
-//                                }).disposed(by: self.disposeBag)
-//                            case .fembed:
-//                                RxPlayerHelper.shared.openPlayer(self, videoType: .fembed(id: id, resolationId: action.identifier.rawValue), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
-//                                    guard let data = d else { return }
-//                                    let urls = RxPlayerHelper.shared.getUrl(data)
-//                                    self.videoPlayer.videoURL = urls.first
-//                                }).disposed(by: self.disposeBag)
-//                            default: break
-//                            }
-//
-//
-//                        }
-//                    }))
-//                    return menu
-//                }
-//                return UIMenu(title: "Menu", children: [
-//                    UIAction(title: "Play Video", handler: { _ in
-//                        switch d.type {
-//                        case .dailymotion:
-//                            RxPlayerHelper.shared.openPlayer(self, videoType: .dailymotion(id: id), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
-//                                guard let data = d else { return }
-//                                let urls = RxPlayerHelper.shared.getUrl(data)
-//                                self.videoPlayer.videoURL = urls.first
-//                            }).disposed(by: self.disposeBag)
-//                        case .fileone:
-//                            if let urlString = d.link {
-//                                RxPlayerHelper.shared.openPlayer(self, videoType: .fileone(id: id, url: urlString), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
-//                                    guard let data = d else { return }
-//                                    let urls = RxPlayerHelper.shared.getUrl(data)
-//                                    self.videoPlayer.videoURL = urls.first
-//                                }).disposed(by: self.disposeBag)
-//                            }
-//                        default:
-//                            break
-//                        }
-//
-//                    })
-//                ])
-//            }
-//            return nil
-//        })
-//    }
+    //    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+    //        let d = self.data[indexPath.row]
+    //        return UIContextMenuConfiguration(identifier: (d.id ?? "") as NSCopying, previewProvider: {
+    //            return nil
+    //        }, actionProvider: { suggestedActions in
+    //            if let id = d.id {
+    //                if let videoFromId = RxPlayerHelper.shared.videos[id] {
+    //                    var resolutions : [VideoResolution] = []
+    //                    if case let VideoPlayer.dailymotion(v) = videoFromId {
+    //                        resolutions = v.resolutions
+    //                    }
+    //                    else if case let VideoPlayer.fembed(v) = videoFromId {
+    //                        resolutions = v.resolutions
+    //                    }
+    //                    let menu = UIMenu(title: "Select resolution", children: resolutions.map({
+    //                        UIAction(title: $0.resolution, image: nil, identifier: UIAction.Identifier(rawValue: $0.id)) { action in
+    //                            switch videoFromId {
+    //                            case .dailymotion:
+    //                                RxPlayerHelper.shared.openPlayer(self, videoType: .dailymotion(id: id, resolationId: action.identifier.rawValue), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
+    //                                    guard let data = d else { return }
+    //                                    let urls = RxPlayerHelper.shared.getUrl(data)
+    //                                    self.videoPlayer.videoURL = urls.first
+    //                                }).disposed(by: self.disposeBag)
+    //                            case .fembed:
+    //                                RxPlayerHelper.shared.openPlayer(self, videoType: .fembed(id: id, resolationId: action.identifier.rawValue), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
+    //                                    guard let data = d else { return }
+    //                                    let urls = RxPlayerHelper.shared.getUrl(data)
+    //                                    self.videoPlayer.videoURL = urls.first
+    //                                }).disposed(by: self.disposeBag)
+    //                            default: break
+    //                            }
+    //
+    //
+    //                        }
+    //                    }))
+    //                    return menu
+    //                }
+    //                return UIMenu(title: "Menu", children: [
+    //                    UIAction(title: "Play Video", handler: { _ in
+    //                        switch d.type {
+    //                        case .dailymotion:
+    //                            RxPlayerHelper.shared.openPlayer(self, videoType: .dailymotion(id: id), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
+    //                                guard let data = d else { return }
+    //                                let urls = RxPlayerHelper.shared.getUrl(data)
+    //                                self.videoPlayer.videoURL = urls.first
+    //                            }).disposed(by: self.disposeBag)
+    //                        case .fileone:
+    //                            if let urlString = d.link {
+    //                                RxPlayerHelper.shared.openPlayer(self, videoType: .fileone(id: id, url: urlString), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
+    //                                    guard let data = d else { return }
+    //                                    let urls = RxPlayerHelper.shared.getUrl(data)
+    //                                    self.videoPlayer.videoURL = urls.first
+    //                                }).disposed(by: self.disposeBag)
+    //                            }
+    //                        default:
+    //                            break
+    //                        }
+    //
+    //                    })
+    //                ])
+    //            }
+    //            return nil
+    //        })
+    //    }
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

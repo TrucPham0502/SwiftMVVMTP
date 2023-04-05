@@ -10,7 +10,8 @@ import UIKit
 class EpisodeCollectionViewCell: UICollectionViewCell {
     lazy var titleView : UILabel = {
         let v = UILabel()
-        v.textColor = .red
+        v.textColor = .white
+        v.font = .systemFont(ofSize: 14)
         v.textAlignment = .center
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
@@ -27,10 +28,8 @@ class EpisodeCollectionViewCell: UICollectionViewCell {
     
     func prepareUI() {
         self.addSubview(titleView)
-        self.backgroundColor = .white
+        self.backgroundColor = UIColor(named:"primary-color")
         self.layer.cornerRadius = 11
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.red.cgColor
         NSLayoutConstraint.activate([
             titleView.topAnchor.constraint(equalTo: self.topAnchor),
             titleView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
@@ -38,21 +37,7 @@ class EpisodeCollectionViewCell: UICollectionViewCell {
             titleView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
     }
-    
-    private func setIsNew(isNew : Bool) {
-        if isNew {
-            self.layer.borderColor = UIColor.white.cgColor
-            self.backgroundColor = .red
-            self.titleView.textColor = .white
-        }
-        else {
-            self.layer.borderColor = UIColor.red.cgColor
-            self.backgroundColor = .white
-            self.titleView.textColor = .red
-        }
-        
-        
-    }
+
     
     var data : EpisodeModel? {
         didSet{
@@ -62,7 +47,6 @@ class EpisodeCollectionViewCell: UICollectionViewCell {
             }
             self.isUserInteractionEnabled = true
             self.titleView.text = "\(ep)"
-            setIsNew(isNew: vm.isNew ?? false)
         }
     }
 }

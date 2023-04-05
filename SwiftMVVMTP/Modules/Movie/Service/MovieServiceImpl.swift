@@ -72,13 +72,11 @@ class MovieServiceImpl : MovieService {
 //    func hhtqEpisode(_ input : HHTQEpisodeRequest) -> Observable<HHTQEpisodeResponse?>  {
 //        return repository.hhtqEpisode(input)
 //    }
-    func movieDetail(_ input : MovieDetailRequest) -> Observable<([EpisodeModel], String)> {
+    func movieDetail(_ input : MovieDetailRequest) -> Observable<([EpisodeModel], content: String, url: String, season: String)> {
         return repository.movieDetail(input).map({ res in
-            let ep : [EpisodeModel] = {
-                return res?.episodes?.compactMap({ d -> EpisodeModel? in
-                    return EpisodeModel(dataPostID: d.dataPostID, dataServer: d.dataServer, dataEpisodeSlug: d.dataEpisodeSlug, isNew: d.isNew, dataEmbed: d.dataEmbed, episode: d.episode)
-                }).reversed() ?? []
-            }()
+            let eps : [EpisodeModel] = res?.episodes?.compactMap({ d -> EpisodeModel? in
+                return EpisodeModel(dataPostID: d.dataPostId, dataServer: d.dataServer, dataEpisodeSlug: d.dataEpisodeSlug, isNew: d.isNew, dataEmbed: d.dataEmbed, episode: d.episode)
+            }).reversed() ?? []
             let content : String = {
                 return res?.contents?.reduce("") { res, str in
                     let result = res ?? ""
@@ -86,7 +84,7 @@ class MovieServiceImpl : MovieService {
                     return result.isEmpty ? str : "\(result)\n\(val)"
                 } ?? ""
             }()
-            return (ep, content)
+            return (eps, content, res?.defaultUrl ?? "", res?.season ?? "")
         })
     }
     func getEpisodeDetail(_ input : EpisodeDetailRequest) -> Observable<EpisodeDetailResponse?> {
