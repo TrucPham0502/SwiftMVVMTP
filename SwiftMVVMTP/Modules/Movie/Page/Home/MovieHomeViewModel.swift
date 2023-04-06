@@ -14,6 +14,11 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
     @Dependency.Inject
     var service : MovieService
     var isSearching = false
+    var isLoading = false {
+        didSet {
+            print("loading:\(isLoading)")
+        }
+    }
     struct Input  {
         var viewWillAppear: Observable<Void>
         var loadMore : Observable<Int>
@@ -25,7 +30,7 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
     }
     
     var itemTemp : ItemType = ([],[])
-    
+    var dataLoaded : Dictionary<Int, Int> = [:]
     @BehaviorRelayProperty(value: ([],[]))
     var item : ItemType
     
@@ -39,22 +44,35 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
         }).do(onNext: {[weak self] data in
             guard let self = self else { return }
             self.itemTemp = data
+            self.dataLoaded = data.titleData.enumerated().reduce([:], { partialResult, ele in
+                var res = partialResult
+                res[ele.offset] = ele.element.nextPage
+                return res
+            })
         }).asDriverOnErrorJustComplete().drive(self.$item).disposed(by: self.disposeBag)
         
             let loadMore = input.loadMore.filter({[weak self] _ in
                 guard let self = self else { return false }
-                return !self.isSearching
+                return !self.isSearching && !self.isLoading
+            }).do(onNext: {[weak self] _ in
+                guard let self = self else { return }
+                self.isLoading = true
             }).flatMap({ section in
             return Observable.deferred { [weak self] () ->  Observable<LoadMoreType> in
-                guard let _self = self else {  return Observable.just((section,[])) }
-                let titleData = _self.item.0[section]
-                return _self.service.getMoviesByGroup(.init(page: titleData.nextPage)).do(onNext: {[weak self] data in
+                guard let _self = self, let page = _self.dataLoaded[section], page > -1 else {  return Observable.just((section,[])) }
+                return _self.service.getMoviesByGroup(.init(page: page)).do(onNext: {[weak self] data in
                     guard let _self = self else { return }
-                    _self.item.0[section].nextPage = data.page
+                    _self.dataLoaded[section] = data.page
                 }).flatMap({
                     return Observable.just((section,$0.data))
                 })
             }
+        }).do(onNext: {[weak self] _ in
+            guard let self = self else { return }
+            self.isLoading = false
+        }, onError: {[weak self] err in
+            guard let self = self else { return }
+            self.isLoading = false
         }).trackError(self.errorTracker).asDriverOnErrorJustComplete()
             
             input.searchbar.do(onNext: {[weak self] text in

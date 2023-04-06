@@ -91,7 +91,7 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     
     override func performBinding() {
         super.performBinding()
-        let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).mapToVoid(), loadMore: self.loadMoreSubject.asObservable(), searchbar: self.searchbar.rx.text.orEmpty.asObservable().debounce(.seconds(1), scheduler: MainScheduler.instance)))
+        let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).mapToVoid(), loadMore: self.loadMoreSubject.asObservable().throttle(.seconds(1), scheduler: MainScheduler.instance), searchbar: self.searchbar.rx.text.orEmpty.asObservable().debounce(.seconds(1), scheduler: MainScheduler.instance)))
         
         output.item.drive(onNext: {[weak self] (titles, item) in
             guard let _self = self else { return }
@@ -109,7 +109,8 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
             else { _self.currentIndex = .init(row: -1, section: -1) }
         }).disposed(by: self.disposeBag)
         
-        output.loadMore.drive(onNext: {data in
+        output.loadMore.drive(onNext: {[weak self] data in
+            guard let self = self else { return }
             self.appendCollectionView(section: data.0, items: data.1)
         }).disposed(by: self.disposeBag)
     }
@@ -172,6 +173,9 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     
     func appendCollectionView(section: Int, items : [MovieCollectionViewCellModel]){
         self.collectionItems[section].append(contentsOf: items)
+        cellsIsOpen = self.collectionItems.map({ ds -> Array in
+            Array(repeating: false, count: ds.count)
+        })
         reloadCollection()
     }
     
@@ -195,12 +199,9 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: MovieCollectionViewCell.self), for: indexPath)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard case let cell as MovieCollectionViewCell = cell else {
-            return
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: MovieCollectionViewCell.self), for: indexPath)
+        guard let cell = cell as? MovieCollectionViewCell else {
+            return cell
         }
         let section = glidingView.expandedItemIndex
         let index = indexPath.row % collectionItems[section].count
@@ -227,8 +228,12 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
                 collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
             }
         }
-        
-        if indexPath.row == self.collectionItems[section].count - 2 {
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let section = glidingView.expandedItemIndex
+        if indexPath.row == self.collectionItems[section].count - 4 {
             self.loadMore(section: indexPath.section)
         }
     }

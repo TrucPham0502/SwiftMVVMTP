@@ -207,18 +207,20 @@ extension GlidingCollection {
             _rightStep = step
         }
         
+        
+        
         UIView.animate(withDuration: duration, animations: {
             _leftCell?.center.x -= _leftStep
             _rightCell?.center.x += _rightStep
         }, completion: {_ in
-            DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
-                // MARK: Reload collection view & force to layout
-                if self.collectionView.numberOfItems(inSection: 0) > 0 {
-                    let path = IndexPath(item: 0, section: 0)
-                    self.collectionView.scrollToItem(at: path, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
+            if self.collectionView.numberOfItems(inSection: 0) > 0 {
+                let path = IndexPath(item: 0, section: 0)
+                self.collectionView.scrollToItem(at: path, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
+            }
+            UIView.animate(withDuration: duration) {
+                self.collectionView.performBatchUpdates {
+                    self.collectionView.reloadData()
                 }
-                self.collectionView.reloadData()
-                
             }
         })
         
@@ -232,22 +234,22 @@ extension GlidingCollection {
         
         
         // MARK: Animate buttons
-        UIView.animate(withDuration: duration, delay: duration, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: duration, delay: 0, options: .curveEaseInOut, animations: {
             up ? self.animateBottomButtons() : self.animateTopButtons()
         }, completion: nil)
         if up, let movingButton = unified[safe: index], abs(oldIndex - index) <= 1 {
-            UIView.animate(withDuration: duration, delay: duration/3, options: UIView.AnimationOptions.curveEaseInOut, animations: {
+            UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions.curveEaseInOut, animations: {
                 if up {
                     let insets = self.config.sideInsets
                     movingButton.frame = CGRect(x: insets.left, y: self.collectionView.frame.minY - 40, width: bounds.width - insets.left - insets.right, height: 30)
                 }
             }, completion: nil)
             
-            UIView.animate(withDuration: duration, delay: duration/2, options: UIView.AnimationOptions.curveEaseInOut, animations: {
+            UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions.curveEaseInOut, animations: {
                 self.animateTopButtons()
             }, completion: nil)
         } else {
-            UIView.animate(withDuration: duration, delay: duration/4, options: UIView.AnimationOptions.curveEaseInOut, animations: {
+            UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions.curveEaseInOut, animations: {
                 up ? self.animateTopButtons() : self.animateBottomButtons()
             }, completion: nil)
         }

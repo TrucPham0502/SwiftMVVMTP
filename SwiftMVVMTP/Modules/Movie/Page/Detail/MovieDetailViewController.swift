@@ -22,7 +22,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         let urlPage : String?
     }
     
-    var dataRequire : DetailViewModel?
+    var dataRequire : DetailViewModel? 
     var placeHolderImage : UIImage? {
         didSet {
             self.backgroundImage.image = placeHolderImage
