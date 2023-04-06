@@ -18,8 +18,8 @@ class GlidingCollection: UIView {
     }
     var expandedItemIndex = 0 {
         didSet {
-            guard let count = dataSource?.numberOfItems(in: self) else { return }
-            containerView.isScrollEnabled = expandedItemIndex == 0 || expandedItemIndex == count - 1
+//            guard let count = dataSource?.numberOfItems(in: self) else { return }
+            containerView.isScrollEnabled = false//expandedItemIndex == 0 || expandedItemIndex == count - 1
         }
     }
     

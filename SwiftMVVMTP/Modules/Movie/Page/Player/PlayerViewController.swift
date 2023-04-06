@@ -19,7 +19,6 @@ struct PlayerModel {
     }
     let media : Media
     let sublinks : [Sublink]
-    
 }
 class PlayerViewController : BaseViewController<PlayerViewModel>{
     override func buildViewModel() -> PlayerViewModel {
@@ -52,16 +51,20 @@ class PlayerViewController : BaseViewController<PlayerViewModel>{
         self.view.backgroundColor = .clear
     }
     
-    override func handleError(error: Error) {
-//        super.handleError(error: error)
-        self.dismiss(animated: false, completion: nil)
-    }
     
     func play(url: URL){
         self.player.replaceCurrentItem(with: AVPlayerItem(url: url))
         self.present(self.playerController, animated: true, completion: {
             self.player.play()
         })
+    }
+    
+    override func showToast(message: String) {
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: {_ in 
+            self.dismiss(animated: false)
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func performBinding() {

@@ -9,13 +9,7 @@ import Foundation
 import RxCocoa
 import UIKit
 
-struct EpisodeModel {
-    let dataPostID, dataServer, dataEpisodeSlug: String?
-    let isNew: Bool
-    let dataEmbed: String
-    let episode: String
-    let url : String
-}
+
 
 class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     override func buildViewModel() -> MovieDetailViewModel {
@@ -45,6 +39,8 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     var padding : CGFloat = 20
     var transitionDriver: TransitionDriver?
     var collectionViewConstraint: AppConstants = .init()
+    var closeButtonConstraint: AppConstants = .init()
+    var bookmarksButtonConstraint: AppConstants = .init()
     var data : [EpisodeModel] = [] {
         didSet {
             self.collectionViewEpisode.layoutIfNeeded()
@@ -53,7 +49,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     }
     var isBookmarks : Bool = false {
         didSet {
-            self.bookmarksView.image = isBookmarks ? .init(named: "christmas-star-fill") : .init(named: "christmas-star-stroke")
+            self.bookmarksView.setImage(isBookmarks ? .init(named: "christmas-star-fill") : .init(named: "christmas-star-stroke"), for: .normal)
         }
     }
     
@@ -93,6 +89,8 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     
     private lazy var backgroundImage : UIImageView = {
         let v = UIImageView()
+        v.contentMode = .scaleAspectFill
+        v.backgroundColor = .black
         v.clipsToBounds = true
         return v
     }()
@@ -178,11 +176,13 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         return v
     }()
     
-    private lazy var bookmarksView : UIImageView = {
-        let v = UIImageView(image: .init(named: "christmas-star-stroke"))
+    lazy var bookmarksView : UIButton = {
+        let v = UIButton()
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(bookmarksSelected)))
-        v.isUserInteractionEnabled = true
+        v.setImage(UIImage(named: "christmas-star-stroke"), for: .normal)
+        v.contentEdgeInsets = .zero
+        v.contentEdgeInsets = .zero
+        v.addTarget(self, action: #selector(bookmarksSelected), for: .touchUpInside)
         return v
     }()
     
@@ -259,8 +259,6 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         self.containerView.alpha = 0
         self.view.backgroundColor = .clear
         // Do any additional setup after loading the view.
-        prepareUI()
-        
     }
     
     
@@ -281,7 +279,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         [backgroundImage, gradientView, scrollView, closeImage, bookmarksView].forEach(self.view.addSubview)
         self.scrollView.addSubview(containerView)
         [titleView,tagView,episodeView, timelb,categoryslb, buttonWatch, contentView, titleEpisodes, collectionViewEpisode].forEach(self.containerView.addSubview)
-        
+        titleView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         NSLayoutConstraint.activate([
             
             self.gradientView.topAnchor.constraint(equalTo: self.view.topAnchor),
@@ -301,14 +299,10 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             self.containerView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor),
             self.containerView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor),
             
-            closeImage.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            closeImage.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: padding),
-            closeImage.heightAnchor.constraint(equalTo: closeImage.widthAnchor),
-            closeImage.widthAnchor.constraint(equalToConstant: 40),
             
             titleView.topAnchor.constraint(equalTo: self.containerView.topAnchor, constant: headerHeight),
             titleView.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: padding),
-            titleView.trailingAnchor.constraint(equalTo: self.tagView.leadingAnchor, constant: -20),
+            titleView.trailingAnchor.constraint(lessThanOrEqualTo: self.tagView.leadingAnchor, constant: -20),
             
             tagView.centerYAnchor.constraint(equalTo: self.titleView.centerYAnchor),
             tagView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding),
@@ -325,12 +319,6 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             timelb.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding),
             timelb.leadingAnchor.constraint(greaterThanOrEqualTo:  self.episodeView.trailingAnchor, constant: 10),
             
-            bookmarksView.centerYAnchor.constraint(equalTo: self.closeImage.centerYAnchor),
-            bookmarksView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -padding),
-            bookmarksView.heightAnchor.constraint(equalTo: bookmarksView.widthAnchor),
-            bookmarksView.widthAnchor.constraint(equalToConstant: 30),
-            
-            
             buttonWatch.topAnchor.constraint(equalTo: self.episodeView.bottomAnchor, constant: 20),
             buttonWatch.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: padding),
             buttonWatch.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding),
@@ -345,6 +333,23 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             
             
         ])
+        
+        closeButtonConstraint = .init(
+            left: closeImage.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: padding),
+            top: closeImage.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            width: closeImage.widthAnchor.constraint(equalToConstant: 40),
+            height:closeImage.heightAnchor.constraint(equalTo: closeImage.widthAnchor)
+        )
+        closeButtonConstraint.active()
+        
+        bookmarksButtonConstraint = .init(
+            right: bookmarksView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -padding),
+            width: bookmarksView.widthAnchor.constraint(equalToConstant: 30),
+            height: bookmarksView.heightAnchor.constraint(equalTo: bookmarksView.widthAnchor),
+            centerY: bookmarksView.centerYAnchor.constraint(equalTo: self.closeImage.centerYAnchor)
+        )
+        bookmarksButtonConstraint.active()
+        
         
         collectionViewConstraint = .init(
             left: collectionViewEpisode.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: padding),
@@ -364,14 +369,15 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         super.performBinding()
         let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).map({[weak self] _ in
             return self?.dataRequire?.urlPage ?? ""
-        }).asDriverOnErrorJustComplete()))
-        output.item.drive(onNext: {[weak self] (data, content, time, season, latest, category) in
+        })))
+        output.item.drive(onNext: {[weak self] data in
             guard let self = self else { return }
-            self.data = data
-            self.contentView.text = content
-            self.seasonlb.text = "\(season) - \(latest)"
-            self.timelb.text = time
-            self.categoryslb.text = "(\(category))"
+            self.data = data.episodes
+            self.contentView.text = data.content
+            self.seasonlb.text = "\(data.season) - \(data.latest)"
+            self.timelb.text = data.time
+            self.categoryslb.text = "(\(data.categorys))"
+            self.titleView.text = data.title
             UIView.animate(withDuration: 0.3) {
                 self.containerView.alpha = 1
             }
@@ -517,26 +523,19 @@ extension MovieDetailViewController : UICollectionViewDelegate {
 }
 extension MovieDetailViewController : UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let scrollOffsetThreshold: CGFloat = self.headerHeight / 2
+        UIView.animate(withDuration: 0.3) {
+            let scrollOffsetThreshold: CGFloat = self.headerHeight / 2
+            if scrollView.contentOffset.y > scrollOffsetThreshold {
+                self.bookmarksView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+                self.closeButtonConstraint.left?.constant = -40
+            } else {
+                self.bookmarksView.transform = CGAffineTransform.identity
+                self.closeButtonConstraint.left?.constant = self.padding
+            }
+            self.gradientView.backgroundColor = .black.withAlphaComponent(max(0, min(1, scrollView.contentOffset.y / self.headerHeight)))
+            self.view.layoutIfNeeded()
+        }
         
-        if scrollView.contentOffset.y > scrollOffsetThreshold {
-            hideBackButton()
-        } else {
-            showBackButton()
-        }
-    }
-
-    func hideBackButton() {
-        UIView.animate(withDuration: 0.3) {
-            self.closeImage.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
-            self.bookmarksView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
-        }
-    }
-    func showBackButton() {
-        UIView.animate(withDuration: 0.3) {
-            self.closeImage.transform = CGAffineTransform.identity
-            self.bookmarksView.transform = CGAffineTransform.identity
-        }
     }
 }
 extension MovieDetailViewController : MovieDetailViewLogic {

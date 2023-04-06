@@ -8,6 +8,23 @@
 import Foundation
 import RxCocoa
 import RxSwift
+struct EpisodeModel {
+    let dataPostID, dataServer, dataEpisodeSlug: String?
+    let isNew: Bool
+    let dataEmbed: String
+    let episode: String
+    let url : String
+}
+
+struct MovieDetailModel {
+    let title: String
+    let episodes: [EpisodeModel]
+    let content: String
+    let time: String
+    let season: String
+    let latest: String
+    let categorys : String
+}
 protocol MovieDetailViewLogic : BaseViewLogic {
     
 }
@@ -15,28 +32,25 @@ class MovieDetailViewModel : BaseViewModel<MovieDetailViewModel.Input, MovieDeta
     @Dependency.Inject
     var service : MovieService
     
-    typealias DataType = ([EpisodeModel], content: String, time: String, season: String, latest: String, categorys : String)
-    
-    @BehaviorRelayProperty(value: ([], "", "", "", "", ""))
-    var data : DataType
+    @BehaviorRelayProperty(value: MovieDetailModel(title: "", episodes: [], content: "", time: "", season: "", latest: "", categorys: ""))
+    var data : MovieDetailModel
     
     weak var viewLogic : MovieDetailViewLogic?
     
     struct Input  {
-        let viewWillAppear: Driver<String>
+        let viewWillAppear: Observable<String>
     }
     struct Output {
-        let item: Driver<DataType>
+        let item: Driver<MovieDetailModel>
     }
     
     override func transform(input: Input) -> Output {
-        input.viewWillAppear.flatMap({ urlString in
-            return Observable.deferred({[weak self] () -> Observable<DataType> in
-                guard let _self = self else { return Observable.just(([], "", "", "", "","")) }
-                return _self.service.movieDetail(.init(url: urlString))
-            }).trackError(self.errorTracker)
-                .asDriverOnErrorJustComplete()
-        }).drive(self.$data).disposed(by: self.disposeBag)
+        input.viewWillAppear.flatMap({[weak self] urlString -> Observable<MovieDetailModel>  in
+            guard let _self = self else { return Observable.empty() }
+            return _self.service.movieDetail(.init(url: urlString))
+        }).trackError(self.errorTracker)
+            .asDriverOnErrorJustComplete()
+            .drive(self.$data).disposed(by: self.disposeBag)
         
         return Output(item: self.$data.asDriverOnErrorJustComplete())
     }

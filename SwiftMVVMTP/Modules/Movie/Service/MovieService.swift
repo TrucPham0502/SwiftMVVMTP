@@ -10,7 +10,7 @@ import RxSwift
 protocol MovieService {
     func getMovies(_ input : MoviesRequest) ->  Observable<(titleData: [MovieCategory], data: [[MovieCollectionViewCellModel]])>
     func searchMovies(_ input : SearchMoviesRequest) ->  Observable<(titleData: [MovieCategory], data: [[MovieCollectionViewCellModel]])>
-    func movieDetail(_ input : MovieDetailRequest) -> Observable<([EpisodeModel], content: String, time: String, season: String, latest: String, categorys : String)>
+    func movieDetail(_ input : MovieDetailRequest) -> Observable<MovieDetailModel>
     func getMoviesByGroup(_ input : MoviesRequest) -> Observable<(page : Int, data: [MovieCollectionViewCellModel])>
     
     func getLinkAndSublink(_ url : String) -> Observable<PlayerModel>

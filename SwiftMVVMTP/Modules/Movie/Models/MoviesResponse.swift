@@ -46,6 +46,7 @@ enum VideoTypeResponse : String, Codable {
 
 // MARK: - MovieDetailResponse
 struct MovieDetailResponse: Codable {
+    let title: String?
     let time : String?
     let latest : String?
     let season : String?

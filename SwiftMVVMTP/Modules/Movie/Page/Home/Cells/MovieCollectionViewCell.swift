@@ -48,17 +48,15 @@ class MovieCollectionViewCell : UICollectionViewCell {
         v.layer.masksToBounds = true
         v.layer.cornerRadius = 5
         v.backgroundColor = .white
-        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backViewTap)))
         return v
     }()
     
     
     private lazy var dotImage : UIImageView = {
         let v = UIImageView(image: UIImage(named: "dots"))
-        v.contentMode = .scaleToFill
+        v.contentMode = .center
         v.isUserInteractionEnabled = true
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dotsTap(_:))))
         return v
     }()
     
@@ -67,10 +65,9 @@ class MovieCollectionViewCell : UICollectionViewCell {
         v.translatesAutoresizingMaskIntoConstraints = false
         v.layer.masksToBounds = true
         v.layer.cornerRadius = 5
-        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(frontViewTap)))
         return v
     }()
-   
+    
     let gradientLayer = CAGradientLayer()
     lazy var backgroundImageView: UIImageView = {
         let v = UIImageView(frame: .init(x: 0, y: 0, width: contentSize.width, height: contentSize.height))
@@ -126,18 +123,11 @@ class MovieCollectionViewCell : UICollectionViewCell {
         super.layoutSubviews()
         gradientLayer.frame.size = self.backgroundImageView.frame.size
         gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.7).cgColor]
+        
     }
     
     
-    @objc private func dotsTap(_ sender : Any?){
-        btnDotsAction()
-    }
-    @objc private func backViewTap(_ sender : Any?){
-        backViewAction(self.backContainerView)
-    }
-    @objc private func frontViewTap(_ sender : Any?){
-        frontViewAction(self.frontContainerView)
-    }
+    
     
     fileprivate func updateConstraintTitle(){
         if let centerY = self.titleConstraint.centerY, let model = model, let heightFront = self.frontConstraint.height {
@@ -148,6 +138,7 @@ class MovieCollectionViewCell : UICollectionViewCell {
     }
     private func configurationViews() {
         self.contentView.backgroundColor = .clear
+        self.contentView.isUserInteractionEnabled = false
         [backContainerView, frontContainerView, customTitle].forEach(self.contentView.addSubview)
         
         [backgroundImageView].forEach(self.frontContainerView.addSubview)
@@ -163,13 +154,13 @@ class MovieCollectionViewCell : UICollectionViewCell {
     
     func constraints(){
         backConstraint = .init(width: backContainerView.widthAnchor.constraint(equalToConstant: contentSize.width), height: backContainerView.heightAnchor.constraint(equalToConstant: contentSize.height), centerX:  backContainerView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor), centerY: self.backContainerView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor))
-
+        
         
         frontConstraint = .init(width: frontContainerView.widthAnchor.constraint(equalToConstant: contentSize.width), height: frontContainerView.heightAnchor.constraint(equalToConstant: contentSize.height), centerX: frontContainerView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor), centerY: self.frontContainerView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor))
-            
+        
         titleConstraint = .init(width: customTitle.widthAnchor.constraint(equalToConstant: self.frontContainerView.bounds.size.width - 16), centerX: customTitle.centerXAnchor.constraint(equalTo: self.frontContainerView.centerXAnchor, constant: 0), centerY: self.customTitle.centerYAnchor.constraint(equalTo: self.frontContainerView.centerYAnchor))
         
-            [backConstraint,frontConstraint,titleConstraint].forEach{$0.active()}
+        [backConstraint,frontConstraint,titleConstraint].forEach{$0.active()}
         
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: self.frontContainerView.topAnchor),
@@ -181,8 +172,8 @@ class MovieCollectionViewCell : UICollectionViewCell {
             
             dotImage.bottomAnchor.constraint(equalTo: self.backContainerView.bottomAnchor, constant: -15),
             dotImage.trailingAnchor.constraint(equalTo: self.backContainerView.trailingAnchor, constant: -20),
-            dotImage.heightAnchor.constraint(equalToConstant: 19),
-            dotImage.widthAnchor.constraint(equalToConstant: 4),
+            dotImage.heightAnchor.constraint(equalToConstant: 20),
+            dotImage.widthAnchor.constraint(equalToConstant: 20),
             
             tagView.bottomAnchor.constraint(equalTo: backContainerView.bottomAnchor, constant: -15),
             tagView.leadingAnchor.constraint(equalTo: self.backContainerView.leadingAnchor, constant: 20),
@@ -241,6 +232,16 @@ class MovieCollectionViewCell : UICollectionViewCell {
         }
         self.contentSize = size
         
+    }
+    
+    func handleTouch(_ point : CGPoint){
+        if self.frontContainerView.frame.contains(point){
+            frontViewAction(self.frontContainerView)
+        }
+        else if self.backContainerView.frame.contains(point) {
+            if self.backContainerView.convert(dotImage.frame, to: self.contentView).contains(point) {  btnDotsAction() }
+            else { backViewAction(self.backContainerView) }
+        }
     }
 }
 

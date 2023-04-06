@@ -60,14 +60,14 @@ class MovieServiceImpl : MovieService {
         })
     }
     
-    func movieDetail(_ input : MovieDetailRequest) -> Observable<([EpisodeModel], content: String, time: String, season: String, latest: String, categorys : String)> {
+    func movieDetail(_ input : MovieDetailRequest) -> Observable<MovieDetailModel> {
         return repository.movieDetail(input).map({ res in
             let eps : [EpisodeModel] = res.episodes?.compactMap({ d -> EpisodeModel? in
                 return EpisodeModel(dataPostID: d.dataPostId ?? "", dataServer: d.dataServer ?? "", dataEpisodeSlug: d.dataEpisodeSlug ?? "", isNew: d.isNew ?? false, dataEmbed: d.dataEmbed ?? "", episode: d.episode ?? "", url: d.url ?? "")
             }).reversed() ?? []
             let content : String = res.contents?.joined(separator: "\n")  ?? ""
             let category : String = res.categorys?.joined(separator: ", ") ?? ""
-            return (eps, content, res.time ?? "", res.season ?? "", res.latest ?? "", category)
+            return MovieDetailModel(title: res.title ?? "", episodes: eps, content: content, time: res.time ?? "", season: res.season ?? "", latest: res.latest ?? "", categorys: category)
         })
     }
     

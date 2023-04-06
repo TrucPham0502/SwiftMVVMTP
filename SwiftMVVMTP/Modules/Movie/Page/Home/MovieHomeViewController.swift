@@ -19,15 +19,33 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     fileprivate var cellsIsOpen = [[Bool]]()
     fileprivate var transitionDriver : TransitionDriver?
     fileprivate var itemSize = UIMovieHomeConfig.shared.cardsSize
-    private lazy var searchbar : CustomSearchBar = {
-        let v = CustomSearchBar()
-        v.searchBarStyle = .minimal
-        v.placeholder = "Tìm kiếm..."
+    private var currentIndex : IndexPath = .init(row: -1, section: -1) {
+        didSet {
+            guard currentIndex.section < titlesItem.count,
+                  currentIndex.section > -1,
+                  currentIndex.row < self.collectionItems[currentIndex.section].count,
+                  currentIndex.row > -1 else { return }
+            let data = self.collectionItems[currentIndex.section][currentIndex.row]
+            if let posterImg = data.posterImage {
+                setBackground(posterImg)
+            } else if !data.poster.isEmpty {
+                ImageLoader.load(url: data.poster) {[weak self] image in
+                    guard let self = self else { return }
+                    self.setBackground(image)
+                }
+            }
+            
+        }
+    }
+    
+    private lazy var searchbar : SearchBar = {
+        let v = SearchBar()
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.tintColor = .white
-        v.clearBackgroundColor()
-        v.changePlaceholderColor(.white)
-        v.setImageLeftColor(.white)
+        v.attributedPlaceholder  = NSAttributedString(
+            string: "Tìm kiếm...",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.7)]
+        )
+        v.textColor = .white.withAlphaComponent(0.7)
         return v
     }()
     
@@ -53,14 +71,11 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     
     lazy var collectionView: MovieCollectionView = {
         let layout = MovieCollectionLayout(itemSize: itemSize)
-        let collectionView = MovieCollectionView.createOnView(self.view,
-                                                             layout: layout,
-                                                             height: itemSize.height,
-                                                             dataSource: self,
-                                                             delegate: self)
-        //        if #available(iOS 10.0, *) {
-        //            collectionView.isPrefetchingEnabled = false
-        //        }
+        let collectionView = MovieCollectionView(self.view,
+                                                 layout: layout,
+                                                 height: itemSize.height,
+                                                 dataSource: self,
+                                                 delegate: self)
         return collectionView
     }()
     private lazy var glidingView : GlidingCollection = {
@@ -76,7 +91,7 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     
     override func performBinding() {
         super.performBinding()
-        let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).mapToVoid(), loadMore: self.loadMoreSubject.asObservable(), searchbar: self.searchbar.textField!.rx.text.orEmpty.asObservable().debounce(.seconds(1), scheduler: MainScheduler.instance)))
+        let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).mapToVoid(), loadMore: self.loadMoreSubject.asObservable(), searchbar: self.searchbar.rx.text.orEmpty.asObservable().debounce(.seconds(1), scheduler: MainScheduler.instance)))
         
         output.item.drive(onNext: {[weak self] (titles, item) in
             guard let _self = self else { return }
@@ -84,11 +99,14 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
             _self.collectionItems = item
             _self.reloadCollection()
             _self.glidingView.reloadData()
-            if let url = item.first?.first?.poster {
-                ImageLoader.load(url: url) { image in
-                    _self.backgroundImage.image = image
-                }
+            if _self.collectionItems.reduce(0, { partialResult, ele in
+                var res = partialResult
+                res += ele.count
+                return res
+            }) > 0 {
+                _self.currentIndex = .init(row: 0, section: 0)
             }
+            else { _self.currentIndex = .init(row: -1, section: -1) }
         }).disposed(by: self.disposeBag)
         
         output.loadMore.drive(onNext: {data in
@@ -98,10 +116,13 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         transitionDriver = TransitionDriver(view: view)
-        //        getData()
         
+    }
+    
+    override func dismissKeyboard() {
+        super.dismissKeyboard()
+        self.collectionView.currentCell?.cellIsOpen(false)
     }
     
     override func viewWillLayoutSubviews() {
@@ -127,12 +148,15 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
             searchbar.topAnchor.constraint(equalTo: self.headerView.topAnchor),
             searchbar.leadingAnchor.constraint(equalTo: self.headerView.leadingAnchor, constant: 16),
             searchbar.trailingAnchor.constraint(equalTo: self.headerView.trailingAnchor, constant: -16),
+            searchbar.heightAnchor.constraint(equalToConstant: 40),
             
             
             glidingView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 60),
             glidingView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            glidingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            glidingView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+            //            glidingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            //            glidingView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+            glidingView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
+            ///colection view auto width =>  rotate => resize layout => error layout
             
         ])
     }
@@ -149,6 +173,15 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     func appendCollectionView(section: Int, items : [MovieCollectionViewCellModel]){
         self.collectionItems[section].append(contentsOf: items)
         reloadCollection()
+    }
+    
+    func setBackground(_ image: UIImage?) {
+        let crossFade: CABasicAnimation = CABasicAnimation(keyPath: "contents")
+        crossFade.duration = 0.3
+        crossFade.fromValue = self.backgroundImage.image?.cgImage
+        crossFade.toValue = image?.cgImage
+        self.backgroundImage.image = image
+        self.backgroundImage.layer.add(crossFade, forKey: "animateContents")
     }
     
 }
@@ -173,7 +206,7 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
         let index = indexPath.row % collectionItems[section].count
         let info = collectionItems[section][index]
         if let pImage = info.posterImage { cell.backgroundImageView.image = pImage }
-        if !info.poster.isEmpty {
+        else if !info.poster.isEmpty {
             ImageLoader.load(url: info.poster, imageView: cell.backgroundImageView, imageDefault: UIImage(named: "poster_not_found")) {[weak self] image in
                 guard let self = self else { return }
                 self.collectionItems[section][index].posterImage = image
@@ -216,9 +249,7 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
         let a = collectionView.contentOffset.x + startOffset + itemSize.width / 2
         let b = itemSize.width + minimumLineSpacing
         let index = Int(a/b)
-        if let cell = collectionView.cellForItem(at: .init(row: index, section: 0)) as? MovieCollectionViewCell {
-            self.backgroundImage.image = cell.backgroundImageView.image
-        }
+        self.currentIndex = .init(row: index, section: self.glidingView.expandedItemIndex)
     }
     
     
@@ -236,10 +267,8 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
     }
     
     func navigationToDetail(cell: MovieCollectionViewCell, data: MovieCollectionViewCellModel?, index : Int){
-//        let titleData = self.titlesItem[index]
         let vc = MovieDetailViewController()
         vc.dataRequire = .init(poster: data?.poster, urlPage: data?.url)
-        vc.titleView.text = data?.name
         pushToViewController(vc)
     }
     
@@ -282,12 +311,6 @@ extension MovieHomeViewController: GlidingCollectionDatasource {
 }
 extension MovieHomeViewController : GlidingCollectionDelegate {
     func glidingCollection(_ collection: GlidingCollection, didExpandItemAt index: Int) {
-        let poster = self.collectionItems[index][0].poster
-        if !poster.isEmpty  {
-            ImageLoader.load(url: poster) { image in
-                self.backgroundImage.image = image
-            }
-        }
-        
+        self.currentIndex = .init(row: self.collectionView.currentIndex, section: index)
     }
 }
