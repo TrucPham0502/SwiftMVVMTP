@@ -13,28 +13,24 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     override func buildViewModel() -> MovieHomeViewModel {
         return MovieHomeViewModel()
     }
+    let event : MovieHomeViewModel.Event = .init(bookmark: PublishRelay())
     var loadMoreSubject : PublishRelay<Int> = .init()
+    private var cellOpens : Dictionary<Int, Bool> = [:]
     fileprivate var titlesItem = [MovieCategory]()
     fileprivate var collectionItems: [[MovieCollectionViewCellModel]] = []
-    fileprivate var cellsIsOpen = [[Bool]]()
     fileprivate var transitionDriver : TransitionDriver?
     fileprivate var itemSize = UIMovieHomeConfig.shared.cardsSize
-    private var currentIndex : IndexPath = .init(row: -1, section: -1) {
+    private var currentIndex : IndexPath = .init(row: 0, section: 0) {
         didSet {
-            guard currentIndex.section < titlesItem.count,
-                  currentIndex.section > -1,
-                  currentIndex.row < self.collectionItems[currentIndex.section].count,
-                  currentIndex.row > -1 else { return }
-            let data = self.collectionItems[currentIndex.section][currentIndex.row]
-            if let posterImg = data.posterImage {
-                setBackground(posterImg)
-            } else if !data.poster.isEmpty {
-                ImageLoader.load(url: data.poster) {[weak self] image in
-                    guard let self = self else { return }
-                    self.setBackground(image)
-                }
+            guard oldValue.section < self.collectionItems.count,
+                  oldValue.section > -1,
+                  oldValue.row < self.collectionItems[currentIndex.section].count,
+                  oldValue.row > -1 else { return }
+            if let cell = self.collectionView.cellForItem(at: oldValue) as? MovieCollectionViewCell {
+                cell.cellIsOpen(false)
             }
-            
+            cellOpens[oldValue.row] = false
+            self.changeBackground()
         }
     }
     
@@ -91,27 +87,26 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     
     override func performBinding() {
         super.performBinding()
-        let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).mapToVoid(), loadMore: self.loadMoreSubject.asObservable().throttle(.seconds(1), scheduler: MainScheduler.instance), searchbar: self.searchbar.rx.text.orEmpty.asObservable().debounce(.seconds(1), scheduler: MainScheduler.instance)))
+        let output = viewModel.transform(input: .init(
+            viewWillAppear: self.rx.viewWillAppear.take(1).mapToVoid(),
+            loadMore: self.loadMoreSubject.asObservable().throttle(.seconds(1), scheduler: MainScheduler.instance),
+            searchbar: self.searchbar.rx.text.orEmpty.asObservable().debounce(.seconds(1), scheduler: MainScheduler.instance),
+            event: event))
         
-        output.item.drive(onNext: {[weak self] (titles, item) in
+        output.data.drive(onNext: {[weak self] data in
             guard let _self = self else { return }
-            _self.titlesItem = titles
-            _self.collectionItems = item
-            _self.reloadCollection()
-            _self.glidingView.reloadData()
-            if _self.collectionItems.reduce(0, { partialResult, ele in
-                var res = partialResult
-                res += ele.count
-                return res
-            }) > 0 {
-                _self.currentIndex = .init(row: 0, section: 0)
+            switch data {
+            case let .item(value):
+                _self.collectionItems = value.0.datas
+                if !value.1 {
+                    _self.titlesItem = value.0.titles
+                    _self.glidingView.reloadData()
+                }
+                _self.changeBackground()
+                _self.reloadCollection()
+            default: break;
             }
-            else { _self.currentIndex = .init(row: -1, section: -1) }
-        }).disposed(by: self.disposeBag)
-        
-        output.loadMore.drive(onNext: {[weak self] data in
-            guard let self = self else { return }
-            self.appendCollectionView(section: data.0, items: data.1)
+            
         }).disposed(by: self.disposeBag)
     }
     
@@ -163,20 +158,25 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     }
     func reloadCollection()
     {
-        cellsIsOpen = self.collectionItems.map({ ds -> Array in
-            Array(repeating: false, count: ds.count)
-        })
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
     }
     
-    func appendCollectionView(section: Int, items : [MovieCollectionViewCellModel]){
-        self.collectionItems[section].append(contentsOf: items)
-        cellsIsOpen = self.collectionItems.map({ ds -> Array in
-            Array(repeating: false, count: ds.count)
-        })
-        reloadCollection()
+    func changeBackground(){
+        guard currentIndex.section < self.collectionItems.count,
+              currentIndex.section > -1,
+              currentIndex.row < self.collectionItems[currentIndex.section].count,
+              currentIndex.row > -1 else { return }
+        let data = self.collectionItems[currentIndex.section][currentIndex.row]
+        if let posterImg = data.posterImage {
+            setBackground(posterImg)
+        } else if !data.poster.isEmpty {
+            ImageLoader.load(url: data.poster) {[weak self] image in
+                guard let self = self else { return }
+                self.setBackground(image)
+            }
+        }
     }
     
     func setBackground(_ image: UIImage?) {
@@ -214,18 +214,26 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
             }
         }
         cell.model = info
-        cell.cellIsOpen(cellsIsOpen[section][index], animated: false)
-        cell.backViewAction = {_ in
+        cell.cellIsOpen(self.cellOpens[index] ?? false, animated: false)
+        cell.backViewAction = {[weak self] _ in
+            guard let self = self else { return }
             self.navigationToDetail(cell: cell, data: info, index: section)
         }
+        cell.bookmarkAction = {[weak self] isSelected in
+            guard let self = self else { return }
+//            self.collectionItems[section][indexPath.row].isBookmark = isSelected
+            self.event.bookmark.accept((indexPath, isSelected))
+        }
         
-        cell.frontViewAction = {_ in
+        cell.frontViewAction = {[weak self] _ in
+            guard let self = self else { return }
+            self.cellOpens[index] = !cell.isOpened
             if index == self.collectionView.currentIndex {
                 cell.cellIsOpen(!cell.isOpened)
             }
             else {
-                self.scrollViewWillBeginDecelerating(collectionView)
                 collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+                self.currentIndex = indexPath
             }
         }
         return cell
@@ -255,13 +263,6 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
         let b = itemSize.width + minimumLineSpacing
         let index = Int(a/b)
         self.currentIndex = .init(row: index, section: self.glidingView.expandedItemIndex)
-    }
-    
-    
-    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-        if let cell = self.collectionView.currentCell {
-            cell.cellIsOpen(false)
-        }
     }
     
     

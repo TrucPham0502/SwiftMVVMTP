@@ -32,25 +32,31 @@ class MovieDetailViewModel : BaseViewModel<MovieDetailViewModel.Input, MovieDeta
     @Dependency.Inject
     var service : MovieService
     
-    @BehaviorRelayProperty(value: MovieDetailModel(title: "", episodes: [], content: "", time: "", season: "", latest: "", categorys: ""))
-    var data : MovieDetailModel
+    @BehaviorRelayProperty(value: .none)
+    var data : Response
     
     weak var viewLogic : MovieDetailViewLogic?
     
     struct Input  {
         let viewWillAppear: Observable<String>
     }
+    enum Response {
+        case none
+        case item(MovieDetailModel)
+    }
     struct Output {
-        let item: Driver<MovieDetailModel>
+        let item: Driver<Response>
     }
     
     override func transform(input: Input) -> Output {
-        input.viewWillAppear.flatMap({[weak self] urlString -> Observable<MovieDetailModel>  in
-            guard let _self = self else { return Observable.empty() }
-            return _self.service.movieDetail(.init(url: urlString))
+        input.viewWillAppear.flatMap({[weak self] urlString -> Observable<Response>  in
+            guard let _self = self else { return Observable.just(.none) }
+            return _self.service.movieDetail(.init(url: urlString)).map({x in
+                return .item(x)
+            })
         }).trackError(self.errorTracker)
-            .asDriverOnErrorJustComplete()
-            .drive(self.$data).disposed(by: self.disposeBag)
+        .asDriverOnErrorJustComplete()
+        .drive(self.$data).disposed(by: self.disposeBag)
         
         return Output(item: self.$data.asDriverOnErrorJustComplete())
     }

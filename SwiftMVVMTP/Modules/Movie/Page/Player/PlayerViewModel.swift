@@ -15,19 +15,23 @@ class PlayerViewModel : BaseViewModel<PlayerViewModel.Input, PlayerViewModel.Out
     struct Input {
         let viewWillAppear: Observable<String>
     }
+    enum Response {
+        case none
+        case item(PlayerModel)
+    }
     struct Output {
-        let item: Driver<PlayerModel>
+        let item: Driver<Response>
     }
     @Dependency.Inject
     var service : MovieService
     
-    @BehaviorRelayProperty(value: PlayerModel(media: .init(url: "", type: ""), sublinks: []))
-    var item : PlayerModel
+    @BehaviorRelayProperty(value: .none)
+    var item : Response
     
     override func transform(input: Input) -> Output {
-        input.viewWillAppear.flatMap({[weak self] urlString -> Observable<PlayerModel> in
-            guard let _self = self else { return Observable.empty() }
-            return _self.service.getLinkAndSublink(urlString)
+        input.viewWillAppear.flatMap({[weak self] urlString -> Observable<Response> in
+            guard let _self = self else { return Observable.just(.none) }
+            return _self.service.getLinkAndSublink(urlString).map({x in return .item(x) })
         }).trackActivity(self.activityIndicator)
             .trackError(self.errorTracker)
             .asDriverOnErrorJustComplete()

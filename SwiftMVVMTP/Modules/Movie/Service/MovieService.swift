@@ -8,8 +8,8 @@
 import Foundation
 import RxSwift
 protocol MovieService {
-    func getMovies(_ input : MoviesRequest) ->  Observable<(titleData: [MovieCategory], data: [[MovieCollectionViewCellModel]])>
-    func searchMovies(_ input : SearchMoviesRequest) ->  Observable<(titleData: [MovieCategory], data: [[MovieCollectionViewCellModel]])>
+    func getMovies(_ input : MoviesRequest) ->  Observable<HomeModel>
+    func searchMovies(_ input : SearchMoviesRequest) ->  Observable<HomeModel>
     func movieDetail(_ input : MovieDetailRequest) -> Observable<MovieDetailModel>
     func getMoviesByGroup(_ input : MoviesRequest) -> Observable<(page : Int, data: [MovieCollectionViewCellModel])>
     

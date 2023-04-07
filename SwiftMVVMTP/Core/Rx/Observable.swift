@@ -69,31 +69,6 @@ class  BehaviorRelayProperty<Element>: WrapperSubject<Element> {
 }
 
 
-
-@propertyWrapper
-class ObservableProperty<Element>: ObservableType {
-    var wrappedValue: Element {
-        didSet {
-            subject.onNext(wrappedValue)
-        }
-    }
-    
-    private let subject: BehaviorSubject<Element>
-    
-    init(wrappedValue: Element) {
-        self.wrappedValue = wrappedValue
-        self.subject = BehaviorSubject<Element>(value: wrappedValue)
-    }
-    
-    var projectedValue: Observable<Element> {
-        return subject.asObservable()
-    }
-    
-    func subscribe<Observer>(_ observer: Observer) -> Disposable where Observer : ObserverType, Element == Observer.Element {
-        return subject.subscribe(observer)
-    }
-}
-
 @propertyWrapper
 struct Proxy<EnclosingType, Value> {
     typealias ValueKeyPath = ReferenceWritableKeyPath<EnclosingType, Value>

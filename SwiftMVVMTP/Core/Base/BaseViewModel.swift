@@ -17,13 +17,14 @@ protocol ViewModelType {
     func transform(input: Input) -> Output
 }
 
-class BaseViewModel<Input, Output> : NSObject, ViewModelType {
+
+class BaseViewModel<I, O> : NSObject, ViewModelType {
     let activityIndicator = ActivityIndicator()
     let errorTracker = ErrorTracker()
     let disposeBag = DisposeBag()
     
-    func transform(input: Input) -> Output {
-        var o: Output!
+    func transform(input: I) -> O {
+        var o: O!
         return o
     }
     

@@ -11,36 +11,36 @@ class MovieServiceImpl : MovieService {
     @Dependency.Inject
     var repository : MovieRepository
     
-    func searchMovies(_ input: SearchMoviesRequest) -> Observable<(titleData: [MovieCategory], data: [[MovieCollectionViewCellModel]])> {
-        return repository.searchMovies(input).flatMap({ response -> Observable<(titleData: [MovieCategory], data: [[MovieCollectionViewCellModel]])> in
+    func searchMovies(_ input: SearchMoviesRequest) -> Observable<HomeModel> {
+        return repository.searchMovies(input).flatMap({ response -> Observable<HomeModel> in
             let films = response.map({d in
                 d.data.map{v in
                     v.map({
-                        MovieCollectionViewCellModel(url: $0.url ?? "", name: $0.name ?? "", poster: $0.poster ?? "", tag: $0.picTag?.rawValue ?? "", episode: $0.episode ?? "")
+                        MovieCollectionViewCellModel(url: $0.url ?? "", name: $0.name ?? "", poster: $0.poster ?? "", tag: $0.picTag?.rawValue ?? "", episode: $0.episode ?? "", isBookmark: false)
                     })
                 } ?? []
             })
             let titlesItem = response.map({
                 MovieCategory(nextPage: $0.nextPage ?? -1, title: $0.title ?? "")
             })
-            return Observable.just((titlesItem, films))
+            return Observable.just(HomeModel(titles: titlesItem, datas: films))
         })
     }
     
     
-    func getMovies(_ input: MoviesRequest) -> Observable<(titleData: [MovieCategory], data: [[MovieCollectionViewCellModel]])> {
-        return repository.getMovies(input).flatMap({ response -> Observable<(titleData: [MovieCategory], data: [[MovieCollectionViewCellModel]])> in
+    func getMovies(_ input: MoviesRequest) -> Observable<HomeModel> {
+        return repository.getMovies(input).flatMap({ response -> Observable<HomeModel> in
             let films = response.map({d in
                 d.data.map{v in
                     v.map({
-                        MovieCollectionViewCellModel(url: $0.url ?? "", name: $0.name ?? "", poster: $0.poster ?? "", tag: $0.picTag?.rawValue ?? "", episode: $0.episode ?? "")
+                        MovieCollectionViewCellModel(url: $0.url ?? "", name: $0.name ?? "", poster: $0.poster ?? "", tag: $0.picTag?.rawValue ?? "", episode: $0.episode ?? "", isBookmark: false)
                     })
                 } ?? []
             })
             let titlesItem = response.map({
                 MovieCategory(nextPage: $0.nextPage ?? -1, title: $0.title ?? "")
             })
-            return Observable.just((titlesItem, films))
+            return Observable.just(HomeModel(titles: titlesItem, datas: films))
         })
     }
     
@@ -52,7 +52,7 @@ class MovieServiceImpl : MovieService {
             let films = response.map({d in
                 d.data.map{v in
                     v.map({
-                        MovieCollectionViewCellModel(url: $0.url ?? "", name: $0.name ?? "", poster: $0.poster ?? "", tag: $0.picTag?.rawValue ?? "", episode: $0.episode ?? "")
+                        MovieCollectionViewCellModel(url: $0.url ?? "", name: $0.name ?? "", poster: $0.poster ?? "", tag: $0.picTag?.rawValue ?? "", episode: $0.episode ?? "", isBookmark: false)
                     })
                 } ?? []
             }).first ?? []

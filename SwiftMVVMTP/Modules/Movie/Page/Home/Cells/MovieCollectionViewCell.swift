@@ -14,6 +14,7 @@ struct MovieCollectionViewCellModel {
     let poster : String
     let tag : String
     let episode: String
+    var isBookmark : Bool
 }
 class MovieCollectionViewCell : UICollectionViewCell {
     let titleFont : UIFont = .boldSystemFont(ofSize: 18)
@@ -26,7 +27,12 @@ class MovieCollectionViewCell : UICollectionViewCell {
     var btnDotsAction : () -> () = {}
     var backViewAction : (UIView) -> () = {_ in }
     var frontViewAction : (UIView) -> () = {_ in }
-    
+    var bookmarkAction : (Bool) -> () = {_ in }
+    var isBookmarks : Bool = false {
+        didSet {
+            self.bookmarksView.setImage(isBookmarks ? .init(named: "christmas-star-fill") : .init(named: "christmas-star-stroke"), for: .normal)
+        }
+    }
     var model : MovieCollectionViewCellModel? {
         didSet {
             guard let model = model else {
@@ -34,6 +40,7 @@ class MovieCollectionViewCell : UICollectionViewCell {
             }
             self.customTitle.text = model.name
             self.tagView.text = "\(model.episode) (\(model.tag)) "
+            self.isBookmarks = model.isBookmark
             updateConstraintTitle()
         }
     }
@@ -98,6 +105,17 @@ class MovieCollectionViewCell : UICollectionViewCell {
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
+    
+    lazy var bookmarksView : UIButton = {
+        let v = UIButton()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.setImage(UIImage(named: "christmas-star-stroke"), for: .normal)
+        v.contentEdgeInsets = .zero
+        v.contentEdgeInsets = .zero
+        return v
+    }()
+    
+    
     var shadowView: UIView?
     var isOpened = false
     
@@ -126,9 +144,6 @@ class MovieCollectionViewCell : UICollectionViewCell {
         
     }
     
-    
-    
-    
     fileprivate func updateConstraintTitle(){
         if let centerY = self.titleConstraint.centerY, let model = model, let heightFront = self.frontConstraint.height {
             let textSize = NSAttributedString(string: model.name, attributes: [.font : self.titleFont]).size(considering: self.frontContainerView.frame.size.width - 32)
@@ -143,7 +158,7 @@ class MovieCollectionViewCell : UICollectionViewCell {
         
         [backgroundImageView].forEach(self.frontContainerView.addSubview)
         
-        [dotImage, tagView].forEach(self.backContainerView.addSubview)
+        [dotImage, tagView, bookmarksView].forEach(self.backContainerView.addSubview)
         
         constraints()
         
@@ -177,6 +192,11 @@ class MovieCollectionViewCell : UICollectionViewCell {
             
             tagView.bottomAnchor.constraint(equalTo: backContainerView.bottomAnchor, constant: -15),
             tagView.leadingAnchor.constraint(equalTo: self.backContainerView.leadingAnchor, constant: 20),
+            
+            bookmarksView.trailingAnchor.constraint(equalTo: self.dotImage.leadingAnchor, constant: -10),
+            bookmarksView.topAnchor.constraint(equalTo: self.dotImage.topAnchor),
+            bookmarksView.heightAnchor.constraint(equalTo: self.dotImage.heightAnchor),
+            bookmarksView.widthAnchor.constraint(equalTo: bookmarksView.heightAnchor)
             
             
         ])
@@ -240,6 +260,10 @@ class MovieCollectionViewCell : UICollectionViewCell {
         }
         else if self.backContainerView.frame.contains(point) {
             if self.backContainerView.convert(dotImage.frame, to: self.contentView).contains(point) {  btnDotsAction() }
+            else if self.backContainerView.convert(bookmarksView.frame, to: self.contentView).contains(point) {
+                self.isBookmarks = !isBookmarks
+                self.bookmarkAction(self.isBookmarks)
+            }
             else { backViewAction(self.backContainerView) }
         }
     }
@@ -284,6 +308,8 @@ extension MovieCollectionViewCell {
                 self.contentView.layoutIfNeeded()
             }, completion: nil)
         } else {
+            self.customTitle.textColor = isOpen ? .black.withAlphaComponent(0.7) : .white
+            self.customTitle.transform = !isOpen ? .init(scaleX: 1, y: 1) : .init(scaleX: 0.8, y: 0.8)
             contentView.layoutIfNeeded()
         }
     }

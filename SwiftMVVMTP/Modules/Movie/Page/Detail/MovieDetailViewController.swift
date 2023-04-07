@@ -372,15 +372,20 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         })))
         output.item.drive(onNext: {[weak self] data in
             guard let self = self else { return }
-            self.data = data.episodes
-            self.contentView.text = data.content
-            self.seasonlb.text = "\(data.season) - \(data.latest)"
-            self.timelb.text = data.time
-            self.categoryslb.text = "(\(data.categorys))"
-            self.titleView.text = data.title
-            UIView.animate(withDuration: 0.3) {
-                self.containerView.alpha = 1
+            switch data {
+            case let .item(value):
+                self.data = value.episodes
+                self.contentView.text = value.content
+                self.seasonlb.text = "\(value.season) - \(value.latest)"
+                self.timelb.text = value.time
+                self.categoryslb.text = "(\(value.categorys))"
+                self.titleView.text = value.title
+                UIView.animate(withDuration: 0.3) {
+                    self.containerView.alpha = 1
+                }
+            default: break
             }
+            
         }).disposed(by: self.disposeBag)
     }
     

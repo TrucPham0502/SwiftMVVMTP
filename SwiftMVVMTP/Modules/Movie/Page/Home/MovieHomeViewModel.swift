@@ -8,85 +8,118 @@
 import Foundation
 import RxCocoa
 import RxSwift
+struct HomeModel {
+    var titles : [MovieCategory]
+    var datas : [[MovieCollectionViewCellModel]]
+}
+
+
 class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeViewModel.Output> {
-    typealias LoadMoreType = (session : Int, data : [MovieCollectionViewCellModel])
-    typealias ItemType = (titleData: [MovieCategory], data: [[MovieCollectionViewCellModel]])
+    
+    typealias ItemType = (HomeModel, isLoadMore: Bool)
     @Dependency.Inject
     var service : MovieService
     var isSearching = false
-    var isLoading = false {
+    var isStopLoadMore = false {
         didSet {
-            print("loading:\(isLoading)")
+            print("loading:\(isStopLoadMore)")
         }
     }
     struct Input  {
-        var viewWillAppear: Observable<Void>
-        var loadMore : Observable<Int>
-        var searchbar : Observable<String>
+        let viewWillAppear : Observable<Void>
+        let loadMore : Observable<Int>
+        let searchbar : Observable<String>
+        let event : Event
+    }
+    struct Event {
+        let bookmark : PublishRelay<(IndexPath, Bool)>
+    }
+    enum Response {
+        case none
+        case item((HomeModel, isLoadMore: Bool))
+        func getData() -> Any? {
+            switch self {
+            case let .item(value): return value
+            default: break
+            }
+            return nil
+        }
     }
     struct Output {
-        let item: Driver<ItemType>
-        let loadMore : Driver<LoadMoreType>
+        let data : Driver<Response>
     }
     
-    var itemTemp : ItemType = ([],[])
-    var dataLoaded : Dictionary<Int, Int> = [:]
-    @BehaviorRelayProperty(value: ([],[]))
-    var item : ItemType
+    var itemTemp : HomeModel = .init(titles: [], datas: [])
+    @BehaviorRelayProperty(value: .none)
+    var item : Response
     
     override func transform(input: Input) -> Output {
-        input.viewWillAppear.flatMap({[weak self] _ -> Observable<ItemType> in
-            guard let _self = self else { return Observable.just(([], [])) }
-            return Observable.deferred {() ->  Observable<ItemType> in
-                return _self.service.getMovies(.init(page: nil))
+        input.event.bookmark
+        .flatMap({[weak self] itemSelected -> Observable<Response> in
+            guard let _self = self, let data = _self.item.getData() as? ItemType  else { return Observable.just(.none) }
+            var res = data.0
+            res.datas[itemSelected.0.section][itemSelected.0.row].isBookmark = itemSelected.1
+            return Observable.just(.item((res, false)))
+        })
+        .trackError(self.errorTracker)
+        .asDriverOnErrorJustComplete()
+        .drive(self.$item)
+        .disposed(by: self.disposeBag)
+        
+        input.viewWillAppear.flatMap({[weak self] _ -> Observable<Response> in
+            guard let _self = self else { return Observable.just(.none) }
+            return Observable.deferred {() ->  Observable<Response> in
+                return _self.service.getMovies(.init(page: nil)).map({x in
+                    return .item((x, false))
+                })
             }.trackActivity(_self.activityIndicator)
                 .trackError(_self.errorTracker)
         }).do(onNext: {[weak self] data in
-            guard let self = self else { return }
-            self.itemTemp = data
-            self.dataLoaded = data.titleData.enumerated().reduce([:], { partialResult, ele in
-                var res = partialResult
-                res[ele.offset] = ele.element.nextPage
-                return res
-            })
+            guard let self = self, let d = data.getData() as? ItemType else { return }
+            self.itemTemp = d.0
         }).asDriverOnErrorJustComplete().drive(self.$item).disposed(by: self.disposeBag)
         
-            let loadMore = input.loadMore.filter({[weak self] _ in
-                guard let self = self else { return false }
-                return !self.isSearching && !self.isLoading
-            }).do(onNext: {[weak self] _ in
-                guard let self = self else { return }
-                self.isLoading = true
-            }).flatMap({ section in
-            return Observable.deferred { [weak self] () ->  Observable<LoadMoreType> in
-                guard let _self = self, let page = _self.dataLoaded[section], page > -1 else {  return Observable.just((section,[])) }
-                return _self.service.getMoviesByGroup(.init(page: page)).do(onNext: {[weak self] data in
-                    guard let _self = self else { return }
-                    _self.dataLoaded[section] = data.page
-                }).flatMap({
-                    return Observable.just((section,$0.data))
-                })
-            }
+        
+        input.loadMore.filter({[weak self] _ in
+            guard let self = self else { return false }
+            return !self.isSearching && !self.isStopLoadMore
         }).do(onNext: {[weak self] _ in
             guard let self = self else { return }
-            self.isLoading = false
-        }, onError: {[weak self] err in
-            guard let self = self else { return }
-            self.isLoading = false
-        }).trackError(self.errorTracker).asDriverOnErrorJustComplete()
-            
+            self.isStopLoadMore = true
+        }).flatMap({ section in
+            return Observable.deferred { [weak self] () ->  Observable<Response> in
+                guard let _self = self, let item = _self.item.getData() as? ItemType else {  return Observable.just(.none) }
+                    let page = item.0.titles[section].nextPage
+                    return _self.service.getMoviesByGroup(.init(page: page)).map({ data in
+                        var res = item.0
+                        res.titles[section].nextPage = data.page
+                        res.datas[section].append(contentsOf: data.data)
+                        return .item((res, true))
+                    }).do(onNext: {[weak self] data in
+                        guard let self = self else { return }
+                        let page = item.0.titles[section].nextPage
+                        self.isStopLoadMore = page < 0
+                    }, onError: {[weak self] err in
+                        guard let self = self else { return }
+                        self.isStopLoadMore = false
+                    })
+                }
+            }).trackError(self.errorTracker).asDriverOnErrorJustComplete().drive(self.$item).disposed(by: self.disposeBag)
+                
             input.searchbar.do(onNext: {[weak self] text in
                 guard let self = self else { return }
                 self.isSearching = !text.isEmpty
-            }).flatMap{[weak self] search -> Observable<ItemType> in
-                guard let self = self else { return Observable.just(([], [])) }
-                if(search.isEmpty) { return Observable.just(self.itemTemp) }
-                return self.service.searchMovies(.init(key: search))
+            }).flatMap{[weak self] search -> Observable<Response> in
+                guard let self = self else { return Observable.just(.none) }
+                if(search.isEmpty) { return Observable.just(.item((self.itemTemp, false))) }
+                return self.service.searchMovies(.init(key: search)).map({x in
+                    return .item((x, false))
+                })
             }.trackError(self.errorTracker)
             .asDriverOnErrorJustComplete()
             .drive(self.$item)
             .disposed(by: self.disposeBag)
-        return Output(item: self.$item.asDriverOnErrorJustComplete(), loadMore: loadMore)
+        return Output(data: self.$item.asDriverOnErrorJustComplete())
     }
     
 }

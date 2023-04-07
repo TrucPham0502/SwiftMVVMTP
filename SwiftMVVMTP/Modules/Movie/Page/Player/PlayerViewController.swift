@@ -53,15 +53,17 @@ class PlayerViewController : BaseViewController<PlayerViewModel>{
     
     
     func play(url: URL){
-        self.player.replaceCurrentItem(with: AVPlayerItem(url: url))
+        let asset = AVAsset(url: url)
+        let playerItem = AVPlayerItem(asset: asset)
+        self.player.replaceCurrentItem(with: playerItem)
         self.present(self.playerController, animated: true, completion: {
-            self.player.play()
+            self.playerController.player?.play()
         })
     }
     
     override func showToast(message: String) {
         let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: {_ in 
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: {_ in
             self.dismiss(animated: false)
         }))
         self.present(alert, animated: true, completion: nil)
@@ -77,8 +79,13 @@ class PlayerViewController : BaseViewController<PlayerViewModel>{
             ))
         output.item.drive(onNext: {[weak self] media in
             guard let self = self else { return }
-            guard !media.media.url.isEmpty, let url = URL(string: media.media.url) else { return }
-            self.play(url: url)
+            switch media {
+            case let .item(value):
+                guard !value.media.url.isEmpty, let url = URL(string: value.media.url) else { return }
+                self.play(url: url)
+            default: break
+            }
+           
         }).disposed(by: self.disposeBag)
         
     }
