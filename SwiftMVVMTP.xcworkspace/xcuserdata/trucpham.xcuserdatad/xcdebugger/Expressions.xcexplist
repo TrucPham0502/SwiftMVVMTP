@@ -3,6 +3,22 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "MovieHomeViewController.currentIndex.didset:MovieHomeViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "currentIndex">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MovieHomeViewController.scrollViewDidEndDecelerating(_:):MovieHomeViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "currentIndex">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #4 in MovieHomeViewModel.transform(input:):MovieHomeViewModel.swift">
          <PersistentStrings>
             <PersistentString

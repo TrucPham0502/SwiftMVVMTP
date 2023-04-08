@@ -8,11 +8,12 @@
 import Foundation
 import UIKit
 class EpisodeCollectionViewCell: UICollectionViewCell {
+    static let titleFont : UIFont = .systemFont(ofSize: 14)
     var didSelected : (EpisodeModel) -> () = {_ in }
     lazy var titleView : UILabel = {
         let v = UILabel()
         v.textColor = .white
-        v.font = .systemFont(ofSize: 14)
+        v.font = EpisodeCollectionViewCell.titleFont
         v.textAlignment = .center
         v.translatesAutoresizingMaskIntoConstraints = false
         return v

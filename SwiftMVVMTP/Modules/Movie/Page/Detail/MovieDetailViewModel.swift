@@ -9,9 +9,6 @@ import Foundation
 import RxCocoa
 import RxSwift
 struct EpisodeModel {
-    let dataPostID, dataServer, dataEpisodeSlug: String?
-    let isNew: Bool
-    let dataEmbed: String
     let episode: String
     let url : String
 }

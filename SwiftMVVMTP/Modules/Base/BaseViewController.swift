@@ -44,6 +44,7 @@ class BaseViewController<VM : ViewModelType> : AppBaseViewController {
     }
     
     deinit {
+        NotificationCenter.default.removeObserver(self)
         debugPrint("---------------\(String(describing: type(of: self))) disposed-------------")
     }
 }

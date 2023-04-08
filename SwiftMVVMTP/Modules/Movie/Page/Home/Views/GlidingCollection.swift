@@ -213,10 +213,6 @@ extension GlidingCollection {
             _leftCell?.center.x -= _leftStep
             _rightCell?.center.x += _rightStep
         }, completion: {_ in
-            if self.collectionView.numberOfItems(inSection: 0) > 0 {
-                let path = IndexPath(item: 0, section: 0)
-                self.collectionView.scrollToItem(at: path, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
-            }
             UIView.animate(withDuration: duration) {
                 self.collectionView.performBatchUpdates {
                     self.collectionView.reloadData()

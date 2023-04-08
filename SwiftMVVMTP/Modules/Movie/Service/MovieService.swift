@@ -13,7 +13,7 @@ protocol MovieService {
     func movieDetail(_ input : MovieDetailRequest) -> Observable<MovieDetailModel>
     func getMoviesByGroup(_ input : MoviesRequest) -> Observable<(page : Int, data: [MovieCollectionViewCellModel])>
     
-    func getLinkAndSublink(_ url : String) -> Observable<PlayerModel>
+    func getPlayInfo(_ url : String) -> Observable<PlayerModel>
     
     
  

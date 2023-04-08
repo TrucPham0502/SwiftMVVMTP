@@ -16,12 +16,12 @@ class MovieServiceImpl : MovieService {
             let films = response.map({d in
                 d.data.map{v in
                     v.map({
-                        MovieCollectionViewCellModel(url: $0.url ?? "", name: $0.name ?? "", poster: $0.poster ?? "", tag: $0.picTag?.rawValue ?? "", episode: $0.episode ?? "", isBookmark: false)
+                        MovieCollectionViewCellModel(url: $0.url ?? "", name: $0.name ?? "", poster: $0.poster ?? "", tag: $0.picTag ?? "", episode: $0.episode ?? "", isBookmark: false)
                     })
                 } ?? []
             })
             let titlesItem = response.map({
-                MovieCategory(nextPage: $0.nextPage ?? -1, title: $0.title ?? "")
+                MovieCategory(nextPage: $0.nextPage ?? -1, title: $0.title ?? "", type: $0.pageType ?? "")
             })
             return Observable.just(HomeModel(titles: titlesItem, datas: films))
         })
@@ -33,12 +33,12 @@ class MovieServiceImpl : MovieService {
             let films = response.map({d in
                 d.data.map{v in
                     v.map({
-                        MovieCollectionViewCellModel(url: $0.url ?? "", name: $0.name ?? "", poster: $0.poster ?? "", tag: $0.picTag?.rawValue ?? "", episode: $0.episode ?? "", isBookmark: false)
+                        MovieCollectionViewCellModel(url: $0.url ?? "", name: $0.name ?? "", poster: $0.poster ?? "", tag: $0.picTag ?? "", episode: $0.episode ?? "", isBookmark: false)
                     })
                 } ?? []
             })
             let titlesItem = response.map({
-                MovieCategory(nextPage: $0.nextPage ?? -1, title: $0.title ?? "")
+                MovieCategory(nextPage: $0.nextPage ?? -1, title: $0.title ?? "", type: $0.pageType ?? "")
             })
             return Observable.just(HomeModel(titles: titlesItem, datas: films))
         })
@@ -52,7 +52,7 @@ class MovieServiceImpl : MovieService {
             let films = response.map({d in
                 d.data.map{v in
                     v.map({
-                        MovieCollectionViewCellModel(url: $0.url ?? "", name: $0.name ?? "", poster: $0.poster ?? "", tag: $0.picTag?.rawValue ?? "", episode: $0.episode ?? "", isBookmark: false)
+                        MovieCollectionViewCellModel(url: $0.url ?? "", name: $0.name ?? "", poster: $0.poster ?? "", tag: $0.picTag ?? "", episode: $0.episode ?? "", isBookmark: false)
                     })
                 } ?? []
             }).first ?? []
@@ -63,7 +63,7 @@ class MovieServiceImpl : MovieService {
     func movieDetail(_ input : MovieDetailRequest) -> Observable<MovieDetailModel> {
         return repository.movieDetail(input).map({ res in
             let eps : [EpisodeModel] = res.episodes?.compactMap({ d -> EpisodeModel? in
-                return EpisodeModel(dataPostID: d.dataPostId ?? "", dataServer: d.dataServer ?? "", dataEpisodeSlug: d.dataEpisodeSlug ?? "", isNew: d.isNew ?? false, dataEmbed: d.dataEmbed ?? "", episode: d.episode ?? "", url: d.url ?? "")
+                return EpisodeModel(episode: d.episode ?? "", url: d.url ?? "")
             }).reversed() ?? []
             let content : String = res.contents?.joined(separator: "\n")  ?? ""
             let category : String = res.categorys?.joined(separator: ", ") ?? ""
@@ -71,9 +71,12 @@ class MovieServiceImpl : MovieService {
         })
     }
     
-    func getLinkAndSublink(_ url : String) -> Observable<PlayerModel> {
-        return repository.getLinkAndSublink(.init(url: url)).map({x in
-            return .init(media: .init(url: x.media?.url ?? "", type: x.media?.type ?? ""), sublinks: x.sublinks?.map({ l in
+    func getPlayInfo(_ url : String) -> Observable<PlayerModel> {
+        return repository.getPlayInfo(.init(url: url)).map({x in
+            let type = PlayerModel.Media.MediaType(rawValue: (x.media?.type?.rawValue ?? "default"))!
+            
+            
+            return .init(media: .init(url: x.media?.url ?? "", type: type), sublinks: x.sublinks?.map({ l in
                 return PlayerModel.Sublink(subsv: l.subsv ?? "", name: l.name ?? "")
             }) ?? [])
         })

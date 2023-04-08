@@ -6,32 +6,20 @@
 //
 
 import Foundation
-enum PageType : String, Codable {
-    case hhkungfu = "hhkungfu"
-    case hhtq = "hhtq"
-    case unknown = "default"
-    init(from decoder: Decoder) throws {
-        self = try PageType(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
-    }
-}
 // MARK: - MovieHomeResponseElement
 struct MoviesResponse: Codable {
     let title: String?
     let nextPage: Int?
     let data: [Datum]?
-    let pageType: PageType?
+    let pageType: String?
     
     // MARK: - Datum
     struct Datum: Codable {
         let url: String?
         let poster: String?
         let name: String?
-        let picTag: PicTag?
+        let picTag: String?
         let episode: String?
-    }
-
-    enum PicTag: String, Codable {
-        case vietsub = "VIETSUB"
     }
 }
 
@@ -55,28 +43,24 @@ struct MovieDetailResponse: Codable {
     let episodes: [Episode]?
     // MARK: - Episode
     struct Episode: Codable {
-        let dataPostId, dataServer, dataEpisodeSlug, dataEmbed, episode,url : String?
-        let isNew : Bool?
-        let dataPosition : DataPosition?
-        
-        enum DataPosition: String, Codable {
-            case empty = ""
-            case first = "first"
-            case last = "last"
-        }
+        let episode,url : String?
     }
 }
 
 
 // MARK: - MoviesLinkAndSublinkResponse
-struct LinkAndSublinkResponse: Codable {
+struct PlayInfoResponse: Codable {
     let media: Media?
     let sublinks: [Sublink]?
     
     // MARK: - Media
     struct Media: Codable {
-        let type: String?
+        let type: MediaType?
         let url: String?
+        enum MediaType : String, Codable {
+            case m3u8 = "m3u8"
+            case `default` = "default"
+        }
     }
 
     // MARK: - Sublink

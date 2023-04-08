@@ -39,7 +39,7 @@ class MovieCollectionViewCell : UICollectionViewCell {
                 return
             }
             self.customTitle.text = model.name
-            self.tagView.text = "\(model.episode) (\(model.tag)) "
+            self.tagView.text = "\(model.episode) \(!model.tag.isEmpty ? "(\(model.tag))" : "" )"
             self.isBookmarks = model.isBookmark
             updateConstraintTitle()
         }
@@ -80,6 +80,7 @@ class MovieCollectionViewCell : UICollectionViewCell {
         let v = UIImageView(frame: .init(x: 0, y: 0, width: contentSize.width, height: contentSize.height))
         v.translatesAutoresizingMaskIntoConstraints = false
         v.layer.addSublayer(gradientLayer)
+        v.contentMode = .scaleAspectFill
         return v
     }()
     
@@ -99,7 +100,7 @@ class MovieCollectionViewCell : UICollectionViewCell {
     
     lazy var tagView : UILabel = {
         let v = UILabel()
-        v.numberOfLines = 1
+        v.numberOfLines = 2
         v.textColor = .darkGray
         v.font = .systemFont(ofSize: 10)
         v.translatesAutoresizingMaskIntoConstraints = false

@@ -53,7 +53,6 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         }
     }
     
-    var episodeItemSize : CGSize = .init(width: 40, height: 40)
     
     private lazy var gradientView : UIView = {
         let v = UIView()
@@ -148,6 +147,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         let v = UILabel()
         v.translatesAutoresizingMaskIntoConstraints = false
         v.font = .systemFont(ofSize: 13)
+        v.textColor = .darkGray
         v.text = ""
         return v
     }()
@@ -155,7 +155,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         let v = UIView()
         v.backgroundColor = UIColor(named: "episodes-color")
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.layer.cornerRadius = 10
+        v.layer.cornerRadius = 7
         let iconView : UIImageView = {
             let v = UIImageView(image: .init(named: "ic-clapperboard-black"))
             v.translatesAutoresizingMaskIntoConstraints = false
@@ -235,7 +235,6 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     
     private lazy var collectionViewEpisode : DynamicCollectionView = {
         let flow = UICollectionViewFlowLayout()
-        flow.itemSize = episodeItemSize
         flow.minimumLineSpacing = 8
         flow.minimumInteritemSpacing = 3
         let v = DynamicCollectionView(frame: .zero, collectionViewLayout: flow)
@@ -389,12 +388,6 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         }).disposed(by: self.disposeBag)
     }
     
-    func getSizeCollectionView() -> CGFloat {
-        let numberInRow = Int(UIScreen.main.bounds.width / (self.episodeItemSize.width + 10))
-        let numberRow = (self.data.count % numberInRow > 0) ? (self.data.count / numberInRow) + 1 : (self.data.count / numberInRow)
-        return (self.episodeItemSize.height + 10) * CGFloat(numberRow)
-    }
-    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -457,9 +450,15 @@ extension MovieDetailViewController : UICollectionViewDataSource {
     
     
 }
+extension MovieDetailViewController : UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let data = self.data[indexPath.row]
+        let size = NSAttributedString(string: data.episode, attributes: [.font : EpisodeCollectionViewCell.titleFont]).size(considering: view.bounds.size.width)
+        return .init(width: max(40, size.width + 20), height: 40)
+    }
+}
 
 extension MovieDetailViewController : UICollectionViewDelegate {
-    
     //    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
     //        let d = self.data[indexPath.row]
     //        return UIContextMenuConfiguration(identifier: (d.id ?? "") as NSCopying, previewProvider: {
@@ -531,10 +530,10 @@ extension MovieDetailViewController : UIScrollViewDelegate {
         UIView.animate(withDuration: 0.3) {
             let scrollOffsetThreshold: CGFloat = self.headerHeight / 2
             if scrollView.contentOffset.y > scrollOffsetThreshold {
-                self.bookmarksView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+                self.bookmarksView.alpha = 0
                 self.closeButtonConstraint.left?.constant = -40
             } else {
-                self.bookmarksView.transform = CGAffineTransform.identity
+                self.bookmarksView.alpha = 1
                 self.closeButtonConstraint.left?.constant = self.padding
             }
             self.gradientView.backgroundColor = .black.withAlphaComponent(max(0, min(1, scrollView.contentOffset.y / self.headerHeight)))

@@ -31,7 +31,7 @@ class PlayerViewModel : BaseViewModel<PlayerViewModel.Input, PlayerViewModel.Out
     override func transform(input: Input) -> Output {
         input.viewWillAppear.flatMap({[weak self] urlString -> Observable<Response> in
             guard let _self = self else { return Observable.just(.none) }
-            return _self.service.getLinkAndSublink(urlString).map({x in return .item(x) })
+            return _self.service.getPlayInfo(urlString).map({x in return .item(x) })
         }).trackActivity(self.activityIndicator)
             .trackError(self.errorTracker)
             .asDriverOnErrorJustComplete()

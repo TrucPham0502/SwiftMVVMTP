@@ -20,18 +20,9 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     fileprivate var collectionItems: [[MovieCollectionViewCellModel]] = []
     fileprivate var transitionDriver : TransitionDriver?
     fileprivate var itemSize = UIMovieHomeConfig.shared.cardsSize
-    private var currentIndex : IndexPath = .init(row: 0, section: 0) {
-        didSet {
-            guard oldValue.section < self.collectionItems.count,
-                  oldValue.section > -1,
-                  oldValue.row < self.collectionItems[currentIndex.section].count,
-                  oldValue.row > -1 else { return }
-            if let cell = self.collectionView.cellForItem(at: oldValue) as? MovieCollectionViewCell {
-                cell.cellIsOpen(false)
-            }
-            cellOpens[oldValue.row] = false
-            self.changeBackground()
-        }
+    
+    private var currentIndex : IndexPath {
+        return .init(row: self.collectionView.currentIndex, section: self.glidingView.expandedItemIndex)
     }
     
     private lazy var searchbar : SearchBar = {
@@ -102,7 +93,7 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
                     _self.titlesItem = value.0.titles
                     _self.glidingView.reloadData()
                 }
-                _self.changeBackground()
+                _self.changeCurrentItem(isClose: false)
                 _self.reloadCollection()
             default: break;
             }
@@ -163,11 +154,16 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
         }
     }
     
-    func changeBackground(){
-        guard currentIndex.section < self.collectionItems.count,
-              currentIndex.section > -1,
-              currentIndex.row < self.collectionItems[currentIndex.section].count,
-              currentIndex.row > -1 else { return }
+    func changeCurrentItem(isClose : Bool = true){
+        guard currentIndex.section < self.titlesItem.count, currentIndex.row < self.collectionItems[currentIndex.section].count else { return }
+        if isClose {
+            if let index = cellOpens.first(where: { (key: Int, value: Bool) in return value }){
+                cellOpens[index.key] = false
+                if let cell = self.collectionView.cellForItem(at: .init(row: index.key, section: 0)) as? MovieCollectionViewCell {
+                    cell.cellIsOpen(false)
+                }
+            }
+        }
         let data = self.collectionItems[currentIndex.section][currentIndex.row]
         if let posterImg = data.posterImage {
             setBackground(posterImg)
@@ -221,7 +217,7 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
         }
         cell.bookmarkAction = {[weak self] isSelected in
             guard let self = self else { return }
-//            self.collectionItems[section][indexPath.row].isBookmark = isSelected
+            self.collectionItems[section][indexPath.row].isBookmark = isSelected
             self.event.bookmark.accept((indexPath, isSelected))
         }
         
@@ -233,7 +229,7 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
             }
             else {
                 collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-                self.currentIndex = indexPath
+                self.changeCurrentItem()
             }
         }
         return cell
@@ -242,7 +238,7 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let section = glidingView.expandedItemIndex
         if indexPath.row == self.collectionItems[section].count - 4 {
-            self.loadMore(section: indexPath.section)
+            self.loadMore(section: section)
         }
     }
     #if os(iOS) && targetEnvironment(macCatalyst)
@@ -253,16 +249,18 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
     
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let startOffset = (collectionView.bounds.size.width - itemSize.width) / 2
-        guard let collectionLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
-            return
-        }
-        
-        let minimumLineSpacing = collectionLayout.minimumLineSpacing
-        let a = collectionView.contentOffset.x + startOffset + itemSize.width / 2
-        let b = itemSize.width + minimumLineSpacing
-        let index = Int(a/b)
-        self.currentIndex = .init(row: index, section: self.glidingView.expandedItemIndex)
+//        let startOffset = (collectionView.bounds.size.width - itemSize.width) / 2
+//        guard let collectionLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+//            return
+//        }
+//
+//        let minimumLineSpacing = collectionLayout.minimumLineSpacing
+//        let a = collectionView.contentOffset.x + startOffset + itemSize.width / 2
+//        let b = itemSize.width + minimumLineSpacing
+//        let index = Int(a/b)
+//        self.currentIndex = .init(row: index, section: self.glidingView.expandedItemIndex)
+        changeCurrentItem()
+        print(self.currentIndex)
     }
     
     
@@ -317,6 +315,16 @@ extension MovieHomeViewController: GlidingCollectionDatasource {
 }
 extension MovieHomeViewController : GlidingCollectionDelegate {
     func glidingCollection(_ collection: GlidingCollection, didExpandItemAt index: Int) {
-        self.currentIndex = .init(row: self.collectionView.currentIndex, section: index)
+        UIView.animate(withDuration: 0.3) {
+            self.collectionView.performBatchUpdates {
+                if self.collectionView.numberOfItems(inSection: 0) > 0 {
+                    let path = IndexPath(item: 0, section: 0)
+                    self.collectionView.scrollToItem(at: path, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
+                }
+            }
+        } completion: { _ in
+            self.changeCurrentItem()
+        }
+        
     }
 }

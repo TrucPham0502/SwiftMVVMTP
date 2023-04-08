@@ -10,4 +10,5 @@ import Foundation
 struct MovieCategory {
     var nextPage: Int
     let title : String
+    let type: String
 }

@@ -8,10 +8,15 @@
 
 import Foundation
 import AVKit
+import WebKit
 struct PlayerModel {
     struct Media {
         let url : String
-        let type: String
+        let type: MediaType
+        enum MediaType : String {
+            case m3u8
+            case `default`
+        }
     }
     struct Sublink {
         let subsv : String
@@ -41,7 +46,7 @@ class PlayerViewController : BaseViewController<PlayerViewModel>{
         } else {
             // Fallback on earlier versions
         }
-        
+        playerController.parrentController = self
         playerController.videoGravity = .resizeAspect
         return playerController
     }()
@@ -51,14 +56,20 @@ class PlayerViewController : BaseViewController<PlayerViewModel>{
         self.view.backgroundColor = .clear
     }
     
-    
     func play(url: URL){
         let asset = AVAsset(url: url)
         let playerItem = AVPlayerItem(asset: asset)
         self.player.replaceCurrentItem(with: playerItem)
-        self.present(self.playerController, animated: true, completion: {
-            self.playerController.player?.play()
-        })
+        self.present(self.playerController, animated: true) {
+            self.player.play()
+        }
+    }
+    
+    func playWithWebView(url : URL) {
+        if let app = UIApplication.shared.delegate as? AppDelegate {
+            self.dismiss(animated: false, completion: nil)
+            app.playViewWithWebView(url: url)
+        }
     }
     
     override func showToast(message: String) {
@@ -82,10 +93,17 @@ class PlayerViewController : BaseViewController<PlayerViewModel>{
             switch media {
             case let .item(value):
                 guard !value.media.url.isEmpty, let url = URL(string: value.media.url) else { return }
-                self.play(url: url)
+//                if value.media.type == .m3u8 {
+//                    self.playWithWebView(url: url)
+//                }
+//                else {
+//                    self.play(url: url)
+//                }
+                self.playWithWebView(url: url)
+                
             default: break
             }
-           
+            
         }).disposed(by: self.disposeBag)
         
     }
@@ -105,7 +123,6 @@ extension PlayerViewController : AVPlayerViewControllerDelegate {
     }
     
     func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        self.dismiss(animated: false, completion: nil)
     }
     
     
@@ -121,5 +138,26 @@ extension PlayerViewController : AVPlayerViewControllerDelegate {
         print("playerViewControllerDidStopPictureInPicture")
     }
     
+}
+class LandscapeAVPlayerController: AVPlayerViewController {
+    weak var parrentController : UIViewController?
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .landscapeRight
+    }
     
+    override var shouldAutorotate: Bool {
+        return false
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        parrentController?.dismiss(animated: false, completion: nil)
+    }
 }

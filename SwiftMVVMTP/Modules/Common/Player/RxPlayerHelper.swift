@@ -292,21 +292,5 @@ import RxSwift
 //
 //
 //}
-class LandscapeAVPlayerController: AVPlayerViewController {
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .landscapeRight
-    }
 
-    override var shouldAutorotate: Bool {
-        return false
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-    }
-}
 

@@ -8,14 +8,16 @@
 import Foundation
 struct MoviesRequest: Codable {
     let page: Int?
+    let type: String?
 }
 struct SearchMoviesRequest: Codable {
     let key: String
+    let type: String?
 }
 struct MovieDetailRequest: Codable {
     let url: String?
 }
-struct LinkAndSublinkRequest : Codable {
+struct PlayInfoRequest : Codable {
     let url: String
 }
 

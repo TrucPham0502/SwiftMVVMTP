@@ -8,6 +8,10 @@
 import Foundation
 import RxSwift
 class MovieRepositoryImpl : BaseRepository , MovieRepository {
+    func getPlayInfo(_ input: PlayInfoRequest) -> Observable<PlayInfoResponse> {
+        return remoteSource.getPlayInfo(input).valid()
+    }
+    
     @Dependency.Inject
     var remoteSource : MovieRemoteSource
     
@@ -23,9 +27,6 @@ class MovieRepositoryImpl : BaseRepository , MovieRepository {
         return remoteSource.movieDetail(input).valid()
     }
     
-    func getLinkAndSublink(_ input : LinkAndSublinkRequest) -> Observable<LinkAndSublinkResponse> {
-        return remoteSource.getLinkAndSublink(input).valid()
-    }
     
     
     

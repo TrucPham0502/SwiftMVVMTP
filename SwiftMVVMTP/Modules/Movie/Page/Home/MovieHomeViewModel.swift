@@ -59,7 +59,8 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
             guard let _self = self, let data = _self.item.getData() as? ItemType  else { return Observable.just(.none) }
             var res = data.0
             res.datas[itemSelected.0.section][itemSelected.0.row].isBookmark = itemSelected.1
-            return Observable.just(.item((res, false)))
+//            return Observable.just(.item((res, false)))
+            return Observable.just(.none)
         })
         .trackError(self.errorTracker)
         .asDriverOnErrorJustComplete()
@@ -69,7 +70,7 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
         input.viewWillAppear.flatMap({[weak self] _ -> Observable<Response> in
             guard let _self = self else { return Observable.just(.none) }
             return Observable.deferred {() ->  Observable<Response> in
-                return _self.service.getMovies(.init(page: nil)).map({x in
+                return _self.service.getMovies(.init(page: nil, type: nil)).map({x in
                     return .item((x, false))
                 })
             }.trackActivity(_self.activityIndicator)
@@ -90,7 +91,8 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
             return Observable.deferred { [weak self] () ->  Observable<Response> in
                 guard let _self = self, let item = _self.item.getData() as? ItemType else {  return Observable.just(.none) }
                     let page = item.0.titles[section].nextPage
-                    return _self.service.getMoviesByGroup(.init(page: page)).map({ data in
+                    print(item.0.titles[section])
+                return _self.service.getMoviesByGroup(.init(page: page, type: item.0.titles[section].type)).map({ data in
                         var res = item.0
                         res.titles[section].nextPage = data.page
                         res.datas[section].append(contentsOf: data.data)
@@ -112,7 +114,7 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
             }).flatMap{[weak self] search -> Observable<Response> in
                 guard let self = self else { return Observable.just(.none) }
                 if(search.isEmpty) { return Observable.just(.item((self.itemTemp, false))) }
-                return self.service.searchMovies(.init(key: search)).map({x in
+                return self.service.searchMovies(.init(key: search, type: nil)).map({x in
                     return .item((x, false))
                 })
             }.trackError(self.errorTracker)

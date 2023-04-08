@@ -7,7 +7,7 @@
 
 import UIKit
 import Localize
-
+import WebKit
 enum Language : String {
     case vietnamese = "vi", english = "en", none
 }
@@ -15,6 +15,7 @@ enum Language : String {
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    let webView = WKWebView(frame: .zero)
     var orientationLock = UIInterfaceOrientationMask.portrait
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -26,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         initLanguage()
         
         self.window?.rootViewController = UINavigationController(rootViewController: MovieHomeViewController())
-        
+        self.window?.addSubview(webView)
         return true
     }
     
@@ -34,6 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return self.orientationLock
     }
     
+    func playViewWithWebView(url: URL) {
+        let request = URLRequest(url: url)
+        self.webView.load(request)
+    }
     
     //MARK: Language
     func changeLanguage(language: Language) {

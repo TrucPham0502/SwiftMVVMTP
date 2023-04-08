@@ -11,7 +11,7 @@ protocol MovieRemoteSource {
     func getMovies(_ input : MoviesRequest) -> Observable<ApiResponseDto<[MoviesResponse]>>
     func searchMovies(_ input : SearchMoviesRequest) -> Observable<ApiResponseDto<[MoviesResponse]>>
     func movieDetail(_ input : MovieDetailRequest) -> Observable<ApiResponseDto<MovieDetailResponse>>
-    func getLinkAndSublink(_ input : LinkAndSublinkRequest) -> Observable<ApiResponseDto<LinkAndSublinkResponse>>
+    func getPlayInfo(_ input : PlayInfoRequest) -> Observable<ApiResponseDto<PlayInfoResponse>>
     
     
     

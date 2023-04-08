@@ -12,9 +12,9 @@ class MovieRemoteSourceImpl : MovieRemoteSource {
     
     let host = Constants.appEndPointUrl + "api/"
     
-    @POST<LinkAndSublinkResponse>
-    func getLinkAndSublink(_ input : LinkAndSublinkRequest) -> Observable<ApiResponseDto<LinkAndSublinkResponse>> {
-        ApiParameter.url(endpoint: host, path: "movie/getLinkAndSublink")
+    @POST<PlayInfoResponse>
+    func getPlayInfo(_ input : PlayInfoRequest) -> Observable<ApiResponseDto<PlayInfoResponse>> {
+        ApiParameter.url(endpoint: host, path: "movie/getPlayInfo")
         ApiParameter.parameter(input)
     }
     

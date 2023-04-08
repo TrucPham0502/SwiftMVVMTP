@@ -45,10 +45,10 @@ class SearchBar : UITextField {
     }
     
     @objc func rightViewTap(){
-        self.becomeFirstResponder()
+        self.text = ""
     }
     @objc func leftViewTap(){
-        self.text = ""
+        self.becomeFirstResponder()
     }
     
 }
