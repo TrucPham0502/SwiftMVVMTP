@@ -33,6 +33,13 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.7)]
         )
         v.textColor = .white.withAlphaComponent(0.7)
+        v.defaultBackgroundColor = .clear
+        v.handleFocus = {[weak self] isFocus in
+            guard let self = self else { return }
+            UIView.animate(withDuration: 0.3) {
+                self.navigationTitleView.alpha = isFocus ? 0 : 1
+            }
+        }
         return v
     }()
     
@@ -40,6 +47,7 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
         let v = UIImageView()
         v.contentMode = .scaleAspectFill
         v.translatesAutoresizingMaskIntoConstraints = false
+        v.backgroundColor = .black
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = view.bounds
@@ -51,8 +59,27 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
         let v = UIView()
         v.backgroundColor = .clear
         v.clipsToBounds = true
-        v.addSubview(searchbar)
+        [self.navigationTitleView, searchbar].forEach(v.addSubview(_:))
+        NSLayoutConstraint.activate([
+            navigationTitleView.centerXAnchor.constraint(equalTo: v.centerXAnchor),
+            navigationTitleView.centerYAnchor.constraint(equalTo: v.centerYAnchor),
+            
+            searchbar.centerYAnchor.constraint(equalTo: v.centerYAnchor),
+            searchbar.leadingAnchor.constraint(equalTo: v.leadingAnchor),
+            
+        ])
         v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    private lazy var navigationTitleView : UILabel = {
+        let v = UILabel()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.numberOfLines = 1
+        v.font = .boldSystemFont(ofSize: 20)
+        v.text = "ALL MOVIES"
+        v.textColor = .white
+        v.setShadow(.init(width: 0, height: 6))
         return v
     }()
     
@@ -104,7 +131,6 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         transitionDriver = TransitionDriver(view: view)
-        
     }
     
     override func dismissKeyboard() {
@@ -128,14 +154,9 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
             backgroundImage.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             
             headerView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            headerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
-            headerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
+            headerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
+            headerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24),
             headerView.heightAnchor.constraint(equalToConstant: 60),
-            
-            searchbar.topAnchor.constraint(equalTo: self.headerView.topAnchor),
-            searchbar.leadingAnchor.constraint(equalTo: self.headerView.leadingAnchor, constant: 16),
-            searchbar.trailingAnchor.constraint(equalTo: self.headerView.trailingAnchor, constant: -16),
-            searchbar.heightAnchor.constraint(equalToConstant: 40),
             
             
             glidingView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 60),

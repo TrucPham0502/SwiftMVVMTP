@@ -32,4 +32,9 @@ extension UIView {
 
         return image
     }
+    func setShadow(_ size : CGSize = CGSize(width: 0, height: 5), radius: CGFloat = 2, opacity : Float = 0.2){
+        self.layer.shadowRadius = radius
+        self.layer.shadowOffset = size
+        self.layer.shadowOpacity = opacity
+    }
 }

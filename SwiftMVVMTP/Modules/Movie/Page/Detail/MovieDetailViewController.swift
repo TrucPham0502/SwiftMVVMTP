@@ -109,7 +109,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     
     lazy var titleView : UILabel = {
         let v = UILabel()
-        v.font = .boldSystemFont(ofSize: 25)
+        v.font = .boldSystemFont(ofSize: 30)
         v.textAlignment = .left
         v.numberOfLines = 0
         v.text = ""
@@ -147,31 +147,24 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         let v = UILabel()
         v.translatesAutoresizingMaskIntoConstraints = false
         v.font = .systemFont(ofSize: 13)
-        v.textColor = .darkGray
+        v.textColor = .white.withAlphaComponent(0.8)
         v.text = ""
         return v
     }()
     private lazy var episodeView : UIView = {
         let v = UIView()
-        v.backgroundColor = UIColor(named: "episodes-color")
+        v.backgroundColor = .clear
         v.translatesAutoresizingMaskIntoConstraints = false
         v.layer.cornerRadius = 7
-        let iconView : UIImageView = {
-            let v = UIImageView(image: .init(named: "ic-clapperboard-black"))
-            v.translatesAutoresizingMaskIntoConstraints = false
-            return v
-        }()
-        [seasonlb, iconView].forEach(v.addSubview)
+        v.layer.borderColor = UIColor.white.withAlphaComponent(0.8).cgColor
+        v.layer.borderWidth = 1
+        [seasonlb].forEach(v.addSubview)
         NSLayoutConstraint.activate([
-            iconView.leadingAnchor.constraint(equalTo: v.leadingAnchor, constant: 12),
-            iconView.widthAnchor.constraint(equalToConstant: 16),
-            iconView.heightAnchor.constraint(equalTo: iconView.widthAnchor),
-            iconView.topAnchor.constraint(equalTo: v.topAnchor, constant: 5),
-            iconView.bottomAnchor.constraint(lessThanOrEqualTo: v.bottomAnchor, constant: -5),
             
-            seasonlb.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 5),
+            seasonlb.leadingAnchor.constraint(equalTo: v.leadingAnchor, constant: 12),
             seasonlb.trailingAnchor.constraint(equalTo: v.trailingAnchor, constant: -12),
-            seasonlb.centerYAnchor.constraint(equalTo: iconView.centerYAnchor),
+            seasonlb.topAnchor.constraint(equalTo: v.topAnchor, constant: 5),
+            seasonlb.bottomAnchor.constraint(lessThanOrEqualTo: v.bottomAnchor, constant: -5),
         ])
         return v
     }()
@@ -189,7 +182,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     private lazy var timelb : UILabel =  {
         let v = UILabel()
         v.font = .systemFont(ofSize: 14)
-        v.textColor = .white
+        v.textColor = .white.withAlphaComponent(0.8)
         v.numberOfLines = 1
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
@@ -207,7 +200,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     
     private lazy var buttonWatch : LayeredButton = {
         let v = LayeredButton()
-        v.setTitle("Xem", for: .normal)
+        v.setTitle("Xem phim", for: .normal)
         v.translatesAutoresizingMaskIntoConstraints = false
         v.addTarget(self, action: #selector(watchTap), for: .touchUpInside)
         return v
@@ -226,9 +219,9 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     
     private lazy var titleEpisodes : UILabel = {
         let v = UILabel()
-        v.font = .boldSystemFont(ofSize: 16)
+        v.font = .boldSystemFont(ofSize: 17)
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.text = "Tập"
+        v.text = "Tập:"
         v.textColor = .white
         return v
     }()
@@ -353,7 +346,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         collectionViewConstraint = .init(
             left: collectionViewEpisode.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: padding),
             right:collectionViewEpisode.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding),
-            bottom: self.collectionViewEpisode.bottomAnchor.constraint(lessThanOrEqualTo: self.containerView.bottomAnchor, constant: -padding),
+            bottom: self.collectionViewEpisode.bottomAnchor.constraint(lessThanOrEqualTo: self.containerView.safeAreaLayoutGuide.bottomAnchor, constant: -padding),
             top: collectionViewEpisode.topAnchor.constraint(equalTo: self.titleEpisodes.bottomAnchor, constant: 20))
         collectionViewConstraint.active()
         
@@ -454,7 +447,7 @@ extension MovieDetailViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let data = self.data[indexPath.row]
         let size = NSAttributedString(string: data.episode, attributes: [.font : EpisodeCollectionViewCell.titleFont]).size(considering: view.bounds.size.width)
-        return .init(width: max(40, size.width + 20), height: 40)
+        return .init(width: max(45, size.width + 20), height: 40)
     }
 }
 

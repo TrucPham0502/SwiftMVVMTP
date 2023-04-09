@@ -147,7 +147,7 @@ fileprivate extension GlidingCollection {
             button.titleLabel?.font = config.buttonsFont
             button.layer.anchorPoint = CGPoint(x: 0, y: 0)
             button.transform = scaledTransform
-            
+            button.titleLabel?.setShadow()
             isTopTitle ? topViews.append(button) : bottomViews.append(button)
             containerView.insertSubview(button, at: 0)
             button.addTarget(self, action: #selector(didTapped(_:)), for: .touchUpInside)
