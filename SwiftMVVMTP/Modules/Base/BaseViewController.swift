@@ -26,6 +26,7 @@ class BaseViewController<VM : ViewModelType> : AppBaseViewController {
         self.performBinding()
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
+        NotificationCenter.default.addObserver(self, selector: #selector(playerLoading), name: .playerLoading, object: nil)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -41,6 +42,11 @@ class BaseViewController<VM : ViewModelType> : AppBaseViewController {
     }
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    @objc private func playerLoading(_ sender : Notification) {
+        if let isloading = sender.object as? Bool {
+            self.showLoading(withStatus: isloading)
+        }
     }
     
     deinit {

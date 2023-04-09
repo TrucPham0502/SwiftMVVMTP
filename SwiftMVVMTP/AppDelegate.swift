@@ -15,7 +15,11 @@ enum Language : String {
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    let webView = WKWebView(frame: .zero)
+    private lazy var webView : WKWebView = {
+        let v = WKWebView(frame: .zero)
+        v.navigationDelegate = self
+        return v
+    }()
     var orientationLock = UIInterfaceOrientationMask.portrait
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -60,3 +64,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension AppDelegate : WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        NotificationCenter.default.post(name: .playerLoading, object: true, userInfo: [:])
+    }
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        NotificationCenter.default.post(name: .playerLoading, object: false, userInfo: [:])
+    }
+}

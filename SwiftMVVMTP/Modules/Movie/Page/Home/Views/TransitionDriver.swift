@@ -20,7 +20,8 @@ class TransitionDriver {
 
     fileprivate var leftCell: UICollectionViewCell?
     fileprivate var rightCell: UICollectionViewCell?
-    fileprivate var step: CGFloat = 0
+    fileprivate var leftFrame: CGRect = .zero
+    fileprivate var rightFrame: CGRect = .zero
 
     fileprivate var frontViewConstraint : SaveContraint = .init()
     fileprivate var backViewConstraint : SaveContraint = .init()
@@ -105,8 +106,8 @@ extension TransitionDriver {
                 copyCell.customTitle.alpha = 1
             })
             copyCell.backContainerView.backgroundColor = .white
-            self.rightCell?.center.x -= self.step
-            self.leftCell?.center.x += self.step
+            self.rightCell?.frame = self.rightFrame
+            self.leftCell?.frame = self.leftFrame
             self.view.layoutIfNeeded()
             copyCell.layoutIfNeeded()
         }, completion: { _ in
@@ -143,20 +144,20 @@ extension TransitionDriver {
 
         if let leftCell = collectionView.cellForItem(at: IndexPath(row: currentIndex - 1, section: 0)) {
             let step = leftCell.frame.size.width + (leftCell.frame.origin.x - collectionView.contentOffset.x)
+            self.leftFrame = leftCell.frame
             UIView.animate(withDuration: 0.2, animations: {
                 leftCell.center.x -= step
             })
             self.leftCell = leftCell
-            self.step = step
         }
 
         if let rightCell = collectionView.cellForItem(at: IndexPath(row: currentIndex + 1, section: 0)) {
             let step = collectionView.frame.size.width - (rightCell.frame.origin.x - collectionView.contentOffset.x)
+            self.rightFrame = rightCell.frame
             UIView.animate(withDuration: 0.2, animations: {
                 rightCell.center.x += step
             })
             self.rightCell = rightCell
-            self.step = step
         }
     }
 }

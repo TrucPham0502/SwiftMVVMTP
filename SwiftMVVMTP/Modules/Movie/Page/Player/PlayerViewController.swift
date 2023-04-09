@@ -107,7 +107,7 @@ class PlayerViewController : BaseViewController<PlayerViewModel>{
         }).disposed(by: self.disposeBag)
         
     }
-    
+   
     
 }
 extension PlayerViewController : AVPlayerViewControllerDelegate {
