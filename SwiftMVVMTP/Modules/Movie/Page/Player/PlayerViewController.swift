@@ -86,7 +86,7 @@ class PlayerViewController : BaseViewController<PlayerViewModel>{
             input: .init(
                 viewWillAppear: self.rx.viewWillAppear.take(1).map{[weak self] _ in
                     return self?.urlString ?? ""
-                }
+                }.asDriverOnErrorJustComplete()
             ))
         output.item.drive(onNext: {[weak self] media in
             guard let self = self else { return }

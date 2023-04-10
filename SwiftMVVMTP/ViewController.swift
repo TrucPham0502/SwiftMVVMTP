@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         self.view.addSubview(button)
         self.view.addSubview(textField)
         
-        self.view.backgroundColor = .Neumorphic.defaultMainColor
+        self.view.backgroundColor = .Neumorphic.mainColor
         NSLayoutConstraint.activate([
             self.button.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             self.button.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),

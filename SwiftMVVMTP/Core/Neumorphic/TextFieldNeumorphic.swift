@@ -13,9 +13,9 @@ class NeumorphicTextField: UITextField {
     
     private let darkShadowLayer = CALayer()
     private let lightShadowLayer = CALayer()
-    var mainColor : UIColor = .Neumorphic.defaultMainColor
-    var darkShadowColor : UIColor = .Neumorphic.defaultDarkShadowSolidColor
-    var lightShadowColor : UIColor = .Neumorphic.defaultLightShadowSolidColor
+    var mainColor : UIColor? = .Neumorphic.mainColor
+    var darkShadowColor : UIColor? = .Neumorphic.darkShadowSolidColor
+    var lightShadowColor : UIColor? = .Neumorphic.lightShadowSolidColor
     var padding : UIEdgeInsets = .init(top: 16, left: 25, bottom: 16, right: 25)
     var lightShadowOffset = CGSize(width: -2, height: -2)
     var darkShadowOffset : CGSize {
@@ -53,7 +53,7 @@ class NeumorphicTextField: UITextField {
     private func createDarkPath(_ offset: CGSize) -> UIBezierPath {
         let radius = self.layer.cornerRadius
         darkShadowLayer.frame = bounds
-        let darkPath = UIBezierPath(roundedRect: darkShadowLayer.bounds.insetBy(dx: -darkShadowOffset.width, dy:-darkShadowOffset.height), cornerRadius:radius)
+        let darkPath = UIBezierPath(roundedRect: darkShadowLayer.bounds.insetBy(dx: -offset.width, dy:-offset.height), cornerRadius:radius)
         let darkCutout = UIBezierPath(roundedRect: darkShadowLayer.bounds, cornerRadius:radius).reversing()
         darkPath.append(darkCutout)
         return darkPath
@@ -61,7 +61,7 @@ class NeumorphicTextField: UITextField {
     private func createLightPath(_ offset : CGSize) -> UIBezierPath {
         let radius = self.layer.cornerRadius
         lightShadowLayer.frame = bounds
-        let lightPath = UIBezierPath(roundedRect: lightShadowLayer.bounds.insetBy(dx: -lightShadowOffset.width, dy:-lightShadowOffset.height), cornerRadius:radius)
+        let lightPath = UIBezierPath(roundedRect: lightShadowLayer.bounds.insetBy(dx: -offset.width, dy:-offset.height), cornerRadius:radius)
         let lightCutout = UIBezierPath(roundedRect: lightShadowLayer.bounds, cornerRadius:radius).reversing()
         lightPath.append(lightCutout)
         return lightPath
@@ -72,7 +72,7 @@ class NeumorphicTextField: UITextField {
         darkShadowLayer.shadowPath = self.createDarkPath(self.darkShadowOffset).cgPath
         darkShadowLayer.masksToBounds = true
         // Shadow properties
-        darkShadowLayer.shadowColor = darkShadowColor.cgColor
+        darkShadowLayer.shadowColor = darkShadowColor?.cgColor
         darkShadowLayer.shadowOffset = darkShadowOffset
         darkShadowLayer.shadowOpacity = 0.5
         darkShadowLayer.shadowRadius = 2
@@ -82,7 +82,7 @@ class NeumorphicTextField: UITextField {
         lightShadowLayer.shadowPath = createLightPath(self.lightShadowOffset).cgPath
         lightShadowLayer.masksToBounds = true
         // Shadow properties
-        lightShadowLayer.shadowColor = lightShadowColor.cgColor
+        lightShadowLayer.shadowColor = lightShadowColor?.cgColor
         lightShadowLayer.shadowOffset = lightShadowOffset
         lightShadowLayer.shadowOpacity = 0.5
         lightShadowLayer.shadowRadius = 2

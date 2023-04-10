@@ -35,7 +35,7 @@ class MovieDetailViewModel : BaseViewModel<MovieDetailViewModel.Input, MovieDeta
     weak var viewLogic : MovieDetailViewLogic?
     
     struct Input  {
-        let viewWillAppear: Observable<String>
+        let viewWillAppear: Driver<String>
     }
     enum Response {
         case none
@@ -46,14 +46,14 @@ class MovieDetailViewModel : BaseViewModel<MovieDetailViewModel.Input, MovieDeta
     }
     
     override func transform(input: Input) -> Output {
-        input.viewWillAppear.flatMap({[weak self] urlString -> Observable<Response>  in
-            guard let _self = self else { return Observable.just(.none) }
-            return _self.service.movieDetail(.init(url: urlString)).map({x in
-                return .item(x)
-            })
-        }).trackError(self.errorTracker)
-        .asDriverOnErrorJustComplete()
-        .drive(self.$data).disposed(by: self.disposeBag)
+        input.viewWillAppear.flatMap({[weak self] urlString in
+            guard let self = self else { return Driver.just(.none) }
+            return Observable.deferred {
+                return self.service.movieDetail(.init(url: urlString)).map({x in
+                    return .item(x)
+                }).trackError(self.errorTracker)
+            }.asDriverOnErrorJustComplete()
+        }).drive(self.$data).disposed(by: self.disposeBag)
         
         return Output(item: self.$data.asDriverOnErrorJustComplete())
     }

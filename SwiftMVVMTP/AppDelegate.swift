@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // language
         initLanguage()
         
-        self.window?.rootViewController = UINavigationController(rootViewController: ViewController())
+        self.window?.rootViewController = UINavigationController(rootViewController: MovieHomeViewController())
         self.window?.addSubview(webView)
         return true
     }
@@ -71,4 +71,10 @@ extension AppDelegate : WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         NotificationCenter.default.post(name: .playerLoading, object: false, userInfo: [:])
     }
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        print("didCommit")
+    }
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        NotificationCenter.default.post(name: .playerLoading, object: false, userInfo: [:])
+   }
 }

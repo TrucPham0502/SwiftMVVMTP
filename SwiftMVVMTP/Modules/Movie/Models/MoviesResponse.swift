@@ -70,3 +70,26 @@ struct PlayInfoResponse: Codable {
 }
 
 
+// MARK: - SignInResponse
+struct SignInResponse: Codable {
+    let user: User?
+    let token, refreshToken, privateKey: String?
+}
+
+// MARK: - User
+struct User: Codable {
+    let id, username, password, address: String?
+    let email, fax: String?
+    let facebook, youtube, twitter, linkedin: String?
+    let googlePlus, instagram: String?
+    let phoneNumber, firstName, lastName, nationalID: String?
+    let bankID, bankNumber, cardHolderName, qr: String?
+    let qrNote, role: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id, username, password, address, email, fax, facebook, youtube, twitter, linkedin, googlePlus, instagram, phoneNumber, firstName, lastName
+        case nationalID = "nationalId"
+        case bankID = "bankId"
+        case bankNumber, cardHolderName, qr, qrNote, role
+    }
+}

@@ -4,5 +4,7 @@
 <dict>
 	<key>AppEndPointUrl</key>
 	<string>$(APP_ENDPOINT_URL)</string>
+    <key>UIUserInterfaceStyle</key>
+    <string>Light</string>
 </dict>
 </plist>

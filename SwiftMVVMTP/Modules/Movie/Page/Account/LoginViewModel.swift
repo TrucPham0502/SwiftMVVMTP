@@ -7,11 +7,39 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 class LoginViewModel : BaseViewModel<LoginViewModel.Input, LoginViewModel.Output> {
-    struct Input {}
-    struct Output {}
+    struct Input {
+        let viewWillAppear : Observable<()>
+        let signIn : Driver<(userName: String, password: String)>
+    }
+    struct Output {
+        let result : Driver<Response>
+    }
     enum Response {
         case none
+        case login
+    }
+    
+    @Dependency.Inject
+    var service : MovieService
+    
+    @BehaviorRelayProperty(value: .none)
+    var result : Response
+    
+    
+    override func transform(input: Input) -> Output {
+        input.signIn.flatMap{[weak self] (username, password)  -> Driver<Response> in
+            guard let self = self else { return Driver.just(.none) }
+            return Observable.deferred {
+                return self.service.signIn(.init(username: username, password: password, notificationToken: "")).map({ () in return .login })
+                }.trackError(self.errorTracker)
+                .trackActivity(self.activityIndicator)
+                .asDriverOnErrorJustComplete()
+            }.drive(self.$result)
+            .disposed(by: self.disposeBag)
+        return Output(result: $result.asDriverOnErrorJustComplete())
     }
     
 }

@@ -14,7 +14,7 @@ protocol MovieService {
     func getMoviesByGroup(_ input : MoviesRequest) -> Observable<(page : Int, data: [MovieCollectionViewCellModel])>
     
     func getPlayInfo(_ url : String) -> Observable<PlayerModel>
-    
+    func signIn(_ input : SignInRequest) -> Observable<()>
     
  
 //    func dailymotionM3u8(_ url : String) ->  Observable<[Any]>

@@ -82,20 +82,7 @@ class MovieServiceImpl : MovieService {
         })
     }
     
-//    func dailymotionM3u8(_ url : String) ->  Observable<[Any]> {
-//        return repository.dailymotionM3u8(url)
-//    }
-//    func fileOneData(_ input: FileOneRequest) -> Observable<FileOneResponse?> {
-//        return repository.fileOneData(input)
-//    }
-//    func fembedData(_ id: String) -> Observable<[FembedResponse]> {
-//        return repository.fembedData(id)
-//    }
-//    func hhtqEpisode(_ input : HHTQEpisodeRequest) -> Observable<HHTQEpisodeResponse?>  {
-//        return repository.hhtqEpisode(input)
-//    }
-    
-//    func getEpisodeDetail(_ input : EpisodeDetailRequest) -> Observable<EpisodeDetailResponse?> {
-//        return repository.getEpisodeDetail(input)
-//    }
+    func signIn(_ input : SignInRequest) -> Observable<()> {
+        return repository.signIn(input).mapToVoid()
+    }
 }

@@ -36,35 +36,12 @@ class MovieRemoteSourceImpl : MovieRemoteSource {
         ApiParameter.parameter(input)
     }
     
+    @POST<SignInResponse>
+    func signIn(_ input : SignInRequest) -> Observable<ApiResponseDto<SignInResponse>> {
+        ApiParameter.url(endpoint: host, path: "/login")
+        ApiParameter.parameter(input)
+    }
     
-    
-//    @GET<String>
-//    func dailymotionM3u8(_ url : String) ->  Observable<ApiResponseDto<String>> {
-//        ApiParameter.url(endpoint: url, path: "")
-//    }
-//
-//    @POST<EpisodeDetailResponse>
-//    func getEpisodeDetail(_ input : EpisodeDetailRequest) -> Observable<ApiResponseDto<EpisodeDetailResponse>> {
-//        ApiParameter.url(endpoint: host, path: "movie/episode")
-//        ApiParameter.parameter(input)
-//    }
-    
-//    @POST<FileOneResponse>
-//    func fileOneData(_ input: FileOneRequest) -> Observable<ApiResponseDto<FileOneResponse>> {
-//        ApiParameter.url(endpoint: host, path: "fileone")
-//        ApiParameter.parameter(input)
-//    }
-//
-//    @POST<[FembedResponse]>
-//    func fembedData(_ id: String) -> Observable<ApiResponseDto<[FembedResponse]>>{
-//        ApiParameter.url(endpoint: host, path: (String(format: "fembed?id=%@", id)))
-//    }
-//
-//    @POST<HHTQEpisodeResponse>
-//    func hhtqEpisode(_ input : HHTQEpisodeRequest) -> Observable<ApiResponseDto<HHTQEpisodeResponse>> {
-//        ApiParameter.url(endpoint: host, path: "hhtq/getepisode")
-//        ApiParameter.parameter(input)
-//    }
-//
+
   
 }

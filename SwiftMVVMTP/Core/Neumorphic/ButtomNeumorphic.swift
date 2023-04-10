@@ -12,10 +12,10 @@ import UIKit
 class ButtonNeumorphic : UIButton {
     private let lightShadowLayer = CALayer()
     private let darkShadowLayer = CALayer()
-    var mainColor : UIColor = .Neumorphic.defaultMainColor
-    var textColor : UIColor = .Neumorphic.defaultSecondaryColor
-    var darkShadowColor : UIColor = .Neumorphic.defaultDarkShadowSolidColor
-    var lightShadowColor : UIColor = .Neumorphic.defaultLightShadowSolidColor
+    var mainColor : UIColor? = .Neumorphic.mainColor
+    var textColor : UIColor? = .Neumorphic.secondaryColor
+    var darkShadowColor : UIColor? = .Neumorphic.darkShadowSolidColor
+    var lightShadowColor : UIColor? = .Neumorphic.lightShadowSolidColor
     var padding : UIEdgeInsets = .init(top: 15, left: 35, bottom: 15, right: 35)
     var lightShadowOffset = CGSize(width: -6, height: -6)
     var darkShadowOffset = CGSize(width: 6, height: 6)
@@ -44,15 +44,15 @@ class ButtonNeumorphic : UIButton {
         backgroundColor = mainColor
         
         lightShadowLayer.cornerRadius = layer.cornerRadius
-        lightShadowLayer.backgroundColor = mainColor.cgColor
-        lightShadowLayer.shadowColor = lightShadowColor.cgColor
+        lightShadowLayer.backgroundColor = mainColor?.cgColor
+        lightShadowLayer.shadowColor = lightShadowColor?.cgColor
         lightShadowLayer.shadowOffset = lightShadowOffset
         lightShadowLayer.shadowOpacity = 0.5
         lightShadowLayer.shadowRadius = 3
         
         darkShadowLayer.cornerRadius = layer.cornerRadius
-        darkShadowLayer.backgroundColor = mainColor.cgColor
-        darkShadowLayer.shadowColor = darkShadowColor.cgColor
+        darkShadowLayer.backgroundColor = mainColor?.cgColor
+        darkShadowLayer.shadowColor = darkShadowColor?.cgColor
         darkShadowLayer.shadowOffset = darkShadowOffset
         darkShadowLayer.shadowOpacity = 0.5
         darkShadowLayer.shadowRadius = 3
@@ -67,7 +67,7 @@ class ButtonNeumorphic : UIButton {
     
     func setBackgroud(isPress: Bool = false){
         if isEnabled {
-            self.layer.backgroundColor = mainColor.cgColor
+            self.layer.backgroundColor = mainColor?.cgColor
         }
     }
     

@@ -96,6 +96,7 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
         v.clipsToBounds = true
         v.isUserInteractionEnabled = true
         v.translatesAutoresizingMaskIntoConstraints = false
+        v.addTarget(self, action: #selector(menuTap), for: .touchUpInside)
         return v
     }()
     
@@ -219,6 +220,11 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
         crossFade.toValue = image?.cgImage
         self.backgroundImage.image = image
         self.backgroundImage.layer.add(crossFade, forKey: "animateContents")
+    }
+    
+    @objc private func menuTap(){
+        let vc = LoginViewController()
+        self.present(vc, animated: true)
     }
     
 }

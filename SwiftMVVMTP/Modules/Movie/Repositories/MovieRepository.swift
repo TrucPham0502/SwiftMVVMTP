@@ -12,12 +12,5 @@ protocol MovieRepository {
     func searchMovies(_ input : SearchMoviesRequest) -> Observable<[MoviesResponse]>
     func movieDetail(_ input : MovieDetailRequest) -> Observable<MovieDetailResponse>
     func getPlayInfo(_ input : PlayInfoRequest) -> Observable<PlayInfoResponse>
-    
-    
-//    func dailymotionM3u8(_ url : String) ->  Observable<[Any]>
-//    func fileOneData(_ input: FileOneRequest) -> Observable<FileOneResponse?>
-//    func fembedData(_ id: String) -> Observable<[FembedResponse]>
-//    func hhtqEpisode(_ input : HHTQEpisodeRequest) -> Observable<HHTQEpisodeResponse?>
-    
-//    func getEpisodeDetail(_ input : EpisodeDetailRequest) -> Observable<EpisodeDetailResponse?>
+    func signIn(_ input : SignInRequest) -> Observable<SignInResponse>
 }

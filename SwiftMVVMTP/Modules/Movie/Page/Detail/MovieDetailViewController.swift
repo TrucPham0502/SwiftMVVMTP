@@ -201,6 +201,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     private lazy var buttonWatch : LayeredButton = {
         let v = LayeredButton()
         v.setTitle("Xem phim", for: .normal)
+        v.layer.cornerRadius = 20
         v.translatesAutoresizingMaskIntoConstraints = false
         v.addTarget(self, action: #selector(watchTap), for: .touchUpInside)
         return v
@@ -361,7 +362,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         super.performBinding()
         let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).map({[weak self] _ in
             return self?.dataRequire?.urlPage ?? ""
-        })))
+        }).asDriverOnErrorJustComplete()))
         output.item.drive(onNext: {[weak self] data in
             guard let self = self else { return }
             switch data {

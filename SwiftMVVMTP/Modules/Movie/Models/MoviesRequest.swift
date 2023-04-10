@@ -21,3 +21,9 @@ struct PlayInfoRequest : Codable {
     let url: String
 }
 
+struct SignInRequest : Codable {
+    let username : String
+    let password: String
+    let notificationToken : String
+}
+
