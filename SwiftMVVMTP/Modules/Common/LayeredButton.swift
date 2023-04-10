@@ -34,13 +34,17 @@ class LayeredButton: UIButton {
         layout()
     }
     
-    private func layout() {
-        backgroundColor = UIColor.clear
+    override func layoutSubviews() {
+        super.layoutSubviews()
         [backgroundLayer1, backgroundLayer2, foregroundLayer].forEach { layer in
-            self.layer.addSublayer(layer)
-            layer.cornerRadius = 15
+            layer.cornerRadius = self.layer.cornerRadius
             layer.masksToBounds = true
         }
+    }
+    
+    private func layout() {
+        backgroundColor = UIColor.clear
+        [backgroundLayer1, backgroundLayer2, foregroundLayer].forEach(self.layer.addSublayer)
         
         foregroundLayer.backgroundColor = UIColor(named: "primary-color")?.cgColor
         backgroundLayer1.backgroundColor = UIColor(named: "secondary-primary-color")?.cgColor

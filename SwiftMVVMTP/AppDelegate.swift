@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // language
         initLanguage()
         
-        self.window?.rootViewController = UINavigationController(rootViewController: MovieHomeViewController())
+        self.window?.rootViewController = UINavigationController(rootViewController: ViewController())
         self.window?.addSubview(webView)
         return true
     }

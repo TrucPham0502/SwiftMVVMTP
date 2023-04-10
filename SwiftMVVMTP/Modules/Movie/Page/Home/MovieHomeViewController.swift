@@ -13,7 +13,7 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     override func buildViewModel() -> MovieHomeViewModel {
         return MovieHomeViewModel()
     }
-    let event : MovieHomeViewModel.Event = .init(bookmark: PublishRelay())
+    let event : MovieHomeViewModel.Event = .init(bookmark: PublishSubject())
     var loadMoreSubject : PublishRelay<Int> = .init()
     private var cellOpens : Dictionary<Int, Bool> = [:]
     fileprivate var titlesItem = [MovieCategory]()
@@ -59,10 +59,15 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
         let v = UIView()
         v.backgroundColor = .clear
         v.clipsToBounds = true
-        [self.navigationTitleView, searchbar].forEach(v.addSubview(_:))
+        [self.navigationTitleView,menuView, searchbar].forEach(v.addSubview(_:))
         NSLayoutConstraint.activate([
             navigationTitleView.centerXAnchor.constraint(equalTo: v.centerXAnchor),
             navigationTitleView.centerYAnchor.constraint(equalTo: v.centerYAnchor),
+            
+            menuView.trailingAnchor.constraint(equalTo: v.trailingAnchor),
+            menuView.centerYAnchor.constraint(equalTo: v.centerYAnchor),
+            menuView.heightAnchor.constraint(equalTo: menuView.widthAnchor),
+            menuView.widthAnchor.constraint(equalToConstant: 34),
             
             searchbar.centerYAnchor.constraint(equalTo: v.centerYAnchor),
             searchbar.leadingAnchor.constraint(equalTo: v.leadingAnchor),
@@ -80,6 +85,17 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
         v.text = "ALL MOVIES"
         v.textColor = .white
         v.setShadow(.init(width: 0, height: 6))
+        return v
+    }()
+    
+    private lazy var menuView : UIButton = {
+        let v = UIButton()
+        v.setImage(.init(named: "avatar"), for: .normal)
+        v.contentEdgeInsets = .zero
+        v.layer.cornerRadius = 17
+        v.clipsToBounds = true
+        v.isUserInteractionEnabled = true
+        v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
     
@@ -239,7 +255,7 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
         cell.bookmarkAction = {[weak self] isSelected in
             guard let self = self else { return }
             self.collectionItems[section][indexPath.row].isBookmark = isSelected
-            self.event.bookmark.accept((indexPath, isSelected))
+            self.event.bookmark.onNext((indexPath, isSelected))
         }
         
         cell.frontViewAction = {[weak self] _ in

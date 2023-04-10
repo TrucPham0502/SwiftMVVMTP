@@ -32,7 +32,7 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
         let event : Event
     }
     struct Event {
-        let bookmark : PublishRelay<(IndexPath, Bool)>
+        let bookmark : PublishSubject<(IndexPath, Bool)>
     }
     enum Response {
         case none

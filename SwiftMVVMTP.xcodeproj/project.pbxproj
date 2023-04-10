@@ -8,10 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		479C452234C491D09BF5A3F0 /* Pods_SwiftMVVMTP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1517339AC43FA239BDE3758 /* Pods_SwiftMVVMTP.framework */; };
+		8E064FFB29E39DC600D104E4 /* DGPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E064FFA29E39DC600D104E4 /* DGPreview.swift */; };
 		8E0D773D29DD7C0A00F99721 /* DynamicCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0D773C29DD7C0A00F99721 /* DynamicCollectionView.swift */; };
 		8E0D773F29DEA50800F99721 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0D773E29DEA50800F99721 /* SearchBar.swift */; };
 		8E36225F29DD11E40060D16C /* StretchyScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E36225E29DD11E40060D16C /* StretchyScrollView.swift */; };
 		8E36226129DD3B550060D16C /* ExpandableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E36226029DD3B550060D16C /* ExpandableLabel.swift */; };
+		8EA7E31E29E3CFBA00A90DDE /* ButtomNeumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA7E31D29E3CFBA00A90DDE /* ButtomNeumorphic.swift */; };
+		8EA7E32229E3D17300A90DDE /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA7E32129E3D17300A90DDE /* ColorExtension.swift */; };
+		8EF2C64B29E3E09F005D3E30 /* TextFieldNeumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2C64A29E3E09F005D3E30 /* TextFieldNeumorphic.swift */; };
+		8EF2C64E29E40955005D3E30 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2C64D29E40955005D3E30 /* LoginViewController.swift */; };
+		8EF2C65029E40961005D3E30 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2C64F29E40961005D3E30 /* LoginViewModel.swift */; };
 		FE3B3D1D29D8B9EA006EB487 /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B3D1C29D8B9EA006EB487 /* HMAC.swift */; };
 		FE3B3D1F29D8BB08006EB487 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B3D1E29D8BB08006EB487 /* String+Extensions.swift */; };
 		FE3B3D2129D96BEE006EB487 /* LayeredButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B3D2029D96BEE006EB487 /* LayeredButton.swift */; };
@@ -130,10 +136,16 @@
 		11331C83FD29963EACBCD787 /* Pods-SwiftMVVMTP.prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftMVVMTP.prod.xcconfig"; path = "Target Support Files/Pods-SwiftMVVMTP/Pods-SwiftMVVMTP.prod.xcconfig"; sourceTree = "<group>"; };
 		26BA3687B48E27270E377BAD /* Pods-SwiftMVVMTP.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftMVVMTP.beta.xcconfig"; path = "Target Support Files/Pods-SwiftMVVMTP/Pods-SwiftMVVMTP.beta.xcconfig"; sourceTree = "<group>"; };
 		59826F893747A61A9FDA1390 /* Pods-SwiftMVVMTP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftMVVMTP.debug.xcconfig"; path = "Target Support Files/Pods-SwiftMVVMTP/Pods-SwiftMVVMTP.debug.xcconfig"; sourceTree = "<group>"; };
+		8E064FFA29E39DC600D104E4 /* DGPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGPreview.swift; sourceTree = "<group>"; };
 		8E0D773C29DD7C0A00F99721 /* DynamicCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCollectionView.swift; sourceTree = "<group>"; };
 		8E0D773E29DEA50800F99721 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		8E36225E29DD11E40060D16C /* StretchyScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyScrollView.swift; sourceTree = "<group>"; };
 		8E36226029DD3B550060D16C /* ExpandableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableLabel.swift; sourceTree = "<group>"; };
+		8EA7E31D29E3CFBA00A90DDE /* ButtomNeumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtomNeumorphic.swift; sourceTree = "<group>"; };
+		8EA7E32129E3D17300A90DDE /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		8EF2C64A29E3E09F005D3E30 /* TextFieldNeumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldNeumorphic.swift; sourceTree = "<group>"; };
+		8EF2C64D29E40955005D3E30 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		8EF2C64F29E40961005D3E30 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		E1517339AC43FA239BDE3758 /* Pods_SwiftMVVMTP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftMVVMTP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAF1BFFAE0D4641BA387E3FC /* Pods-SwiftMVVMTP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftMVVMTP.release.xcconfig"; path = "Target Support Files/Pods-SwiftMVVMTP/Pods-SwiftMVVMTP.release.xcconfig"; sourceTree = "<group>"; };
 		FE3B3D1C29D8B9EA006EB487 /* HMAC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMAC.swift; sourceTree = "<group>"; };
@@ -271,6 +283,25 @@
 				E1517339AC43FA239BDE3758 /* Pods_SwiftMVVMTP.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8EA7E31C29E3CF9000A90DDE /* Neumorphic */ = {
+			isa = PBXGroup;
+			children = (
+				8EA7E31D29E3CFBA00A90DDE /* ButtomNeumorphic.swift */,
+				8EA7E32129E3D17300A90DDE /* ColorExtension.swift */,
+				8EF2C64A29E3E09F005D3E30 /* TextFieldNeumorphic.swift */,
+			);
+			path = Neumorphic;
+			sourceTree = "<group>";
+		};
+		8EF2C64C29E40938005D3E30 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				8EF2C64D29E40955005D3E30 /* LoginViewController.swift */,
+				8EF2C64F29E40961005D3E30 /* LoginViewModel.swift */,
+			);
+			path = Account;
 			sourceTree = "<group>";
 		};
 		E8A6BA2B1DB5A8C588C73D6C /* Pods */ = {
@@ -429,6 +460,7 @@
 		FE6F2BD626FCC3D2007CE4BF /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				8EA7E31C29E3CF9000A90DDE /* Neumorphic */,
 				FEEC609826FE4C0900DDA47E /* Image */,
 				FE44EEA726FD789400EC9F85 /* Extensions */,
 				FE6F2C0026FCE1FE007CE4BF /* Dependency */,
@@ -437,6 +469,7 @@
 				FE6F2BE226FCC823007CE4BF /* Rx */,
 				FE6F2BD826FCC478007CE4BF /* Base */,
 				FE3B3D1C29D8B9EA006EB487 /* HMAC.swift */,
+				8E064FFA29E39DC600D104E4 /* DGPreview.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -566,6 +599,7 @@
 		FEEC607026FE36E400DDA47E /* Page */ = {
 			isa = PBXGroup;
 			children = (
+				8EF2C64C29E40938005D3E30 /* Account */,
 				FE3C0B2429DDC42900DC27DF /* Player */,
 				FEEC60AC26FED47E00DDA47E /* Detail */,
 				FEEC607326FE374000DDA47E /* Home */,
@@ -890,11 +924,14 @@
 				FEF76AB4270F4AFE0050B807 /* Loader.swift in Sources */,
 				FE44EE9B26FD751500EC9F85 /* TestModuleServiceImpl.swift in Sources */,
 				FEEC608526FE3C6100DDA47E /* UIMovieHomeConfig.swift in Sources */,
+				8EA7E32229E3D17300A90DDE /* ColorExtension.swift in Sources */,
 				FEEC607726FE38F800DDA47E /* MovieHomeViewController.swift in Sources */,
 				FE6F2BFD26FCE190007CE4BF /* TestPageViewController.swift in Sources */,
+				8EF2C65029E40961005D3E30 /* LoginViewModel.swift in Sources */,
 				FEEC60B026FED4E300DDA47E /* MovieDetailViewModel.swift in Sources */,
 				8E36226129DD3B550060D16C /* ExpandableLabel.swift in Sources */,
 				FEF76AB0270F4AFE0050B807 /* CircleRippleView.swift in Sources */,
+				8EF2C64E29E40955005D3E30 /* LoginViewController.swift in Sources */,
 				FEF76AB6270F4AFE0050B807 /* AppConstants.swift in Sources */,
 				FEEC606D26FDF36000DDA47E /* RxBinding.swift in Sources */,
 				FEEC60C526FF033100DDA47E /* HHTQEpisodeRequest.swift in Sources */,
@@ -913,7 +950,9 @@
 				FEF76AAF270F4AFE0050B807 /* Math.swift in Sources */,
 				FE44EE9D26FD755300EC9F85 /* TestModuleService.swift in Sources */,
 				FEEC60A626FE504300DDA47E /* MovieRepositoryImpl.swift in Sources */,
+				8EF2C64B29E3E09F005D3E30 /* TextFieldNeumorphic.swift in Sources */,
 				FEEC60B926FEE8FD00DDA47E /* UIImage+Extensions.swift in Sources */,
+				8E064FFB29E39DC600D104E4 /* DGPreview.swift in Sources */,
 				FEEC609326FE478700DDA47E /* GlidingCollectionDatasource.swift in Sources */,
 				8E36225F29DD11E40060D16C /* StretchyScrollView.swift in Sources */,
 				8E0D773D29DD7C0A00F99721 /* DynamicCollectionView.swift in Sources */,
@@ -930,6 +969,7 @@
 				FEEC607926FE392A00DDA47E /* MovieHomeViewModel.swift in Sources */,
 				FE3B3D2129D96BEE006EB487 /* LayeredButton.swift in Sources */,
 				FE6F2BDC26FCC558007CE4BF /* AppBaseViewController.swift in Sources */,
+				8EA7E31E29E3CFBA00A90DDE /* ButtomNeumorphic.swift in Sources */,
 				FEEC609726FE48DE00DDA47E /* CornerAnimatable+Extensions.swift in Sources */,
 				FE3C0B2629DDC44500DC27DF /* PlayerViewController.swift in Sources */,
 				FE44EE9526FD731400EC9F85 /* TestCell.swift in Sources */,
@@ -1148,7 +1188,7 @@
 			baseConfigurationReference = 26BA3687B48E27270E377BAD /* Pods-SwiftMVVMTP.beta.xcconfig */;
 			buildSettings = {
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
-				APP_ENDPOINT_URL = "http://192.168.1.5:27017/";
+				APP_ENDPOINT_URL = "http://21.64.19.44:27017/";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SwiftMVVMTP/SwiftMVVMTP.entitlements;
@@ -1194,7 +1234,7 @@
 					"-framework",
 					"\"QuartzCore\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = trucpham.movie;
+				PRODUCT_BUNDLE_IDENTIFIER = beta.trucpham.movie;
 				PRODUCT_NAME = "$(TARGET_NAME) BETA";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -1294,7 +1334,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftMVVMTP.app/SwiftMVVMTP";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftMVVMTP BETA.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SwiftMVVMTP BETA";
 			};
 			name = BETA;
 		};
@@ -1318,7 +1358,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftMVVMTP.app/SwiftMVVMTP";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftMVVMTP BETA.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SwiftMVVMTP BETA";
 			};
 			name = PROD;
 		};
