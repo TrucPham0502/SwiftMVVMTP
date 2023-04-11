@@ -15,5 +15,8 @@ protocol MovieRemoteSource {
     
     func signIn(_ input : SignInRequest) -> Observable<ApiResponseDto<SignInResponse>>
     
+    func setBookmark(_ input : SetBookmarkRequest) -> Observable<ApiResponseDto<Nothing>>
+    func removeBookmark(_ input : RemoveBookmarkRequest) -> Observable<ApiResponseDto<Nothing>>
+    
 }
 

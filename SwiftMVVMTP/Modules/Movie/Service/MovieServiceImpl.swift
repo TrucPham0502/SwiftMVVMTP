@@ -67,7 +67,7 @@ class MovieServiceImpl : MovieService {
             }).reversed() ?? []
             let content : String = res.contents?.joined(separator: "\n")  ?? ""
             let category : String = res.categorys?.joined(separator: ", ") ?? ""
-            return MovieDetailModel(title: res.title ?? "", episodes: eps, content: content, time: res.time ?? "", season: res.season ?? "", latest: res.latest ?? "", categorys: category)
+            return MovieDetailModel(title: res.title ?? "", episodes: eps, content: content, time: res.time ?? "", season: res.season ?? "", latest: res.latest ?? "", categorys: category, isBookmark: res.isBookmark ?? false)
         })
     }
     
@@ -84,5 +84,12 @@ class MovieServiceImpl : MovieService {
     
     func signIn(_ input : SignInRequest) -> Observable<()> {
         return repository.signIn(input).mapToVoid()
+    }
+    
+    func setBookmark(_ input : SetBookmarkRequest) -> Observable<Void> {
+        return repository.setBookmark(input)
+    }
+    func removeBookmark(_ input : RemoveBookmarkRequest) -> Observable<Void> {
+        return repository.removeBookmark(input)
     }
 }

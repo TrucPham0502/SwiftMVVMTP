@@ -33,7 +33,7 @@ class LoginViewModel : BaseViewModel<LoginViewModel.Input, LoginViewModel.Output
         input.signIn.flatMap{[weak self] (username, password)  -> Driver<Response> in
             guard let self = self else { return Driver.just(.none) }
             return Observable.deferred {
-                return self.service.signIn(.init(username: username, password: password, notificationToken: "")).map({ () in return .login })
+                return self.service.signIn(.init(username: username, password: password, notificationToken: Storage<String>.get(key: StorageKey.NOTIFICATION_TOKEN.rawValue) ?? "")).map({ () in return .login })
                 }.trackError(self.errorTracker)
                 .trackActivity(self.activityIndicator)
                 .asDriverOnErrorJustComplete()

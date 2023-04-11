@@ -16,6 +16,8 @@ class LoginViewController : BaseViewController<LoginViewModel> {
     let circleBottomSize : CGFloat = (UIScreen.main.bounds.width + 100)
     private lazy var circleBottomView : CircleInnerShadowView = {
         let v = CircleInnerShadowView()
+        v.clipsToBounds = true
+        v.layer.masksToBounds = true
         v.layer.cornerRadius = circleBottomSize/2
         v.darkShadowOffset = .init(width: 5, height: 10)
         v.translatesAutoresizingMaskIntoConstraints = false
@@ -26,6 +28,8 @@ class LoginViewController : BaseViewController<LoginViewModel> {
     private lazy var circleTopView : CircleInnerShadowView = {
         let v = CircleInnerShadowView()
         v.layer.cornerRadius = circleTopSize/2
+        v.clipsToBounds = true
+        v.layer.masksToBounds = true
         v.darkShadowOffset = .init(width: 10, height: 5)
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
@@ -101,6 +105,8 @@ class LoginViewController : BaseViewController<LoginViewModel> {
     
     override func prepareUI() {
         super.prepareUI()
+        self.view.clipsToBounds = true
+        self.view.layer.masksToBounds = true
         self.view.backgroundColor = .Neumorphic.mainColor
         [self.circleBottomView, self.circleTopView, self.containerView].forEach( self.view.addSubview)
         [self.titleView, self.subtitleView, self.userNameTxt, self.passwordTxt, self.signInButton].forEach(self.containerView.addSubview(_:))
@@ -171,45 +177,3 @@ class LoginViewController : BaseViewController<LoginViewModel> {
 }
 
 
-class CircleInnerShadowView : UIView {
-    private var darkPath = UIBezierPath()
-    private let darkShadowLayer = CALayer()
-    var mainColor : UIColor? = .Neumorphic.mainColor
-    var darkShadowColor : UIColor? = .Neumorphic.darkShadowSolidColor
-    var darkShadowOffset : CGSize = CGSize(width: 10, height: 10)
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        prepareUI()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        prepareUI()
-    }
-    private func prepareUI(){
-        self.layer.addSublayer(darkShadowLayer)
-        
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.darkShadowLayer.frame = bounds
-        self.darkShadowLayer.shadowPath = createDarkPath(self.darkShadowOffset).cgPath
-        darkShadowLayer.masksToBounds = true
-        // Shadow properties
-        darkShadowLayer.shadowColor = darkShadowColor?.cgColor
-        darkShadowLayer.shadowOffset = darkShadowOffset
-        darkShadowLayer.shadowOpacity = 0.5
-        darkShadowLayer.shadowRadius = 2
-        darkShadowLayer.cornerRadius = self.layer.cornerRadius
-    }
-    
-    private func createDarkPath(_ offset: CGSize) -> UIBezierPath {
-        let radius = self.layer.cornerRadius
-        darkShadowLayer.frame = bounds
-        let darkPath = UIBezierPath(roundedRect: darkShadowLayer.bounds.insetBy(dx: -offset.width, dy:-offset.height), cornerRadius:radius)
-        let darkCutout = UIBezierPath(roundedRect: darkShadowLayer.bounds, cornerRadius:radius).reversing()
-        darkPath.append(darkCutout)
-        return darkPath
-    }
-}

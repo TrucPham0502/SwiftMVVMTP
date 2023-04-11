@@ -17,10 +17,6 @@ protocol MovieService {
     func signIn(_ input : SignInRequest) -> Observable<()>
     
  
-//    func dailymotionM3u8(_ url : String) ->  Observable<[Any]>
-//    func fileOneData(_ input: FileOneRequest) -> Observable<FileOneResponse?>
-//    func fembedData(_ id: String) -> Observable<[FembedResponse]>
-//    func hhtqEpisode(_ input : HHTQEpisodeRequest) -> Observable<HHTQEpisodeResponse?>
-   
-//    func getEpisodeDetail(_ input : EpisodeDetailRequest) -> Observable<EpisodeDetailResponse?>
+    func setBookmark(_ input : SetBookmarkRequest) -> Observable<Void>
+    func removeBookmark(_ input : RemoveBookmarkRequest) -> Observable<Void>
 }

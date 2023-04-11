@@ -29,7 +29,18 @@ class MovieRepositoryImpl : BaseRepository , MovieRepository {
     
     func signIn(_ input : SignInRequest) -> Observable<SignInResponse> {
         return remoteSource.signIn(input).valid().do(onNext: {data in
+            Storage.set(data: data.user, key: StorageKey.USER_INFO.rawValue)
+            guard let token = data.token else { return }
+            Storage.set(data: Authorization(token: token, refreshToken: data.refreshToken ?? "", privateKey: data.privateKey ?? ""), key: Authorization.key)
             
         })
+    }
+    
+    func setBookmark(_ input : SetBookmarkRequest) -> Observable<Void> {
+        return remoteSource.setBookmark(input).valid().mapToVoid()
+    }
+    
+    func removeBookmark(_ input : RemoveBookmarkRequest) -> Observable<Void> {
+        return remoteSource.removeBookmark(input).valid().mapToVoid()
     }
 }

@@ -175,7 +175,6 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         v.setImage(UIImage(named: "christmas-star-stroke"), for: .normal)
         v.contentEdgeInsets = .zero
         v.contentEdgeInsets = .zero
-        v.addTarget(self, action: #selector(bookmarksSelected), for: .touchUpInside)
         return v
     }()
     
@@ -254,10 +253,6 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         // Do any additional setup after loading the view.
     }
     
-    
-    @objc private func bookmarksSelected(){
-        isBookmarks = !isBookmarks
-    }
     
     @objc private func watchTap(){
         if let first = self.data.first {
@@ -362,7 +357,16 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         super.performBinding()
         let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).map({[weak self] _ in
             return self?.dataRequire?.urlPage ?? ""
-        }).asDriverOnErrorJustComplete()))
+        }).asDriverOnErrorJustComplete(),
+                                                      bookmark: self.bookmarksView.rx.tap.map({[weak self] _ in
+            guard let self = self, let url = self.dataRequire?.urlPage, let ep = self.data.first?.episode else { return (false, "", "")}
+            return (!self.isBookmarks, url, ep)
+            
+        }).do(onNext: {[weak self] _ in
+            guard let self = self else { return }
+            self.isBookmarks = !self.isBookmarks
+        }).asDriverOnErrorJustComplete()
+                                                     ))
         output.item.drive(onNext: {[weak self] data in
             guard let self = self else { return }
             switch data {
@@ -373,6 +377,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
                 self.timelb.text = value.time
                 self.categoryslb.text = "(\(value.categorys))"
                 self.titleView.text = value.title
+                self.isBookmarks = value.isBookmark
                 UIView.animate(withDuration: 0.3) {
                     self.containerView.alpha = 1
                 }

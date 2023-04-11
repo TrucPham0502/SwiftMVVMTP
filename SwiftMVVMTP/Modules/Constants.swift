@@ -6,12 +6,19 @@
 //
 
 import Foundation
+enum StorageKey : String {
+    case NOTIFICATION_TOKEN = "NOTIFICATION_TOKEN"
+    case USER_INFO = "USER_INFO"
+}
 enum InfoDictionary : String {
     case appEndPointUrl = "AppEndPointUrl"
+    case googleServiceInfo = "googleServiceInfo"
 }
 struct Constants {
     @Dependency.InfoDictionary(key: InfoDictionary.appEndPointUrl.rawValue)
     static var appEndPointUrl : String
+    @Dependency.InfoDictionary(key: InfoDictionary.googleServiceInfo.rawValue)
+    static var googleServiceInfo : String
     
     
     

@@ -83,6 +83,6 @@ import SwiftUI
 @available(iOS 13.0, *)
 struct Preview_PlayerViewController: PreviewProvider {
     static var previews: some View {
-        LoginViewController().showDGPreview(.iPhone14Pro).edgesIgnoringSafeArea(.all)
+        MovieHomeViewController().showDGPreview(.iPhone14Pro).edgesIgnoringSafeArea(.all)
     }
 }

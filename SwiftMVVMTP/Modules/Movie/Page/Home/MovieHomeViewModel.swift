@@ -37,6 +37,7 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
     enum Response {
         case none
         case item((HomeModel, isLoadMore: Bool))
+        case user(User?)
         func getData() -> Any? {
             switch self {
             case let .item(value): return value
@@ -53,13 +54,15 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
     @BehaviorRelayProperty(value: .none)
     var item : Response
     
+    @Storage(key: StorageKey.USER_INFO.rawValue, defaultValue: nil)
+    var author : User?
+    
     override func transform(input: Input) -> Output {
         input.event.bookmark
         .flatMap({[weak self] itemSelected -> Observable<Response> in
             guard let _self = self, let data = _self.item.getData() as? ItemType  else { return Observable.just(.none) }
             var res = data.0
             res.datas[itemSelected.0.section][itemSelected.0.row].isBookmark = itemSelected.1
-//            return Observable.just(.item((res, false)))
             return Observable.just(.none)
         })
         .trackError(self.errorTracker)
@@ -67,7 +70,7 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
         .drive(self.$item)
         .disposed(by: self.disposeBag)
         
-        input.viewWillAppear.flatMap({[weak self] _ -> Observable<Response> in
+        input.viewWillAppear.take(1).flatMap({[weak self] _ -> Observable<Response> in
             guard let _self = self else { return Observable.just(.none) }
             return Observable.deferred {() ->  Observable<Response> in
                 return _self.service.getMovies(.init(page: nil, type: nil)).map({x in
@@ -79,6 +82,15 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
             guard let self = self, let d = data.getData() as? ItemType else { return }
             self.itemTemp = d.0
         }).asDriverOnErrorJustComplete().drive(self.$item).disposed(by: self.disposeBag)
+            
+        input.viewWillAppear.flatMap({[weak self] _ -> Observable<Response> in
+            guard let _self = self else { return Observable.just(.none) }
+                return Observable.deferred {() ->  Observable<Response> in
+                    return Observable.just(.user(_self.author))
+            }.trackError(_self.errorTracker)
+        }).asDriverOnErrorJustComplete()
+            .drive(self.$item)
+            .disposed(by: self.disposeBag)
         
         
         input.loadMore.filter({[weak self] _ in

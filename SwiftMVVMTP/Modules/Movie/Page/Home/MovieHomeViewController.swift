@@ -90,7 +90,8 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     
     private lazy var menuView : UIButton = {
         let v = UIButton()
-        v.setImage(.init(named: "avatar"), for: .normal)
+        v.setImage(.init(named: "avatar"), for: .selected)
+        v.setImage(.init(named: "user-avatar-default"), for: .normal)
         v.contentEdgeInsets = .zero
         v.layer.cornerRadius = 17
         v.clipsToBounds = true
@@ -123,7 +124,7 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     override func performBinding() {
         super.performBinding()
         let output = viewModel.transform(input: .init(
-            viewWillAppear: self.rx.viewWillAppear.take(1).mapToVoid(),
+            viewWillAppear: self.rx.viewWillAppear.mapToVoid(),
             loadMore: self.loadMoreSubject.asObservable().throttle(.seconds(1), scheduler: MainScheduler.instance),
             searchbar: self.searchbar.rx.text.orEmpty.asObservable().debounce(.seconds(1), scheduler: MainScheduler.instance),
             event: event))
@@ -139,6 +140,8 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
                 }
                 _self.changeCurrentItem(isClose: false)
                 _self.reloadCollection()
+            case .user(let data):
+                _self.menuView.isSelected = data != nil
             default: break;
             }
             
@@ -223,10 +226,16 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     }
     
     @objc private func menuTap(){
-        let vc = LoginViewController()
-        self.present(vc, animated: true)
+        if menuView.isSelected {
+            Storage<User>.remove(key: StorageKey.USER_INFO.rawValue)
+        }
+        else {
+            let vc = LoginViewController()
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true)
+        }
+        
     }
-    
 }
 extension MovieHomeViewController : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

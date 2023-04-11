@@ -13,4 +13,7 @@ protocol MovieRepository {
     func movieDetail(_ input : MovieDetailRequest) -> Observable<MovieDetailResponse>
     func getPlayInfo(_ input : PlayInfoRequest) -> Observable<PlayInfoResponse>
     func signIn(_ input : SignInRequest) -> Observable<SignInResponse>
+    
+    func setBookmark(_ input : SetBookmarkRequest) -> Observable<Void>
+    func removeBookmark(_ input : RemoveBookmarkRequest) -> Observable<Void>
 }

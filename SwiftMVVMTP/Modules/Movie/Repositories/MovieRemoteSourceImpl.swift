@@ -38,10 +38,21 @@ class MovieRemoteSourceImpl : MovieRemoteSource {
     
     @POST<SignInResponse>
     func signIn(_ input : SignInRequest) -> Observable<ApiResponseDto<SignInResponse>> {
-        ApiParameter.url(endpoint: host, path: "/login")
+        ApiParameter.url(endpoint: host, path: "login")
         ApiParameter.parameter(input)
     }
     
+    @POST<Nothing>
+    func setBookmark(_ input : SetBookmarkRequest) -> Observable<ApiResponseDto<Nothing>> {
+        ApiParameter.url(endpoint: host, path: "movie/setBookmark")
+        ApiParameter.parameter(input)
+    }
+    
+    @POST<Nothing>
+    func removeBookmark(_ input : RemoveBookmarkRequest) -> Observable<ApiResponseDto<Nothing>>{
+        ApiParameter.url(endpoint: host, path: "movie/removeBookmark")
+        ApiParameter.parameter(input)
+    }
 
   
 }

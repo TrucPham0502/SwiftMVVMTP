@@ -27,3 +27,11 @@ struct SignInRequest : Codable {
     let notificationToken : String
 }
 
+
+struct SetBookmarkRequest : Codable {
+    let url: String
+    let lastedEpisode : String
+}
+struct RemoveBookmarkRequest : Codable {
+    let url: String
+}

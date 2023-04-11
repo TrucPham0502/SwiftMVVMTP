@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>842093225011-i0lq52do5q78eujt672lo9ak2fuvb3on.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.842093225011-i0lq52do5q78eujt672lo9ak2fuvb3on</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCemDKFhGbEYc_0MgEZYXd9-RNygo1sdGU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>842093225011</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>trucpham.movie</string>
+	<key>PROJECT_ID</key>
+	<string>moviestp-3655a</string>
+	<key>STORAGE_BUCKET</key>
+	<string>moviestp-3655a.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:842093225011:ios:cf7bc189cf3d7c0f5aaf46</string>
+</dict>
+</plist>

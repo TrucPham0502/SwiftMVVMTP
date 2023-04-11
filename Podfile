@@ -9,4 +9,5 @@ target 'SwiftMVVMTP' do
   pod 'MBProgressHUD'
   pod 'Kingfisher'
   pod 'Localize'
+  pod 'FirebaseMessaging'
 end

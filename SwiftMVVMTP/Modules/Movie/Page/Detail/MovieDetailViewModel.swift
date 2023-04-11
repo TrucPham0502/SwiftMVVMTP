@@ -21,6 +21,7 @@ struct MovieDetailModel {
     let season: String
     let latest: String
     let categorys : String
+    let isBookmark: Bool
 }
 protocol MovieDetailViewLogic : BaseViewLogic {
     
@@ -36,6 +37,7 @@ class MovieDetailViewModel : BaseViewModel<MovieDetailViewModel.Input, MovieDeta
     
     struct Input  {
         let viewWillAppear: Driver<String>
+        let bookmark : Driver<(Bool, String, String)>
     }
     enum Response {
         case none
@@ -53,6 +55,20 @@ class MovieDetailViewModel : BaseViewModel<MovieDetailViewModel.Input, MovieDeta
                     return .item(x)
                 }).trackError(self.errorTracker)
             }.asDriverOnErrorJustComplete()
+        }).drive(self.$data).disposed(by: self.disposeBag)
+        
+        input.bookmark.flatMap({[weak self] (isSelected, url, lastedEp) in
+            guard let self = self else { return Driver.just(Response.none) }
+            return Observable.deferred {
+                if isSelected {
+                    return self.service.setBookmark(.init(url: url, lastedEpisode: lastedEp))
+                }
+                return self.service.removeBookmark(.init(url: url))
+            }
+            .map{_ in return Response.none }
+            .trackError(self.errorTracker)
+            .trackActivity(self.activityIndicator)
+            .asDriverOnErrorJustComplete()
         }).drive(self.$data).disposed(by: self.disposeBag)
         
         return Output(item: self.$data.asDriverOnErrorJustComplete())

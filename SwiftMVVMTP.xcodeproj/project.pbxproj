@@ -18,6 +18,12 @@
 		8EF2C64B29E3E09F005D3E30 /* TextFieldNeumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2C64A29E3E09F005D3E30 /* TextFieldNeumorphic.swift */; };
 		8EF2C64E29E40955005D3E30 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2C64D29E40955005D3E30 /* LoginViewController.swift */; };
 		8EF2C65029E40961005D3E30 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2C64F29E40961005D3E30 /* LoginViewModel.swift */; };
+		8EF2C65229E4E9F8005D3E30 /* CircleInnerShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2C65129E4E9F8005D3E30 /* CircleInnerShadowView.swift */; };
+		8EF2C65929E4FBE7005D3E30 /* Beta-GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8EF2C65829E4FBE7005D3E30 /* Beta-GoogleService-Info.plist */; };
+		8EF2C65B29E4FBF7005D3E30 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8EF2C65A29E4FBF7005D3E30 /* GoogleService-Info.plist */; };
+		8EF2C65E29E50660005D3E30 /* AuthKey_9C95F2SZ9G.p8 in Resources */ = {isa = PBXBuildFile; fileRef = 8EF2C65C29E5065F005D3E30 /* AuthKey_9C95F2SZ9G.p8 */; };
+		8EF2C65F29E50660005D3E30 /* AuthKey_M9Q3DTZ82A.p8 in Resources */ = {isa = PBXBuildFile; fileRef = 8EF2C65D29E5065F005D3E30 /* AuthKey_M9Q3DTZ82A.p8 */; };
+		8EF2C66229E51F07005D3E30 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2C66129E51F07005D3E30 /* AppData.swift */; };
 		FE3B3D1D29D8B9EA006EB487 /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B3D1C29D8B9EA006EB487 /* HMAC.swift */; };
 		FE3B3D1F29D8BB08006EB487 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B3D1E29D8BB08006EB487 /* String+Extensions.swift */; };
 		FE3B3D2129D96BEE006EB487 /* LayeredButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B3D2029D96BEE006EB487 /* LayeredButton.swift */; };
@@ -146,6 +152,13 @@
 		8EF2C64A29E3E09F005D3E30 /* TextFieldNeumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldNeumorphic.swift; sourceTree = "<group>"; };
 		8EF2C64D29E40955005D3E30 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8EF2C64F29E40961005D3E30 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		8EF2C65129E4E9F8005D3E30 /* CircleInnerShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleInnerShadowView.swift; sourceTree = "<group>"; };
+		8EF2C65329E4EF8B005D3E30 /* SwiftMVVMTPBETA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftMVVMTPBETA.entitlements; sourceTree = "<group>"; };
+		8EF2C65829E4FBE7005D3E30 /* Beta-GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Beta-GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8EF2C65A29E4FBF7005D3E30 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8EF2C65C29E5065F005D3E30 /* AuthKey_9C95F2SZ9G.p8 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthKey_9C95F2SZ9G.p8; sourceTree = "<group>"; };
+		8EF2C65D29E5065F005D3E30 /* AuthKey_M9Q3DTZ82A.p8 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthKey_M9Q3DTZ82A.p8; sourceTree = "<group>"; };
+		8EF2C66129E51F07005D3E30 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		E1517339AC43FA239BDE3758 /* Pods_SwiftMVVMTP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftMVVMTP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAF1BFFAE0D4641BA387E3FC /* Pods-SwiftMVVMTP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftMVVMTP.release.xcconfig"; path = "Target Support Files/Pods-SwiftMVVMTP/Pods-SwiftMVVMTP.release.xcconfig"; sourceTree = "<group>"; };
 		FE3B3D1C29D8B9EA006EB487 /* HMAC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMAC.swift; sourceTree = "<group>"; };
@@ -291,6 +304,7 @@
 				8EA7E31D29E3CFBA00A90DDE /* ButtomNeumorphic.swift */,
 				8EA7E32129E3D17300A90DDE /* ColorExtension.swift */,
 				8EF2C64A29E3E09F005D3E30 /* TextFieldNeumorphic.swift */,
+				8EF2C65129E4E9F8005D3E30 /* CircleInnerShadowView.swift */,
 			);
 			path = Neumorphic;
 			sourceTree = "<group>";
@@ -424,6 +438,11 @@
 		FE6F2BA526FCBC3F007CE4BF /* SwiftMVVMTP */ = {
 			isa = PBXGroup;
 			children = (
+				8EF2C65C29E5065F005D3E30 /* AuthKey_9C95F2SZ9G.p8 */,
+				8EF2C65D29E5065F005D3E30 /* AuthKey_M9Q3DTZ82A.p8 */,
+				8EF2C65A29E4FBF7005D3E30 /* GoogleService-Info.plist */,
+				8EF2C65829E4FBE7005D3E30 /* Beta-GoogleService-Info.plist */,
+				8EF2C65329E4EF8B005D3E30 /* SwiftMVVMTPBETA.entitlements */,
 				FEDA35072926328D00F27811 /* SwiftMVVMTP.entitlements */,
 				FE6F2BD726FCC3E6007CE4BF /* Modules */,
 				FE6F2BD626FCC3D2007CE4BF /* Core */,
@@ -470,6 +489,7 @@
 				FE6F2BD826FCC478007CE4BF /* Base */,
 				FE3B3D1C29D8B9EA006EB487 /* HMAC.swift */,
 				8E064FFA29E39DC600D104E4 /* DGPreview.swift */,
+				8EF2C66129E51F07005D3E30 /* AppData.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -836,11 +856,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE6F2BB326FCBC42007CE4BF /* LaunchScreen.storyboard in Resources */,
+				8EF2C65E29E50660005D3E30 /* AuthKey_9C95F2SZ9G.p8 in Resources */,
+				8EF2C65F29E50660005D3E30 /* AuthKey_M9Q3DTZ82A.p8 in Resources */,
 				FE48C91B275A22B200DB0CA6 /* lang-vi.json in Resources */,
+				8EF2C65B29E4FBF7005D3E30 /* GoogleService-Info.plist in Resources */,
 				FE48C91D275A232800DB0CA6 /* lang-en.json in Resources */,
 				FEDA3506292610EF00F27811 /* Main.storyboard in Resources */,
 				FE6F2BB026FCBC42007CE4BF /* Assets.xcassets in Resources */,
 				FEF76ABD270FF8640050B807 /* video.mp4 in Resources */,
+				8EF2C65929E4FBE7005D3E30 /* Beta-GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -944,6 +968,7 @@
 				FEF76AB8270F4AFE0050B807 /* Ripple.swift in Sources */,
 				FEEC607F26FE3B5500DDA47E /* MovieCollectionLayout.swift in Sources */,
 				FEEC608F26FE473700DDA47E /* GlidingCollection.swift in Sources */,
+				8EF2C65229E4E9F8005D3E30 /* CircleInnerShadowView.swift in Sources */,
 				FE6F2BF826FCDB45007CE4BF /* ParseDataError.swift in Sources */,
 				FEF76AB7270F4AFE0050B807 /* ResizeButton.swift in Sources */,
 				FE6F2BEA26FCCA7E007CE4BF /* ErrorTracker.swift in Sources */,
@@ -989,6 +1014,7 @@
 				FEEC60A026FE4FA300DDA47E /* MovieService.swift in Sources */,
 				FE3B3D2529D99135006EB487 /* MovieCategory.swift in Sources */,
 				FEFADB80271E569D00DAEAFA /* BaseViewLogic.swift in Sources */,
+				8EF2C66229E51F07005D3E30 /* AppData.swift in Sources */,
 				FE6F2BF226FCCDF9007CE4BF /* ApiRequestManager.swift in Sources */,
 				FE44EEA026FD75B900EC9F85 /* DataTestRequest.swift in Sources */,
 				FEF76AB5270F4AFE0050B807 /* Scrubber.swift in Sources */,
@@ -1188,21 +1214,23 @@
 			baseConfigurationReference = 26BA3687B48E27270E377BAD /* Pods-SwiftMVVMTP.beta.xcconfig */;
 			buildSettings = {
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
-				APP_ENDPOINT_URL = "http://192.168.1.5:27017/";
+				APP_ENDPOINT_URL = "http://21.64.19.44:27017/";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = SwiftMVVMTP/SwiftMVVMTP.entitlements;
+				CODE_SIGN_ENTITLEMENTS = SwiftMVVMTP/SwiftMVVMTPBETA.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = U5ND9J32DH;
 				GENERATE_INFOPLIST_FILE = YES;
+				GOOGLE_SERVICE_INFO = "Beta-GoogleService-Info";
 				INFOPLIST_FILE = SwiftMVVMTP/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1262,12 +1290,14 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = U5ND9J32DH;
 				GENERATE_INFOPLIST_FILE = YES;
+				GOOGLE_SERVICE_INFO = "GoogleService-Info";
 				INFOPLIST_FILE = SwiftMVVMTP/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

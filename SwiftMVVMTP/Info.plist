@@ -2,9 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>googleServiceInfo</key>
+	<string>$(GOOGLE_SERVICE_INFO)</string>
 	<key>AppEndPointUrl</key>
 	<string>$(APP_ENDPOINT_URL)</string>
-    <key>UIUserInterfaceStyle</key>
-    <string>Light</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>processing</string>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>
