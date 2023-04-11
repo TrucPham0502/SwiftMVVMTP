@@ -65,7 +65,7 @@ class MovieDetailViewModel : BaseViewModel<MovieDetailViewModel.Input, MovieDeta
                 }
                 return self.service.removeBookmark(.init(url: url))
             }
-            .map{_ in return Response.none }
+            .map{() in return Response.none }
             .trackError(self.errorTracker)
             .trackActivity(self.activityIndicator)
             .asDriverOnErrorJustComplete()
