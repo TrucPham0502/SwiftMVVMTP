@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import MBProgressHUD
+import Alamofire
 class AppBaseViewController: UIViewController {
     
     let disposeBag = DisposeBag()
@@ -64,7 +65,8 @@ class AppBaseViewController: UIViewController {
 //
 //        case let err as ValidateError where !err.message.isEmpty:
 //            self.showToast(message: err.message)
-            
+        case let err as AFError where err.isSessionTaskError:
+            self.showToast(message: "Could not connect to the server.")
         default:
             self.showToast(message: error.localizedDescription)
         }
