@@ -30,6 +30,7 @@
 		FE3B3D2529D99135006EB487 /* MovieCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B3D2429D99135006EB487 /* MovieCategory.swift */; };
 		FE3C0B2629DDC44500DC27DF /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3C0B2529DDC44500DC27DF /* PlayerViewController.swift */; };
 		FE3C0B2829DDC47000DC27DF /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3C0B2729DDC47000DC27DF /* PlayerViewModel.swift */; };
+		FE3F0AEA29E5A88900BCB7C3 /* CertificateSigningRequest.certSigningRequest in Resources */ = {isa = PBXBuildFile; fileRef = FE3F0AE929E5A88900BCB7C3 /* CertificateSigningRequest.certSigningRequest */; };
 		FE44EE9526FD731400EC9F85 /* TestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EE9426FD731400EC9F85 /* TestCell.swift */; };
 		FE44EE9B26FD751500EC9F85 /* TestModuleServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EE9A26FD751500EC9F85 /* TestModuleServiceImpl.swift */; };
 		FE44EE9D26FD755300EC9F85 /* TestModuleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EE9C26FD755300EC9F85 /* TestModuleService.swift */; };
@@ -167,6 +168,8 @@
 		FE3B3D2429D99135006EB487 /* MovieCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCategory.swift; sourceTree = "<group>"; };
 		FE3C0B2529DDC44500DC27DF /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		FE3C0B2729DDC47000DC27DF /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
+		FE3F0AE829E5A88000BCB7C3 /* aps_development.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = aps_development.cer; path = ../../../Downloads/aps_development.cer; sourceTree = "<group>"; };
+		FE3F0AE929E5A88900BCB7C3 /* CertificateSigningRequest.certSigningRequest */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CertificateSigningRequest.certSigningRequest; path = ../../CertificateSigningRequest.certSigningRequest; sourceTree = "<group>"; };
 		FE44EE9426FD731400EC9F85 /* TestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCell.swift; sourceTree = "<group>"; };
 		FE44EE9A26FD751500EC9F85 /* TestModuleServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleServiceImpl.swift; sourceTree = "<group>"; };
 		FE44EE9C26FD755300EC9F85 /* TestModuleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleService.swift; sourceTree = "<group>"; };
@@ -438,6 +441,8 @@
 		FE6F2BA526FCBC3F007CE4BF /* SwiftMVVMTP */ = {
 			isa = PBXGroup;
 			children = (
+				FE3F0AE929E5A88900BCB7C3 /* CertificateSigningRequest.certSigningRequest */,
+				FE3F0AE829E5A88000BCB7C3 /* aps_development.cer */,
 				8EF2C65C29E5065F005D3E30 /* AuthKey_9C95F2SZ9G.p8 */,
 				8EF2C65D29E5065F005D3E30 /* AuthKey_M9Q3DTZ82A.p8 */,
 				8EF2C65A29E4FBF7005D3E30 /* GoogleService-Info.plist */,
@@ -864,6 +869,7 @@
 				FEDA3506292610EF00F27811 /* Main.storyboard in Resources */,
 				FE6F2BB026FCBC42007CE4BF /* Assets.xcassets in Resources */,
 				FEF76ABD270FF8640050B807 /* video.mp4 in Resources */,
+				FE3F0AEA29E5A88900BCB7C3 /* CertificateSigningRequest.certSigningRequest in Resources */,
 				8EF2C65929E4FBE7005D3E30 /* Beta-GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -103,9 +103,8 @@ extension AppDelegate : WKNavigationDelegate {
 }
 
 extension AppDelegate : UNUserNotificationCenterDelegate {
-    func application(application: UIApplication,
-                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-//      Messaging.messaging().apnsToken = deviceToken
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Messaging.messaging().apnsToken = deviceToken
     }
 }
 
