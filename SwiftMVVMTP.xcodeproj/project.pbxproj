@@ -24,13 +24,14 @@
 		8EF2C65E29E50660005D3E30 /* AuthKey_9C95F2SZ9G.p8 in Resources */ = {isa = PBXBuildFile; fileRef = 8EF2C65C29E5065F005D3E30 /* AuthKey_9C95F2SZ9G.p8 */; };
 		8EF2C65F29E50660005D3E30 /* AuthKey_M9Q3DTZ82A.p8 in Resources */ = {isa = PBXBuildFile; fileRef = 8EF2C65D29E5065F005D3E30 /* AuthKey_M9Q3DTZ82A.p8 */; };
 		8EF2C66229E51F07005D3E30 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2C66129E51F07005D3E30 /* AppData.swift */; };
+		8EF7BD8529E6672300C22106 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF7BD8429E6672300C22106 /* NotificationService.swift */; };
+		8EF7BD8929E6672300C22106 /* NotificationService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8EF7BD8229E6672300C22106 /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FE3B3D1D29D8B9EA006EB487 /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B3D1C29D8B9EA006EB487 /* HMAC.swift */; };
 		FE3B3D1F29D8BB08006EB487 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B3D1E29D8BB08006EB487 /* String+Extensions.swift */; };
 		FE3B3D2129D96BEE006EB487 /* LayeredButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B3D2029D96BEE006EB487 /* LayeredButton.swift */; };
 		FE3B3D2529D99135006EB487 /* MovieCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B3D2429D99135006EB487 /* MovieCategory.swift */; };
 		FE3C0B2629DDC44500DC27DF /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3C0B2529DDC44500DC27DF /* PlayerViewController.swift */; };
 		FE3C0B2829DDC47000DC27DF /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3C0B2729DDC47000DC27DF /* PlayerViewModel.swift */; };
-		FE3F0AEA29E5A88900BCB7C3 /* CertificateSigningRequest.certSigningRequest in Resources */ = {isa = PBXBuildFile; fileRef = FE3F0AE929E5A88900BCB7C3 /* CertificateSigningRequest.certSigningRequest */; };
 		FE44EE9526FD731400EC9F85 /* TestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EE9426FD731400EC9F85 /* TestCell.swift */; };
 		FE44EE9B26FD751500EC9F85 /* TestModuleServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EE9A26FD751500EC9F85 /* TestModuleServiceImpl.swift */; };
 		FE44EE9D26FD755300EC9F85 /* TestModuleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EE9C26FD755300EC9F85 /* TestModuleService.swift */; };
@@ -123,6 +124,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8EF7BD8729E6672300C22106 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FE6F2B9B26FCBC3F007CE4BF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8EF7BD8129E6672300C22106;
+			remoteInfo = NotificationService;
+		};
 		FE6F2BBA26FCBC43007CE4BF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FE6F2B9B26FCBC3F007CE4BF /* Project object */;
@@ -138,6 +146,20 @@
 			remoteInfo = SwiftMVVMTP;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8EF7BD8E29E6672400C22106 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				8EF7BD8929E6672300C22106 /* NotificationService.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		11331C83FD29963EACBCD787 /* Pods-SwiftMVVMTP.prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftMVVMTP.prod.xcconfig"; path = "Target Support Files/Pods-SwiftMVVMTP/Pods-SwiftMVVMTP.prod.xcconfig"; sourceTree = "<group>"; };
@@ -160,6 +182,10 @@
 		8EF2C65C29E5065F005D3E30 /* AuthKey_9C95F2SZ9G.p8 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthKey_9C95F2SZ9G.p8; sourceTree = "<group>"; };
 		8EF2C65D29E5065F005D3E30 /* AuthKey_M9Q3DTZ82A.p8 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthKey_M9Q3DTZ82A.p8; sourceTree = "<group>"; };
 		8EF2C66129E51F07005D3E30 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
+		8EF7BD8229E6672300C22106 /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EF7BD8429E6672300C22106 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		8EF7BD8629E6672300C22106 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8EF7BD8A29E6672400C22106 /* NotificationService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationService.entitlements; sourceTree = "<group>"; };
 		E1517339AC43FA239BDE3758 /* Pods_SwiftMVVMTP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftMVVMTP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAF1BFFAE0D4641BA387E3FC /* Pods-SwiftMVVMTP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftMVVMTP.release.xcconfig"; path = "Target Support Files/Pods-SwiftMVVMTP/Pods-SwiftMVVMTP.release.xcconfig"; sourceTree = "<group>"; };
 		FE3B3D1C29D8B9EA006EB487 /* HMAC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMAC.swift; sourceTree = "<group>"; };
@@ -168,8 +194,6 @@
 		FE3B3D2429D99135006EB487 /* MovieCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCategory.swift; sourceTree = "<group>"; };
 		FE3C0B2529DDC44500DC27DF /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		FE3C0B2729DDC47000DC27DF /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
-		FE3F0AE829E5A88000BCB7C3 /* aps_development.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = aps_development.cer; path = ../../../Downloads/aps_development.cer; sourceTree = "<group>"; };
-		FE3F0AE929E5A88900BCB7C3 /* CertificateSigningRequest.certSigningRequest */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CertificateSigningRequest.certSigningRequest; path = ../../CertificateSigningRequest.certSigningRequest; sourceTree = "<group>"; };
 		FE44EE9426FD731400EC9F85 /* TestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCell.swift; sourceTree = "<group>"; };
 		FE44EE9A26FD751500EC9F85 /* TestModuleServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleServiceImpl.swift; sourceTree = "<group>"; };
 		FE44EE9C26FD755300EC9F85 /* TestModuleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleService.swift; sourceTree = "<group>"; };
@@ -268,6 +292,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8EF7BD7F29E6672300C22106 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FE6F2BA026FCBC3F007CE4BF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -319,6 +350,16 @@
 				8EF2C64F29E40961005D3E30 /* LoginViewModel.swift */,
 			);
 			path = Account;
+			sourceTree = "<group>";
+		};
+		8EF7BD8329E6672300C22106 /* NotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				8EF7BD8A29E6672400C22106 /* NotificationService.entitlements */,
+				8EF7BD8429E6672300C22106 /* NotificationService.swift */,
+				8EF7BD8629E6672300C22106 /* Info.plist */,
+			);
+			path = NotificationService;
 			sourceTree = "<group>";
 		};
 		E8A6BA2B1DB5A8C588C73D6C /* Pods */ = {
@@ -422,6 +463,7 @@
 				FE6F2BA526FCBC3F007CE4BF /* SwiftMVVMTP */,
 				FE6F2BBC26FCBC43007CE4BF /* SwiftMVVMTPTests */,
 				FE6F2BC626FCBC43007CE4BF /* SwiftMVVMTPUITests */,
+				8EF7BD8329E6672300C22106 /* NotificationService */,
 				FE6F2BA426FCBC3F007CE4BF /* Products */,
 				E8A6BA2B1DB5A8C588C73D6C /* Pods */,
 				57967A642B51B2F432FD0763 /* Frameworks */,
@@ -434,6 +476,7 @@
 				FE6F2BA326FCBC3F007CE4BF /* SwiftMVVMTP BETA.app */,
 				FE6F2BB926FCBC43007CE4BF /* SwiftMVVMTPTests.xctest */,
 				FE6F2BC326FCBC43007CE4BF /* SwiftMVVMTPUITests.xctest */,
+				8EF7BD8229E6672300C22106 /* NotificationService.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -441,8 +484,6 @@
 		FE6F2BA526FCBC3F007CE4BF /* SwiftMVVMTP */ = {
 			isa = PBXGroup;
 			children = (
-				FE3F0AE929E5A88900BCB7C3 /* CertificateSigningRequest.certSigningRequest */,
-				FE3F0AE829E5A88000BCB7C3 /* aps_development.cer */,
 				8EF2C65C29E5065F005D3E30 /* AuthKey_9C95F2SZ9G.p8 */,
 				8EF2C65D29E5065F005D3E30 /* AuthKey_M9Q3DTZ82A.p8 */,
 				8EF2C65A29E4FBF7005D3E30 /* GoogleService-Info.plist */,
@@ -755,6 +796,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8EF7BD8129E6672300C22106 /* NotificationService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8EF7BD8B29E6672400C22106 /* Build configuration list for PBXNativeTarget "NotificationService" */;
+			buildPhases = (
+				8EF7BD7E29E6672300C22106 /* Sources */,
+				8EF7BD7F29E6672300C22106 /* Frameworks */,
+				8EF7BD8029E6672300C22106 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotificationService;
+			productName = NotificationService;
+			productReference = 8EF7BD8229E6672300C22106 /* NotificationService.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		FE6F2BA226FCBC3F007CE4BF /* SwiftMVVMTP */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FE6F2BCD26FCBC43007CE4BF /* Build configuration list for PBXNativeTarget "SwiftMVVMTP" */;
@@ -764,10 +822,12 @@
 				FE6F2BA026FCBC3F007CE4BF /* Frameworks */,
 				FE6F2BA126FCBC3F007CE4BF /* Resources */,
 				44A8403398AE01AE377498C5 /* [CP] Embed Pods Frameworks */,
+				8EF7BD8E29E6672400C22106 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				8EF7BD8829E6672300C22106 /* PBXTargetDependency */,
 			);
 			name = SwiftMVVMTP;
 			productName = SwiftMVVMTP;
@@ -818,10 +878,13 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				CLASSPREFIX = "Truc Pham";
-				LastSwiftUpdateCheck = 1300;
+				LastSwiftUpdateCheck = 1410;
 				LastUpgradeCheck = 1300;
 				ORGANIZATIONNAME = "Truc Pham";
 				TargetAttributes = {
+					8EF7BD8129E6672300C22106 = {
+						CreatedOnToolsVersion = 14.1;
+					};
 					FE6F2BA226FCBC3F007CE4BF = {
 						CreatedOnToolsVersion = 13.0;
 					};
@@ -851,11 +914,19 @@
 				FE6F2BA226FCBC3F007CE4BF /* SwiftMVVMTP */,
 				FE6F2BB826FCBC43007CE4BF /* SwiftMVVMTPTests */,
 				FE6F2BC226FCBC43007CE4BF /* SwiftMVVMTPUITests */,
+				8EF7BD8129E6672300C22106 /* NotificationService */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8EF7BD8029E6672300C22106 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FE6F2BA126FCBC3F007CE4BF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -869,7 +940,6 @@
 				FEDA3506292610EF00F27811 /* Main.storyboard in Resources */,
 				FE6F2BB026FCBC42007CE4BF /* Assets.xcassets in Resources */,
 				FEF76ABD270FF8640050B807 /* video.mp4 in Resources */,
-				FE3F0AEA29E5A88900BCB7C3 /* CertificateSigningRequest.certSigningRequest in Resources */,
 				8EF2C65929E4FBE7005D3E30 /* Beta-GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -933,6 +1003,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8EF7BD7E29E6672300C22106 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8EF7BD8529E6672300C22106 /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FE6F2B9F26FCBC3F007CE4BF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1058,6 +1136,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8EF7BD8829E6672300C22106 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8EF7BD8129E6672300C22106 /* NotificationService */;
+			targetProxy = 8EF7BD8729E6672300C22106 /* PBXContainerItemProxy */;
+		};
 		FE6F2BBB26FCBC43007CE4BF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = FE6F2BA226FCBC3F007CE4BF /* SwiftMVVMTP */;
@@ -1090,6 +1173,164 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8EF7BD8C29E6672400C22106 /* BETA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = U5ND9J32DH;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NotificationService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Truc Pham. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = beta.trucpham.movie.NotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = BETA;
+		};
+		8EF7BD8D29E6672400C22106 /* PROD */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = U5ND9J32DH;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NotificationService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Truc Pham. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = trucpham.movie.NotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = PROD;
+		};
 		FE6F2BCB26FCBC43007CE4BF /* BETA */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1142,7 +1383,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1201,7 +1442,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1220,7 +1461,8 @@
 			baseConfigurationReference = 26BA3687B48E27270E377BAD /* Pods-SwiftMVVMTP.beta.xcconfig */;
 			buildSettings = {
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
-				APP_ENDPOINT_URL = "http://21.64.19.44:27017/";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				APP_ENDPOINT_URL = "http://192.168.1.199:27017/";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SwiftMVVMTP/SwiftMVVMTPBETA.entitlements;
@@ -1287,6 +1529,7 @@
 			baseConfigurationReference = 11331C83FD29963EACBCD787 /* Pods-SwiftMVVMTP.prod.xcconfig */;
 			buildSettings = {
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APP_ENDPOINT_URL = "http://13.229.105.182:8080/";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1445,6 +1688,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8EF7BD8B29E6672400C22106 /* Build configuration list for PBXNativeTarget "NotificationService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8EF7BD8C29E6672400C22106 /* BETA */,
+				8EF7BD8D29E6672400C22106 /* PROD */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = BETA;
+		};
 		FE6F2B9E26FCBC3F007CE4BF /* Build configuration list for PBXProject "SwiftMVVMTP" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

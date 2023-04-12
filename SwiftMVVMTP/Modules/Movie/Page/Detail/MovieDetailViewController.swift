@@ -358,7 +358,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         let output = viewModel.transform(input: .init(viewWillAppear: self.rx.viewWillAppear.take(1).map({[weak self] _ in
             return self?.dataRequire?.urlPage ?? ""
         }).asDriverOnErrorJustComplete(),
-                                                      bookmark: self.bookmarksView.rx.tap.map({[weak self] _ in
+         bookmark: self.bookmarksView.rx.tap.map({[weak self] _ in
             guard let self = self, let url = self.dataRequire?.urlPage, let ep = self.data.first?.episode else { return (false, "", "")}
             return (!self.isBookmarks, url, ep)
             
