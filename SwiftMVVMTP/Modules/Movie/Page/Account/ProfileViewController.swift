@@ -62,13 +62,28 @@ class ProfileViewController : BaseViewController<ProfileViewModel> {
     private lazy var avatarView : UIImageView = {
         let v = UIImageView(image: .init(named: "user-avatar-default"))
         v.translatesAutoresizingMaskIntoConstraints = false
+        v.clipsToBounds = true
+        v.layer.masksToBounds = true
+        v.contentMode = .scaleAspectFill
+        v.layer.cornerRadius = avatarSize / 2
+        return v
+    }()
+    
+    private lazy var avatarContainerView : UIView = {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
         v.layer.cornerRadius = avatarSize / 2
         v.layer.borderWidth = 2
-        v.contentMode = .scaleAspectFill
-        v.clipsToBounds = true
         v.layer.borderColor = UIColor.white.cgColor
         v.backgroundColor = .white
         v.setShadow(.init(width: 3, height: 3))
+        v.addSubview(avatarView)
+        NSLayoutConstraint.activate([
+            avatarView.leadingAnchor.constraint(equalTo: v.leadingAnchor, constant: 2),
+            avatarView.trailingAnchor.constraint(equalTo: v.trailingAnchor, constant: -2),
+            avatarView.bottomAnchor.constraint(equalTo: v.bottomAnchor, constant: -2),
+            avatarView.topAnchor.constraint(equalTo: v.topAnchor, constant: 2)
+        ])
         return v
     }()
     
@@ -90,7 +105,7 @@ class ProfileViewController : BaseViewController<ProfileViewModel> {
         container.translatesAutoresizingMaskIntoConstraints = false
         
         [userNamelb].forEach(container.addSubview)
-        [container, avatarView, self.backButton].forEach(v.addSubview)
+        [container, avatarContainerView, self.backButton].forEach(v.addSubview)
         
         NSLayoutConstraint.activate([
             container.leadingAnchor.constraint(equalTo: v.leadingAnchor, constant: 30),
@@ -98,12 +113,12 @@ class ProfileViewController : BaseViewController<ProfileViewModel> {
             container.bottomAnchor.constraint(equalTo: v.bottomAnchor, constant: -20),
             container.topAnchor.constraint(equalTo: v.topAnchor, constant: avatarSize / 2 + 70),
             
-            avatarView.topAnchor.constraint(equalTo: container.topAnchor, constant: -avatarSize/2),
-            avatarView.centerXAnchor.constraint(equalTo: container.centerXAnchor),
-            avatarView.heightAnchor.constraint(equalToConstant: avatarSize),
-            avatarView.widthAnchor.constraint(equalTo: avatarView.heightAnchor),
+            avatarContainerView.topAnchor.constraint(equalTo: container.topAnchor, constant: -avatarSize/2),
+            avatarContainerView.centerXAnchor.constraint(equalTo: container.centerXAnchor),
+            avatarContainerView.heightAnchor.constraint(equalToConstant: avatarSize),
+            avatarContainerView.widthAnchor.constraint(equalTo: avatarContainerView.heightAnchor),
             
-            userNamelb.topAnchor.constraint(equalTo: avatarView.bottomAnchor, constant: 20),
+            userNamelb.topAnchor.constraint(equalTo: avatarContainerView.bottomAnchor, constant: 20),
             userNamelb.centerXAnchor.constraint(equalTo: container.centerXAnchor),
             
             

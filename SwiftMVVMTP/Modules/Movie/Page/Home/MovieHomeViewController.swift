@@ -13,7 +13,6 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     override func buildViewModel() -> MovieHomeViewModel {
         return MovieHomeViewModel()
     }
-    let event : MovieHomeViewModel.Event = .init(bookmark: PublishSubject())
     var loadMoreSubject : PublishRelay<Int> = .init()
     private var cellOpens : Dictionary<Int, Bool> = [:]
     fileprivate var titlesItem = [MovieCategory]()
@@ -39,6 +38,7 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
             guard let self = self else { return }
             UIView.animate(withDuration: 0.3) {
                 self.navigationTitleView.alpha = isFocus ? 0 : 1
+                self.menuView.alpha = isFocus ? 0 : 1
             }
         }
         return v
@@ -124,10 +124,10 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     override func performBinding() {
         super.performBinding()
         let output = viewModel.transform(input: .init(
-            viewWillAppear: self.rx.viewWillAppear.mapToVoid(),
-            loadMore: self.loadMoreSubject.asObservable().throttle(.seconds(1), scheduler: MainScheduler.instance),
-            searchbar: self.searchbar.rx.text.orEmpty.asObservable().debounce(.seconds(1), scheduler: MainScheduler.instance),
-            event: event))
+            viewWillAppear: self.rx.viewWillAppear.asDriverOnErrorJustComplete().mapToVoid(),
+            viewDidload: self.rx.viewWillAppear.take(1).asDriverOnErrorJustComplete().mapToVoid(),
+            loadMore: self.loadMoreSubject.asObservable().throttle(.seconds(1), scheduler: MainScheduler.instance).asDriverOnErrorJustComplete(),
+            searchbar: self.searchbar.rx.text.orEmpty.asObservable().debounce(.seconds(1), scheduler: MainScheduler.instance).asDriverOnErrorJustComplete()))
         
         output.data.drive(onNext: {[weak self] data in
             guard let _self = self else { return }
@@ -143,6 +143,7 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
             case .user(let data):
                 _self.hasSignIn = data != nil
                 if _self.hasSignIn { _self.menuView.setImage(.init(named: "avatar"), for: .normal) }
+                else { _self.menuView.setImage(.init(named: "user-avatar-default"), for: .normal)  }
             default: break;
             }
             
@@ -234,6 +235,7 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
         }
         else {
             let vc = LoginViewController()
+            vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true)
         }
         
@@ -272,7 +274,6 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
         cell.bookmarkAction = {[weak self] isSelected in
             guard let self = self else { return }
             self.collectionItems[section][indexPath.row].isBookmark = isSelected
-            self.event.bookmark.onNext((indexPath, isSelected))
         }
         
         cell.frontViewAction = {[weak self] _ in
@@ -339,10 +340,10 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
                                                        imageSize: image?.size ?? .zero,
                                                        gradientColors: viewController.gradientColors) {[weak self] cell in
             guard let self = self else { return }
-//            self.navigationController?.pushViewController(viewController, animated: false)
-            let vc = UINavigationController(rootViewController: viewController)
-            vc.modalPresentationStyle = .overCurrentContext
-            self.navigationController?.present(vc, animated: false, completion: nil)
+            self.navigationController?.pushViewController(viewController, animated: false)
+//            let vc = UINavigationController(rootViewController: viewController)
+//            vc.modalPresentationStyle = .overCurrentContext
+//            self.navigationController?.present(vc, animated: false, completion: nil)
         }
     }
     

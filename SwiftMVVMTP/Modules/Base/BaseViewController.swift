@@ -33,7 +33,17 @@ class BaseViewController<VM : ViewModelType> : AppBaseViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
-    
+    override func handleError(error: Error) {
+        super.handleError(error: error)
+        if let err = error as? ApiError {
+            switch err.errorCode {
+            case -2:
+                AppData.logout()
+                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+            default: break
+            }
+        }
+    }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

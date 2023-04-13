@@ -35,6 +35,17 @@ class LoginViewController : BaseViewController<LoginViewModel> {
         return v
     }()
     
+    private lazy var backButton : ButtonNeumorphic = {
+        let v = ButtonNeumorphic()
+        v.layer.cornerRadius = 20
+        v.setImage(.init(named: "ic-back"), for: .normal)
+        v.contentEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.addTarget(self, action: #selector(backTap), for: .touchUpInside)
+        return v
+    }()
+    
+    
     private lazy var containerView : UIView = {
         let v = UIView()
         v.translatesAutoresizingMaskIntoConstraints = false
@@ -108,7 +119,7 @@ class LoginViewController : BaseViewController<LoginViewModel> {
         self.view.clipsToBounds = true
         self.view.layer.masksToBounds = true
         self.view.backgroundColor = .Neumorphic.mainColor
-        [self.circleBottomView, self.circleTopView, self.containerView].forEach( self.view.addSubview)
+        [self.circleBottomView, self.circleTopView, self.containerView, backButton].forEach( self.view.addSubview)
         [self.titleView, self.subtitleView, self.userNameTxt, self.passwordTxt, self.signInButton].forEach(self.containerView.addSubview(_:))
         NSLayoutConstraint.activate([
             self.containerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
@@ -145,7 +156,12 @@ class LoginViewController : BaseViewController<LoginViewModel> {
             
             self.signInButton.topAnchor.constraint(equalTo: self.passwordTxt.bottomAnchor, constant: 40),
             self.signInButton.centerXAnchor.constraint(equalTo: self.containerView.centerXAnchor),
-            self.signInButton.bottomAnchor.constraint(lessThanOrEqualTo: self.containerView.bottomAnchor)
+            self.signInButton.bottomAnchor.constraint(lessThanOrEqualTo: self.containerView.bottomAnchor),
+            
+            backButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
+            backButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            backButton.heightAnchor.constraint(equalTo: backButton.widthAnchor),
+            backButton.widthAnchor.constraint(equalToConstant: 40)
         ])
         
     }
@@ -174,6 +190,9 @@ class LoginViewController : BaseViewController<LoginViewModel> {
         }).disposed(by: self.disposeBag)
     }
     
+    @objc func backTap(){
+        naviagtionBack()
+    }
 }
 
 

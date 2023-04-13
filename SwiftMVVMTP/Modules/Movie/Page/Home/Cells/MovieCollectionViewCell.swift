@@ -111,6 +111,7 @@ class MovieCollectionViewCell : UICollectionViewCell {
         v.setImage(UIImage(named: "christmas-star-stroke"), for: .normal)
         v.contentEdgeInsets = .zero
         v.contentEdgeInsets = .zero
+        v.isHidden = true
         return v
     }()
     

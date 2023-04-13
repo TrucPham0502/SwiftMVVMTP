@@ -57,7 +57,7 @@ class ProfileViewModel : BaseViewModel<ProfileViewModel.Input, ProfileViewModel.
             return Observable.deferred({() -> Observable<Response> in
                 switch data.type {
                 case .logout:
-                    self.service.logout()
+                    AppData.logout()
                 default: break
                 }
                 return Observable.just(.itemSelected(data))

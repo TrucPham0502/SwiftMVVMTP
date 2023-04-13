@@ -9,10 +9,12 @@ import Foundation
 class ApiError: Error {
     let error: NSError
     let errorMessage: String
+    let errorCode : Int?
     
     init(parseClass: String, errorMessage: String?, errorCode: Int?) {
         let bundle = Bundle.main.infoDictionary!["CFBundleIdentifier"] as! String
         self.errorMessage = errorMessage ?? ""
+        self.errorCode = errorCode
         let userInfo: [String : Any] = [
                 NSLocalizedDescriptionKey :  NSLocalizedString("NSLocalizedDescriptionKey", value: self.errorMessage, comment: ""),
                 NSLocalizedFailureReasonErrorKey : NSLocalizedString("NSLocalizedFailureReasonErrorKey", value: self.errorMessage, comment: "")

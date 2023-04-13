@@ -89,7 +89,7 @@ func <-> <T : Comparable>(subject: PublishSubject<T?>, variable: BehaviorRelay<T
 
 extension Reactive where Base : UIViewController {
     var viewDidLoad : Observable<Void> {
-        return methodInvoked(#selector(UIViewController.viewDidLoad)).map { _ in return }
+        return methodInvoked(#selector(UIViewController.viewDidLoad)).map { _ in  }
     }
     var viewWillAppear : Observable<Bool> {
         return methodInvoked(#selector(UIViewController.viewWillAppear(_:))).map { $0[0] as! Bool }

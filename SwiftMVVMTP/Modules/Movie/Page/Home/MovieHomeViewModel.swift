@@ -26,13 +26,13 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
         }
     }
     struct Input  {
-        let viewWillAppear : Observable<Void>
-        let loadMore : Observable<Int>
-        let searchbar : Observable<String>
-        let event : Event
+        let viewWillAppear : Driver<Void>
+        let viewDidload : Driver<Void>
+        let loadMore : Driver<Int>
+        let searchbar : Driver<String>
     }
     struct Event {
-        let bookmark : PublishSubject<(IndexPath, Bool)>
+        let bookmark : Driver<(IndexPath, Bool)>
     }
     enum Response {
         case none
@@ -58,38 +58,28 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
     var author : User?
     
     override func transform(input: Input) -> Output {
-        input.event.bookmark
-        .flatMap({[weak self] itemSelected -> Observable<Response> in
-            guard let _self = self, let data = _self.item.getData() as? ItemType  else { return Observable.just(.none) }
-            var res = data.0
-            res.datas[itemSelected.0.section][itemSelected.0.row].isBookmark = itemSelected.1
-            return Observable.just(.none)
-        })
-        .trackError(self.errorTracker)
-        .asDriverOnErrorJustComplete()
-        .drive(self.$item)
-        .disposed(by: self.disposeBag)
         
-        input.viewWillAppear.take(1).flatMap({[weak self] _ -> Observable<Response> in
-            guard let _self = self else { return Observable.just(.none) }
-            return Observable.deferred {() ->  Observable<Response> in
+        input.viewDidload.flatMap({[weak self] () -> Driver<Response> in
+            guard let _self = self else { return Driver.just(Response.none) }
+            return Observable.deferred {() in
                 return _self.service.getMovies(.init(page: nil, type: nil)).map({x in
                     return .item((x, false))
                 })
             }.trackActivity(_self.activityIndicator)
                 .trackError(_self.errorTracker)
+                .asDriverOnErrorJustComplete()
         }).do(onNext: {[weak self] data in
             guard let self = self, let d = data.getData() as? ItemType else { return }
             self.itemTemp = d.0
-        }).asDriverOnErrorJustComplete().drive(self.$item).disposed(by: self.disposeBag)
+        }).drive(self.$item).disposed(by: self.disposeBag)
             
-        input.viewWillAppear.flatMap({[weak self] _ -> Observable<Response> in
-            guard let _self = self else { return Observable.just(.none) }
+        input.viewWillAppear.flatMap({[weak self] _ -> Driver<Response> in
+            guard let _self = self else { return Driver.just(.none) }
                 return Observable.deferred {() ->  Observable<Response> in
                     return Observable.just(.user(_self.author))
             }.trackError(_self.errorTracker)
-        }).asDriverOnErrorJustComplete()
-            .drive(self.$item)
+                .asDriverOnErrorJustComplete()
+        }).drive(self.$item)
             .disposed(by: self.disposeBag)
         
         
@@ -117,21 +107,22 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
                         guard let self = self else { return }
                         self.isStopLoadMore = false
                     })
-                }
-            }).trackError(self.errorTracker).asDriverOnErrorJustComplete().drive(self.$item).disposed(by: self.disposeBag)
+                }.trackError(self.errorTracker).asDriverOnErrorJustComplete()
+            }).drive(self.$item).disposed(by: self.disposeBag)
                 
             input.searchbar.do(onNext: {[weak self] text in
                 guard let self = self else { return }
                 self.isSearching = !text.isEmpty
-            }).flatMap{[weak self] search -> Observable<Response> in
-                guard let self = self else { return Observable.just(.none) }
-                if(search.isEmpty) { return Observable.just(.item((self.itemTemp, false))) }
-                return self.service.searchMovies(.init(key: search, type: nil)).map({x in
-                    return .item((x, false))
-                })
-            }.trackError(self.errorTracker)
-            .asDriverOnErrorJustComplete()
-            .drive(self.$item)
+            }).flatMap{[weak self] search -> Driver<Response> in
+                guard let self = self else { return Driver.just(.none) }
+                return Observable.deferred {
+                    if(search.isEmpty) { return Observable.just(.item((self.itemTemp, false))) }
+                    return self.service.searchMovies(.init(key: search, type: nil)).map({x in
+                        return .item((x, false))
+                    })
+                }.trackError(self.errorTracker)
+                    .asDriverOnErrorJustComplete()
+            }.drive(self.$item)
             .disposed(by: self.disposeBag)
         return Output(data: self.$item.asDriverOnErrorJustComplete())
     }
