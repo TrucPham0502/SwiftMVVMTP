@@ -1212,6 +1212,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = U5ND9J32DH;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U5ND9J32DH;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1245,6 +1246,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = beta.trucpham.movie.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "beta movie Notification Service Development";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "beta movie Notification Service Development";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1291,11 +1293,11 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = U5ND9J32DH;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1321,6 +1323,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = trucpham.movie.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = YES;
@@ -1472,6 +1475,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = U5ND9J32DH;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U5ND9J32DH;
 				GENERATE_INFOPLIST_FILE = YES;
 				GOOGLE_SERVICE_INFO = "Beta-GoogleService-Info";
 				INFOPLIST_FILE = SwiftMVVMTP/Info.plist;
@@ -1515,6 +1519,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = beta.trucpham.movie;
 				PRODUCT_NAME = "$(TARGET_NAME) BETA";
 				PROVISIONING_PROFILE_SPECIFIER = "beta trucpham movie Development";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "beta trucpham movie Development";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "appletvos appletvsimulator driverkit iphoneos iphonesimulator watchos watchsimulator";
@@ -1538,9 +1543,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SwiftMVVMTP/SwiftMVVMTP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U5ND9J32DH;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				GOOGLE_SERVICE_INFO = "GoogleService-Info";
 				INFOPLIST_FILE = SwiftMVVMTP/Info.plist;
