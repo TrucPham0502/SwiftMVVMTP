@@ -20,6 +20,7 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     fileprivate var collectionItems: [[MovieCollectionViewCellModel]] = []
     fileprivate var transitionDriver : TransitionDriver?
     fileprivate var itemSize = UIMovieHomeConfig.shared.cardsSize
+    private var hasSignIn : Bool = false
     
     private var currentIndex : IndexPath {
         return .init(row: self.collectionView.currentIndex, section: self.glidingView.expandedItemIndex)
@@ -90,7 +91,6 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     
     private lazy var menuView : UIButton = {
         let v = UIButton()
-        v.setImage(.init(named: "avatar"), for: .selected)
         v.setImage(.init(named: "user-avatar-default"), for: .normal)
         v.contentEdgeInsets = .zero
         v.layer.cornerRadius = 17
@@ -141,7 +141,8 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
                 _self.changeCurrentItem(isClose: false)
                 _self.reloadCollection()
             case .user(let data):
-                _self.menuView.isSelected = data != nil
+                _self.hasSignIn = data != nil
+                if _self.hasSignIn { _self.menuView.setImage(.init(named: "avatar"), for: .normal) }
             default: break;
             }
             
@@ -226,12 +227,13 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     }
     
     @objc private func menuTap(){
-        if menuView.isSelected {
-            Storage<User>.remove(key: StorageKey.USER_INFO.rawValue)
+        if self.hasSignIn {
+            let vc = ProfileViewController()
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true)
         }
         else {
             let vc = LoginViewController()
-            vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true)
         }
         

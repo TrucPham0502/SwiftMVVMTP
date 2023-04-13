@@ -75,6 +75,7 @@ class AppBaseViewController: UIViewController {
     func hideKeyboard() {
         self.view.endEditing(true)
     }
+    
     func naviagtionBack(_ animation : Bool = true, completion: (() -> Void)? = nil){
         if !self.isModal {
             self.navigationController?.popViewController(animated: animation)

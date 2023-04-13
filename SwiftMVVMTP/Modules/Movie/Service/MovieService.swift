@@ -19,4 +19,8 @@ protocol MovieService {
  
     func setBookmark(_ input : SetBookmarkRequest) -> Observable<Void>
     func removeBookmark(_ input : RemoveBookmarkRequest) -> Observable<Void>
+    
+    func logout()
+    
+    
 }

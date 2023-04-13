@@ -92,4 +92,7 @@ class MovieServiceImpl : MovieService {
     func removeBookmark(_ input : RemoveBookmarkRequest) -> Observable<Void> {
         return repository.removeBookmark(input)
     }
+    func logout() {
+        repository.logout()
+    }
 }

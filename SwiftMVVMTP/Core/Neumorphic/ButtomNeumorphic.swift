@@ -38,9 +38,14 @@ class ButtonNeumorphic : UIButton {
         addTarget(self, action: #selector(touchDown), for: [.touchDown, .touchDragEnter])
         addTarget(self, action: #selector(touchUp), for: [.touchUpInside, .touchCancel, .touchDragExit])
         layer.cornerRadius = 25
+        if let imageView = self.imageView {
+            self.bringSubviewToFront(imageView)
+        }
+        
     }
     
     private func setup() {
+        
         backgroundColor = mainColor
         
         lightShadowLayer.cornerRadius = layer.cornerRadius

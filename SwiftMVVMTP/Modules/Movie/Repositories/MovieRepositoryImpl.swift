@@ -36,6 +36,11 @@ class MovieRepositoryImpl : BaseRepository , MovieRepository {
         })
     }
     
+    func logout(){
+        Storage<User>.remove(key: StorageKey.USER_INFO.rawValue)
+        Storage<User>.remove(key: Authorization.key)
+    }
+    
     func setBookmark(_ input : SetBookmarkRequest) -> Observable<Void> {
         return remoteSource.setBookmark(input).valid().mapToVoid()
     }

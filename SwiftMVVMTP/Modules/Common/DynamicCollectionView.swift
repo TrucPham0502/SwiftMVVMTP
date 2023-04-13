@@ -14,10 +14,11 @@ class DynamicCollectionView: UICollectionView {
         super.layoutSubviews()
         if bounds.size != intrinsicContentSize {
             invalidateIntrinsicContentSize()
+            
         }
     }
 
     override var intrinsicContentSize: CGSize {
-        return contentSize
+        return collectionViewLayout.collectionViewContentSize
     }
 }
