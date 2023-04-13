@@ -346,9 +346,15 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             top: collectionViewEpisode.topAnchor.constraint(equalTo: self.titleEpisodes.bottomAnchor, constant: 20))
         collectionViewConstraint.active()
         
+        
+    }
+    
+    override func deepLink(receive data: DeepLinkValues) {
+        self.dataRequire = .init(poster: data.query["poster"]?.removingPercentEncoding, urlPage: data.query["url"]?.removingPercentEncoding)
         if let poster = dataRequire?.poster {
-            ImageLoader.load(url: poster) { image in
-                self.backgroundImage.image = image
+            ImageLoader.load(url: poster) {[weak self] image in
+                guard let self = self else { return }
+                self.placeHolderImage = image
             }
         }
     }
@@ -406,15 +412,15 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     }
     func popTransitionAnimation() {
         guard let transitionDriver = self.transitionDriver else {
+            self.naviagtionBack()
             return
         }
         self.view.isHidden = true
 //        _ = self.navigationController?.popViewController(animated: false)
-        self.dismiss(animated: false, completion: {
+        self.naviagtionBack(false, completion: {
             transitionDriver.popTransitionAnimationContantOffset(0) {
             }
         })
-        
         
     }
     

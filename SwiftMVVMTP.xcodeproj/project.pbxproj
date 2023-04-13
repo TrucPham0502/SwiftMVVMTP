@@ -26,6 +26,9 @@
 		8EF2C66229E51F07005D3E30 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2C66129E51F07005D3E30 /* AppData.swift */; };
 		8EF7BD8529E6672300C22106 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF7BD8429E6672300C22106 /* NotificationService.swift */; };
 		8EF7BD8929E6672300C22106 /* NotificationService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8EF7BD8229E6672300C22106 /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8EF7BD9129E78F8C00C22106 /* DeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF7BD9029E78F8C00C22106 /* DeepLink.swift */; };
+		8EF7BD9329E78FA500C22106 /* DeepLinkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF7BD9229E78FA500C22106 /* DeepLinkManager.swift */; };
+		8EF7BD9729E7A00200C22106 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF7BD9629E7A00200C22106 /* UIViewController+Extensions.swift */; };
 		FE3B3D1D29D8B9EA006EB487 /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B3D1C29D8B9EA006EB487 /* HMAC.swift */; };
 		FE3B3D1F29D8BB08006EB487 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B3D1E29D8BB08006EB487 /* String+Extensions.swift */; };
 		FE3B3D2129D96BEE006EB487 /* LayeredButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B3D2029D96BEE006EB487 /* LayeredButton.swift */; };
@@ -186,6 +189,9 @@
 		8EF7BD8429E6672300C22106 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		8EF7BD8629E6672300C22106 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EF7BD8A29E6672400C22106 /* NotificationService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationService.entitlements; sourceTree = "<group>"; };
+		8EF7BD9029E78F8C00C22106 /* DeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLink.swift; sourceTree = "<group>"; };
+		8EF7BD9229E78FA500C22106 /* DeepLinkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkManager.swift; sourceTree = "<group>"; };
+		8EF7BD9629E7A00200C22106 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		E1517339AC43FA239BDE3758 /* Pods_SwiftMVVMTP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftMVVMTP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAF1BFFAE0D4641BA387E3FC /* Pods-SwiftMVVMTP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftMVVMTP.release.xcconfig"; path = "Target Support Files/Pods-SwiftMVVMTP/Pods-SwiftMVVMTP.release.xcconfig"; sourceTree = "<group>"; };
 		FE3B3D1C29D8B9EA006EB487 /* HMAC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMAC.swift; sourceTree = "<group>"; };
@@ -362,6 +368,15 @@
 			path = NotificationService;
 			sourceTree = "<group>";
 		};
+		8EF7BD8F29E78F7400C22106 /* Deeplink */ = {
+			isa = PBXGroup;
+			children = (
+				8EF7BD9029E78F8C00C22106 /* DeepLink.swift */,
+				8EF7BD9229E78FA500C22106 /* DeepLinkManager.swift */,
+			);
+			path = Deeplink;
+			sourceTree = "<group>";
+		};
 		E8A6BA2B1DB5A8C588C73D6C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -453,6 +468,7 @@
 				FEEC60BA26FEE93400DDA47E /* Collection+Extensions.swift */,
 				FE3B3D1E29D8BB08006EB487 /* String+Extensions.swift */,
 				FE5CB03D29E3274A00557D9B /* Notification.Name+Extensions.swift */,
+				8EF7BD9629E7A00200C22106 /* UIViewController+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -525,6 +541,7 @@
 		FE6F2BD626FCC3D2007CE4BF /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				8EF7BD8F29E78F7400C22106 /* Deeplink */,
 				8EA7E31C29E3CF9000A90DDE /* Neumorphic */,
 				FEEC609826FE4C0900DDA47E /* Image */,
 				FE44EEA726FD789400EC9F85 /* Extensions */,
@@ -1041,6 +1058,7 @@
 				FEF76AB0270F4AFE0050B807 /* CircleRippleView.swift in Sources */,
 				8EF2C64E29E40955005D3E30 /* LoginViewController.swift in Sources */,
 				FEF76AB6270F4AFE0050B807 /* AppConstants.swift in Sources */,
+				8EF7BD9729E7A00200C22106 /* UIViewController+Extensions.swift in Sources */,
 				FEEC606D26FDF36000DDA47E /* RxBinding.swift in Sources */,
 				FEEC60C526FF033100DDA47E /* HHTQEpisodeRequest.swift in Sources */,
 				FEDA350B29263AC500F27811 /* EpisodeDetailRequest.swift in Sources */,
@@ -1084,6 +1102,7 @@
 				FE44EE9526FD731400EC9F85 /* TestCell.swift in Sources */,
 				FEEC607D26FE3ADF00DDA47E /* MovieCollectionView.swift in Sources */,
 				8E0D773F29DEA50800F99721 /* SearchBar.swift in Sources */,
+				8EF7BD9129E78F8C00C22106 /* DeepLink.swift in Sources */,
 				FEEC609C26FE4ED300DDA47E /* MoviesResponse.swift in Sources */,
 				FEEC60A226FE500500DDA47E /* MovieServiceImpl.swift in Sources */,
 				FEEC608B26FE3FE400DDA47E /* NSAttributedString+Extensions.swift in Sources */,
@@ -1109,6 +1128,7 @@
 				FEEC60C126FEF12D00DDA47E /* BaseRepository.swift in Sources */,
 				FEEC60AA26FE505E00DDA47E /* MovieRemoteSourceImpl.swift in Sources */,
 				FEEC609526FE48A100DDA47E /* TransitionDriver.swift in Sources */,
+				8EF7BD9329E78FA500C22106 /* DeepLinkManager.swift in Sources */,
 				FEF76AB1270F4AFE0050B807 /* ControlButtons.swift in Sources */,
 				FEEC608326FE3BED00DDA47E /* MovieCollectionViewCell.swift in Sources */,
 				FEEC60C926FF4B7200DDA47E /* TestModule.swift in Sources */,
@@ -1467,7 +1487,7 @@
 			buildSettings = {
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				APP_ENDPOINT_URL = "http://192.168.1.199:27017/";
+				APP_ENDPOINT_URL = "http://192.168.2.83:27017/";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SwiftMVVMTP/SwiftMVVMTPBETA.entitlements;

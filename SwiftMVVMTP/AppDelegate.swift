@@ -18,16 +18,25 @@ enum Language : String {
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     private lazy var webView : WKWebView = {
-        let v = WKWebView(frame: .zero)
+        let configuration = WKWebViewConfiguration()
+        // Don't supress rendering content before everything is in memory.
+        configuration.suppressesIncrementalRendering = false
+        // Disallow inline HTML5 Video playback, as we need to be able to
+        // hook into the AVPlayer to detect whether or not videos are being
+        // played. HTML5 Video Playback makes that impossible.
+        configuration.allowsInlineMediaPlayback = false
+        // All audiovisual media will require a user gesture to begin playing.
+        configuration.mediaTypesRequiringUserActionForPlayback = .all
+        let v = WKWebView(frame: .zero, configuration: configuration)
         v.navigationDelegate = self
         return v
     }()
     var orientationLock = UIInterfaceOrientationMask.portrait
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-       
+        
         // add Module
-       initModule()
+        initModule()
         
         // language
         initLanguage()
@@ -36,22 +45,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.addSubview(webView)
         self.registerNotification(application)
         self.FirebaseInit(application)
+        
+        if let url = launchOptions?[.url] as? URL {
+            executeDeepLink(with: url)
+        }
         return true
     }
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-            return self.orientationLock
+        return self.orientationLock
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        if url.scheme == Constants.externalURLScheme {
+            executeDeepLink(with: url)
+        }
+        return true
     }
     
     func registerNotification(_ application: UIApplication){
         UNUserNotificationCenter.current().delegate = self
-
+        
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(
-          options: authOptions,
-          completionHandler: { _, _ in }
+            options: authOptions,
+            completionHandler: { _, _ in }
         )
-
+        
         application.registerForRemoteNotifications()
         
     }
@@ -63,8 +83,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func playViewWithWebView(url: URL) {
-        let request = URLRequest(url: url)
-        self.webView.load(request)
+        DispatchQueue.main.async {
+            let request = URLRequest(url: url)
+            self.webView.load(request)
+        }
     }
     
     //MARK: Language
@@ -84,7 +106,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func initModule(){
         Dependency.shared.build([TestModule(), MovieModule()])
     }
-
+    
+    
+    
 }
 
 extension AppDelegate : WKNavigationDelegate {
@@ -93,19 +117,39 @@ extension AppDelegate : WKNavigationDelegate {
     }
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         NotificationCenter.default.post(name: .playerLoading, object: false, userInfo: [:])
+        NotificationCenter.default.post(name: .playerLoading, object: webView.isLoading, userInfo: [:])
     }
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-        print("didCommit")
+        NotificationCenter.default.post(name: .playerLoading, object: webView.isLoading, userInfo: [:])
     }
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         NotificationCenter.default.post(name: .playerLoading, object: false, userInfo: [:])
-   }
+    }
 }
 
 extension AppDelegate : UNUserNotificationCenterDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
     }
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        if let urlString = userInfo["deeplink"] as? String, let url = URL(string: urlString) {
+            if  url.scheme == Constants.externalURLScheme {
+                executeDeepLink(with: url)
+            }
+        }
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .badge, .sound])
+    }
+    
+    private func executeDeepLink(with url: URL) {
+        // Create a recognizer with this app's custom deep link types
+        let recognizer = DeepLinkRecognizer(deepLinkTypes: [
+            OpenPageDeepLink.self, OpenAlertDeepLink.self])
+        let _ = recognizer.deepLink(matching: url)
+    }
+    
 }
 
 extension AppDelegate : MessagingDelegate {
@@ -113,5 +157,5 @@ extension AppDelegate : MessagingDelegate {
         print("Firebase registration token: \(String(describing: fcmToken))")
         Storage.set(data: fcmToken, key: StorageKey.NOTIFICATION_TOKEN.rawValue)
     }
-
+    
 }

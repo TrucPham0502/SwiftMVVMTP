@@ -9,4 +9,5 @@
 import Foundation
 extension Notification.Name {
     static let playerLoading = Notification.Name("playerLoading")
+    static let deepLinkDidChange =  NSNotification.Name("deepLinkDidChange")
 }
