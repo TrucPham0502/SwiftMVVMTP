@@ -17,6 +17,8 @@
 	<string>$(GOOGLE_SERVICE_INFO)</string>
 	<key>AppEndPointUrl</key>
 	<string>$(APP_ENDPOINT_URL)</string>
+    <key>signatureKeySecrect</key>
+    <string>$(SIGNATURE_KEY_SECRECT)</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

@@ -13,7 +13,7 @@ class TestModuleRepositoryImpl : TestModuleRepository {
     func getDataTest(_ input: DataTestRequest) -> Observable<[DataTestResponse]> {
         repository.getDataTest(input).flatMap({ d -> Observable<[DataTestResponse]>  in
             if d.status == .success {
-                return Observable.just(d.data)
+                return Observable.just(d.data!)
             }
             return Observable.error(ApiError(parseClass: String(describing: self), errorMessage: d.message, errorCode: d.status.rawValue))
         })

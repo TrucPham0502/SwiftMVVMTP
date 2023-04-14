@@ -109,7 +109,7 @@ extension ObservableConvertibleType where Element : ApiResponseDtoType  {
     func valid() -> Observable<Element.Element> {
         return self.asObservable().flatMap{data -> Observable<Element.Element> in
             if data.status == .success {
-                return Observable.just(data.data)
+                return Observable.just(data.data!)
             }
             return Observable.error(ApiError(parseClass: String(describing: self), errorMessage: data.message, errorCode: data.status.rawValue))
         }

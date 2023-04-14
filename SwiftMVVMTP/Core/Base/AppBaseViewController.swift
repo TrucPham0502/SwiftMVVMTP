@@ -30,9 +30,9 @@ class AppBaseViewController: UIViewController {
     func prepareUI() {
     }
     
-    func showToast(message: String) {
+    func showToast(message: String, complete : ((UIAlertAction) -> ())? = nil) {
         let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: complete))
         self.present(alert, animated: true, completion: nil)
     }
     

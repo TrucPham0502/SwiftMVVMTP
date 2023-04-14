@@ -72,7 +72,7 @@ class PlayerViewController : BaseViewController<PlayerViewModel>{
         }
     }
     
-    override func showToast(message: String) {
+    override func showToast(message: String, complete : ((UIAlertAction) -> ())? = nil) {
         let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: {_ in
             self.dismiss(animated: false)

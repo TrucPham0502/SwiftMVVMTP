@@ -88,6 +88,8 @@ struct EncryptedStringStorage {
 
 struct Authorization : Codable {
     static let key = "AUTHORIZATION_KEY"
+    @Dependency.InfoDictionary(key: "signatureKeySecrect")
+    static var signatureKeySecrect : String
     let token : String
     let refreshToken: String
     let privateKey : String

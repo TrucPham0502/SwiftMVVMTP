@@ -13,6 +13,7 @@
 		8E0D773F29DEA50800F99721 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0D773E29DEA50800F99721 /* SearchBar.swift */; };
 		8E36225F29DD11E40060D16C /* StretchyScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E36225E29DD11E40060D16C /* StretchyScrollView.swift */; };
 		8E36226129DD3B550060D16C /* ExpandableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E36226029DD3B550060D16C /* ExpandableLabel.swift */; };
+		8E990D6C29E93B4300D16F89 /* BackgroundCircleNeumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E990D6B29E93B4200D16F89 /* BackgroundCircleNeumorphic.swift */; };
 		8EA7E31E29E3CFBA00A90DDE /* ButtomNeumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA7E31D29E3CFBA00A90DDE /* ButtomNeumorphic.swift */; };
 		8EA7E32229E3D17300A90DDE /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA7E32129E3D17300A90DDE /* ColorExtension.swift */; };
 		8EF2C64B29E3E09F005D3E30 /* TextFieldNeumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2C64A29E3E09F005D3E30 /* TextFieldNeumorphic.swift */; };
@@ -34,6 +35,7 @@
 		8EF7BD9D29E7B84600C22106 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF7BD9C29E7B84600C22106 /* ProfileViewModel.swift */; };
 		8EF7BD9F29E7BCB600C22106 /* TableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF7BD9E29E7BCB600C22106 /* TableView+Extensions.swift */; };
 		8EF7BDA129E7CB9A00C22106 /* BaseUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF7BDA029E7CB9A00C22106 /* BaseUILabel.swift */; };
+		8EF7BDA329E8E06900C22106 /* RSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF7BDA229E8E06900C22106 /* RSA.swift */; };
 		FE3B3D1D29D8B9EA006EB487 /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B3D1C29D8B9EA006EB487 /* HMAC.swift */; };
 		FE3B3D1F29D8BB08006EB487 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B3D1E29D8BB08006EB487 /* String+Extensions.swift */; };
 		FE3B3D2129D96BEE006EB487 /* LayeredButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B3D2029D96BEE006EB487 /* LayeredButton.swift */; };
@@ -179,6 +181,7 @@
 		8E0D773E29DEA50800F99721 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		8E36225E29DD11E40060D16C /* StretchyScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyScrollView.swift; sourceTree = "<group>"; };
 		8E36226029DD3B550060D16C /* ExpandableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableLabel.swift; sourceTree = "<group>"; };
+		8E990D6B29E93B4200D16F89 /* BackgroundCircleNeumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundCircleNeumorphic.swift; sourceTree = "<group>"; };
 		8EA7E31D29E3CFBA00A90DDE /* ButtomNeumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtomNeumorphic.swift; sourceTree = "<group>"; };
 		8EA7E32129E3D17300A90DDE /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		8EF2C64A29E3E09F005D3E30 /* TextFieldNeumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldNeumorphic.swift; sourceTree = "<group>"; };
@@ -203,6 +206,7 @@
 		8EF7BD9C29E7B84600C22106 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		8EF7BD9E29E7BCB600C22106 /* TableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableView+Extensions.swift"; sourceTree = "<group>"; };
 		8EF7BDA029E7CB9A00C22106 /* BaseUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUILabel.swift; sourceTree = "<group>"; };
+		8EF7BDA229E8E06900C22106 /* RSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSA.swift; sourceTree = "<group>"; };
 		E1517339AC43FA239BDE3758 /* Pods_SwiftMVVMTP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftMVVMTP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAF1BFFAE0D4641BA387E3FC /* Pods-SwiftMVVMTP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftMVVMTP.release.xcconfig"; path = "Target Support Files/Pods-SwiftMVVMTP/Pods-SwiftMVVMTP.release.xcconfig"; sourceTree = "<group>"; };
 		FE3B3D1C29D8B9EA006EB487 /* HMAC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMAC.swift; sourceTree = "<group>"; };
@@ -358,6 +362,7 @@
 				8EF2C64A29E3E09F005D3E30 /* TextFieldNeumorphic.swift */,
 				8EF2C65129E4E9F8005D3E30 /* CircleInnerShadowView.swift */,
 				8EF7BD9829E7B7B500C22106 /* UIViewNeumorphic.swift */,
+				8E990D6B29E93B4200D16F89 /* BackgroundCircleNeumorphic.swift */,
 			);
 			path = Neumorphic;
 			sourceTree = "<group>";
@@ -569,6 +574,7 @@
 				FE3B3D1C29D8B9EA006EB487 /* HMAC.swift */,
 				8E064FFA29E39DC600D104E4 /* DGPreview.swift */,
 				8EF2C66129E51F07005D3E30 /* Storage.swift */,
+				8EF7BDA229E8E06900C22106 /* RSA.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -1144,10 +1150,12 @@
 				8EF2C66229E51F07005D3E30 /* Storage.swift in Sources */,
 				FE6F2BF226FCCDF9007CE4BF /* ApiRequestManager.swift in Sources */,
 				FE44EEA026FD75B900EC9F85 /* DataTestRequest.swift in Sources */,
+				8E990D6C29E93B4300D16F89 /* BackgroundCircleNeumorphic.swift in Sources */,
 				FEF76AB5270F4AFE0050B807 /* Scrubber.swift in Sources */,
 				FE3B3D1F29D8BB08006EB487 /* String+Extensions.swift in Sources */,
 				FEEC608D26FE400D00DDA47E /* UILabel+Extensions.swift in Sources */,
 				FEEC60BF26FEEAC100DDA47E /* RxPlayerHelper.swift in Sources */,
+				8EF7BDA329E8E06900C22106 /* RSA.swift in Sources */,
 				FE3C0B2829DDC47000DC27DF /* PlayerViewModel.swift in Sources */,
 				FEEC60C126FEF12D00DDA47E /* BaseRepository.swift in Sources */,
 				FEEC60AA26FE505E00DDA47E /* MovieRemoteSourceImpl.swift in Sources */,
@@ -1511,7 +1519,7 @@
 			buildSettings = {
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				APP_ENDPOINT_URL = "http://192.168.1.5:27017/";
+				APP_ENDPOINT_URL = "http://192.168.2.1:27017/";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SwiftMVVMTP/SwiftMVVMTPBETA.entitlements;
@@ -1566,6 +1574,7 @@
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "beta trucpham movie Development";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;
+				SIGNATURE_KEY_SECRECT = SIGNATURE_KEY_SECRECT;
 				SUPPORTED_PLATFORMS = "appletvos appletvsimulator driverkit iphoneos iphonesimulator watchos watchsimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1634,6 +1643,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME) PROD";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
+				SIGNATURE_KEY_SECRECT = SIGNATURE_KEY_SECRECT;
 				SUPPORTED_PLATFORMS = "appletvos appletvsimulator driverkit iphoneos iphonesimulator watchos watchsimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

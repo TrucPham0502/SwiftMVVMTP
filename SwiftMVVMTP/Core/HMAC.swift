@@ -8,6 +8,7 @@
 
 import Foundation
 import CommonCrypto
+
 struct HMAC {
 
     static func hash(inp: String, algo: HMACAlgo) -> String {

@@ -36,6 +36,14 @@ class ProfileViewController : BaseViewController<ProfileViewModel> {
         ])
     ]
     
+    
+    private lazy var backgroundCircle : BackgroundCircleNeumorphic = {
+        let v = BackgroundCircleNeumorphic()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    
     private lazy var backButton : ButtonNeumorphic = {
         let v = ButtonNeumorphic()
         v.layer.cornerRadius = 20
@@ -55,7 +63,7 @@ class ProfileViewController : BaseViewController<ProfileViewModel> {
         v.rowHeight = UITableView.automaticDimension
         v.estimatedRowHeight = UITableView.automaticDimension
         v.separatorStyle = .none
-        v.backgroundColor = .Neumorphic.mainColor
+        v.backgroundColor = .clear
         return v
     }()
     
@@ -99,7 +107,7 @@ class ProfileViewController : BaseViewController<ProfileViewModel> {
     
     private lazy var headerView : UIView = {
         let v = UIView()
-        v.backgroundColor = .Neumorphic.mainColor
+        v.backgroundColor = .clear
         let container = UIViewNeumorphic()
         container.layer.cornerRadius = 20
         container.translatesAutoresizingMaskIntoConstraints = false
@@ -134,12 +142,19 @@ class ProfileViewController : BaseViewController<ProfileViewModel> {
     
     override func prepareUI() {
         super.prepareUI()
-        [self.tableView].forEach(self.view.addSubview(_:))
+        self.view.addSubview(backgroundCircle)
+        [self.tableView].forEach(self.backgroundCircle.addSubview(_:))
         NSLayoutConstraint.activate([
-            self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            backgroundCircle.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            backgroundCircle.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            backgroundCircle.topAnchor.constraint(equalTo: self.view.topAnchor),
+            backgroundCircle.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            
+            
+            self.tableView.topAnchor.constraint(equalTo: self.backgroundCircle.topAnchor),
+            self.tableView.leadingAnchor.constraint(equalTo: self.backgroundCircle.leadingAnchor),
+            self.tableView.trailingAnchor.constraint(equalTo: self.backgroundCircle.trailingAnchor),
+            self.tableView.bottomAnchor.constraint(equalTo: self.backgroundCircle.bottomAnchor),
         ])
     }
     

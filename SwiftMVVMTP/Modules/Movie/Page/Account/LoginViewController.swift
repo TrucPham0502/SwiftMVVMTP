@@ -13,24 +13,8 @@ class LoginViewController : BaseViewController<LoginViewModel> {
         return LoginViewModel()
     }
     
-    let circleBottomSize : CGFloat = (UIScreen.main.bounds.width + 100)
-    private lazy var circleBottomView : CircleInnerShadowView = {
-        let v = CircleInnerShadowView()
-        v.clipsToBounds = true
-        v.layer.masksToBounds = true
-        v.layer.cornerRadius = circleBottomSize/2
-        v.darkShadowOffset = .init(width: 5, height: 10)
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
-    
-    let circleTopSize : CGFloat = (UIScreen.main.bounds.width - 30)
-    private lazy var circleTopView : CircleInnerShadowView = {
-        let v = CircleInnerShadowView()
-        v.layer.cornerRadius = circleTopSize/2
-        v.clipsToBounds = true
-        v.layer.masksToBounds = true
-        v.darkShadowOffset = .init(width: 10, height: 5)
+    private lazy var backgroundCircle : BackgroundCircleNeumorphic = {
+        let v = BackgroundCircleNeumorphic()
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
@@ -119,23 +103,22 @@ class LoginViewController : BaseViewController<LoginViewModel> {
         self.view.clipsToBounds = true
         self.view.layer.masksToBounds = true
         self.view.backgroundColor = .Neumorphic.mainColor
-        [self.circleBottomView, self.circleTopView, self.containerView, backButton].forEach( self.view.addSubview)
+        [self.backgroundCircle].forEach( self.view.addSubview)
+        [self.containerView, backButton].forEach(self.backgroundCircle.addSubview(_:))
         [self.titleView, self.subtitleView, self.userNameTxt, self.passwordTxt, self.signInButton].forEach(self.containerView.addSubview(_:))
         NSLayoutConstraint.activate([
-            self.containerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
-            self.containerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24),
-            self.containerView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            backgroundCircle.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            backgroundCircle.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            backgroundCircle.topAnchor.constraint(equalTo: self.view.topAnchor),
+            backgroundCircle.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             
-            self.circleBottomView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: -circleBottomSize/2),
-            self.circleBottomView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: circleBottomSize/2 + 100),
-            self.circleBottomView.heightAnchor.constraint(equalTo: self.circleBottomView.widthAnchor),
-            self.circleBottomView.widthAnchor.constraint(equalToConstant: circleBottomSize),
             
-            self.circleTopView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: circleTopSize/2),
-            self.circleTopView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: -circleTopSize/2 - 30),
-            self.circleTopView.heightAnchor.constraint(equalTo: self.circleTopView.widthAnchor),
-            self.circleTopView.widthAnchor.constraint(equalToConstant: circleTopSize),
+            self.containerView.leadingAnchor.constraint(equalTo: self.backgroundCircle.leadingAnchor, constant: 24),
+            self.containerView.trailingAnchor.constraint(equalTo: self.backgroundCircle.trailingAnchor, constant: -24),
+            self.containerView.centerYAnchor.constraint(equalTo: self.backgroundCircle.centerYAnchor),
             
+            
+        
             self.titleView.topAnchor.constraint(equalTo: self.containerView.topAnchor),
             self.titleView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor),
             self.titleView.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor),
@@ -158,8 +141,8 @@ class LoginViewController : BaseViewController<LoginViewModel> {
             self.signInButton.centerXAnchor.constraint(equalTo: self.containerView.centerXAnchor),
             self.signInButton.bottomAnchor.constraint(lessThanOrEqualTo: self.containerView.bottomAnchor),
             
-            backButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
-            backButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            backButton.leadingAnchor.constraint(equalTo: self.backgroundCircle.leadingAnchor, constant: 24),
+            backButton.topAnchor.constraint(equalTo: self.backgroundCircle.safeAreaLayoutGuide.topAnchor, constant: 10),
             backButton.heightAnchor.constraint(equalTo: backButton.widthAnchor),
             backButton.widthAnchor.constraint(equalToConstant: 40)
         ])

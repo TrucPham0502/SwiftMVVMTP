@@ -34,14 +34,21 @@ class BaseViewController<VM : ViewModelType> : AppBaseViewController {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     override func handleError(error: Error) {
-        super.handleError(error: error)
         if let err = error as? ApiError {
             switch err.errorCode {
             case -2:
-                AppData.logout()
-                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-            default: break
+                showToast(message: err.errorMessage, complete: {[weak self] _ in
+                    guard let self = self else { return }
+                    AppData.logout()
+                    let vc = LoginViewController()
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true)
+                })
+            default: super.handleError(error: error)
             }
+        }
+        else {
+            super.handleError(error: error)
         }
     }
 

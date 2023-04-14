@@ -49,16 +49,28 @@ class ApiRequestManager<O : Codable> {
 //        }else{
 //            p = parameters!
 //        }
+        func dataToHexString(_ data: Data) -> String {
+            return data.map { String(format: "%02x", $0) }.joined()
+        }
         var headers : HTTPHeaders = headers ?? [:]
         let nonce = "sdsdsd"
         let timestamp =  "\(Int(Date().timeIntervalSince1970))"
-        let signClient = self.signature(data: parameters!, nonce: nonce, timestamp: timestamp).hmacSHA512(key: "SIGNATURE_KEY_SECRECT") ?? ""
+        var signClient : String = ""
+        if let auth = self.authorization {
+            headers.add(name: "authorization", value: "Bearer \(auth.token)")
+//            if !auth.privateKey.isEmpty, let data = Data(base64Encoded: auth.privateKey),  let pem = String(data: data, encoding: .utf8), let encrypt = RSA.signMessage(self.signature(data: parameters!, nonce: nonce, timestamp: timestamp), pem: pem) {
+//                signClient = String(data: encrypt.base64EncodedData(), encoding: .utf8)!
+//            }
+            
+        }
+        else {
+//            signClient = self.signature(data: parameters!, nonce: nonce, timestamp: timestamp).hmacSHA512(key: Authorization.signatureKeySecrect) ?? ""
+        }
+        signClient = self.signature(data: parameters!, nonce: nonce, timestamp: timestamp).hmacSHA512(key: Authorization.signatureKeySecrect) ?? ""
         headers.add(name: "X-Auth-Signature", value: signClient)
         headers.add(name: "X-Auth-Nonce", value: nonce)
         headers.add(name: "X-Auth-Timestamp", value: timestamp)
-        if let auth = self.authorization {
-            headers.add(name: "authorization", value: "Bearer \(auth.token)")
-        }
+        
         return self.manager.rx
             .request(method, url, parameters: parameters?.dictionary ?? [:], encoding: encoding, headers: headers)
             .flatMap {d in
