@@ -27,7 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         configuration.allowsInlineMediaPlayback = false
         // All audiovisual media will require a user gesture to begin playing.
         configuration.mediaTypesRequiringUserActionForPlayback = .all
-        let v = WKWebView(frame: .zero, configuration: configuration)
+        let v = WKWebView(frame: UIScreen.main.bounds, configuration: configuration)
+        v.isHidden = true
         v.navigationDelegate = self
         return v
     }()

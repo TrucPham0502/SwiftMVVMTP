@@ -86,9 +86,6 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
         input.loadMore.filter({[weak self] _ in
             guard let self = self else { return false }
             return !self.isSearching && !self.isStopLoadMore
-        }).do(onNext: {[weak self] _ in
-            guard let self = self else { return }
-            self.isStopLoadMore = true
         }).flatMap({ section in
             return Observable.deferred { [weak self] () ->  Observable<Response> in
                 guard let _self = self, let item = _self.item.getData() as? ItemType else {  return Observable.just(.none) }
@@ -106,7 +103,10 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
                     }, onError: {[weak self] err in
                         guard let self = self else { return }
                         self.isStopLoadMore = false
-                    })
+                    }) {[weak self] _ in
+                        guard let self = self else { return }
+                        self.isStopLoadMore = true
+                    }
                 }.trackError(self.errorTracker).asDriverOnErrorJustComplete()
             }).drive(self.$item).disposed(by: self.disposeBag)
                 
