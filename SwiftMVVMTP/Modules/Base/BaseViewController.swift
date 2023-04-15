@@ -37,12 +37,12 @@ class BaseViewController<VM : ViewModelType> : AppBaseViewController {
         if let err = error as? ApiError {
             switch err.errorCode {
             case -2:
-                showToast(message: err.errorMessage, complete: {[weak self] _ in
-                    guard let self = self else { return }
+                showToast(message: err.errorMessage, complete: { _ in
                     AppData.logout()
-                    let vc = LoginViewController()
-                    vc.modalPresentationStyle = .fullScreen
-                    self.present(vc, animated: true)
+                    let vc = SplashScreenViewController()
+                    if let app = UIApplication.shared.delegate as? AppDelegate {
+                        app.window?.rootViewController = UINavigationController(rootViewController: vc)
+                    }
                 })
             default: super.handleError(error: error)
             }

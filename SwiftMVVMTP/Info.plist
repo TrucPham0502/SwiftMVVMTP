@@ -2,28 +2,32 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>CFBundleURLTypes</key>
-        <array>
-            <dict>
-                <key>CFBundleURLSchemes</key>
-                <array>
-                    <string>movietp</string>
-                </array>
-                <key>CFBundleURLName</key>
-                <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-        </dict>
-    </array>
-	<key>googleServiceInfo</key>
-	<string>$(GOOGLE_SERVICE_INFO)</string>
 	<key>AppEndPointUrl</key>
 	<string>$(APP_ENDPOINT_URL)</string>
-    <key>signatureKeySecrect</key>
-    <string>$(SIGNATURE_KEY_SECRECT)</string>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>movietp</string>
+			</array>
+		</dict>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
 		<string>processing</string>
 		<string>remote-notification</string>
 	</array>
+	<key>googleServiceInfo</key>
+	<string>$(GOOGLE_SERVICE_INFO)</string>
+	<key>signatureKeySecrect</key>
+	<string>$(SIGNATURE_KEY_SECRECT)</string>
 </dict>
 </plist>

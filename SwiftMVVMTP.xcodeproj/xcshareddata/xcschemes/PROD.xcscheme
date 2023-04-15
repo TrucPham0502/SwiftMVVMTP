@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FE6F2BA226FCBC3F007CE4BF"
-               BuildableName = "MOVIESTP BETA.app"
+               BuildableName = "Movies TP BETA.app"
                BlueprintName = "SwiftMVVMTP"
                ReferencedContainer = "container:SwiftMVVMTP.xcodeproj">
             </BuildableReference>
@@ -73,7 +73,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FE6F2BA226FCBC3F007CE4BF"
-            BuildableName = "MOVIESTP BETA.app"
+            BuildableName = "Movies TP BETA.app"
             BlueprintName = "SwiftMVVMTP"
             ReferencedContainer = "container:SwiftMVVMTP.xcodeproj">
          </BuildableReference>
@@ -90,7 +90,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FE6F2BA226FCBC3F007CE4BF"
-            BuildableName = "MOVIESTP BETA.app"
+            BuildableName = "Movies TP BETA.app"
             BlueprintName = "SwiftMVVMTP"
             ReferencedContainer = "container:SwiftMVVMTP.xcodeproj">
          </BuildableReference>

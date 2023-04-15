@@ -233,7 +233,7 @@
 		FE4C8FF82719A336001255A0 /* AppAVPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAVPlayer.swift; sourceTree = "<group>"; };
 		FE5CB03D29E3274A00557D9B /* Notification.Name+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+Extensions.swift"; sourceTree = "<group>"; };
 		FE5DC5AD29E863F80084D9C4 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
-		FE6F2BA326FCBC3F007CE4BF /* MOVIESTP BETA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MOVIESTP BETA.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE6F2BA326FCBC3F007CE4BF /* Movies TP BETA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Movies TP BETA.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE6F2BA626FCBC3F007CE4BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE6F2BAA26FCBC3F007CE4BF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FE6F2BAF26FCBC42007CE4BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -514,7 +514,7 @@
 		FE6F2BA426FCBC3F007CE4BF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FE6F2BA326FCBC3F007CE4BF /* MOVIESTP BETA.app */,
+				FE6F2BA326FCBC3F007CE4BF /* Movies TP BETA.app */,
 				FE6F2BB926FCBC43007CE4BF /* SwiftMVVMTPTests.xctest */,
 				FE6F2BC326FCBC43007CE4BF /* SwiftMVVMTPUITests.xctest */,
 				8EF7BD8229E6672300C22106 /* NotificationService.appex */,
@@ -878,7 +878,7 @@
 			);
 			name = SwiftMVVMTP;
 			productName = SwiftMVVMTP;
-			productReference = FE6F2BA326FCBC3F007CE4BF /* MOVIESTP BETA.app */;
+			productReference = FE6F2BA326FCBC3F007CE4BF /* Movies TP BETA.app */;
 			productType = "com.apple.product-type.application";
 		};
 		FE6F2BB826FCBC43007CE4BF /* SwiftMVVMTPTests */ = {
@@ -1532,6 +1532,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SwiftMVVMTP/SwiftMVVMTPBETA.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = U5ND9J32DH;
@@ -1577,10 +1578,10 @@
 					"\"QuartzCore\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = beta.trucpham.movie;
-				PRODUCT_NAME = "MOVIESTP BETA";
+				PRODUCT_NAME = "Movies TP BETA";
 				PROVISIONING_PROFILE_SPECIFIER = "beta trucpham movie Development";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "beta trucpham movie Development";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "beta trucpham movie mac Development";
 				SDKROOT = iphoneos;
 				SIGNATURE_KEY_SECRECT = SIGNATURE_KEY_SECRECT;
 				SUPPORTED_PLATFORMS = "appletvos appletvsimulator driverkit iphoneos iphonesimulator watchos watchsimulator";
@@ -1648,7 +1649,7 @@
 					"\"QuartzCore\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = trucpham.movie;
-				PRODUCT_NAME = MOVIESTP;
+				PRODUCT_NAME = "Movies TP";
 				PROVISIONING_PROFILE_SPECIFIER = "trucpham movie App Store";
 				SDKROOT = iphoneos;
 				SIGNATURE_KEY_SECRECT = SIGNATURE_KEY_SECRECT;
