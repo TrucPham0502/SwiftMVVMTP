@@ -29,7 +29,7 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
         let v = SearchBar()
         v.translatesAutoresizingMaskIntoConstraints = false
         v.attributedPlaceholder  = NSAttributedString(
-            string: "Tìm kiếm...",
+            string: "Search...",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.7)]
         )
         v.textColor = .white.withAlphaComponent(0.7)

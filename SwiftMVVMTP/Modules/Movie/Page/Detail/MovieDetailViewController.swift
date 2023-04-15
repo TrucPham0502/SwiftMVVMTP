@@ -199,7 +199,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     
     private lazy var buttonWatch : LayeredButton = {
         let v = LayeredButton()
-        v.setTitle("Xem phim", for: .normal)
+        v.setTitle("Watch", for: .normal)
         v.layer.cornerRadius = 20
         v.translatesAutoresizingMaskIntoConstraints = false
         v.addTarget(self, action: #selector(watchTap), for: .touchUpInside)
@@ -221,7 +221,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         let v = UILabel()
         v.font = .boldSystemFont(ofSize: 17)
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.text = "Tập:"
+        v.text = "Episodes:"
         v.textColor = .white
         return v
     }()
