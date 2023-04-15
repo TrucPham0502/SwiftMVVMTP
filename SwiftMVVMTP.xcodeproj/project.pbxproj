@@ -79,6 +79,8 @@
 		FE6F2BFD26FCE190007CE4BF /* TestPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BFC26FCE190007CE4BF /* TestPageViewController.swift */; };
 		FE6F2BFF26FCE19B007CE4BF /* TestPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BFE26FCE19B007CE4BF /* TestPageViewModel.swift */; };
 		FE6F2C0226FCE20E007CE4BF /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2C0126FCE20E007CE4BF /* Dependency.swift */; };
+		FEA9487F29EA987600125ACF /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA9487E29EA987600125ACF /* SplashScreenViewController.swift */; };
+		FEA9488129EA990700125ACF /* backgroundVideo.mov in Resources */ = {isa = PBXBuildFile; fileRef = FEA9488029EA990700125ACF /* backgroundVideo.mov */; };
 		FEDA3506292610EF00F27811 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEDA3504292610EF00F27811 /* Main.storyboard */; };
 		FEDA350929263A7200F27811 /* EpisodeDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDA350829263A7200F27811 /* EpisodeDetailResponse.swift */; };
 		FEDA350B29263AC500F27811 /* EpisodeDetailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDA350A29263AC500F27811 /* EpisodeDetailRequest.swift */; };
@@ -256,6 +258,8 @@
 		FE6F2BFC26FCE190007CE4BF /* TestPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPageViewController.swift; sourceTree = "<group>"; };
 		FE6F2BFE26FCE19B007CE4BF /* TestPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPageViewModel.swift; sourceTree = "<group>"; };
 		FE6F2C0126FCE20E007CE4BF /* Dependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
+		FEA9487E29EA987600125ACF /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
+		FEA9488029EA990700125ACF /* backgroundVideo.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = backgroundVideo.mov; sourceTree = "<group>"; };
 		FED8239226FDBC5D006E08D5 /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
 		FEDA3505292610EF00F27811 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FEDA35072926328D00F27811 /* SwiftMVVMTP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftMVVMTP.entitlements; sourceTree = "<group>"; };
@@ -521,6 +525,7 @@
 		FE6F2BA526FCBC3F007CE4BF /* SwiftMVVMTP */ = {
 			isa = PBXGroup;
 			children = (
+				FEA9488029EA990700125ACF /* backgroundVideo.mov */,
 				8EF2C65C29E5065F005D3E30 /* AuthKey_9C95F2SZ9G.p8 */,
 				8EF2C65D29E5065F005D3E30 /* AuthKey_M9Q3DTZ82A.p8 */,
 				8EF2C65A29E4FBF7005D3E30 /* GoogleService-Info.plist */,
@@ -709,6 +714,7 @@
 				FE3C0B2429DDC42900DC27DF /* Player */,
 				FEEC60AC26FED47E00DDA47E /* Detail */,
 				FEEC607326FE374000DDA47E /* Home */,
+				FEA9487E29EA987600125ACF /* SplashScreenViewController.swift */,
 			);
 			path = Page;
 			sourceTree = "<group>";
@@ -974,6 +980,7 @@
 			files = (
 				FE6F2BB326FCBC42007CE4BF /* LaunchScreen.storyboard in Resources */,
 				8EF2C65E29E50660005D3E30 /* AuthKey_9C95F2SZ9G.p8 in Resources */,
+				FEA9488129EA990700125ACF /* backgroundVideo.mov in Resources */,
 				8EF2C65F29E50660005D3E30 /* AuthKey_M9Q3DTZ82A.p8 in Resources */,
 				FE48C91B275A22B200DB0CA6 /* lang-vi.json in Resources */,
 				8EF2C65B29E4FBF7005D3E30 /* GoogleService-Info.plist in Resources */,
@@ -1094,6 +1101,7 @@
 				FEEC608926FE3F5D00DDA47E /* UIView+Extensions.swift in Sources */,
 				FE6F2BF026FCCCB5007CE4BF /* ApiResponseDto.swift in Sources */,
 				FE44EEA626FD767E00EC9F85 /* TestModuleRepositoryImpl.swift in Sources */,
+				FEA9487F29EA987600125ACF /* SplashScreenViewController.swift in Sources */,
 				FEF76AB8270F4AFE0050B807 /* Ripple.swift in Sources */,
 				FEEC607F26FE3B5500DDA47E /* MovieCollectionLayout.swift in Sources */,
 				FEEC608F26FE473700DDA47E /* GlidingCollection.swift in Sources */,

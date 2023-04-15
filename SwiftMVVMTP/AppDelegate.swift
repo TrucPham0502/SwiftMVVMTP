@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // language
         initLanguage()
         
-        self.window?.rootViewController = UINavigationController(rootViewController: MovieHomeViewController())
+        self.window?.rootViewController = UINavigationController(rootViewController: SplashScreenViewController())
         self.window?.addSubview(webView)
         self.registerNotification(application)
         self.FirebaseInit(application)
