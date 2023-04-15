@@ -49,8 +49,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let url = launchOptions?[.url] as? URL {
             executeDeepLink(with: url)
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(UIWindowDidBecomeVisible), name: UIWindow.didBecomeVisibleNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(UIWindowBecomeHidden), name: UIWindow.didBecomeHiddenNotification, object: nil)
         return true
     }
+
+    
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         return self.orientationLock
@@ -83,6 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func playViewWithWebView(url: URL) {
+        NotificationCenter.default.post(name: .playerLoading, object: true, userInfo: [:])
         DispatchQueue.main.async {
             let request = URLRequest(url: url)
             self.webView.load(request)
@@ -108,23 +114,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
-    
+    @objc private func UIWindowDidBecomeVisible(){
+        NotificationCenter.default.post(name: .playerLoading, object: false, userInfo: [:])
+    }
+    @objc private func UIWindowBecomeHidden(){
+        NotificationCenter.default.post(name: .playerLoading, object: false, userInfo: [:])
+    }
 }
 
 extension AppDelegate : WKNavigationDelegate {
-    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        NotificationCenter.default.post(name: .playerLoading, object: true, userInfo: [:])
-    }
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        NotificationCenter.default.post(name: .playerLoading, object: false, userInfo: [:])
-        NotificationCenter.default.post(name: .playerLoading, object: webView.isLoading, userInfo: [:])
-    }
-    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-        NotificationCenter.default.post(name: .playerLoading, object: webView.isLoading, userInfo: [:])
-    }
-    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        NotificationCenter.default.post(name: .playerLoading, object: false, userInfo: [:])
-    }
+//    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+//        NotificationCenter.default.post(name: .playerLoading, object: true, userInfo: [:])
+//    }
+//    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+//        NotificationCenter.default.post(name: .playerLoading, object: false, userInfo: [:])
+//        NotificationCenter.default.post(name: .playerLoading, object: webView.isLoading, userInfo: [:])
+//    }
+//    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+//        NotificationCenter.default.post(name: .playerLoading, object: webView.isLoading, userInfo: [:])
+//    }
+//    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+//        NotificationCenter.default.post(name: .playerLoading, object: false, userInfo: [:])
+//    }
 }
 
 extension AppDelegate : UNUserNotificationCenterDelegate {

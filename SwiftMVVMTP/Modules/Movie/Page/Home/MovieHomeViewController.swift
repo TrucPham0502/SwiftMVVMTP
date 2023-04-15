@@ -183,9 +183,9 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
             
             glidingView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 60),
             glidingView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            //            glidingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            //            glidingView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
-            glidingView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
+            glidingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            glidingView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+//            glidingView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
             ///colection view auto width =>  rotate => resize layout => error layout
             
         ])

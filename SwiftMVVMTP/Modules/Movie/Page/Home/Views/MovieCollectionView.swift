@@ -53,14 +53,10 @@ extension MovieCollectionView {
         return self.cellForItem(at: IndexPath(row: self.currentIndex, section: 0)) as? MovieCollectionViewCell
     }
     @objc private func viewTap(_ sender : UIGestureRecognizer){
-        if let currentCell = currentCell {
+        let pointInSelf = sender.location(in: self)
+        if let indexPath = self.indexPathForItem(at: pointInSelf), let currentCell = self.cellForItem(at: indexPath) as? MovieCollectionViewCell {
             let point = sender.location(in: currentCell)
             currentCell.handleTouch(point)
         }
     }
 }
-//extension MovieCollectionView : UIGestureRecognizerDelegate {
-//    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-//
-//    }
-//}
