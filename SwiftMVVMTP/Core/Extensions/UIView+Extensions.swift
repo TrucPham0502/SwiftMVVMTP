@@ -37,4 +37,18 @@ extension UIView {
         self.layer.shadowOffset = size
         self.layer.shadowOpacity = opacity
     }
+    func setupParallaxEffect() {
+        let horizontalMotionEffect = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
+        horizontalMotionEffect.minimumRelativeValue = -15
+        horizontalMotionEffect.maximumRelativeValue = 15
+        
+        let verticalMotionEffect = UIInterpolatingMotionEffect(keyPath: "center.y", type: .tiltAlongVerticalAxis)
+        verticalMotionEffect.minimumRelativeValue = -15
+        verticalMotionEffect.maximumRelativeValue = 15
+        
+        let group = UIMotionEffectGroup()
+        group.motionEffects = [horizontalMotionEffect, verticalMotionEffect]
+        
+        self.addMotionEffect(group)
+    }
 }
