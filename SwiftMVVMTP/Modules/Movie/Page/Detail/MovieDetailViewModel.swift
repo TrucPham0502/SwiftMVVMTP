@@ -30,6 +30,9 @@ class MovieDetailViewModel : BaseViewModel<MovieDetailViewModel.Input, MovieDeta
     @Dependency.Inject
     var service : MovieService
     
+    @Storage(key: StorageKey.USER_INFO.rawValue, defaultValue: nil)
+    var user : User?
+    
     @BehaviorRelayProperty(value: .none)
     var data : Response
     
@@ -41,6 +44,7 @@ class MovieDetailViewModel : BaseViewModel<MovieDetailViewModel.Input, MovieDeta
     }
     enum Response {
         case none
+        case bookmark
         case item(MovieDetailModel)
     }
     struct Output {
@@ -60,12 +64,15 @@ class MovieDetailViewModel : BaseViewModel<MovieDetailViewModel.Input, MovieDeta
         input.bookmark.flatMap({[weak self] (isSelected, url, lastedEp) in
             guard let self = self else { return Driver.just(Response.none) }
             return Observable.deferred {
+                guard let _ = self.user else {
+                   throw AppError(parseClass: "MovieDetailViewModel", errorMessage: "You need to login to perform this function", errorCode: -2)
+                }
                 if isSelected {
                     return self.service.setBookmark(.init(url: url, lastedEpisode: lastedEp))
                 }
                 return self.service.removeBookmark(.init(url: url))
             }
-            .map{() in return Response.none }
+            .map{() in return Response.bookmark }
             .trackError(self.errorTracker)
             .trackActivity(self.activityIndicator)
             .asDriverOnErrorJustComplete()

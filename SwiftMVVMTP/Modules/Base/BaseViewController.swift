@@ -34,22 +34,34 @@ class BaseViewController<VM : ViewModelType> : AppBaseViewController {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     override func handleError(error: Error) {
-        if let err = error as? ApiError {
-            switch err.errorCode {
-            case -2:
-                showToast(message: err.errorMessage, complete: { _ in
+        switch error {
+        case is ApiError:
+            let error = (error as! ApiError)
+            switch error.errorCode {
+            case ErrorCode.sessionExpired:
+                showToast(message: error.errorMessage, complete: { _ in
                     AppData.logout()
                     let vc = SplashScreenViewController()
+                    vc.modalPresentationStyle = .fullScreen
                     if let app = UIApplication.shared.delegate as? AppDelegate {
                         app.window?.rootViewController = UINavigationController(rootViewController: vc)
                     }
                 })
             default: super.handleError(error: error)
             }
+        case is AppError:
+            let error = (error as! AppError)
+            switch error.errorCode {
+            case ErrorCode.sessionExpired:
+                showToast(message: error.errorMessage, complete: { _ in
+                    let vc = LoginViewController()
+                    self.present(vc, animated: true, completion: nil)
+                })
+            default: super.handleError(error: error)
+            }
+        default:  super.handleError(error: error)
         }
-        else {
-            super.handleError(error: error)
-        }
+       
     }
 
     override func viewWillDisappear(_ animated: Bool) {

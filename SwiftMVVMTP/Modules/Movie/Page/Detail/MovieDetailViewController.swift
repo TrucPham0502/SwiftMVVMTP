@@ -368,9 +368,6 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             guard let self = self, let url = self.dataRequire?.urlPage, let ep = self.data.first?.episode else { return (false, "", "")}
             return (!self.isBookmarks, url, ep)
             
-        }).do(onNext: {[weak self] _ in
-            guard let self = self else { return }
-            self.isBookmarks = !self.isBookmarks
         }).asDriverOnErrorJustComplete()
                                                      ))
         output.item.drive(onNext: {[weak self] data in
@@ -387,6 +384,8 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
                 UIView.animate(withDuration: 0.3) {
                     self.containerView.alpha = 1
                 }
+            case .bookmark:
+                self.isBookmarks = !self.isBookmarks
             default: break
             }
             

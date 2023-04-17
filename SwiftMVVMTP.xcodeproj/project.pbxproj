@@ -79,6 +79,8 @@
 		FE6F2BFD26FCE190007CE4BF /* TestPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BFC26FCE190007CE4BF /* TestPageViewController.swift */; };
 		FE6F2BFF26FCE19B007CE4BF /* TestPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BFE26FCE19B007CE4BF /* TestPageViewModel.swift */; };
 		FE6F2C0226FCE20E007CE4BF /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2C0126FCE20E007CE4BF /* Dependency.swift */; };
+		FEA47B6929ED72B6004DB95C /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA47B6829ED72B6004DB95C /* AppError.swift */; };
+		FEA47B6B29ED78B9004DB95C /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA47B6A29ED78B9004DB95C /* ErrorCode.swift */; };
 		FEA9487F29EA987600125ACF /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA9487E29EA987600125ACF /* SplashScreenViewController.swift */; };
 		FEA9488129EA990700125ACF /* backgroundVideo.mov in Resources */ = {isa = PBXBuildFile; fileRef = FEA9488029EA990700125ACF /* backgroundVideo.mov */; };
 		FEDA3506292610EF00F27811 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEDA3504292610EF00F27811 /* Main.storyboard */; };
@@ -258,6 +260,8 @@
 		FE6F2BFC26FCE190007CE4BF /* TestPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPageViewController.swift; sourceTree = "<group>"; };
 		FE6F2BFE26FCE19B007CE4BF /* TestPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPageViewModel.swift; sourceTree = "<group>"; };
 		FE6F2C0126FCE20E007CE4BF /* Dependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
+		FEA47B6829ED72B6004DB95C /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
+		FEA47B6A29ED78B9004DB95C /* ErrorCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
 		FEA9487E29EA987600125ACF /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		FEA9488029EA990700125ACF /* backgroundVideo.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = backgroundVideo.mov; sourceTree = "<group>"; };
 		FED8239226FDBC5D006E08D5 /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
@@ -659,6 +663,7 @@
 			children = (
 				FE6F2BF726FCDB45007CE4BF /* ParseDataError.swift */,
 				FE44EEAE26FDA26900EC9F85 /* ApiError.swift */,
+				FEA47B6829ED72B6004DB95C /* AppError.swift */,
 			);
 			path = Error;
 			sourceTree = "<group>";
@@ -808,6 +813,7 @@
 				8E0D773C29DD7C0A00F99721 /* DynamicCollectionView.swift */,
 				8E0D773E29DEA50800F99721 /* SearchBar.swift */,
 				FE5DC5AD29E863F80084D9C4 /* AppData.swift */,
+				FEA47B6A29ED78B9004DB95C /* ErrorCode.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1080,6 +1086,7 @@
 				FEF76ABA270F4B160050B807 /* VideoPlayerView.swift in Sources */,
 				FEEC60B326FEE49D00DDA47E /* EpisodeCollectionViewCell.swift in Sources */,
 				FEF76AB4270F4AFE0050B807 /* Loader.swift in Sources */,
+				FEA47B6929ED72B6004DB95C /* AppError.swift in Sources */,
 				FE44EE9B26FD751500EC9F85 /* TestModuleServiceImpl.swift in Sources */,
 				FEEC608526FE3C6100DDA47E /* UIMovieHomeConfig.swift in Sources */,
 				8EA7E32229E3D17300A90DDE /* ColorExtension.swift in Sources */,
@@ -1093,6 +1100,7 @@
 				FEF76AB6270F4AFE0050B807 /* AppConstants.swift in Sources */,
 				8EF7BD9729E7A00200C22106 /* UIViewController+Extensions.swift in Sources */,
 				FEEC606D26FDF36000DDA47E /* RxBinding.swift in Sources */,
+				FEA47B6B29ED78B9004DB95C /* ErrorCode.swift in Sources */,
 				FEEC60C526FF033100DDA47E /* HHTQEpisodeRequest.swift in Sources */,
 				FEDA350B29263AC500F27811 /* EpisodeDetailRequest.swift in Sources */,
 				8EF7BD9929E7B7B500C22106 /* UIViewNeumorphic.swift in Sources */,
@@ -1534,7 +1542,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = U5ND9J32DH;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U5ND9J32DH;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1606,7 +1614,7 @@
 				CODE_SIGN_ENTITLEMENTS = SwiftMVVMTP/SwiftMVVMTP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = U5ND9J32DH;
 				GENERATE_INFOPLIST_FILE = YES;
 				GOOGLE_SERVICE_INFO = "GoogleService-Info";
