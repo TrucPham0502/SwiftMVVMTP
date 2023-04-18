@@ -120,6 +120,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     @objc private func UIWindowBecomeHidden(){
         NotificationCenter.default.post(name: .playerLoading, object: false, userInfo: [:])
+        self.webView.stopLoading()
     }
 }
 

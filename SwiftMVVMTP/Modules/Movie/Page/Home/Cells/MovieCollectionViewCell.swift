@@ -79,7 +79,7 @@ class MovieCollectionViewCell : UICollectionViewCell {
     lazy var backgroundImageView: UIImageView = {
         let v = UIImageView(frame: .init(x: 0, y: 0, width: contentSize.width, height: contentSize.height))
         v.translatesAutoresizingMaskIntoConstraints = false
-        gradientLayer.frame.size = self.bounds.size
+        gradientLayer.frame.size = contentSize
         v.layer.addSublayer(gradientLayer)
         v.contentMode = .scaleAspectFill
         return v

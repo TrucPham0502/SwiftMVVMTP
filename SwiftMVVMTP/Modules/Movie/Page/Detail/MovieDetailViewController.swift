@@ -167,7 +167,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         let v = LayeredButton()
         v.setImage(.init(named: "ic-play-white"), for: .normal)
         v.insets = .init(width: 2, height: 2)
-        v.layer.cornerRadius = 20
+        v.layer.cornerRadius = 25
         v.contentEdgeInsets = .init(top: 3, left: 3, bottom: 3, right: 3)
         v.translatesAutoresizingMaskIntoConstraints = false
         v.addTarget(self, action: #selector(watchTap), for: .touchUpInside)
@@ -273,7 +273,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             buttonWatch.centerYAnchor.constraint(equalTo: self.titleView.centerYAnchor, constant: 0),
             buttonWatch.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding),
             buttonWatch.widthAnchor.constraint(equalTo: buttonWatch.heightAnchor),
-            buttonWatch.heightAnchor.constraint(equalToConstant: 40),
+            buttonWatch.heightAnchor.constraint(equalToConstant: 50),
             
 
             

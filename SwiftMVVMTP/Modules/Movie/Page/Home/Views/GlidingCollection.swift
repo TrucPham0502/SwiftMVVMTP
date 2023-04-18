@@ -19,7 +19,7 @@ class GlidingCollection: UIView {
     var expandedItemIndex = 0 {
         didSet {
 //            guard let count = dataSource?.numberOfItems(in: self) else { return }
-            containerView.isScrollEnabled = false//expandedItemIndex == 0 || expandedItemIndex == count - 1
+//            containerView.isScrollEnabled = expandedItemIndex == 0 || expandedItemIndex == count - 1
         }
     }
     
@@ -88,8 +88,9 @@ extension GlidingCollection: UIGestureRecognizerDelegate {
         containerView.contentSize = bounds.size
         containerView.showsVerticalScrollIndicator = false
         containerView.showsHorizontalScrollIndicator = false
+        containerView.isScrollEnabled = false
         let cardSize = config.cardsSize
-        let cardHeight = cardSize.height + 2*(cardSize.height/6 - CGFloat(UIMovieHomeConfig.shared.yOffsetItem/2)) + UIMovieHomeConfig.shared.yOffsetItem
+        let cardHeight = cardSize.height + 2*(cardSize.height/6 - CGFloat(UIMovieHomeConfig.shared.yOffsetItem/2)) + UIMovieHomeConfig.shared.yOffsetItem + 50
         collectionView.frame = CGRect(x: 0, y: bounds.height/2 - cardHeight/2, width: bounds.width, height: cardHeight)
         
         animateTopButtons()
@@ -139,7 +140,7 @@ fileprivate extension GlidingCollection {
             let title = source.glidingCollection(self, itemAtIndex: i).uppercased()
             
             let button = UIButton()
-            button.contentHorizontalAlignment = .left
+            button.contentHorizontalAlignment = .center
             
             let color = isTopTitle ? config.activeButtonColor : config.inactiveButtonsColor
             button.setTitleColor(color, for: .normal)
@@ -148,6 +149,7 @@ fileprivate extension GlidingCollection {
             button.layer.anchorPoint = CGPoint(x: 0, y: 0)
             button.transform = scaledTransform
             button.titleLabel?.setShadow()
+            button.titleLabel?.setupParallaxEffect()
             isTopTitle ? topViews.append(button) : bottomViews.append(button)
             containerView.insertSubview(button, at: 0)
             button.addTarget(self, action: #selector(didTapped(_:)), for: .touchUpInside)

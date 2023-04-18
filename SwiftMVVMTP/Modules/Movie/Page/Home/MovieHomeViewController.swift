@@ -366,7 +366,7 @@ extension MovieHomeViewController: GlidingCollectionDatasource {
     }
     
     func glidingCollection(_ collection: GlidingCollection, itemAtIndex index: Int) -> String {
-        return "– " + self.titlesItem[index].title
+        return "\(self.titlesItem[index].title )"
     }
     
     

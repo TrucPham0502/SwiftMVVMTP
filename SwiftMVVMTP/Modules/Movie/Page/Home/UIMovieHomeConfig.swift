@@ -24,7 +24,7 @@ public struct UIMovieHomeConfig {
     public var buttonsSpacing: CGFloat = 15
     
     /// Font of each element in vertical stack.
-    public var buttonsFont = UIFont.systemFont(ofSize: 25)
+    public var buttonsFont = UIFont.boldSystemFont(ofSize: 30)
     
     /// Scale factor of inactive sections buttons.
     public var buttonsScaleFactor: CGFloat = 0.5
@@ -37,7 +37,7 @@ public struct UIMovieHomeConfig {
     
     
     /// Size of collectionView's cells.
-    public var cardsSize = CGSize(width: CGFloat(340).scaleHeightByScreen() * (256 / 340), height: CGFloat(340).scaleHeightByScreen())
+    public var cardsSize = CGSize(width: 256, height: 340)
    
     
     
