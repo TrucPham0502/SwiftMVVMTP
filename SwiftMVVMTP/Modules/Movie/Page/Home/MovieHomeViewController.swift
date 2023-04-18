@@ -133,6 +133,9 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
             guard let _self = self else { return }
             switch data {
             case let .item(value):
+                if _self.collectionView.numberOfItems(inSection: 0) > 0, !value.1 {
+                    _self.collectionView.scrollToItem(at: .init(item: 0, section: 0), at: .left, animated: true)
+                }
                 _self.collectionItems = value.0.datas
                 if !value.1 {
                     _self.titlesItem = value.0.titles

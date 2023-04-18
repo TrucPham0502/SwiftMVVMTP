@@ -79,6 +79,7 @@ class MovieCollectionViewCell : UICollectionViewCell {
     lazy var backgroundImageView: UIImageView = {
         let v = UIImageView(frame: .init(x: 0, y: 0, width: contentSize.width, height: contentSize.height))
         v.translatesAutoresizingMaskIntoConstraints = false
+        gradientLayer.frame.size = self.bounds.size
         v.layer.addSublayer(gradientLayer)
         v.contentMode = .scaleAspectFill
         return v
@@ -140,14 +141,18 @@ class MovieCollectionViewCell : UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         gradientLayer.frame.size = self.backgroundImageView.frame.size
-        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.7).cgColor]
+        gradientLayer.colors = [
+            UIColor.clear.cgColor,
+            UIColor.black.withAlphaComponent(0.3).cgColor,
+            UIColor.black.withAlphaComponent(0.6).cgColor,
+            UIColor.black.withAlphaComponent(0.9).cgColor]
         
     }
     
     fileprivate func updateConstraintTitle(){
         if let centerY = self.titleConstraint.centerY, let model = model, let heightFront = self.frontConstraint.height {
             let textSize = NSAttributedString(string: model.name, attributes: [.font : self.titleFont]).size(considering: self.frontContainerView.frame.size.width - 32)
-            let defaultPadding : CGFloat = 100
+            let defaultPadding : CGFloat = 120
             centerY.constant = isOpened ? (heightFront.constant + textSize.height ) / 2 + 15 : defaultPadding
         }
     }

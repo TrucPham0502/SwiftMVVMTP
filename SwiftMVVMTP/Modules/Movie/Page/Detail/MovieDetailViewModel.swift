@@ -22,6 +22,7 @@ struct MovieDetailModel {
     let latest: String
     let categorys : String
     let isBookmark: Bool
+    let picTag: String
 }
 protocol MovieDetailViewLogic : BaseViewLogic {
     

@@ -121,51 +121,16 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         return v
     }()
     
-    private lazy var taglb : UILabel = {
-        let v = UILabel()
+    
+    private lazy var seasonlb : LayeredButton = {
+        let v = LayeredButton()
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.font = .boldSystemFont(ofSize: 16)
-        v.text = "VIETSUB"
-        return v
-    }()
-    private lazy var tagView : UIView = {
-        let v = UIView()
-        v.backgroundColor = UIColor(named: "secondary-primary-color")
+        v.setTitle("VIETSUB", for: .normal)
         v.translatesAutoresizingMaskIntoConstraints = false
         v.layer.cornerRadius = 3
-        v.addSubview(taglb)
-        NSLayoutConstraint.activate([
-            taglb.leadingAnchor.constraint(equalTo: v.leadingAnchor, constant: 8),
-            taglb.trailingAnchor.constraint(equalTo: v.trailingAnchor, constant: -8),
-            taglb.topAnchor.constraint(equalTo: v.topAnchor, constant: 5),
-            taglb.bottomAnchor.constraint(lessThanOrEqualTo: v.bottomAnchor, constant: -5)
-        ])
-        return v
-    }()
-    
-    private lazy var seasonlb : UILabel = {
-        let v = UILabel()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.font = .systemFont(ofSize: 13)
-        v.textColor = .white.withAlphaComponent(0.8)
-        v.text = ""
-        return v
-    }()
-    private lazy var episodeView : UIView = {
-        let v = UIView()
-        v.backgroundColor = .clear
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.layer.cornerRadius = 7
-        v.layer.borderColor = UIColor.white.withAlphaComponent(0.8).cgColor
-        v.layer.borderWidth = 1
-        [seasonlb].forEach(v.addSubview)
-        NSLayoutConstraint.activate([
-            
-            seasonlb.leadingAnchor.constraint(equalTo: v.leadingAnchor, constant: 12),
-            seasonlb.trailingAnchor.constraint(equalTo: v.trailingAnchor, constant: -12),
-            seasonlb.topAnchor.constraint(equalTo: v.topAnchor, constant: 5),
-            seasonlb.bottomAnchor.constraint(lessThanOrEqualTo: v.bottomAnchor, constant: -5),
-        ])
+        v.titleLabel?.font = .systemFont(ofSize: 12)
+        v.insets = .init(width: 1, height: 1)
+        v.contentEdgeInsets = .init(top: 5, left: 10, bottom: 5, right: 10)
         return v
     }()
     
@@ -175,13 +140,14 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         v.setImage(UIImage(named: "christmas-star-stroke"), for: .normal)
         v.contentEdgeInsets = .zero
         v.contentEdgeInsets = .zero
+        v.isUserInteractionEnabled = false
         return v
     }()
     
     private lazy var timelb : UILabel =  {
         let v = UILabel()
-        v.font = .systemFont(ofSize: 14)
-        v.textColor = .white.withAlphaComponent(0.8)
+        v.font = .boldSystemFont(ofSize: 14)
+        v.textColor = .white
         v.numberOfLines = 1
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
@@ -199,10 +165,21 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     
     private lazy var buttonWatch : LayeredButton = {
         let v = LayeredButton()
-        v.setTitle("Watch", for: .normal)
+        v.setImage(.init(named: "ic-play-white"), for: .normal)
+        v.insets = .init(width: 2, height: 2)
         v.layer.cornerRadius = 20
+        v.contentEdgeInsets = .init(top: 3, left: 3, bottom: 3, right: 3)
         v.translatesAutoresizingMaskIntoConstraints = false
         v.addTarget(self, action: #selector(watchTap), for: .touchUpInside)
+        return v
+    }()
+    
+    private lazy var titleContent : UILabel = {
+        let v = UILabel()
+        v.font = .boldSystemFont(ofSize: 17)
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.text = "Description:"
+        v.textColor = .white
         return v
     }()
     
@@ -266,7 +243,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         self.view.isHidden = true
         [backgroundImage, gradientView, scrollView, closeImage, bookmarksView].forEach(self.view.addSubview)
         self.scrollView.addSubview(containerView)
-        [titleView,tagView,episodeView, timelb,categoryslb, buttonWatch, contentView, titleEpisodes, collectionViewEpisode].forEach(self.containerView.addSubview)
+        [titleView, seasonlb, timelb,categoryslb, buttonWatch, titleContent, contentView, titleEpisodes, collectionViewEpisode].forEach(self.containerView.addSubview)
         titleView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         NSLayoutConstraint.activate([
             
@@ -286,33 +263,39 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             self.containerView.trailingAnchor.constraint(equalTo: self.scrollView.trailingAnchor),
             self.containerView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor),
             self.containerView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor),
+        
             
             
             titleView.topAnchor.constraint(equalTo: self.containerView.topAnchor, constant: headerHeight),
             titleView.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: padding),
-            titleView.trailingAnchor.constraint(lessThanOrEqualTo: self.tagView.leadingAnchor, constant: -20),
+            titleView.trailingAnchor.constraint(lessThanOrEqualTo: self.buttonWatch.leadingAnchor, constant: -20),
             
-            tagView.centerYAnchor.constraint(equalTo: self.titleView.centerYAnchor),
-            tagView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding),
+            buttonWatch.centerYAnchor.constraint(equalTo: self.titleView.centerYAnchor, constant: 0),
+            buttonWatch.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding),
+            buttonWatch.widthAnchor.constraint(equalTo: buttonWatch.heightAnchor),
+            buttonWatch.heightAnchor.constraint(equalToConstant: 40),
+            
+
+            
             
             categoryslb.topAnchor.constraint(equalTo: self.titleView.bottomAnchor, constant: 5),
             categoryslb.leadingAnchor.constraint(equalTo: self.titleView.leadingAnchor, constant: 5),
-            categoryslb.trailingAnchor.constraint(lessThanOrEqualTo: self.containerView.trailingAnchor, constant: -padding),
+            categoryslb.trailingAnchor.constraint(lessThanOrEqualTo: self.buttonWatch.leadingAnchor, constant: -10),
             
-            episodeView.topAnchor.constraint(equalTo: categoryslb.bottomAnchor, constant: 20),
-            episodeView.trailingAnchor.constraint(lessThanOrEqualTo: self.bookmarksView.leadingAnchor, constant: -padding),
-            episodeView.leadingAnchor.constraint(equalTo : self.containerView.leadingAnchor, constant: padding),
             
-            timelb.centerYAnchor.constraint(equalTo: episodeView.centerYAnchor),
+            seasonlb.topAnchor.constraint(equalTo: categoryslb.bottomAnchor, constant: 20),
+            seasonlb.trailingAnchor.constraint(lessThanOrEqualTo: self.timelb.leadingAnchor, constant: -padding),
+            seasonlb.leadingAnchor.constraint(equalTo : self.containerView.leadingAnchor, constant: padding),
+            
+            timelb.centerYAnchor.constraint(equalTo: seasonlb.centerYAnchor),
             timelb.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding),
-            timelb.leadingAnchor.constraint(greaterThanOrEqualTo:  self.episodeView.trailingAnchor, constant: 10),
+            timelb.leadingAnchor.constraint(greaterThanOrEqualTo:  self.seasonlb.trailingAnchor, constant: 10),
             
-            buttonWatch.topAnchor.constraint(equalTo: self.episodeView.bottomAnchor, constant: 20),
-            buttonWatch.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: padding),
-            buttonWatch.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding),
-            buttonWatch.heightAnchor.constraint(equalToConstant: 60),
             
-            contentView.topAnchor.constraint(equalTo: self.buttonWatch.bottomAnchor, constant: 25),
+            titleContent.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: padding),
+            titleContent.topAnchor.constraint(equalTo: self.seasonlb.bottomAnchor, constant: 30),
+            
+            contentView.topAnchor.constraint(equalTo: self.titleContent.bottomAnchor, constant: 10),
             contentView.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: padding),
             contentView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding),
             
@@ -376,11 +359,12 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             case let .item(value):
                 self.data = value.episodes
                 self.contentView.text = value.content
-                self.seasonlb.text = "\(value.season) - \(value.latest)"
+                self.seasonlb.setTitle("\(value.season) - \(value.latest) - VIETSUB", for: .normal)
                 self.timelb.text = value.time
                 self.categoryslb.text = "(\(value.categorys))"
                 self.titleView.text = value.title
                 self.isBookmarks = value.isBookmark
+                self.bookmarksView.isUserInteractionEnabled = false
                 UIView.animate(withDuration: 0.3) {
                     self.containerView.alpha = 1
                 }
@@ -463,70 +447,6 @@ extension MovieDetailViewController : UICollectionViewDelegateFlowLayout {
 }
 
 extension MovieDetailViewController : UICollectionViewDelegate {
-    //    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-    //        let d = self.data[indexPath.row]
-    //        return UIContextMenuConfiguration(identifier: (d.id ?? "") as NSCopying, previewProvider: {
-    //            return nil
-    //        }, actionProvider: { suggestedActions in
-    //            if let id = d.id {
-    //                if let videoFromId = RxPlayerHelper.shared.videos[id] {
-    //                    var resolutions : [VideoResolution] = []
-    //                    if case let VideoPlayer.dailymotion(v) = videoFromId {
-    //                        resolutions = v.resolutions
-    //                    }
-    //                    else if case let VideoPlayer.fembed(v) = videoFromId {
-    //                        resolutions = v.resolutions
-    //                    }
-    //                    let menu = UIMenu(title: "Select resolution", children: resolutions.map({
-    //                        UIAction(title: $0.resolution, image: nil, identifier: UIAction.Identifier(rawValue: $0.id)) { action in
-    //                            switch videoFromId {
-    //                            case .dailymotion:
-    //                                RxPlayerHelper.shared.openPlayer(self, videoType: .dailymotion(id: id, resolationId: action.identifier.rawValue), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
-    //                                    guard let data = d else { return }
-    //                                    let urls = RxPlayerHelper.shared.getUrl(data)
-    //                                    self.videoPlayer.videoURL = urls.first
-    //                                }).disposed(by: self.disposeBag)
-    //                            case .fembed:
-    //                                RxPlayerHelper.shared.openPlayer(self, videoType: .fembed(id: id, resolationId: action.identifier.rawValue), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
-    //                                    guard let data = d else { return }
-    //                                    let urls = RxPlayerHelper.shared.getUrl(data)
-    //                                    self.videoPlayer.videoURL = urls.first
-    //                                }).disposed(by: self.disposeBag)
-    //                            default: break
-    //                            }
-    //
-    //
-    //                        }
-    //                    }))
-    //                    return menu
-    //                }
-    //                return UIMenu(title: "Menu", children: [
-    //                    UIAction(title: "Play Video", handler: { _ in
-    //                        switch d.type {
-    //                        case .dailymotion:
-    //                            RxPlayerHelper.shared.openPlayer(self, videoType: .dailymotion(id: id), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
-    //                                guard let data = d else { return }
-    //                                let urls = RxPlayerHelper.shared.getUrl(data)
-    //                                self.videoPlayer.videoURL = urls.first
-    //                            }).disposed(by: self.disposeBag)
-    //                        case .fileone:
-    //                            if let urlString = d.link {
-    //                                RxPlayerHelper.shared.openPlayer(self, videoType: .fileone(id: id, url: urlString), openVideoController: false).asDriverOnErrorJustComplete().drive(onNext: { d in
-    //                                    guard let data = d else { return }
-    //                                    let urls = RxPlayerHelper.shared.getUrl(data)
-    //                                    self.videoPlayer.videoURL = urls.first
-    //                                }).disposed(by: self.disposeBag)
-    //                            }
-    //                        default:
-    //                            break
-    //                        }
-    //
-    //                    })
-    //                ])
-    //            }
-    //            return nil
-    //        })
-    //    }
     
 }
 extension MovieDetailViewController : UIScrollViewDelegate {

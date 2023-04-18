@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 class LayeredButton: UIButton {
-    
+    var insets = CGSize(width: 5.5, height: 3)
     private let foregroundLayer = CALayer()
     private let backgroundLayer1 = CALayer()
     private let backgroundLayer2 = CALayer()
@@ -36,10 +36,7 @@ class LayeredButton: UIButton {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        [backgroundLayer1, backgroundLayer2, foregroundLayer].forEach { layer in
-            layer.cornerRadius = self.layer.cornerRadius
-            layer.masksToBounds = true
-        }
+        updateFrames()
     }
     
     private func layout() {
@@ -49,18 +46,23 @@ class LayeredButton: UIButton {
         foregroundLayer.backgroundColor = UIColor(named: "primary-color")?.cgColor
         backgroundLayer1.backgroundColor = UIColor(named: "secondary-primary-color")?.cgColor
         backgroundLayer2.backgroundColor = UIColor(red: 0.01, green: 0.80, blue: 0.97, alpha: 1.00).cgColor
+        
+        if let imageView = self.imageView {
+            self.bringSubviewToFront(imageView)
+        }
     }
     
     private func updateFrames() {
-        let insets = CGSize(width: 5.5, height: 3)
-        foregroundLayer.frame = bounds.inset(
-            by: UIEdgeInsets(top: insets.height, left: insets.width, bottom: insets.height, right: insets.width)
-        )
-        backgroundLayer1.frame = bounds.inset(
-            by: UIEdgeInsets(top: 0, left: 2 * insets.width, bottom: 2 * insets.height, right: 0)
-        )
-        backgroundLayer2.frame = bounds.inset(
-            by: UIEdgeInsets(top: 2 * insets.height, left: 0, bottom: 0, right: 2 * insets.width)
-        )
+        
+        foregroundLayer.frame = .init(origin: .zero, size: bounds.size)
+        
+        backgroundLayer1.frame = .init(origin: .init(x: insets.width, y: -2 * insets.height), size: bounds.size)
+        
+        backgroundLayer2.frame = .init(origin: .init(x: -2 * insets.width, y: 2 * insets.height), size: bounds.size)
+        
+        [backgroundLayer1, backgroundLayer2, foregroundLayer].forEach { layer in
+            layer.cornerRadius = self.layer.cornerRadius
+            layer.masksToBounds = true
+        }
     }
 }

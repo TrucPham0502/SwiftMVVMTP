@@ -22,7 +22,12 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
     var isSearching = false
     var isStopLoadMore = false {
         didSet {
-            print("loading:\(isStopLoadMore)")
+            print("isStopLoadMore:\(isStopLoadMore)")
+        }
+    }
+    var isLoading = false {
+        didSet {
+            print("isLoading:\(isLoading)")
         }
     }
     struct Input  {
@@ -85,7 +90,7 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
         
         input.loadMore.filter({[weak self] _ in
             guard let self = self else { return false }
-            return !self.isSearching && !self.isStopLoadMore
+            return !self.isSearching && !self.isStopLoadMore && !self.isLoading
         }).flatMap({ section in
             return Observable.deferred { [weak self] () ->  Observable<Response> in
                 guard let _self = self, let item = _self.item.getData() as? ItemType else {  return Observable.just(.none) }
@@ -100,13 +105,17 @@ class MovieHomeViewModel : BaseViewModel<MovieHomeViewModel.Input, MovieHomeView
                         guard let self = self else { return }
                         let page = item.0.titles[section].nextPage
                         self.isStopLoadMore = page < 0
+                        self.isLoading = false
                     }, onError: {[weak self] err in
                         guard let self = self else { return }
-                        self.isStopLoadMore = false
-                    }) {[weak self] _ in
+                        self.isLoading = false
+                    }, onCompleted: {[weak self] () in
                         guard let self = self else { return }
-                        self.isStopLoadMore = true
-                    }
+                        self.isLoading = false
+                    }, onSubscribe: {[weak self] () in
+                        guard let self = self else { return }
+                        self.isLoading = true
+                    })
                 }.trackError(self.errorTracker).asDriverOnErrorJustComplete()
             }).drive(self.$item).disposed(by: self.disposeBag)
                 

@@ -42,6 +42,7 @@ struct MovieDetailResponse: Codable {
     let categorys: [String]?
     let episodes: [Episode]?
     let isBookmark: Bool?
+    let picTag : String?
     // MARK: - Episode
     struct Episode: Codable {
         let episode,url : String?

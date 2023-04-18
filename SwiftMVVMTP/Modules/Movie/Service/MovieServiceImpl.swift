@@ -67,7 +67,7 @@ class MovieServiceImpl : MovieService {
             }).reversed() ?? []
             let content : String = res.contents?.joined(separator: "\n")  ?? ""
             let category : String = res.categorys?.joined(separator: ", ") ?? ""
-            return MovieDetailModel(title: res.title ?? "", episodes: eps, content: content, time: res.time ?? "", season: res.season ?? "", latest: res.latest ?? "", categorys: category, isBookmark: res.isBookmark ?? false)
+            return MovieDetailModel(title: res.title ?? "", episodes: eps, content: content, time: res.time ?? "", season: res.season ?? "", latest: res.latest ?? "", categorys: category, isBookmark: res.isBookmark ?? false, picTag: res.picTag ?? "")
         })
     }
     
