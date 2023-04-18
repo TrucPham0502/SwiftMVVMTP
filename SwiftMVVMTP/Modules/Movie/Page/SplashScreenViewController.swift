@@ -17,6 +17,7 @@ class SplashScreenViewController: UIViewController {
     var playerLayer : AVPlayerLayer!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .black
         setupVideoBackground()
     }
     
