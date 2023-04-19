@@ -71,7 +71,7 @@ extension TransitionDriver {
         copyView.frontContainerView.animationCornerRadius(0, duration: duration)
         
       
-        copyView.customTitle.alpha = 0
+        copyView.titleView.alpha = 0
         // constraints animation
         UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions(), animations: {
             copyView.shadowView?.alpha = 0
@@ -103,7 +103,7 @@ extension TransitionDriver {
         UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions(), animations: {
             copyCell.shadowView?.alpha = 1
             UIView.animate(withDuration: self.duration, delay: self.duration, options: UIView.AnimationOptions(), animations: {
-                copyCell.customTitle.alpha = 1
+                copyCell.titleView.alpha = 1
             })
             copyCell.backContainerView.backgroundColor = .white
             self.rightCell?.frame = self.rightFrame

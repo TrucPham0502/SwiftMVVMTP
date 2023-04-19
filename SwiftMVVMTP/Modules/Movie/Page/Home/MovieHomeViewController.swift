@@ -103,6 +103,7 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     
     lazy var collectionView: MovieCollectionView = {
         let layout = MovieCollectionLayout(itemSize: itemSize)
+        
         let collectionView = MovieCollectionView(self.view,
                                                  layout: layout,
                                                  height: itemSize.height,
@@ -307,18 +308,7 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
     
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        let startOffset = (collectionView.bounds.size.width - itemSize.width) / 2
-//        guard let collectionLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
-//            return
-//        }
-//
-//        let minimumLineSpacing = collectionLayout.minimumLineSpacing
-//        let a = collectionView.contentOffset.x + startOffset + itemSize.width / 2
-//        let b = itemSize.width + minimumLineSpacing
-//        let index = Int(a/b)
-//        self.currentIndex = .init(row: index, section: self.glidingView.expandedItemIndex)
         changeCurrentItem()
-        print(self.currentIndex)
     }
     
     
@@ -373,16 +363,17 @@ extension MovieHomeViewController: GlidingCollectionDatasource {
 }
 extension MovieHomeViewController : GlidingCollectionDelegate {
     func glidingCollection(_ collection: GlidingCollection, didExpandItemAt index: Int) {
-        UIView.animate(withDuration: 0.3) {
-            self.collectionView.performBatchUpdates {
-                if self.collectionView.numberOfItems(inSection: 0) > 0 {
-                    let path = IndexPath(item: 0, section: 0)
-                    self.collectionView.scrollToItem(at: path, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            UIView.animate(withDuration: 0.3) {
+                self.collectionView.performBatchUpdates {
+                    if self.collectionView.numberOfItems(inSection: 0) > 0 {
+                        let path = IndexPath(item: 0, section: 0)
+                        self.collectionView.scrollToItem(at: path, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
+                    }
                 }
+            } completion: { _ in
+                self.changeCurrentItem()
             }
-        } completion: { _ in
-            self.changeCurrentItem()
         }
-        
     }
 }

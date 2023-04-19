@@ -19,14 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     private lazy var webView : WKWebView = {
         let configuration = WKWebViewConfiguration()
-        // Don't supress rendering content before everything is in memory.
-        configuration.suppressesIncrementalRendering = false
-        // Disallow inline HTML5 Video playback, as we need to be able to
-        // hook into the AVPlayer to detect whether or not videos are being
-        // played. HTML5 Video Playback makes that impossible.
-        configuration.allowsInlineMediaPlayback = false
-        // All audiovisual media will require a user gesture to begin playing.
-        configuration.mediaTypesRequiringUserActionForPlayback = .all
         let v = WKWebView(frame: UIScreen.main.bounds, configuration: configuration)
         v.isHidden = true
         v.navigationDelegate = self

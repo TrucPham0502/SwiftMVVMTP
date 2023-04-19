@@ -351,17 +351,16 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             guard let self = self, let url = self.dataRequire?.urlPage, let ep = self.data.first?.episode else { return (false, "", "")}
             return (!self.isBookmarks, url, ep)
             
-        }).asDriverOnErrorJustComplete()
-                                                     ))
+        }).asDriverOnErrorJustComplete()))
         output.item.drive(onNext: {[weak self] data in
             guard let self = self else { return }
             switch data {
             case let .item(value):
                 self.data = value.episodes
                 self.contentView.text = value.content
-                self.seasonlb.setTitle("\(value.season) - \(value.latest) - VIETSUB", for: .normal)
+                self.seasonlb.setTitle("\(value.season) - \(value.latest)", for: .normal)
                 self.timelb.text = value.time
-                self.categoryslb.text = "(\(value.categorys))"
+                self.categoryslb.text = "\(value.categorys)"
                 self.titleView.text = value.title
                 self.isBookmarks = value.isBookmark
                 self.bookmarksView.isUserInteractionEnabled = false

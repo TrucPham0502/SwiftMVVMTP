@@ -17,7 +17,7 @@ struct MovieCollectionViewCellModel {
     var isBookmark : Bool
 }
 class MovieCollectionViewCell : UICollectionViewCell {
-    let titleFont : UIFont = .boldSystemFont(ofSize: 18)
+    let titleFont : UIFont = .boldSystemFont(ofSize: 20)
     var yOffset: CGFloat = UIMovieHomeConfig.shared.yOffsetItem
     var contentSize : CGSize = UIMovieHomeConfig.shared.cardsSize
     var ySpacing: CGFloat = CGFloat.greatestFiniteMagnitude
@@ -38,7 +38,7 @@ class MovieCollectionViewCell : UICollectionViewCell {
             guard let model = model else {
                 return
             }
-            self.customTitle.text = model.name
+            self.titleView.text = model.name
             self.tagView.text = "\(model.episode) \(!model.tag.isEmpty ? "(\(model.tag))" : "" )"
             self.isBookmarks = model.isBookmark
             updateConstraintTitle()
@@ -48,6 +48,7 @@ class MovieCollectionViewCell : UICollectionViewCell {
     var backConstraint = AppConstants()
     var frontConstraint = AppConstants()
     private var titleConstraint = AppConstants()
+    var defaultTitleScale : CGFloat = 1
     
     lazy var backContainerView: UIView = {
         let v = UIView(frame: .init(origin: .zero, size: contentSize))
@@ -75,17 +76,14 @@ class MovieCollectionViewCell : UICollectionViewCell {
         return v
     }()
     
-    let gradientLayer = CAGradientLayer()
     lazy var backgroundImageView: UIImageView = {
         let v = UIImageView(frame: .init(x: 0, y: 0, width: contentSize.width, height: contentSize.height))
         v.translatesAutoresizingMaskIntoConstraints = false
-        gradientLayer.frame.size = contentSize
-        v.layer.addSublayer(gradientLayer)
         v.contentMode = .scaleAspectFill
         return v
     }()
     
-    lazy var customTitle: UILabel = {
+    lazy var titleView: UILabel = {
         let v = UILabel()
         v.numberOfLines = 2
         v.lineBreakMode = .byTruncatingTail
@@ -140,26 +138,21 @@ class MovieCollectionViewCell : UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        gradientLayer.frame.size = self.backgroundImageView.frame.size
-        gradientLayer.colors = [
-            UIColor.clear.cgColor,
-            UIColor.black.withAlphaComponent(0.3).cgColor,
-            UIColor.black.withAlphaComponent(0.6).cgColor,
-            UIColor.black.withAlphaComponent(0.9).cgColor]
         
     }
     
     fileprivate func updateConstraintTitle(){
         if let centerY = self.titleConstraint.centerY, let model = model, let heightFront = self.frontConstraint.height {
             let textSize = NSAttributedString(string: model.name, attributes: [.font : self.titleFont]).size(considering: self.frontContainerView.frame.size.width - 32)
-            let defaultPadding : CGFloat = 120
-            centerY.constant = isOpened ? (heightFront.constant + textSize.height ) / 2 + 15 : defaultPadding
+            let defaultTitlePadding = defaultTitleScale * (-contentSize.height / 2 - 50)
+           
+            centerY.constant = isOpened ? (heightFront.constant + textSize.height ) / 2 + 15 : defaultTitlePadding
         }
     }
     private func configurationViews() {
         self.contentView.backgroundColor = .clear
         self.contentView.isUserInteractionEnabled = false
-        [backContainerView, frontContainerView, customTitle].forEach(self.contentView.addSubview)
+        [backContainerView,titleView, frontContainerView, ].forEach(self.contentView.addSubview)
         
         [backgroundImageView].forEach(self.frontContainerView.addSubview)
         
@@ -171,6 +164,25 @@ class MovieCollectionViewCell : UICollectionViewCell {
         layer.masksToBounds = false
     }
     
+    override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
+        let layoutAttributes = layoutAttributes as! MoviesCollectionViewLayoutAttributes
+        self.backgroundImageView.transform = CGAffineTransform.init(scaleX: layoutAttributes.maxScale, y: layoutAttributes.maxScale)
+        
+        
+        self.defaultTitleScale = layoutAttributes.minScale
+        self.backContainerView.layer.cornerRadius = layoutAttributes.maxScale * 5
+        self.frontContainerView.layer.cornerRadius = layoutAttributes.maxScale * 5
+        
+        self.titleView.alpha = defaultTitleScale
+        if !isOpened {
+            self.titleView.transform = CGAffineTransform.init(scaleX: defaultTitleScale, y: defaultTitleScale)
+            self.updateConstraintTitle()
+        }
+        
+        
+    }
+    
+    
     
     func constraints(){
         backConstraint = .init(width: backContainerView.widthAnchor.constraint(equalToConstant: contentSize.width), height: backContainerView.heightAnchor.constraint(equalToConstant: contentSize.height), centerX:  backContainerView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor), centerY: self.backContainerView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor))
@@ -178,7 +190,7 @@ class MovieCollectionViewCell : UICollectionViewCell {
         
         frontConstraint = .init(width: frontContainerView.widthAnchor.constraint(equalToConstant: contentSize.width), height: frontContainerView.heightAnchor.constraint(equalToConstant: contentSize.height), centerX: frontContainerView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor), centerY: self.frontContainerView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor))
         
-        titleConstraint = .init(width: customTitle.widthAnchor.constraint(equalToConstant: self.frontContainerView.bounds.size.width - 16), centerX: customTitle.centerXAnchor.constraint(equalTo: self.frontContainerView.centerXAnchor, constant: 0), centerY: self.customTitle.centerYAnchor.constraint(equalTo: self.frontContainerView.centerYAnchor))
+        titleConstraint = .init(width: titleView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 60), centerX: titleView.centerXAnchor.constraint(equalTo: self.frontContainerView.centerXAnchor, constant: 0), centerY: self.titleView.centerYAnchor.constraint(equalTo: self.frontContainerView.centerYAnchor))
         
         [backConstraint,frontConstraint,titleConstraint].forEach{$0.active()}
         
@@ -308,13 +320,13 @@ extension MovieCollectionViewCell {
         updateConstraintTitle()
         if animated == true {
             UIView.animate(withDuration: 0.3, delay: 0, options: UIView.AnimationOptions(), animations: {
-                self.customTitle.textColor = isOpen ? .black.withAlphaComponent(0.7) : .white
-                self.customTitle.transform = !isOpen ? .init(scaleX: 1, y: 1) : .init(scaleX: 0.8, y: 0.8)
+                self.titleView.textColor = isOpen ? .black.withAlphaComponent(0.7) : .white
+                self.titleView.transform = !isOpen ? .init(scaleX: self.defaultTitleScale, y: self.defaultTitleScale) : .init(scaleX: 0.7, y: 0.7)
                 self.contentView.layoutIfNeeded()
             }, completion: nil)
         } else {
-            self.customTitle.textColor = isOpen ? .black.withAlphaComponent(0.7) : .white
-            self.customTitle.transform = !isOpen ? .init(scaleX: 1, y: 1) : .init(scaleX: 0.8, y: 0.8)
+            self.titleView.textColor = isOpen ? .black.withAlphaComponent(0.7) : .white
+            self.titleView.transform = !isOpen ? .init(scaleX: self.defaultTitleScale, y: self.defaultTitleScale) : .init(scaleX: 0.7, y: 0.7)
             contentView.layoutIfNeeded()
         }
     }
