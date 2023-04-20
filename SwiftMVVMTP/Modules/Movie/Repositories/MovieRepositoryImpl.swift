@@ -9,7 +9,19 @@ import Foundation
 import RxSwift
 class MovieRepositoryImpl : BaseRepository , MovieRepository {
     func getPlayInfo(_ input: PlayInfoRequest) -> Observable<PlayInfoResponse> {
-        return remoteSource.getPlayInfo(input).valid()
+        return remoteSource.getPlayInfo(input).valid().flatMap { res -> Observable<PlayInfoResponse> in
+            if res.media?.type == .client, let urlString = res.media?.url, let url = URL(string: urlString) {
+                return url.getContent.flatMap {[unowned self] body -> Observable<PlayInfoResponse> in
+                    return self.remoteSource.processData(.init(type: input.url, url: urlString, body: body)).valid().map({url in
+                        var _res = res
+                        _res.media?.url = url
+                        _res.media?.type = .m3u8
+                        return _res
+                    })
+                }
+            }
+            return Observable.just(res)
+        }
     }
     
     @Dependency.Inject

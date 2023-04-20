@@ -81,6 +81,7 @@
 		FE6F2C0226FCE20E007CE4BF /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2C0126FCE20E007CE4BF /* Dependency.swift */; };
 		FEA47B6929ED72B6004DB95C /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA47B6829ED72B6004DB95C /* AppError.swift */; };
 		FEA47B6B29ED78B9004DB95C /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA47B6A29ED78B9004DB95C /* ErrorCode.swift */; };
+		FEA47B6D29F17F02004DB95C /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA47B6C29F17F02004DB95C /* URL+Extensions.swift */; };
 		FEA9487F29EA987600125ACF /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA9487E29EA987600125ACF /* SplashScreenViewController.swift */; };
 		FEA9488129EA990700125ACF /* backgroundVideo.mov in Resources */ = {isa = PBXBuildFile; fileRef = FEA9488029EA990700125ACF /* backgroundVideo.mov */; };
 		FEDA3506292610EF00F27811 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEDA3504292610EF00F27811 /* Main.storyboard */; };
@@ -262,6 +263,7 @@
 		FE6F2C0126FCE20E007CE4BF /* Dependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
 		FEA47B6829ED72B6004DB95C /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		FEA47B6A29ED78B9004DB95C /* ErrorCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
+		FEA47B6C29F17F02004DB95C /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		FEA9487E29EA987600125ACF /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		FEA9488029EA990700125ACF /* backgroundVideo.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = backgroundVideo.mov; sourceTree = "<group>"; };
 		FED8239226FDBC5D006E08D5 /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
@@ -498,6 +500,7 @@
 				FE5CB03D29E3274A00557D9B /* Notification.Name+Extensions.swift */,
 				8EF7BD9629E7A00200C22106 /* UIViewController+Extensions.swift */,
 				8EF7BD9E29E7BCB600C22106 /* TableView+Extensions.swift */,
+				FEA47B6C29F17F02004DB95C /* URL+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1078,6 +1081,7 @@
 				FE44EEA426FD766B00EC9F85 /* TestModuleRepository.swift in Sources */,
 				FE5DC5AE29E863F80084D9C4 /* AppData.swift in Sources */,
 				FE5CB03E29E3274A00557D9B /* Notification.Name+Extensions.swift in Sources */,
+				FEA47B6D29F17F02004DB95C /* URL+Extensions.swift in Sources */,
 				FEEC60A426FE503300DDA47E /* MovieRepository.swift in Sources */,
 				FE44EEA226FD75F500EC9F85 /* DataTestResponse.swift in Sources */,
 				FE3B3D1D29D8B9EA006EB487 /* HMAC.swift in Sources */,
@@ -1535,14 +1539,14 @@
 			buildSettings = {
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				APP_ENDPOINT_URL = "http://13.229.105.182:8080/";
+				APP_ENDPOINT_URL = "http://192.168.1.3:27017/";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SwiftMVVMTP/SwiftMVVMTPBETA.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = U5ND9J32DH;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U5ND9J32DH;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1614,7 +1618,7 @@
 				CODE_SIGN_ENTITLEMENTS = SwiftMVVMTP/SwiftMVVMTP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = U5ND9J32DH;
 				GENERATE_INFOPLIST_FILE = YES;
 				GOOGLE_SERVICE_INFO = "GoogleService-Info";

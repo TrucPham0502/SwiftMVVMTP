@@ -53,6 +53,10 @@ class MovieRemoteSourceImpl : MovieRemoteSource {
         ApiParameter.url(endpoint: host, path: "movie/removeBookmark")
         ApiParameter.parameter(input)
     }
-
-  
+    
+    @POST<String>
+    func processData(_ input : ProcessDataRequest) -> Observable<ApiResponseDto<String>>{
+        ApiParameter.url(endpoint: host, path: "movie/processData")
+        ApiParameter.parameter(input)
+    }
 }

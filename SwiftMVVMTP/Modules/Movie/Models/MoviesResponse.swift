@@ -52,14 +52,15 @@ struct MovieDetailResponse: Codable {
 
 // MARK: - MoviesLinkAndSublinkResponse
 struct PlayInfoResponse: Codable {
-    let media: Media?
+    var media: Media?
     let sublinks: [Sublink]?
     
     // MARK: - Media
     struct Media: Codable {
-        let type: MediaType?
-        let url: String?
+        var type: MediaType?
+        var url: String?
         enum MediaType : String, Codable {
+            case client = "client_process"
             case m3u8 = "m3u8"
             case `default` = "default"
         }

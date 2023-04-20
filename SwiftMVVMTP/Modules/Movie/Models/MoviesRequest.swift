@@ -35,3 +35,10 @@ struct SetBookmarkRequest : Codable {
 struct RemoveBookmarkRequest : Codable {
     let url: String
 }
+
+struct ProcessDataRequest : Codable {
+    let type: String
+    let url : String
+    let body : String
+}
+
