@@ -449,17 +449,17 @@ extension MovieDetailViewController : UICollectionViewDelegate {
 extension MovieDetailViewController : UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y > 0 {
-            if (self.lastContentOffset > scrollView.contentOffset.y) {
-                     // move down
-                let dis = scrollView.contentOffset.y - lastContentOffset
-                self.backgroundImage.frame.origin.y = min(0,(self.backgroundImage.frame.origin.y - dis))
-                
-            }
-            else if (self.lastContentOffset < scrollView.contentOffset.y) {
-                    // move up
-                let dis = scrollView.contentOffset.y - lastContentOffset
-                self.backgroundImage.frame.origin.y = max(-self.headerHeight / 2, (self.backgroundImage.frame.origin.y - dis))
-            }
+//            if (self.lastContentOffset > scrollView.contentOffset.y) {
+//                     // move down
+//                let dis = scrollView.contentOffset.y - lastContentOffset
+//                self.backgroundImage.frame.origin.y = min(0,(self.backgroundImage.frame.origin.y - dis))
+//                
+//            }
+//            else if (self.lastContentOffset < scrollView.contentOffset.y) {
+//                    // move up
+//                let dis = scrollView.contentOffset.y - lastContentOffset
+//                self.backgroundImage.frame.origin.y = max(-self.headerHeight / 2, (self.backgroundImage.frame.origin.y - dis))
+//            }
 
         }
         else {

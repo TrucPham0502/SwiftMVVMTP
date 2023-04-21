@@ -26,7 +26,7 @@ class PlayerViewModel : BaseViewModel<PlayerViewModel.Input, PlayerViewModel.Out
     var item : PlayerModel?
     
     override func transform(input: Input) -> Output {
-        input.viewWillAppear.flatMap({[weak self] urlString in
+        input.viewWillAppear.flatMap({[weak self] urlString -> Driver<PlayerModel?> in
             guard let self = self else { return Driver.just(nil) }
             return Observable.deferred {
                 return self.service.getPlayInfo(urlString).map({x in return x })

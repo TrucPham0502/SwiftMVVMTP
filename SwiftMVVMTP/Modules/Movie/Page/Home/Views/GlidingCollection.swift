@@ -348,8 +348,10 @@ extension GlidingCollection: CAAnimationDelegate {
         for button in topViews.reversed() {
             if button === topViews.last {
                 button.transform = .identity
+                button.alpha = 1
             } else {
                 button.transform = scaledTransform
+                button.alpha = 0
             }
             topFrame.origin.y = minY - config.buttonsSpacing
             button.frame = topFrame

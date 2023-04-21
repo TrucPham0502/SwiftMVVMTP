@@ -59,9 +59,9 @@ class MovieDetailViewModel : BaseViewModel<MovieDetailViewModel.Input, MovieDeta
             }.trackError(self.errorTracker).asDriverOnErrorJustComplete()
         }).drive(self.$data).disposed(by: self.disposeBag)
         
-        let bookmark = input.bookmark.flatMap({[weak self] (isSelected, url, lastedEp) in
+        let bookmark = input.bookmark.flatMap({[weak self] (isSelected, url, lastedEp) -> Driver<()> in
             guard let self = self else { return Driver.just(()) }
-            return Observable.deferred {
+            return Observable<()>.deferred {
                 guard let _ = self.user else {
                    throw AppError(parseClass: "MovieDetailViewModel", errorMessage: "You need to login to perform this function", errorCode: -2)
                 }
