@@ -40,7 +40,7 @@ class LoginViewController : BaseViewController<LoginViewModel> {
         let v = UILabel()
         v.translatesAutoresizingMaskIntoConstraints = false
         v.text = "Welcome Back!"
-        v.font = .boldSystemFont(ofSize: 30)
+        v.font = .bold(ofSize: 30)
         v.textAlignment = .center
         v.textColor = .black
         v.numberOfLines = 1
@@ -52,7 +52,7 @@ class LoginViewController : BaseViewController<LoginViewModel> {
         v.translatesAutoresizingMaskIntoConstraints = false
         v.text = "To keep connected with us please login with your personal info"
         v.setLineHeight(24)
-        v.font = .systemFont(ofSize: 17)
+        v.font = .regular(ofSize: 17)
         v.textColor = .lightGray
         v.numberOfLines = -1
         v.textAlignment = .center
@@ -64,7 +64,7 @@ class LoginViewController : BaseViewController<LoginViewModel> {
         v.translatesAutoresizingMaskIntoConstraints = false
         v.textColor = .lightGray
         v.layer.cornerRadius = 10
-        v.font = UIFont.systemFont(ofSize: 15)
+        v.font = UIFont.regular(ofSize: 15)
         v.attributedPlaceholder = NSAttributedString(string: "Email, Phone, Username", attributes: [
             .foregroundColor : UIColor.lightGray,
         ])
@@ -76,7 +76,7 @@ class LoginViewController : BaseViewController<LoginViewModel> {
         v.translatesAutoresizingMaskIntoConstraints = false
         v.textColor = .lightGray
         v.layer.cornerRadius = 10
-        v.font = UIFont.systemFont(ofSize: 15)
+        v.font = UIFont.regular(ofSize: 15)
         v.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [
             .foregroundColor : UIColor.lightGray
         ])
@@ -91,7 +91,7 @@ class LoginViewController : BaseViewController<LoginViewModel> {
         v.contentEdgeInsets = .init(top: 15, left: 60, bottom: 15, right: 60)
         v.layer.cornerRadius = 25
         v.setTitle("SIGN IN", for: .normal)
-        v.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        v.titleLabel?.font = .bold(ofSize: 20)
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
@@ -163,13 +163,9 @@ class LoginViewController : BaseViewController<LoginViewModel> {
             })
         )
         let output = viewModel.transform(input: input)
-        output.result.drive(onNext: {[weak self] res in
+        output.result.drive(onNext: {[weak self] () in
             guard let _self = self else { return }
-            switch res {
-            case .login:
-                _self.dismiss(animated: true)
-            default: break
-            }
+            _self.dismiss(animated: true)
         }).disposed(by: self.disposeBag)
     }
     

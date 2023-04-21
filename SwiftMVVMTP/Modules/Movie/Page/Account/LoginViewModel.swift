@@ -15,31 +15,24 @@ class LoginViewModel : BaseViewModel<LoginViewModel.Input, LoginViewModel.Output
         let signIn : Driver<(userName: String, password: String)>
     }
     struct Output {
-        let result : Driver<Response>
-    }
-    enum Response {
-        case none
-        case login
+        let result : Driver<()>
     }
     
     @Dependency.Inject
     var service : MovieService
     
-    @BehaviorRelayProperty(value: .none)
-    var result : Response
     
     
     override func transform(input: Input) -> Output {
-        input.signIn.flatMap{[weak self] (username, password)  -> Driver<Response> in
-            guard let self = self else { return Driver.just(.none) }
+        let signIn = input.signIn.flatMap{[weak self] (username, password)  -> Driver<()> in
+            guard let self = self else { return Driver.just(()) }
             return Observable.deferred {
-                return self.service.signIn(.init(username: username, password: password, notificationToken: Storage<String>.get(key: StorageKey.NOTIFICATION_TOKEN.rawValue) ?? "")).map({ () in return .login })
+                return self.service.signIn(.init(username: username, password: password, notificationToken: Storage<String>.get(key: StorageKey.NOTIFICATION_TOKEN.rawValue) ?? "")).mapToVoid()
                 }.trackError(self.errorTracker)
                 .trackActivity(self.activityIndicator)
                 .asDriverOnErrorJustComplete()
-            }.drive(self.$result)
-            .disposed(by: self.disposeBag)
-        return Output(result: $result.asDriverOnErrorJustComplete())
+            }
+        return Output(result: signIn)
     }
     
 }

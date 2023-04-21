@@ -187,7 +187,7 @@ class CircleRippleView : UIView {
     }
     private lazy var lblView : UILabel = {
         let v = UILabel()
-        v.font = .systemFont(ofSize: 15)
+        v.font = .regular(ofSize: 15)
         v.translatesAutoresizingMaskIntoConstraints = false
         v.numberOfLines = 1
         v.textColor = .white

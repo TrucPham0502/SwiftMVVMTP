@@ -38,7 +38,7 @@ class MovieCollectionLayout: UICollectionViewFlowLayout {
     var minimumScaleFactor: CGFloat = 0.85
     var minimumAlphaFactor: CGFloat = 0.3
     var scaleItems: Bool = true
-    var maximumScaleFactory : CGFloat = 1.8
+    var maximumScaleFactory : CGFloat = 2
     
     
     required init?(coder _: NSCoder) {

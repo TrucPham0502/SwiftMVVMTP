@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 class EpisodeCollectionViewCell: UICollectionViewCell {
-    static let titleFont : UIFont = .systemFont(ofSize: 14)
+    static let titleFont : UIFont = .regular(ofSize: 14)
     var didSelected : (EpisodeModel) -> () = {_ in }
     lazy var titleView : UILabel = {
         let v = UILabel()

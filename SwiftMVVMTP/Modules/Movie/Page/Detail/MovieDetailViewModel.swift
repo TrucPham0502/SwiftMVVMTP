@@ -34,8 +34,8 @@ class MovieDetailViewModel : BaseViewModel<MovieDetailViewModel.Input, MovieDeta
     @Storage(key: StorageKey.USER_INFO.rawValue, defaultValue: nil)
     var user : User?
     
-    @BehaviorRelayProperty(value: .none)
-    var data : Response
+    @BehaviorRelayProperty(value: nil)
+    var data : MovieDetailModel?
     
     weak var viewLogic : MovieDetailViewLogic?
     
@@ -43,27 +43,24 @@ class MovieDetailViewModel : BaseViewModel<MovieDetailViewModel.Input, MovieDeta
         let viewWillAppear: Driver<String>
         let bookmark : Driver<(Bool, String, String)>
     }
-    enum Response {
-        case none
-        case bookmark
-        case item(MovieDetailModel)
-    }
+
     struct Output {
-        let item: Driver<Response>
+        let item: Driver<MovieDetailModel?>
+        let bookmark : Driver<()>
     }
     
     override func transform(input: Input) -> Output {
-        input.viewWillAppear.flatMap({[weak self] urlString in
-            guard let self = self else { return Driver.just(.none) }
-            return Observable.deferred {
+        input.viewWillAppear.flatMap({[weak self] urlString -> Driver<MovieDetailModel?> in
+            guard let self = self else { return Driver.just(nil) }
+            return Observable.deferred {() -> Observable<MovieDetailModel?> in
                 return self.service.movieDetail(.init(url: urlString)).map({x in
-                    return .item(x)
-                }).trackError(self.errorTracker)
-            }.asDriverOnErrorJustComplete()
+                     return x
+                })
+            }.trackError(self.errorTracker).asDriverOnErrorJustComplete()
         }).drive(self.$data).disposed(by: self.disposeBag)
         
-        input.bookmark.flatMap({[weak self] (isSelected, url, lastedEp) in
-            guard let self = self else { return Driver.just(Response.none) }
+        let bookmark = input.bookmark.flatMap({[weak self] (isSelected, url, lastedEp) in
+            guard let self = self else { return Driver.just(()) }
             return Observable.deferred {
                 guard let _ = self.user else {
                    throw AppError(parseClass: "MovieDetailViewModel", errorMessage: "You need to login to perform this function", errorCode: -2)
@@ -73,12 +70,12 @@ class MovieDetailViewModel : BaseViewModel<MovieDetailViewModel.Input, MovieDeta
                 }
                 return self.service.removeBookmark(.init(url: url))
             }
-            .map{() in return Response.bookmark }
+            .mapToVoid()
             .trackError(self.errorTracker)
             .trackActivity(self.activityIndicator)
             .asDriverOnErrorJustComplete()
-        }).drive(self.$data).disposed(by: self.disposeBag)
+        })
         
-        return Output(item: self.$data.asDriverOnErrorJustComplete())
+        return Output(item: self.$data.asDriverOnErrorJustComplete(), bookmark: bookmark)
     }
 }

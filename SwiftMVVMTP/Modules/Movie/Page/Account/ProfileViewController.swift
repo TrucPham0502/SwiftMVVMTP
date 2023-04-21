@@ -97,7 +97,7 @@ class ProfileViewController : BaseViewController<ProfileViewModel> {
     
     private lazy var userNamelb : UILabel = {
         let v = UILabel()
-        v.font = .boldSystemFont(ofSize: 18)
+        v.font = .bold(ofSize: 18)
         v.text = "Katrin Watson"
         v.numberOfLines = 1
         v.textColor = .black.withAlphaComponent(0.7)
@@ -164,18 +164,17 @@ class ProfileViewController : BaseViewController<ProfileViewModel> {
             viewWillAppear: self.rx.viewWillAppear.take(1).mapToVoid().asDriverOnErrorJustComplete(),
             itemSelected: itemSelectedPR.asDriverOnErrorJustComplete()))
         
-        output.result.drive(onNext: {[weak self] type in
+        output.result.drive(onNext: {[weak self] data in
+            guard let self = self, let data = data else { return }
+            self.avatarView.image = .init(named: "avatar")
+            self.userNamelb.text = "\(data.lastName ?? "") \(data.firstName ?? "")"
+        }).disposed(by: self.disposeBag)
+        
+        output.itemSelected.drive(onNext: {[weak self] item in
             guard let self = self else { return }
-            switch type {
-            case .item(let user) where user != nil:
-                self.avatarView.image = .init(named: "avatar")
-                self.userNamelb.text = "\(user!.lastName ?? "") \(user!.firstName ?? "")"
-            case .itemSelected(let data):
-                switch data.type {
-                case .logout:
-                    self.naviagtionBack()
-                default: break
-                }
+            switch item.type {
+            case .logout:
+                self.naviagtionBack()
             default: break
             }
         }).disposed(by: self.disposeBag)
@@ -336,7 +335,7 @@ class ProfileItemMenuCollectionViewCell : UICollectionViewCell {
     }()
     private lazy var titleView : UILabel = {
         let v = UILabel()
-        v.font = .systemFont(ofSize: 15)
+        v.font = .regular(ofSize: 15)
         v.textColor = .black.withAlphaComponent(0.7)
         v.numberOfLines = 1
         v.translatesAutoresizingMaskIntoConstraints = false

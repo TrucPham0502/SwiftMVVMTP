@@ -17,7 +17,7 @@ struct MovieCollectionViewCellModel {
     var isBookmark : Bool
 }
 class MovieCollectionViewCell : UICollectionViewCell {
-    let titleFont : UIFont = .boldSystemFont(ofSize: 20)
+    let titleFont : UIFont = .bold(ofSize: 17)
     var yOffset: CGFloat = UIMovieHomeConfig.shared.yOffsetItem
     var contentSize : CGSize = UIMovieHomeConfig.shared.cardsSize
     var ySpacing: CGFloat = CGFloat.greatestFiniteMagnitude
@@ -99,7 +99,7 @@ class MovieCollectionViewCell : UICollectionViewCell {
         let v = UILabel()
         v.numberOfLines = 2
         v.textColor = .darkGray
-        v.font = .systemFont(ofSize: 10)
+        v.font = .regular(ofSize: 10)
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
@@ -178,7 +178,6 @@ class MovieCollectionViewCell : UICollectionViewCell {
             self.titleView.transform = CGAffineTransform.init(scaleX: defaultTitleScale, y: defaultTitleScale)
             self.updateConstraintTitle()
         }
-        
         
     }
     

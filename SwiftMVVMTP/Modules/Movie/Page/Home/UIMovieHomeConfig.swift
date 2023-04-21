@@ -24,7 +24,7 @@ struct UIMovieHomeConfig {
      var buttonsSpacing: CGFloat = 15
     
     /// Font of each element in vertical stack.
-     var buttonsFont = UIFont.boldSystemFont(ofSize: 30)
+     var buttonsFont = UIFont.bold(ofSize: 25)
     
     /// Scale factor of inactive sections buttons.
      var buttonsScaleFactor: CGFloat = 0.5

@@ -89,21 +89,15 @@ class PlayerViewController : BaseViewController<PlayerViewModel>{
                 }.asDriverOnErrorJustComplete()
             ))
         output.item.drive(onNext: {[weak self] media in
-            guard let self = self else { return }
-            switch media {
-            case let .item(value):
-                guard !value.media.url.isEmpty, let url = URL(string: value.media.url) else { return }
+            guard let self = self, let media = media else { return }
+            guard !media.media.url.isEmpty, let url = URL(string: media.media.url) else { return }
 //                if value.media.type == .m3u8 {
 //                    self.playWithWebView(url: url)
 //                }
 //                else {
 //                    self.play(url: url)
 //                }
-                self.playWithWebView(url: url)
-                
-            default: break
-            }
-            
+            self.playWithWebView(url: url)
         }).disposed(by: self.disposeBag)
         
     }

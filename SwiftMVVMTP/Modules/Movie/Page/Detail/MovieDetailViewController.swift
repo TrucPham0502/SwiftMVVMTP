@@ -109,7 +109,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     
     lazy var titleView : UILabel = {
         let v = UILabel()
-        v.font = .boldSystemFont(ofSize: 30)
+        v.font = .bold(ofSize: 30)
         v.textAlignment = .left
         v.numberOfLines = 0
         v.text = ""
@@ -128,7 +128,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         v.setTitle("VIETSUB", for: .normal)
         v.translatesAutoresizingMaskIntoConstraints = false
         v.layer.cornerRadius = 3
-        v.titleLabel?.font = .systemFont(ofSize: 12)
+        v.titleLabel?.font = .regular(ofSize: 12)
         v.insets = .init(width: 1, height: 1)
         v.contentEdgeInsets = .init(top: 5, left: 10, bottom: 5, right: 10)
         return v
@@ -146,7 +146,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     
     private lazy var timelb : UILabel =  {
         let v = UILabel()
-        v.font = .boldSystemFont(ofSize: 14)
+        v.font = .bold(ofSize: 14)
         v.textColor = .white
         v.numberOfLines = 1
         v.translatesAutoresizingMaskIntoConstraints = false
@@ -155,7 +155,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     
     private lazy var categoryslb : UILabel =  {
         let v = UILabel()
-        v.font = .systemFont(ofSize: 14)
+        v.font = .regular(ofSize: 14)
         v.textColor = .white
         v.numberOfLines = 1
         v.translatesAutoresizingMaskIntoConstraints = false
@@ -176,7 +176,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     
     private lazy var titleContent : UILabel = {
         let v = UILabel()
-        v.font = .boldSystemFont(ofSize: 17)
+        v.font = .bold(ofSize: 17)
         v.translatesAutoresizingMaskIntoConstraints = false
         v.text = "Description:"
         v.textColor = .white
@@ -187,7 +187,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         let v = ExpandableLabel()
         v.text = "No content"
         v.textColor = .lightGray
-        v.font = .systemFont(ofSize: 14)
+        v.font = .regular(ofSize: 14)
         v.translatesAutoresizingMaskIntoConstraints = false
         v.numberOfLines = 0
         return v
@@ -196,7 +196,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     
     private lazy var titleEpisodes : UILabel = {
         let v = UILabel()
-        v.font = .boldSystemFont(ofSize: 17)
+        v.font = .bold(ofSize: 17)
         v.translatesAutoresizingMaskIntoConstraints = false
         v.text = "Episodes:"
         v.textColor = .white
@@ -353,25 +353,22 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             
         }).asDriverOnErrorJustComplete()))
         output.item.drive(onNext: {[weak self] data in
-            guard let self = self else { return }
-            switch data {
-            case let .item(value):
-                self.data = value.episodes
-                self.contentView.text = value.content
-                self.seasonlb.setTitle("\(value.season) - \(value.latest)", for: .normal)
-                self.timelb.text = value.time
-                self.categoryslb.text = "\(value.categorys)"
-                self.titleView.text = value.title
-                self.isBookmarks = value.isBookmark
-                self.bookmarksView.isUserInteractionEnabled = false
-                UIView.animate(withDuration: 0.3) {
-                    self.containerView.alpha = 1
-                }
-            case .bookmark:
-                self.isBookmarks = !self.isBookmarks
-            default: break
+            guard let self = self, let data = data else { return }
+            self.data = data.episodes
+            self.contentView.text = data.content
+            self.seasonlb.setTitle("\(data.season) - \(data.latest)", for: .normal)
+            self.timelb.text = data.time
+            self.categoryslb.text = "\(data.categorys)"
+            self.titleView.text = data.title
+            self.isBookmarks = data.isBookmark
+            self.bookmarksView.isUserInteractionEnabled = true
+            UIView.animate(withDuration: 0.3) {
+                self.containerView.alpha = 1
             }
-            
+        }).disposed(by: self.disposeBag)
+        output.bookmark.drive(onNext: {[weak self] () in
+            guard let self = self else { return }
+            self.isBookmarks = !self.isBookmarks
         }).disposed(by: self.disposeBag)
     }
     

@@ -15,24 +15,21 @@ class PlayerViewModel : BaseViewModel<PlayerViewModel.Input, PlayerViewModel.Out
     struct Input {
         let viewWillAppear: Driver<String>
     }
-    enum Response {
-        case none
-        case item(PlayerModel)
-    }
+
     struct Output {
-        let item: Driver<Response>
+        let item: Driver<PlayerModel?>
     }
     @Dependency.Inject
     var service : MovieService
     
-    @BehaviorRelayProperty(value: .none)
-    var item : Response
+    @BehaviorRelayProperty(value: nil)
+    var item : PlayerModel?
     
     override func transform(input: Input) -> Output {
         input.viewWillAppear.flatMap({[weak self] urlString in
-            guard let self = self else { return Driver.just(.none) }
+            guard let self = self else { return Driver.just(nil) }
             return Observable.deferred {
-                return self.service.getPlayInfo(urlString).map({x in return .item(x) })
+                return self.service.getPlayInfo(urlString).map({x in return x })
             }.trackActivity(self.activityIndicator)
                 .trackError(self.errorTracker)
                 .asDriverOnErrorJustComplete()

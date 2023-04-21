@@ -41,7 +41,7 @@ class AppBaseViewController: UIViewController {
             let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
             hud.mode = .indeterminate
             hud.label.text = "Loading"
-            hud.label.font = UIFont.systemFont(ofSize: 14)
+            hud.label.font = UIFont.regular(ofSize: 14)
             hud.hide(animated: true, afterDelay: 30)
         } else {
             MBProgressHUD.hide(for: self.view, animated: true)

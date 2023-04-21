@@ -30,7 +30,7 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
         v.translatesAutoresizingMaskIntoConstraints = false
         v.attributedPlaceholder  = NSAttributedString(
             string: "Search...",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.7)]
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.7), .font: UIFont.regular(ofSize: 14)]
         )
         v.textColor = .white.withAlphaComponent(0.7)
         v.defaultBackgroundColor = .clear
@@ -82,7 +82,7 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
         let v = UILabel()
         v.translatesAutoresizingMaskIntoConstraints = false
         v.numberOfLines = 1
-        v.font = .boldSystemFont(ofSize: 20)
+        v.font = .bold(ofSize: 20)
         v.text = "ALL MOVIES"
         v.textColor = .white
         v.setShadow(.init(width: 0, height: 6))
@@ -131,26 +131,24 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
             searchbar: self.searchbar.rx.text.orEmpty.asObservable().debounce(.seconds(1), scheduler: MainScheduler.instance).asDriverOnErrorJustComplete()))
         
         output.data.drive(onNext: {[weak self] data in
-            guard let _self = self else { return }
-            switch data {
-            case let .item(value):
-                if _self.collectionView.numberOfItems(inSection: 0) > 0, !value.1 {
-                    _self.collectionView.scrollToItem(at: .init(item: 0, section: 0), at: .left, animated: true)
-                }
-                _self.collectionItems = value.0.datas
-                if !value.1 {
-                    _self.titlesItem = value.0.titles
-                    _self.glidingView.reloadData()
-                }
-                _self.changeCurrentItem(isClose: false)
-                _self.reloadCollection()
-            case .user(let data):
-                _self.hasSignIn = data != nil
-                if _self.hasSignIn { _self.menuView.setImage(.init(named: "avatar"), for: .normal) }
-                else { _self.menuView.setImage(.init(named: "user-avatar-default"), for: .normal)  }
-            default: break;
+            guard let _self = self, let data = data else { return }
+            if _self.collectionView.numberOfItems(inSection: 0) > 0, !data.1 {
+                _self.collectionView.scrollToItem(at: .init(item: 0, section: 0), at: .left, animated: true)
             }
+            _self.collectionItems = data.0.datas
+            if !data.1 {
+                _self.titlesItem = data.0.titles
+                _self.glidingView.reloadData()
+            }
+            _self.changeCurrentItem(isClose: false)
+            _self.reloadCollection()
             
+        }).disposed(by: self.disposeBag)
+        output.user.drive(onNext: {[weak self] data in
+            guard let self = self else { return }
+            self.hasSignIn = data != nil
+            if self.hasSignIn { self.menuView.setImage(.init(named: "avatar"), for: .normal) }
+            else { self.menuView.setImage(.init(named: "user-avatar-default"), for: .normal)  }
         }).disposed(by: self.disposeBag)
     }
     

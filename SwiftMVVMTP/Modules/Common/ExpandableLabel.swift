@@ -74,7 +74,7 @@ class ExpandableLabel: UILabel {
     private func createSeeMoreButton() -> NSAttributedString {
         let seeMoreText = "See More"
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 14),
+            .font: UIFont.regular(ofSize: 14),
             .foregroundColor: UIColor.blue,
             .underlineStyle: NSUnderlineStyle.single.rawValue
         ]
