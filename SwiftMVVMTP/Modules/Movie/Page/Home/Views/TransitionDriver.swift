@@ -50,7 +50,7 @@ extension TransitionDriver {
                                       completion: @escaping (MovieCollectionViewCell) -> Void) {
 
         guard case let cell as MovieCollectionViewCell = collecitionView.cellForItem(at: IndexPath(row: currentIndex, section: 0)) else { return }
-    
+        copyCell?.removeFromSuperview()
         guard let copyView = cell.copyCell(view: view) else {
             return
         }

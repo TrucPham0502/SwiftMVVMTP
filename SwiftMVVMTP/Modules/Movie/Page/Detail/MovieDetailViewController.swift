@@ -36,6 +36,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
                           UIColor.black.cgColor,
                           UIColor.black.cgColor]
     var headerHeight: CGFloat = UIScreen.main.bounds.height / 2 - 100
+    private var lastContentOffset: CGFloat = 0
     var padding : CGFloat = 20
     var transitionDriver: TransitionDriver?
     var collectionViewConstraint: AppConstants = .init()
@@ -447,6 +448,24 @@ extension MovieDetailViewController : UICollectionViewDelegate {
 }
 extension MovieDetailViewController : UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > 0 {
+            if (self.lastContentOffset > scrollView.contentOffset.y) {
+                     // move down
+                let dis = scrollView.contentOffset.y - lastContentOffset
+                self.backgroundImage.frame.origin.y = min(0,(self.backgroundImage.frame.origin.y - dis))
+                
+            }
+            else if (self.lastContentOffset < scrollView.contentOffset.y) {
+                    // move up
+                let dis = scrollView.contentOffset.y - lastContentOffset
+                self.backgroundImage.frame.origin.y = max(-self.headerHeight / 2, (self.backgroundImage.frame.origin.y - dis))
+            }
+
+        }
+        else {
+            let scale : CGFloat = min(1.5, 1 + abs(scrollView.contentOffset.y) / 100)
+            self.backgroundImage.transform = CGAffineTransform.init(scaleX: scale, y: scale)
+        }
         UIView.animate(withDuration: 0.3) {
             let scrollOffsetThreshold: CGFloat = self.headerHeight / 2
             if scrollView.contentOffset.y > scrollOffsetThreshold {
@@ -459,7 +478,7 @@ extension MovieDetailViewController : UIScrollViewDelegate {
             self.gradientView.backgroundColor = .black.withAlphaComponent(max(0, min(1, scrollView.contentOffset.y / self.headerHeight)))
             self.view.layoutIfNeeded()
         }
-        
+        lastContentOffset = scrollView.contentOffset.y
     }
 }
 extension MovieDetailViewController : MovieDetailViewLogic {
