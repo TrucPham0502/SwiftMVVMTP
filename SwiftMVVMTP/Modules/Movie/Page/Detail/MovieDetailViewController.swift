@@ -36,6 +36,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
                           UIColor.black.cgColor,
                           UIColor.black.cgColor]
     var headerHeight: CGFloat = UIScreen.main.bounds.height / 2 - 100
+    private let buttonWacthHeight : CGFloat = 50
     private var lastContentOffset: CGFloat = 0
     var padding : CGFloat = 20
     var transitionDriver: TransitionDriver?
@@ -76,6 +77,67 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         v.delegate = self
         v.contentInset = .zero
         v.backgroundColor = .clear
+        return v
+    }()
+    
+    private lazy var headerButtonWatchView : LayeredButton = {
+        let v = LayeredButton()
+        v.setImage(.init(named: "ic-play-white"), for: .normal)
+        v.insets = .init(width: 2, height: 2)
+        v.layer.cornerRadius = 40 / 2
+        v.contentEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.addTarget(self, action: #selector(watchTap), for: .touchUpInside)
+        return v
+    }()
+    private lazy var headerTitleView : UILabel = {
+        let v = UILabel()
+        v.font = .bold(ofSize: 20)
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.textColor = .white
+        v.numberOfLines = 0
+        v.textAlignment = .left
+        return v
+    }()
+    private lazy var headerSubtitleView : UILabel = {
+        let v = UILabel()
+        v.font = .regular(ofSize: 16)
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.textColor = .white
+        v.numberOfLines = 1
+        v.textAlignment = .left
+        return v
+    }()
+    
+    private lazy var headerView : UIView = {
+        let v = UIView()
+        v.backgroundColor = .clear
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.alpha = 0
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        v.addSubview(blurEffectView)
+        v.clipsToBounds = true
+        [headerTitleView, headerSubtitleView, headerButtonWatchView].forEach(v.addSubview)
+        NSLayoutConstraint.activate([
+            headerSubtitleView.leadingAnchor.constraint(equalTo: v.leadingAnchor, constant: padding),
+            headerSubtitleView.trailingAnchor.constraint(lessThanOrEqualTo: headerButtonWatchView.leadingAnchor, constant: -20),
+            headerSubtitleView.bottomAnchor.constraint(lessThanOrEqualTo: v.bottomAnchor, constant: -20),
+            
+            headerTitleView.bottomAnchor.constraint(equalTo: headerSubtitleView.topAnchor, constant: -10),
+            headerTitleView.leadingAnchor.constraint(equalTo: v.leadingAnchor, constant: padding),
+            headerTitleView.trailingAnchor.constraint(lessThanOrEqualTo: headerButtonWatchView.leadingAnchor, constant: -20),
+            headerTitleView.topAnchor.constraint(equalTo: v.safeAreaLayoutGuide.topAnchor, constant: 0),
+            
+            headerButtonWatchView.trailingAnchor.constraint(equalTo: v.trailingAnchor, constant: -padding),
+            headerButtonWatchView.heightAnchor.constraint(equalToConstant: 40),
+            headerButtonWatchView.widthAnchor.constraint(equalTo: headerButtonWatchView.heightAnchor),
+            headerButtonWatchView.centerYAnchor.constraint(equalTo: v.safeAreaLayoutGuide.centerYAnchor)
+            
+        ])
+        
         return v
     }()
     
@@ -168,7 +230,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         let v = LayeredButton()
         v.setImage(.init(named: "ic-play-white"), for: .normal)
         v.insets = .init(width: 2, height: 2)
-        v.layer.cornerRadius = 25
+        v.layer.cornerRadius = buttonWacthHeight / 2
         v.contentEdgeInsets = .init(top: 3, left: 3, bottom: 3, right: 3)
         v.translatesAutoresizingMaskIntoConstraints = false
         v.addTarget(self, action: #selector(watchTap), for: .touchUpInside)
@@ -242,7 +304,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     override func prepareUI() {
         super.prepareUI()
         self.view.isHidden = true
-        [backgroundImage, gradientView, scrollView, closeImage, bookmarksView].forEach(self.view.addSubview)
+        [backgroundImage, gradientView, scrollView, headerView, closeImage, bookmarksView].forEach(self.view.addSubview)
         self.scrollView.addSubview(containerView)
         [titleView, seasonlb, timelb,categoryslb, buttonWatch, titleContent, contentView, titleEpisodes, collectionViewEpisode].forEach(self.containerView.addSubview)
         titleView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
@@ -252,6 +314,11 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             self.gradientView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.gradientView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.gradientView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            
+            self.headerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.headerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.headerView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            
             
             self.scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
             self.scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
@@ -274,7 +341,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             buttonWatch.centerYAnchor.constraint(equalTo: self.titleView.centerYAnchor, constant: 0),
             buttonWatch.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -padding),
             buttonWatch.widthAnchor.constraint(equalTo: buttonWatch.heightAnchor),
-            buttonWatch.heightAnchor.constraint(equalToConstant: 50),
+            buttonWatch.heightAnchor.constraint(equalToConstant: buttonWacthHeight),
             
 
             
@@ -360,7 +427,9 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
             self.seasonlb.setTitle("\(data.season) - \(data.latest)", for: .normal)
             self.timelb.text = data.time
             self.categoryslb.text = "\(data.categorys)"
+            self.headerSubtitleView.text = "\(data.categorys)"
             self.titleView.text = data.title
+            self.headerTitleView.text = data.title
             self.isBookmarks = data.isBookmark
             self.bookmarksView.isUserInteractionEnabled = true
             UIView.animate(withDuration: 0.3) {
@@ -432,14 +501,18 @@ extension MovieDetailViewController : UICollectionViewDataSource {
     }
     
     
-    
-    
 }
 extension MovieDetailViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let data = self.data[indexPath.row]
         let size = NSAttributedString(string: data.episode, attributes: [.font : EpisodeCollectionViewCell.titleFont]).size(considering: view.bounds.size.width)
-        return .init(width: max(45, size.width + 20), height: 40)
+        return .init(width: max(60, size.width + 20), height: 40)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 8
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 8
     }
 }
 
@@ -448,12 +521,15 @@ extension MovieDetailViewController : UICollectionViewDelegate {
 }
 extension MovieDetailViewController : UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        UIView.animate(withDuration: 0.3) {
+            self.headerView.alpha = (scrollView.contentOffset.y > self.headerHeight - self.buttonWacthHeight) ? 1 : 0
+        }
         if scrollView.contentOffset.y > 0 {
 //            if (self.lastContentOffset > scrollView.contentOffset.y) {
 //                     // move down
 //                let dis = scrollView.contentOffset.y - lastContentOffset
 //                self.backgroundImage.frame.origin.y = min(0,(self.backgroundImage.frame.origin.y - dis))
-//                
+//
 //            }
 //            else if (self.lastContentOffset < scrollView.contentOffset.y) {
 //                    // move up
