@@ -61,13 +61,12 @@ class SearchBar : UITextField {
     }
     
     override var intrinsicContentSize: CGSize {
-        if self.isEditing {
-            return .init(width: superview?.frame.size.width ?? iconSize.width, height: 40)
-        }
-        else {
+        if !self.isEditing && (text == nil || text!.isEmpty) {
             return iconSize
         }
+        return .init(width: superview?.frame.size.width ?? iconSize.width, height: 40)
     }
+    
     
 }
 extension SearchBar : UITextFieldDelegate {
@@ -84,6 +83,7 @@ extension SearchBar : UITextFieldDelegate {
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.invalidateIntrinsicContentSize()
+        if let txt = self.text, !txt.isEmpty { return }
         UIView.animate(withDuration: 0.3) {
             self.layer.borderColor = UIColor.clear.cgColor
             self.layer.borderWidth = 0

@@ -120,7 +120,11 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
         return v
         
     }()
-    
+    private lazy var pageControl : AppPageControl = {
+        let v = AppPageControl()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
     
     override func performBinding() {
         super.performBinding()
@@ -136,6 +140,11 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
                 _self.collectionView.scrollToItem(at: .init(item: 0, section: 0), at: .left, animated: true)
             }
             _self.collectionItems = data.0.datas
+            if _self.collectionItems.count > 0 {
+                _self.pageControl.numberOfPages =  _self.collectionItems[0].count
+                _self.pageControl.currentPage = 0
+            }
+           
             if !data.1 {
                 _self.titlesItem = data.0.titles
                 _self.glidingView.reloadData()
@@ -167,7 +176,7 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     }
     override func prepareUI(){
         self.view.backgroundColor =  .white
-        [backgroundImage, glidingView, headerView].forEach{
+        [backgroundImage, glidingView, headerView, pageControl].forEach{
             self.view.addSubview($0)
         }
         
@@ -186,10 +195,13 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
             glidingView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 60),
             glidingView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             glidingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            glidingView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+            glidingView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
 //            glidingView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
             ///colection view auto width =>  rotate => resize layout => error layout
             
+            pageControl.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            pageControl.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            pageControl.topAnchor.constraint(equalTo: self.collectionView.bottomAnchor, constant: -UIMovieHomeConfig.shared.yOffsetItem - 5)
         ])
     }
     func reloadCollection()
@@ -298,11 +310,14 @@ extension MovieHomeViewController : UICollectionViewDataSource, UICollectionView
             self.loadMore(section: section)
         }
     }
-    #if os(iOS) && targetEnvironment(macCatalyst)
+   
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollViewDidEndDecelerating(scrollView)
+        #if os(iOS) && targetEnvironment(macCatalyst)
+            scrollViewDidEndDecelerating(scrollView)
+        #endif
+        self.pageControl.currentPage = self.currentIndex.row
     }
-    #endif
+   
     
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
