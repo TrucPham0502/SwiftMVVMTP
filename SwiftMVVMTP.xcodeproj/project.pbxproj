@@ -43,6 +43,7 @@
 		FE3B3D2529D99135006EB487 /* MovieCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3B3D2429D99135006EB487 /* MovieCategory.swift */; };
 		FE3C0B2629DDC44500DC27DF /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3C0B2529DDC44500DC27DF /* PlayerViewController.swift */; };
 		FE3C0B2829DDC47000DC27DF /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3C0B2729DDC47000DC27DF /* PlayerViewModel.swift */; };
+		FE41E45C29F2FCEF00329E66 /* AppPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE41E45B29F2FCEF00329E66 /* AppPageControl.swift */; };
 		FE44EE9526FD731400EC9F85 /* TestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EE9426FD731400EC9F85 /* TestCell.swift */; };
 		FE44EE9B26FD751500EC9F85 /* TestModuleServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EE9A26FD751500EC9F85 /* TestModuleServiceImpl.swift */; };
 		FE44EE9D26FD755300EC9F85 /* TestModuleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE44EE9C26FD755300EC9F85 /* TestModuleService.swift */; };
@@ -221,6 +222,7 @@
 		FE3B3D2429D99135006EB487 /* MovieCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCategory.swift; sourceTree = "<group>"; };
 		FE3C0B2529DDC44500DC27DF /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		FE3C0B2729DDC47000DC27DF /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
+		FE41E45B29F2FCEF00329E66 /* AppPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPageControl.swift; sourceTree = "<group>"; };
 		FE44EE9426FD731400EC9F85 /* TestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCell.swift; sourceTree = "<group>"; };
 		FE44EE9A26FD751500EC9F85 /* TestModuleServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleServiceImpl.swift; sourceTree = "<group>"; };
 		FE44EE9C26FD755300EC9F85 /* TestModuleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleService.swift; sourceTree = "<group>"; };
@@ -825,6 +827,7 @@
 				8E0D773E29DEA50800F99721 /* SearchBar.swift */,
 				FE5DC5AD29E863F80084D9C4 /* AppData.swift */,
 				FEA47B6A29ED78B9004DB95C /* ErrorCode.swift */,
+				FE41E45B29F2FCEF00329E66 /* AppPageControl.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1111,6 +1114,7 @@
 				8EF2C64E29E40955005D3E30 /* LoginViewController.swift in Sources */,
 				FEF76AB6270F4AFE0050B807 /* AppConstants.swift in Sources */,
 				8EF7BD9729E7A00200C22106 /* UIViewController+Extensions.swift in Sources */,
+				FE41E45C29F2FCEF00329E66 /* AppPageControl.swift in Sources */,
 				FEEC606D26FDF36000DDA47E /* RxBinding.swift in Sources */,
 				FEA47B6B29ED78B9004DB95C /* ErrorCode.swift in Sources */,
 				FEEC60C526FF033100DDA47E /* HHTQEpisodeRequest.swift in Sources */,
@@ -1547,14 +1551,14 @@
 			buildSettings = {
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				APP_ENDPOINT_URL = "http://localhost:27017/";
+				APP_ENDPOINT_URL = "http://13.229.105.182:8080/";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SwiftMVVMTP/SwiftMVVMTPBETA.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = U5ND9J32DH;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U5ND9J32DH;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1626,7 +1630,7 @@
 				CODE_SIGN_ENTITLEMENTS = SwiftMVVMTP/SwiftMVVMTP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = U5ND9J32DH;
 				GENERATE_INFOPLIST_FILE = YES;
 				GOOGLE_SERVICE_INFO = "GoogleService-Info";

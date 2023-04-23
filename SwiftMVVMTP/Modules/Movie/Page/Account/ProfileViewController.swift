@@ -27,10 +27,10 @@ class ProfileViewController : BaseViewController<ProfileViewModel> {
     private let itemSelectedPR = PublishRelay<ProfileItemModel>()
     
     private var data : [ProfileModel] = [
-        .item([
-            .init(icon: .init(named: "ic-user"), title: "Personal Detail", type: .personal),
-            .init(icon: .init(named: "ic-support"), title: "Support Center", type: .support)
-        ]),
+//        .item([
+//            .init(icon: .init(named: "ic-user"), title: "Personal Detail", type: .personal),
+//            .init(icon: .init(named: "ic-support"), title: "Support Center", type: .support)
+//        ]),
         .item([
             .init(icon: .init(named: "ic-logout"), title: "Logout", type: .logout)
         ])
