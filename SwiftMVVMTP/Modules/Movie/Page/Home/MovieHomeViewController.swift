@@ -123,6 +123,8 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
     private lazy var pageControl : AppPageControl = {
         let v = AppPageControl()
         v.translatesAutoresizingMaskIntoConstraints = false
+        v.addTarget(self, action: #selector(pageControlHandle), for: .touchUpInside)
+        v.addTarget(self, action: #selector(pageControlHandle), for: .touchUpOutside)
         return v
     }()
     
@@ -252,6 +254,13 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
             self.present(vc, animated: true)
         }
         
+    }
+    
+    @objc private func pageControlHandle(){
+        UIView.animate(withDuration: 0.3) {
+            self.collectionView.scrollToItem(at: .init(row: self.pageControl.currentPage, section: 0), at: .centeredHorizontally, animated: false)
+            self.changeCurrentItem()
+        }
     }
 }
 extension MovieHomeViewController : UICollectionViewDataSource, UICollectionViewDelegate {
