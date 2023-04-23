@@ -136,21 +136,20 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
         
         output.data.drive(onNext: {[weak self] data in
             guard let _self = self, let data = data else { return }
-            if _self.collectionView.numberOfItems(inSection: 0) > 0, !data.1 {
-                _self.collectionView.scrollToItem(at: .init(item: 0, section: 0), at: .left, animated: true)
-            }
             _self.collectionItems = data.0.datas
-            if _self.collectionItems.count > 0 {
-                _self.pageControl.numberOfPages =  _self.collectionItems[0].count
-                _self.pageControl.currentPage = 0
-            }
-           
             if !data.1 {
                 _self.titlesItem = data.0.titles
                 _self.glidingView.reloadData()
             }
             _self.changeCurrentItem(isClose: false)
             _self.reloadCollection()
+            
+            if _self.currentIndex.section < _self.collectionItems.count  {
+                _self.pageControl.numberOfPages =  _self.collectionItems[_self.currentIndex.section].count
+                if !data.1, _self.collectionItems[_self.currentIndex.section].count > 0  {
+                    _self.pageControl.currentPage = 0
+                }
+            }
             
         }).disposed(by: self.disposeBag)
         output.user.drive(onNext: {[weak self] data in
@@ -382,6 +381,7 @@ extension MovieHomeViewController : GlidingCollectionDelegate {
                     if self.collectionView.numberOfItems(inSection: 0) > 0 {
                         let path = IndexPath(item: 0, section: 0)
                         self.collectionView.scrollToItem(at: path, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
+                        self.collectionView.reloadData()
                     }
                 }
             } completion: { _ in

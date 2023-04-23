@@ -214,12 +214,6 @@ extension GlidingCollection {
         UIView.animate(withDuration: duration, animations: {
             _leftCell?.center.x -= _leftStep
             _rightCell?.center.x += _rightStep
-        }, completion: {_ in
-            UIView.animate(withDuration: duration) {
-                self.collectionView.performBatchUpdates {
-                    self.collectionView.reloadData()
-                }
-            }
         })
         
         
