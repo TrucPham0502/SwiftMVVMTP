@@ -19,7 +19,7 @@ struct PlayerModel {
         }
     }
     struct Sublink {
-        let subsv : String
+        let data : String
         let name : String
     }
     let media : Media
@@ -29,7 +29,7 @@ class PlayerViewController : BaseViewController<PlayerViewModel>{
     override func buildViewModel() -> PlayerViewModel {
         return PlayerViewModel()
     }
-    var urlString: String = ""
+    var playType: PlayerViewModel.PlayType = .url(url: "")
     private lazy var player: AVPlayer = {
         let player = AVPlayer(playerItem: nil)
         return player
@@ -85,7 +85,7 @@ class PlayerViewController : BaseViewController<PlayerViewModel>{
         let output = viewModel.transform(
             input: .init(
                 viewWillAppear: self.rx.viewWillAppear.take(1).map{[weak self] _ in
-                    return self?.urlString ?? ""
+                    return self?.playType ?? .url(url: "")
                 }.asDriverOnErrorJustComplete()
             ))
         output.item.drive(onNext: {[weak self] media in

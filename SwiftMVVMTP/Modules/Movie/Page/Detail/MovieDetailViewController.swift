@@ -296,7 +296,7 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
     
     @objc private func watchTap(){
         if let first = self.data.first {
-            self.playVideo(url: first.url)
+            self.playVideo(type: .url(url: first.url))
         }
     }
     
@@ -473,10 +473,10 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         
     }
     
-    fileprivate func playVideo(url : String) {
+    fileprivate func playVideo(type: PlayerViewModel.PlayType) {
         let vc = PlayerViewController()
         vc.modalPresentationStyle = .overCurrentContext
-        vc.urlString = url
+        vc.playType = type
         self.present(vc, animated: false, completion: nil)
     }
     
@@ -494,7 +494,7 @@ extension MovieDetailViewController : UICollectionViewDataSource {
             cell.data = self.data[indexPath.row]
             cell.didSelected = {[weak self] data in
                 guard let self = self else { return }
-                self.playVideo(url: data.url)
+                self.playVideo(type: .url(url: data.url))
             }
         }
         return cell
@@ -517,6 +517,23 @@ extension MovieDetailViewController : UICollectionViewDelegateFlowLayout {
 }
 
 extension MovieDetailViewController : UICollectionViewDelegate {
+    @available(iOS 13.0, *)
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let d = self.data[indexPath.row]
+        guard !d.sublinks.isEmpty else { return nil }
+        return UIContextMenuConfiguration(identifier: (d.url) as NSCopying) {
+            return nil
+        } actionProvider: { provider in
+            return UIMenu(title: "Sublinks:", children:  d.sublinks.map { sub in
+                let action = UIAction(title: sub.name, handler: {[weak self] action in
+                    guard let self = self else { return }
+                    self.playVideo(type: .sublink(url: d.url, sublink: sub.data))
+                })
+                action.image = .init(systemName: "link")
+                return action
+            })
+        }
+    }
     
 }
 extension MovieDetailViewController : UIScrollViewDelegate {

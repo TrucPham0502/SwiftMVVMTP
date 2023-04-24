@@ -45,10 +45,15 @@ struct MovieDetailResponse: Codable {
     let picTag : String?
     // MARK: - Episode
     struct Episode: Codable {
-        let episode,url,data : String?
+        let episode,url : String?
+        let sublinks: [Sublink]?
     }
 }
 
+// MARK: - Sublink
+struct Sublink: Codable {
+    let data, name: String?
+}
 
 // MARK: - MoviesLinkAndSublinkResponse
 struct PlayInfoResponse: Codable {
@@ -66,10 +71,7 @@ struct PlayInfoResponse: Codable {
         }
     }
 
-    // MARK: - Sublink
-    struct Sublink: Codable {
-        let subsv, name: String?
-    }
+    
 }
 
 

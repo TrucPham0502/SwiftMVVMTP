@@ -19,6 +19,7 @@ struct MovieDetailRequest: Codable {
 }
 struct PlayInfoRequest : Codable {
     let url: String
+    let sublink : String?
 }
 
 struct SignInRequest : Codable {

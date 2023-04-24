@@ -13,7 +13,13 @@ class BaseViewController<VM : ViewModelType> : AppBaseViewController {
     var viewModel: VM!
     func performBinding() {
         viewModel.activityIndicator.asDriver()
-            .drive(onNext: { [unowned self] in self.showLoading(withStatus: $0) })
+            .drive(onNext: { [unowned self] in
+                switch $0 {
+                case .none:  self.showLoading(withStatus: false)
+                case .loading(let message):
+                    self.showLoading(withStatus: true, message: message)
+                }
+            })
             .disposed(by: self.disposeBag)
         viewModel.errorTracker.asDriver()
             .drive(onNext: { [unowned self] in self.handleError(error: $0) })
@@ -76,7 +82,7 @@ class BaseViewController<VM : ViewModelType> : AppBaseViewController {
     }
     @objc private func playerLoading(_ sender : Notification) {
         if let isloading = sender.object as? Bool {
-            self.showLoading(withStatus: isloading)
+            self.showLoading(withStatus: isloading, message: "Fetching video data")
         }
     }
     

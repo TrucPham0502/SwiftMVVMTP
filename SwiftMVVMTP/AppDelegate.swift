@@ -88,14 +88,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func playViewWithWebView(url: URL) {
         NotificationCenter.default.post(name: .playerLoading, object: true, userInfo: [:])
         DispatchQueue.main.async {
+            self.webView.loadHTMLString("", baseURL: nil)
             let request = URLRequest(url: url)
             self.webView.load(request)
         }
     }
     
-    func stopPlayerWebView(){
-        self.webView.loadHTMLString("", baseURL: nil)
-    }
     
     //MARK: Language
     func changeLanguage(language: Language) {
@@ -121,7 +119,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     @objc private func UIWindowBecomeHidden(){
         NotificationCenter.default.post(name: .playerLoading, object: false, userInfo: [:])
-        self.stopPlayerWebView()
     }
 }
 

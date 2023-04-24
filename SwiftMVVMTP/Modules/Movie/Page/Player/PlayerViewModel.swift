@@ -11,9 +11,12 @@ import RxSwift
 import RxCocoa
 
 class PlayerViewModel : BaseViewModel<PlayerViewModel.Input, PlayerViewModel.Output> {
-    
+    enum PlayType {
+        case url(url: String)
+        case sublink(url: String, sublink: String)
+    }
     struct Input {
-        let viewWillAppear: Driver<String>
+        let viewWillAppear: Driver<PlayType>
     }
 
     struct Output {
@@ -26,11 +29,17 @@ class PlayerViewModel : BaseViewModel<PlayerViewModel.Input, PlayerViewModel.Out
     var item : PlayerModel?
     
     override func transform(input: Input) -> Output {
-        input.viewWillAppear.flatMap({[weak self] urlString -> Driver<PlayerModel?> in
+        input.viewWillAppear.flatMap({[weak self] type -> Driver<PlayerModel?> in
             guard let self = self else { return Driver.just(nil) }
             return Observable.deferred {
-                return self.service.getPlayInfo(urlString).map({x in return x })
-            }.trackActivity(self.activityIndicator)
+                switch type {
+                case .url(let urlString):
+                    return self.service.getPlayInfo(urlString).map({x in return x })
+                case let .sublink(urlString, sublink):
+                    return self.service.getPlayInfo(urlString, sublink: sublink).map({x in return x })
+                }
+                
+            }.trackActivity(self.activityIndicator, message: "Retrieving video information")
                 .trackError(self.errorTracker)
                 .asDriverOnErrorJustComplete()
         }).drive(self.$item)

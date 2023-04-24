@@ -36,11 +36,11 @@ class AppBaseViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func showLoading(withStatus show: Bool) {
+    func showLoading(withStatus show: Bool, message: String = "Loading") {
         if show {
             let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
             hud.mode = .indeterminate
-            hud.label.text = "Loading"
+            hud.label.text = message
             hud.label.font = UIFont.regular(ofSize: 14)
             hud.hide(animated: true, afterDelay: 30)
         } else {

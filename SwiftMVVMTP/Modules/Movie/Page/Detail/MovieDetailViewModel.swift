@@ -11,7 +11,7 @@ import RxSwift
 struct EpisodeModel {
     let episode: String
     let url : String
-    let data: String?
+    let sublinks: [(name: String, data: String)]
 }
 
 struct MovieDetailModel {

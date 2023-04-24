@@ -63,7 +63,9 @@ class MovieServiceImpl : MovieService {
     func movieDetail(_ input : MovieDetailRequest) -> Observable<MovieDetailModel> {
         return repository.movieDetail(input).map({ res in
             let eps : [EpisodeModel] = res.episodes?.compactMap({ d -> EpisodeModel? in
-                return EpisodeModel(episode: d.episode ?? "", url: d.url ?? "", data: d.data)
+                return EpisodeModel(episode: d.episode ?? "", url: d.url ?? "", sublinks: d.sublinks?.map({ s in
+                    return (s.name ?? "", s.data ?? "")
+                }) ?? [])
             }).reversed() ?? []
             let content : String = res.contents?.joined(separator: "\n")  ?? ""
             let category : String = res.categorys?.joined(separator: ", ") ?? ""
@@ -71,13 +73,11 @@ class MovieServiceImpl : MovieService {
         })
     }
     
-    func getPlayInfo(_ url : String) -> Observable<PlayerModel> {
-        return repository.getPlayInfo(.init(url: url)).map({x in
+    func getPlayInfo(_ url : String, sublink : String? = nil) -> Observable<PlayerModel> {
+        return repository.getPlayInfo(.init(url: url, sublink: sublink)).map({x in
             let type = PlayerModel.Media.MediaType(rawValue: (x.media?.type?.rawValue ?? "default"))!
-            
-            
             return .init(media: .init(url: x.media?.url ?? "", type: type), sublinks: x.sublinks?.map({ l in
-                return PlayerModel.Sublink(subsv: l.subsv ?? "", name: l.name ?? "")
+                return PlayerModel.Sublink(data: l.data ?? "", name: l.name ?? "")
             }) ?? [])
         })
     }

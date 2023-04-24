@@ -13,7 +13,7 @@ protocol MovieService {
     func movieDetail(_ input : MovieDetailRequest) -> Observable<MovieDetailModel>
     func getMoviesByGroup(_ input : MoviesRequest) -> Observable<(page : Int, data: [MovieCollectionViewCellModel])>
     
-    func getPlayInfo(_ url : String) -> Observable<PlayerModel>
+    func getPlayInfo(_ url : String, sublink : String?) -> Observable<PlayerModel>
     func signIn(_ input : SignInRequest) -> Observable<()>
     
  
@@ -22,4 +22,10 @@ protocol MovieService {
     
     
     
+}
+
+extension MovieService {
+    func getPlayInfo(_ url : String) -> Observable<PlayerModel> {
+        return getPlayInfo(url, sublink: nil)
+    }
 }
