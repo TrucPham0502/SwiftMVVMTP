@@ -63,7 +63,7 @@ class MovieServiceImpl : MovieService {
     func movieDetail(_ input : MovieDetailRequest) -> Observable<MovieDetailModel> {
         return repository.movieDetail(input).map({ res in
             let eps : [EpisodeModel] = res.episodes?.compactMap({ d -> EpisodeModel? in
-                return EpisodeModel(episode: d.episode ?? "", url: d.url ?? "")
+                return EpisodeModel(episode: d.episode ?? "", url: d.url ?? "", data: d.data)
             }).reversed() ?? []
             let content : String = res.contents?.joined(separator: "\n")  ?? ""
             let category : String = res.categorys?.joined(separator: ", ") ?? ""

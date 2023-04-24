@@ -93,6 +93,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    func stopPlayerWebView(){
+        self.webView.loadHTMLString("", baseURL: nil)
+    }
+    
     //MARK: Language
     func changeLanguage(language: Language) {
         Localize.update(language: language.rawValue)
@@ -117,7 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     @objc private func UIWindowBecomeHidden(){
         NotificationCenter.default.post(name: .playerLoading, object: false, userInfo: [:])
-        self.webView.stopLoading()
+        self.stopPlayerWebView()
     }
 }
 

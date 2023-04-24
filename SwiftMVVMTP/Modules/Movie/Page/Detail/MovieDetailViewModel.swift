@@ -11,6 +11,7 @@ import RxSwift
 struct EpisodeModel {
     let episode: String
     let url : String
+    let data: String?
 }
 
 struct MovieDetailModel {
