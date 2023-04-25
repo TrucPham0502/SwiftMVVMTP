@@ -37,7 +37,7 @@ struct UIMovieHomeConfig {
     
     
     /// Size of collectionView's cells.
-    var cardsSize = CGSize(width: min(500, UIScreen.main.bounds.width - 150), height: min(500, UIScreen.main.bounds.width - 150) * 360 / 270)
+    var cardsSize = CGSize(width: min(450, UIScreen.main.bounds.width - 150), height: min(450, UIScreen.main.bounds.width - 150) * 360 / 270)
    
     
     

@@ -293,8 +293,8 @@ extension MovieCollectionViewCell {
         if isOpen == isOpened { return }
         
         if ySpacing == .greatestFiniteMagnitude {
-            frontConstraintY.constant = isOpen ? -frontContainerView.bounds.size.height / 6 : 0
-            backConstraintY.constant = isOpen ? frontContainerView.bounds.size.height / 6 - yOffset / 2 : 0
+            frontConstraintY.constant = isOpen ? -frontContainerView.bounds.size.height / 8 : 0
+            backConstraintY.constant = isOpen ? frontContainerView.bounds.size.height / 8 - yOffset / 2 : 0
         } else {
             frontConstraintY.constant = isOpen ? -ySpacing / 2 : 0
             backConstraintY.constant = isOpen ? ySpacing / 2 : 0
