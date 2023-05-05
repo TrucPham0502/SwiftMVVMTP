@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>MovieScheduleWidgetExtension.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>20</integer>
+		</dict>
 		<key>NotificationService.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -18,6 +23,24 @@
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>8EE8B9692A03547C006105C4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8EF7BD8129E6672300C22106</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FE6F2BA226FCBC3F007CE4BF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

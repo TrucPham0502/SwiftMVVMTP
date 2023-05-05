@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,6 +17,12 @@
 		8E990D6C29E93B4300D16F89 /* BackgroundCircleNeumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E990D6B29E93B4200D16F89 /* BackgroundCircleNeumorphic.swift */; };
 		8EA7E31E29E3CFBA00A90DDE /* ButtomNeumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA7E31D29E3CFBA00A90DDE /* ButtomNeumorphic.swift */; };
 		8EA7E32229E3D17300A90DDE /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA7E32129E3D17300A90DDE /* ColorExtension.swift */; };
+		8EE8B96C2A03547C006105C4 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE8B96B2A03547C006105C4 /* WidgetKit.framework */; platformFilters = (ios, maccatalyst, macos, watchos, ); };
+		8EE8B96E2A03547C006105C4 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE8B96D2A03547C006105C4 /* SwiftUI.framework */; platformFilters = (ios, maccatalyst, macos, tvos, watchos, ); };
+		8EE8B9712A03547C006105C4 /* MovieScheduleWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE8B9702A03547C006105C4 /* MovieScheduleWidgetBundle.swift */; };
+		8EE8B9732A03547C006105C4 /* MovieScheduleWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE8B9722A03547C006105C4 /* MovieScheduleWidget.swift */; };
+		8EE8B9752A03547E006105C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EE8B9742A03547E006105C4 /* Assets.xcassets */; };
+		8EE8B9792A03547E006105C4 /* MovieScheduleWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8EE8B96A2A03547C006105C4 /* MovieScheduleWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8EF2C64B29E3E09F005D3E30 /* TextFieldNeumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2C64A29E3E09F005D3E30 /* TextFieldNeumorphic.swift */; };
 		8EF2C64E29E40955005D3E30 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2C64D29E40955005D3E30 /* LoginViewController.swift */; };
 		8EF2C65029E40961005D3E30 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2C64F29E40961005D3E30 /* LoginViewModel.swift */; };
@@ -141,6 +147,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8EE8B9772A03547E006105C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FE6F2B9B26FCBC3F007CE4BF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8EE8B9692A03547C006105C4;
+			remoteInfo = MovieScheduleWidgetExtension;
+		};
 		8EF7BD8729E6672300C22106 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FE6F2B9B26FCBC3F007CE4BF /* Project object */;
@@ -171,6 +184,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				8EE8B9792A03547E006105C4 /* MovieScheduleWidgetExtension.appex in Embed Foundation Extensions */,
 				8EF7BD8929E6672300C22106 /* NotificationService.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
@@ -191,6 +205,14 @@
 		8E990D6B29E93B4200D16F89 /* BackgroundCircleNeumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundCircleNeumorphic.swift; sourceTree = "<group>"; };
 		8EA7E31D29E3CFBA00A90DDE /* ButtomNeumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtomNeumorphic.swift; sourceTree = "<group>"; };
 		8EA7E32129E3D17300A90DDE /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		8EE8B96A2A03547C006105C4 /* MovieScheduleWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MovieScheduleWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EE8B96B2A03547C006105C4 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		8EE8B96D2A03547C006105C4 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		8EE8B9702A03547C006105C4 /* MovieScheduleWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieScheduleWidgetBundle.swift; sourceTree = "<group>"; };
+		8EE8B9722A03547C006105C4 /* MovieScheduleWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieScheduleWidget.swift; sourceTree = "<group>"; };
+		8EE8B9742A03547E006105C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8EE8B9762A03547E006105C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8EE8B97A2A03547E006105C4 /* MovieScheduleWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MovieScheduleWidgetExtension.entitlements; sourceTree = "<group>"; };
 		8EF2C64A29E3E09F005D3E30 /* TextFieldNeumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldNeumorphic.swift; sourceTree = "<group>"; };
 		8EF2C64D29E40955005D3E30 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8EF2C64F29E40961005D3E30 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -326,6 +348,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8EE8B9672A03547C006105C4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8EE8B96E2A03547C006105C4 /* SwiftUI.framework in Frameworks */,
+				8EE8B96C2A03547C006105C4 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8EF7BD7F29E6672300C22106 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -362,6 +393,8 @@
 			isa = PBXGroup;
 			children = (
 				E1517339AC43FA239BDE3758 /* Pods_SwiftMVVMTP.framework */,
+				8EE8B96B2A03547C006105C4 /* WidgetKit.framework */,
+				8EE8B96D2A03547C006105C4 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -384,6 +417,17 @@
 				8E990D6B29E93B4200D16F89 /* BackgroundCircleNeumorphic.swift */,
 			);
 			path = Neumorphic;
+			sourceTree = "<group>";
+		};
+		8EE8B96F2A03547C006105C4 /* MovieScheduleWidget */ = {
+			isa = PBXGroup;
+			children = (
+				8EE8B9702A03547C006105C4 /* MovieScheduleWidgetBundle.swift */,
+				8EE8B9722A03547C006105C4 /* MovieScheduleWidget.swift */,
+				8EE8B9742A03547E006105C4 /* Assets.xcassets */,
+				8EE8B9762A03547E006105C4 /* Info.plist */,
+			);
+			path = MovieScheduleWidget;
 			sourceTree = "<group>";
 		};
 		8EF2C64C29E40938005D3E30 /* Account */ = {
@@ -518,10 +562,12 @@
 		FE6F2B9A26FCBC3F007CE4BF = {
 			isa = PBXGroup;
 			children = (
+				8EE8B97A2A03547E006105C4 /* MovieScheduleWidgetExtension.entitlements */,
 				FE6F2BA526FCBC3F007CE4BF /* SwiftMVVMTP */,
 				FE6F2BBC26FCBC43007CE4BF /* SwiftMVVMTPTests */,
 				FE6F2BC626FCBC43007CE4BF /* SwiftMVVMTPUITests */,
 				8EF7BD8329E6672300C22106 /* NotificationService */,
+				8EE8B96F2A03547C006105C4 /* MovieScheduleWidget */,
 				FE6F2BA426FCBC3F007CE4BF /* Products */,
 				E8A6BA2B1DB5A8C588C73D6C /* Pods */,
 				57967A642B51B2F432FD0763 /* Frameworks */,
@@ -535,6 +581,7 @@
 				FE6F2BB926FCBC43007CE4BF /* SwiftMVVMTPTests.xctest */,
 				FE6F2BC326FCBC43007CE4BF /* SwiftMVVMTPUITests.xctest */,
 				8EF7BD8229E6672300C22106 /* NotificationService.appex */,
+				8EE8B96A2A03547C006105C4 /* MovieScheduleWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -863,6 +910,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8EE8B9692A03547C006105C4 /* MovieScheduleWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8EE8B97D2A03547E006105C4 /* Build configuration list for PBXNativeTarget "MovieScheduleWidgetExtension" */;
+			buildPhases = (
+				8EE8B9662A03547C006105C4 /* Sources */,
+				8EE8B9672A03547C006105C4 /* Frameworks */,
+				8EE8B9682A03547C006105C4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MovieScheduleWidgetExtension;
+			productName = MovieScheduleWidgetExtension;
+			productReference = 8EE8B96A2A03547C006105C4 /* MovieScheduleWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		8EF7BD8129E6672300C22106 /* NotificationService */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8EF7BD8B29E6672400C22106 /* Build configuration list for PBXNativeTarget "NotificationService" */;
@@ -895,6 +959,7 @@
 			);
 			dependencies = (
 				8EF7BD8829E6672300C22106 /* PBXTargetDependency */,
+				8EE8B9782A03547E006105C4 /* PBXTargetDependency */,
 			);
 			name = SwiftMVVMTP;
 			productName = SwiftMVVMTP;
@@ -949,6 +1014,9 @@
 				LastUpgradeCheck = 1300;
 				ORGANIZATIONNAME = "Truc Pham";
 				TargetAttributes = {
+					8EE8B9692A03547C006105C4 = {
+						CreatedOnToolsVersion = 14.1;
+					};
 					8EF7BD8129E6672300C22106 = {
 						CreatedOnToolsVersion = 14.1;
 					};
@@ -982,11 +1050,20 @@
 				FE6F2BB826FCBC43007CE4BF /* SwiftMVVMTPTests */,
 				FE6F2BC226FCBC43007CE4BF /* SwiftMVVMTPUITests */,
 				8EF7BD8129E6672300C22106 /* NotificationService */,
+				8EE8B9692A03547C006105C4 /* MovieScheduleWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8EE8B9682A03547C006105C4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8EE8B9752A03547E006105C4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8EF7BD8029E6672300C22106 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1070,6 +1147,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8EE8B9662A03547C006105C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8EE8B9712A03547C006105C4 /* MovieScheduleWidgetBundle.swift in Sources */,
+				8EE8B9732A03547C006105C4 /* MovieScheduleWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8EF7BD7E29E6672300C22106 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1220,6 +1306,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8EE8B9782A03547E006105C4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8EE8B9692A03547C006105C4 /* MovieScheduleWidgetExtension */;
+			targetProxy = 8EE8B9772A03547E006105C4 /* PBXContainerItemProxy */;
+		};
 		8EF7BD8829E6672300C22106 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8EF7BD8129E6672300C22106 /* NotificationService */;
@@ -1257,6 +1348,169 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8EE8B97B2A03547E006105C4 /* BETA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = MovieScheduleWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = U5ND9J32DH;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MovieScheduleWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MovieScheduleWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Truc Pham. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = beta.trucpham.movie.MovieScheduleWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = BETA;
+		};
+		8EE8B97C2A03547E006105C4 /* PROD */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = MovieScheduleWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = U5ND9J32DH;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MovieScheduleWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MovieScheduleWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Truc Pham. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = beta.trucpham.movie.MovieScheduleWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = PROD;
+		};
 		8EF7BD8C29E6672400C22106 /* BETA */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1783,6 +2037,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8EE8B97D2A03547E006105C4 /* Build configuration list for PBXNativeTarget "MovieScheduleWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8EE8B97B2A03547E006105C4 /* BETA */,
+				8EE8B97C2A03547E006105C4 /* PROD */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = BETA;
+		};
 		8EF7BD8B29E6672400C22106 /* Build configuration list for PBXNativeTarget "NotificationService" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

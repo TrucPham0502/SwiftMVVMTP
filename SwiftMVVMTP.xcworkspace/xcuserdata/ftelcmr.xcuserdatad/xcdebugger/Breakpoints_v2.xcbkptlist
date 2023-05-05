@@ -27,5 +27,146 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1B5B667F-66EB-4B95-8108-C6B9D2CF884A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieScheduleWidget/MovieScheduleWidget.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "getTimeline(in:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1B5B667F-66EB-4B95-8108-C6B9D2CF884A - 6635c5c8f1452faa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 @Sendable () async -&gt; () in MovieScheduleWidgetExtension.Provider.getTimeline(in: WidgetKit.TimelineProviderContext, completion: (WidgetKit.Timeline&lt;MovieScheduleWidgetExtension.MovieSchedule&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MovieScheduleWidgetExtension"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ftelcmr/Desktop/MVVM/MovieScheduleWidget/MovieScheduleWidget.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "292">
+               </Location>
+               <Location
+                  uuid = "1B5B667F-66EB-4B95-8108-C6B9D2CF884A - fd0ed156e7d1e354"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) suspend resume partial function for closure #1 @Sendable () async -&gt; () in MovieScheduleWidgetExtension.Provider.getTimeline(in: WidgetKit.TimelineProviderContext, completion: (WidgetKit.Timeline&lt;MovieScheduleWidgetExtension.MovieSchedule&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MovieScheduleWidgetExtension"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ftelcmr/Desktop/MVVM/MovieScheduleWidget/MovieScheduleWidget.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "300">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2DD057FB-37CA-484F-AE48-F0525E18E3A6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieScheduleWidget/MovieScheduleWidget.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "getTimeline(in:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2DD057FB-37CA-484F-AE48-F0525E18E3A6 - ef58ce2203397a3d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) suspend resume partial function for closure #1 @Sendable () async -&gt; () in MovieScheduleWidgetExtension.Provider.getTimeline(in: WidgetKit.TimelineProviderContext, completion: (WidgetKit.Timeline&lt;MovieScheduleWidgetExtension.MovieSchedule&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MovieScheduleWidgetExtension"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ftelcmr/Desktop/MVVM/MovieScheduleWidget/MovieScheduleWidget.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "1064">
+               </Location>
+               <Location
+                  uuid = "2DD057FB-37CA-484F-AE48-F0525E18E3A6 - 6635c5c8f1452e37"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 @Sendable () async -&gt; () in MovieScheduleWidgetExtension.Provider.getTimeline(in: WidgetKit.TimelineProviderContext, completion: (WidgetKit.Timeline&lt;MovieScheduleWidgetExtension.MovieSchedule&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MovieScheduleWidgetExtension"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ftelcmr/Desktop/MVVM/MovieScheduleWidget/MovieScheduleWidget.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "580">
+               </Location>
+               <Location
+                  uuid = "2DD057FB-37CA-484F-AE48-F0525E18E3A6 - baa35f83e88bc8ca"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for closure #1 @Sendable () async -&gt; () in MovieScheduleWidgetExtension.Provider.getTimeline(in: WidgetKit.TimelineProviderContext, completion: (WidgetKit.Timeline&lt;MovieScheduleWidgetExtension.MovieSchedule&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MovieScheduleWidgetExtension"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ftelcmr/Desktop/MVVM/MovieScheduleWidget/MovieScheduleWidget.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "1044">
+               </Location>
+               <Location
+                  uuid = "2DD057FB-37CA-484F-AE48-F0525E18E3A6 - fd0ed156e7d1e2c9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) suspend resume partial function for closure #1 @Sendable () async -&gt; () in MovieScheduleWidgetExtension.Provider.getTimeline(in: WidgetKit.TimelineProviderContext, completion: (WidgetKit.Timeline&lt;MovieScheduleWidgetExtension.MovieSchedule&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MovieScheduleWidgetExtension"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ftelcmr/Desktop/MVVM/MovieScheduleWidget/MovieScheduleWidget.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "580">
+               </Location>
+               <Location
+                  uuid = "2DD057FB-37CA-484F-AE48-F0525E18E3A6 - 2cd7f3f6256902ff"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 ((offset: Swift.Int, element: MovieScheduleWidgetExtension.MovieScheduleResponse.MovieResponse)) -&gt; MovieScheduleWidgetExtension.MovieSchedule.Movie in closure #1 @Sendable () async -&gt; () in MovieScheduleWidgetExtension.Provider.getTimeline(in: WidgetKit.TimelineProviderContext, completion: (WidgetKit.Timeline&lt;MovieScheduleWidgetExtension.MovieSchedule&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MovieScheduleWidgetExtension"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ftelcmr/Desktop/MVVM/MovieScheduleWidget/MovieScheduleWidget.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "144">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
