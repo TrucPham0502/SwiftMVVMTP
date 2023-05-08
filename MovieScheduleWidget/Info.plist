@@ -7,5 +7,7 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.widgetkit-extension</string>
 	</dict>
+    <key>AppEndPointUrl</key>
+    <string>$(APP_ENDPOINT_URL)</string>
 </dict>
 </plist>

@@ -37,8 +37,8 @@
             filePath = "MovieScheduleWidget/MovieScheduleWidget.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
             landmarkName = "getTimeline(in:completion:)"
             landmarkType = "7">
             <Locations>
@@ -85,8 +85,8 @@
             filePath = "MovieScheduleWidget/MovieScheduleWidget.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "getTimeline(in:completion:)"
             landmarkType = "7">
             <Locations>
@@ -164,6 +164,223 @@
                   startingLineNumber = "35"
                   endingLineNumber = "35"
                   offsetFromSymbolStart = "144">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C2506F22-4190-4EBC-A215-6DD85BC69E47"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieScheduleWidget/MovieScheduleWidget.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "getTimeline(in:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C2506F22-4190-4EBC-A215-6DD85BC69E47 - d6ee7442ea3388d3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable () async -&gt; () in MovieScheduleWidgetExtension.Provider.getTimeline(in: WidgetKit.TimelineProviderContext, completion: (WidgetKit.Timeline&lt;MovieScheduleWidgetExtension.MovieSchedule&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MovieScheduleWidgetExtension"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ftelcmr/Desktop/MVVM/MovieScheduleWidget/MovieScheduleWidget.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "580">
+               </Location>
+               <Location
+                  uuid = "C2506F22-4190-4EBC-A215-6DD85BC69E47 - a5a8e50372af6a35"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) await resume partial function for closure #1 @Sendable () async -&gt; () in MovieScheduleWidgetExtension.Provider.getTimeline(in: WidgetKit.TimelineProviderContext, completion: (WidgetKit.Timeline&lt;MovieScheduleWidgetExtension.MovieSchedule&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MovieScheduleWidgetExtension"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ftelcmr/Desktop/MVVM/MovieScheduleWidget/MovieScheduleWidget.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "C2506F22-4190-4EBC-A215-6DD85BC69E47 - ef58ce2203397b24"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) suspend resume partial function for closure #1 @Sendable () async -&gt; () in MovieScheduleWidgetExtension.Provider.getTimeline(in: WidgetKit.TimelineProviderContext, completion: (WidgetKit.Timeline&lt;MovieScheduleWidgetExtension.MovieSchedule&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MovieScheduleWidgetExtension"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ftelcmr/Desktop/MVVM/MovieScheduleWidget/MovieScheduleWidget.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "252">
+               </Location>
+               <Location
+                  uuid = "C2506F22-4190-4EBC-A215-6DD85BC69E47 - ef58ce2203397b24"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) suspend resume partial function for closure #1 @Sendable () async -&gt; () in MovieScheduleWidgetExtension.Provider.getTimeline(in: WidgetKit.TimelineProviderContext, completion: (WidgetKit.Timeline&lt;MovieScheduleWidgetExtension.MovieSchedule&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MovieScheduleWidgetExtension"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ftelcmr/Desktop/MVVM/MovieScheduleWidget/MovieScheduleWidget.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "540">
+               </Location>
+               <Location
+                  uuid = "C2506F22-4190-4EBC-A215-6DD85BC69E47 - 6635c5c8f1452f2e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 @Sendable () async -&gt; () in MovieScheduleWidgetExtension.Provider.getTimeline(in: WidgetKit.TimelineProviderContext, completion: (WidgetKit.Timeline&lt;MovieScheduleWidgetExtension.MovieSchedule&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MovieScheduleWidgetExtension"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ftelcmr/Desktop/MVVM/MovieScheduleWidget/MovieScheduleWidget.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "524">
+               </Location>
+               <Location
+                  uuid = "C2506F22-4190-4EBC-A215-6DD85BC69E47 - baa35f83e88bc9d3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for closure #1 @Sendable () async -&gt; () in MovieScheduleWidgetExtension.Provider.getTimeline(in: WidgetKit.TimelineProviderContext, completion: (WidgetKit.Timeline&lt;MovieScheduleWidgetExtension.MovieSchedule&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MovieScheduleWidgetExtension"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ftelcmr/Desktop/MVVM/MovieScheduleWidget/MovieScheduleWidget.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "184">
+               </Location>
+               <Location
+                  uuid = "C2506F22-4190-4EBC-A215-6DD85BC69E47 - baa35f83e88bc9d3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for closure #1 @Sendable () async -&gt; () in MovieScheduleWidgetExtension.Provider.getTimeline(in: WidgetKit.TimelineProviderContext, completion: (WidgetKit.Timeline&lt;MovieScheduleWidgetExtension.MovieSchedule&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MovieScheduleWidgetExtension"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ftelcmr/Desktop/MVVM/MovieScheduleWidget/MovieScheduleWidget.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "524">
+               </Location>
+               <Location
+                  uuid = "C2506F22-4190-4EBC-A215-6DD85BC69E47 - fd0ed156e7d1e3d0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) suspend resume partial function for closure #1 @Sendable () async -&gt; () in MovieScheduleWidgetExtension.Provider.getTimeline(in: WidgetKit.TimelineProviderContext, completion: (WidgetKit.Timeline&lt;MovieScheduleWidgetExtension.MovieSchedule&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MovieScheduleWidgetExtension"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ftelcmr/Desktop/MVVM/MovieScheduleWidget/MovieScheduleWidget.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "524">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "692D2EEB-6267-4778-9BD7-C3EDB15728FF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftMVVMTP/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "application(_:open:options:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B8D74C7A-9E4C-44F4-AD11-C651A2C2A581"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftMVVMTP/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
+            landmarkName = "application(_:didReceiveRemoteNotification:fetchCompletionHandler:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B8D74C7A-9E4C-44F4-AD11-C651A2C2A581 - ab6dffab5da31ca5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Movies_TP_BETA.AppDelegate.application(_: __C.UIApplication, didReceiveRemoteNotification: Swift.Dictionary&lt;Swift.AnyHashable, Any&gt;, fetchCompletionHandler: (__C.UIBackgroundFetchResult) -&gt; ()) -&gt; ()"
+                  moduleName = "Movies TP BETA"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ftelcmr/Desktop/MVVM/SwiftMVVMTP/AppDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "146"
+                  endingLineNumber = "146"
+                  offsetFromSymbolStart = "340">
+               </Location>
+               <Location
+                  uuid = "B8D74C7A-9E4C-44F4-AD11-C651A2C2A581 - ab6dffab5da31ca5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Movies_TP_BETA.AppDelegate.application(_: __C.UIApplication, didReceiveRemoteNotification: Swift.Dictionary&lt;Swift.AnyHashable, Any&gt;, fetchCompletionHandler: (__C.UIBackgroundFetchResult) -&gt; ()) -&gt; ()"
+                  moduleName = "Movies TP BETA"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ftelcmr/Desktop/MVVM/SwiftMVVMTP/AppDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "146"
+                  endingLineNumber = "146"
+                  offsetFromSymbolStart = "696">
+               </Location>
+               <Location
+                  uuid = "B8D74C7A-9E4C-44F4-AD11-C651A2C2A581 - ab6dffab5da31ca5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Movies_TP_BETA.AppDelegate.application(_: __C.UIApplication, didReceiveRemoteNotification: Swift.Dictionary&lt;Swift.AnyHashable, Any&gt;, fetchCompletionHandler: (__C.UIBackgroundFetchResult) -&gt; ()) -&gt; ()"
+                  moduleName = "Movies TP BETA"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ftelcmr/Desktop/MVVM/SwiftMVVMTP/AppDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "146"
+                  endingLineNumber = "146"
+                  offsetFromSymbolStart = "740">
                </Location>
             </Locations>
          </BreakpointContent>
