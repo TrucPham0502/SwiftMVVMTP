@@ -227,9 +227,11 @@ extension Date {
     func get(_ component: Calendar.Component, calendar: Calendar = Calendar.current) -> Int {
         return calendar.component(component, from: self)
     }
-    static var tomorrow:  Date { return Date().dayAfter }
-    static var today: Date {return Date()}
-    var dayAfter: Date {
-          return Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+    static var tomorrow:  Date {
+        let today = Date()
+        let midnight = Calendar.current.startOfDay(for: today)
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: midnight)!
+        return tomorrow
     }
+    static var today: Date {return Date()}
 }
