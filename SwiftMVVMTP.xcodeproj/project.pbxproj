@@ -424,6 +424,7 @@
 		8EE8B96F2A03547C006105C4 /* MovieScheduleWidget */ = {
 			isa = PBXGroup;
 			children = (
+				8EE8B97A2A03547E006105C4 /* MovieScheduleWidgetExtension.entitlements */,
 				8EE8B9722A03547C006105C4 /* MovieScheduleWidget.swift */,
 				8EE8B9702A03547C006105C4 /* MovieScheduleWidgetBundle.swift */,
 				8EE8B9742A03547E006105C4 /* Assets.xcassets */,
@@ -564,7 +565,6 @@
 		FE6F2B9A26FCBC3F007CE4BF = {
 			isa = PBXGroup;
 			children = (
-				8EE8B97A2A03547E006105C4 /* MovieScheduleWidgetExtension.entitlements */,
 				FE6F2BA526FCBC3F007CE4BF /* SwiftMVVMTP */,
 				FE6F2BBC26FCBC43007CE4BF /* SwiftMVVMTPTests */,
 				FE6F2BC626FCBC43007CE4BF /* SwiftMVVMTPUITests */,
@@ -1386,14 +1386,14 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = MovieScheduleWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MovieScheduleWidget/MovieScheduleWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = U5ND9J32DH;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U5ND9J32DH;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1427,8 +1427,9 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = beta.trucpham.movie.MovieScheduleWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Movie Schedule Widget Development";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Movie Schedule Widget Development";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "Movie Schedule Widget Development";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = YES;
@@ -1474,7 +1475,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = MovieScheduleWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MovieScheduleWidget/MovieScheduleWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
