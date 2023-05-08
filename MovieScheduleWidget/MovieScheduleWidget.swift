@@ -46,8 +46,8 @@ struct Provider: TimelineProvider {
                     return MovieSchedule.Movie(name: ele.element.name, episode: ele.element.episode, poster: arrPosterData[ele.offset])
                 })
                 let timelineData = MovieSchedule(date: currentDate, weekday: scheduleData.weekday, movies: movies)
-//                let nextUpdate = Calendar.current.date(bySetting: .second, value: 15, of: currentDate)!
-                let timeline = Timeline(entries: [timelineData], policy: .after(Date.tomorrow))
+                let nextUpdate = Calendar.current.date(bySetting: .hour, value: 3, of: currentDate)!
+                let timeline = Timeline(entries: [timelineData], policy: .after(nextUpdate))
                 completion(timeline)
             }
         }
