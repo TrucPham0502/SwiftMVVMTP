@@ -10,7 +10,7 @@ import Foundation
 import WidgetKit
 import SwiftUI
 fileprivate let scheduleUrl = "\(Constants.appEndPointUrl)api/movie/schedule"
-struct Provider: TimelineProvider {
+struct Provider: IntentTimelineProvider {
     func placeholder(in context: Context) -> MovieSchedule {
         MovieSchedule(date: Date(),movies: [
             .init(name: "Movie name 1", episode: "Episode", poster: UIImage(named: "avatar")?.jpegData(compressionQuality: 1)),
@@ -20,8 +20,8 @@ struct Provider: TimelineProvider {
         ])
     }
     
-    func getSnapshot(in context: Context, completion: @escaping (MovieSchedule) -> ()) {
-        let entry = MovieSchedule(date: Date(),movies: [
+    func getSnapshot(for configuration: TrucPhamScheduleConfigurationIntent, in context: Context, completion: @escaping (MovieSchedule) -> ()) {
+        let entry = MovieSchedule(date: Date(),filterBookmark: configuration.filterBookmark as? Bool ?? false,movies: [
             .init(name: "Movie name 1", episode: "Episode", poster: UIImage(named: "avatar")?.jpegData(compressionQuality: 1)),
             .init(name: "Movie name 2", episode: "Episode", poster: UIImage(named: "avatar")?.jpegData(compressionQuality: 1)),
             .init(name: "Movie name 3", episode: "Episode", poster: UIImage(named: "avatar")?.jpegData(compressionQuality: 1)),
@@ -30,12 +30,14 @@ struct Provider: TimelineProvider {
         completion(entry)
     }
     
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+    func getTimeline(for configuration: TrucPhamScheduleConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
         Task {
-            
-            if let scheduleData = try? await fetchData(currentDate) {
+            @Storage(key: Authorization.key, defaultValue: nil, group: Constants.groupShared)
+            var auth : Authorization?
+            let filter = configuration.filterBookmark as? Bool ?? false
+            if let scheduleData = try? await fetchData(currentDate, id: filter ? auth?.userId : nil) {
                 var arrPosterData : [Data?] = []
                 for i in 0..<scheduleData.movies.count {
                     let posterData = try? await fetchImage(urlString: scheduleData.movies[i].poster!)
@@ -45,7 +47,7 @@ struct Provider: TimelineProvider {
                 let movies = scheduleData.movies.enumerated().map({ ele in
                     return MovieSchedule.Movie(name: ele.element.name, episode: ele.element.episode, poster: arrPosterData[ele.offset])
                 })
-                let timelineData = MovieSchedule(date: currentDate, weekday: scheduleData.weekday, movies: movies)
+                let timelineData = MovieSchedule(date: currentDate, filterBookmark: filter, weekday: scheduleData.weekday, movies: movies)
 //                let nextUpdate = Calendar.current.date(bySetting: .hour, value: 3, of: currentDate)!
                 let timeline = Timeline(entries: [timelineData], policy: .after(Date.tomorrow))
                 completion(timeline)
@@ -53,9 +55,10 @@ struct Provider: TimelineProvider {
         }
     }
     
-    func fetchData(_ date: Date) async throws -> MovieScheduleResponse {
+    func fetchData(_ date: Date, id: String? = nil) async throws -> MovieScheduleResponse {
         let dayOfWeek = Calendar.current.dateComponents([.weekday], from: date).weekday ?? 0
-        let url =  "\(scheduleUrl)?weekday=\(max(0, dayOfWeek-1))"
+        var url =  "\(scheduleUrl)?weekday=\(max(0, dayOfWeek-1))"
+        if let id = id {  url += "&id=\(id)" }
         let session = URLSession(configuration: .default)
         let response = try await session.data(from: URL(string: url)!)
         let scheduleData = try JSONDecoder().decode(ApiResponse<MovieScheduleResponse>.self, from: response.0)
@@ -94,6 +97,7 @@ struct MovieScheduleResponse: Codable {
 
 struct MovieSchedule : TimelineEntry {
     let date: Date
+    var filterBookmark: Bool = false
     var weekday: String?
     var movies: [Movie] = []
     struct Movie {
@@ -198,7 +202,7 @@ struct MovieScheduleWidget: Widget {
     let kind: String = "MovieScheduleWidget"
     
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { entry in
+        IntentConfiguration(kind: kind, intent: TrucPhamScheduleConfigurationIntent.self, provider: Provider()) { entry in
             MovieScheduleWidgetEntryView(entry: entry)
         }
         .supportedFamilies([.systemMedium, .systemSmall, .accessoryRectangular])

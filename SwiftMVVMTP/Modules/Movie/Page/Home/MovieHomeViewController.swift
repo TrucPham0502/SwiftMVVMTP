@@ -202,7 +202,7 @@ class MovieHomeViewController : BaseViewController<MovieHomeViewModel> {
             
             pageControl.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             pageControl.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            pageControl.topAnchor.constraint(equalTo: self.collectionView.bottomAnchor, constant: -UIMovieHomeConfig.shared.yOffsetItem - 5)
+            pageControl.topAnchor.constraint(equalTo: self.collectionView.bottomAnchor, constant: -UIMovieHomeConfig.shared.yOffsetItem - 20)
         ])
     }
     func reloadCollection()

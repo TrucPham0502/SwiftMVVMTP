@@ -37,9 +37,9 @@
             filePath = "MovieScheduleWidget/MovieScheduleWidget.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "getTimeline(in:completion:)"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "getTimeline(for:in:completion:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -85,9 +85,9 @@
             filePath = "MovieScheduleWidget/MovieScheduleWidget.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "getTimeline(in:completion:)"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "getTimeline(for:in:completion:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -178,9 +178,9 @@
             filePath = "MovieScheduleWidget/MovieScheduleWidget.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "getTimeline(in:completion:)"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "getTimeline(for:in:completion:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -383,6 +383,22 @@
                   offsetFromSymbolStart = "740">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E2331124-8057-410B-A34D-0CC25F7C494A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieScheduleWidget/MovieScheduleWidget.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "fetchData(_:id:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

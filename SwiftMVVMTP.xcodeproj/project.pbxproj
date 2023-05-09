@@ -15,6 +15,9 @@
 		8E36226129DD3B550060D16C /* ExpandableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E36226029DD3B550060D16C /* ExpandableLabel.swift */; };
 		8E38C3852A08CACB0023EC28 /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2C0126FCE20E007CE4BF /* Dependency.swift */; };
 		8E38C3862A08CAD00023EC28 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F2BF926FCE10D007CE4BF /* Constants.swift */; };
+		8E38C38C2A09E0E40023EC28 /* MovieScheduleWidgetIntent.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8E38C38B2A09E0E40023EC28 /* MovieScheduleWidgetIntent.intentdefinition */; };
+		8E38C38D2A09E0E40023EC28 /* MovieScheduleWidgetIntent.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8E38C38B2A09E0E40023EC28 /* MovieScheduleWidgetIntent.intentdefinition */; };
+		8E38C38E2A09ECF00023EC28 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2C66129E51F07005D3E30 /* Storage.swift */; };
 		8E72B3F429F26A560026051F /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E72B3F329F26A560026051F /* UIFont+Extensions.swift */; };
 		8E990D6C29E93B4300D16F89 /* BackgroundCircleNeumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E990D6B29E93B4200D16F89 /* BackgroundCircleNeumorphic.swift */; };
 		8EA7E31E29E3CFBA00A90DDE /* ButtomNeumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA7E31D29E3CFBA00A90DDE /* ButtomNeumorphic.swift */; };
@@ -203,6 +206,7 @@
 		8E0D773E29DEA50800F99721 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		8E36225E29DD11E40060D16C /* StretchyScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyScrollView.swift; sourceTree = "<group>"; };
 		8E36226029DD3B550060D16C /* ExpandableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableLabel.swift; sourceTree = "<group>"; };
+		8E38C38B2A09E0E40023EC28 /* MovieScheduleWidgetIntent.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = MovieScheduleWidgetIntent.intentdefinition; sourceTree = "<group>"; };
 		8E72B3F329F26A560026051F /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		8E990D6B29E93B4200D16F89 /* BackgroundCircleNeumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundCircleNeumorphic.swift; sourceTree = "<group>"; };
 		8EA7E31D29E3CFBA00A90DDE /* ButtomNeumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtomNeumorphic.swift; sourceTree = "<group>"; };
@@ -429,6 +433,7 @@
 				8EE8B9702A03547C006105C4 /* MovieScheduleWidgetBundle.swift */,
 				8EE8B9742A03547E006105C4 /* Assets.xcassets */,
 				8EE8B9762A03547E006105C4 /* Info.plist */,
+				8E38C38B2A09E0E40023EC28 /* MovieScheduleWidgetIntent.intentdefinition */,
 			);
 			path = MovieScheduleWidget;
 			sourceTree = "<group>";
@@ -1011,10 +1016,10 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				CLASSPREFIX = "Truc Pham";
+				CLASSPREFIX = TrucPham;
 				LastSwiftUpdateCheck = 1410;
 				LastUpgradeCheck = 1300;
-				ORGANIZATIONNAME = "Truc Pham";
+				ORGANIZATIONNAME = TrucPham;
 				TargetAttributes = {
 					8EE8B9692A03547C006105C4 = {
 						CreatedOnToolsVersion = 14.1;
@@ -1155,8 +1160,10 @@
 			files = (
 				8E38C3852A08CACB0023EC28 /* Dependency.swift in Sources */,
 				8EE8B9712A03547C006105C4 /* MovieScheduleWidgetBundle.swift in Sources */,
+				8E38C38D2A09E0E40023EC28 /* MovieScheduleWidgetIntent.intentdefinition in Sources */,
 				8EE8B9732A03547C006105C4 /* MovieScheduleWidget.swift in Sources */,
 				8E38C3862A08CAD00023EC28 /* Constants.swift in Sources */,
+				8E38C38E2A09ECF00023EC28 /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1230,6 +1237,7 @@
 				FEEC60B926FEE8FD00DDA47E /* UIImage+Extensions.swift in Sources */,
 				8E064FFB29E39DC600D104E4 /* DGPreview.swift in Sources */,
 				FEEC609326FE478700DDA47E /* GlidingCollectionDatasource.swift in Sources */,
+				8E38C38C2A09E0E40023EC28 /* MovieScheduleWidgetIntent.intentdefinition in Sources */,
 				8E36225F29DD11E40060D16C /* StretchyScrollView.swift in Sources */,
 				8E0D773D29DD7C0A00F99721 /* DynamicCollectionView.swift in Sources */,
 				8EF7BD9F29E7BCB600C22106 /* TableView+Extensions.swift in Sources */,

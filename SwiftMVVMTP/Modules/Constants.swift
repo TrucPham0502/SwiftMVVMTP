@@ -15,6 +15,7 @@ enum InfoDictionary : String {
     case googleServiceInfo = "googleServiceInfo"
 }
 struct Constants {
+    static let groupShared = "group.trucpham.movie"
     @Dependency.InfoDictionary(key: InfoDictionary.appEndPointUrl.rawValue)
     static var appEndPointUrl : String
     @Dependency.InfoDictionary(key: InfoDictionary.googleServiceInfo.rawValue)

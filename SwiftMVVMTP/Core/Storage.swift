@@ -27,15 +27,19 @@ struct Printable {
 
 @propertyWrapper
 struct Storage<T: Codable> {
-    static func remove(key: String) {
-        UserDefaults.standard.removeObject(forKey: key)
+    static func getGroup(group: String?) -> UserDefaults? {
+        if let group = group { return  UserDefaults(suiteName: group) }
+        else { return UserDefaults.standard }
     }
-    static func set(data : T, key: String) {
+    static func remove(key: String, group: String? = nil) {
+        getGroup(group: group)?.removeObject(forKey: key)
+    }
+    static func set(data : T, key: String, group: String? = nil) {
         let save = try? JSONEncoder().encode(data)
-        UserDefaults.standard.set(save, forKey: key)
+        getGroup(group: group)?.set(save, forKey: key)
     }
-    static func get(key: String) -> T? {
-        guard let data = UserDefaults.standard.object(forKey: key) as? Data else {
+    static func get(key: String, group: String? = nil) -> T? {
+        guard let data = getGroup(group: group)?.object(forKey: key) as? Data else {
             return nil
         }
         let value = try? JSONDecoder().decode(T.self, from: data)
@@ -44,18 +48,20 @@ struct Storage<T: Codable> {
     
     private let key: String
     private let defaultValue: T
+    private let group: String?
 
-    init(key: String, defaultValue: T) {
+    init(key: String, defaultValue: T, group: String? = nil) {
         self.key = key
         self.defaultValue = defaultValue
+        self.group = group
     }
 
     var wrappedValue: T {
         get {
-            return Storage<T>.get(key: key) ?? defaultValue
+            return Storage<T>.get(key: key, group: group) ?? defaultValue
         }
         set {
-            Storage<T>.set(data: newValue, key: key)
+            Storage<T>.set(data: newValue, key: key, group: group)
         }
     }
 }
@@ -90,6 +96,7 @@ struct Authorization : Codable {
     static let key = "AUTHORIZATION_KEY"
     @Dependency.InfoDictionary(key: "signatureKeySecrect")
     static var signatureKeySecrect : String
+    let userId : String
     let token : String
     let refreshToken: String
     let privateKey : String

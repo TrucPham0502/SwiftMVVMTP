@@ -42,7 +42,7 @@ class MovieRepositoryImpl : BaseRepository , MovieRepository {
     func signIn(_ input : SignInRequest) -> Observable<SignInResponse> {
         return remoteSource.signIn(input).valid().do(onNext: {data in
             guard let token = data.token, let user = data.user else { return }
-            AppData.saveDataUser(user: user, author: Authorization(token: token, refreshToken: data.refreshToken ?? "", privateKey: data.privateKey ?? ""))
+            AppData.saveDataUser(user: user, author: Authorization(userId: user.id ?? "", token: token, refreshToken: data.refreshToken ?? "", privateKey: data.privateKey ?? ""))
             
         })
     }

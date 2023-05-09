@@ -11,7 +11,7 @@ import RxAlamofire
 import RxSwift
 
 class ApiRequestManager<O : Codable> {
-    @Storage(key: Authorization.key, defaultValue: nil)
+    @Storage(key: Authorization.key, defaultValue: nil, group: Constants.groupShared)
     var authorization : Authorization?
     let manager : Session = Alamofire.Session.default
     func signature(data: Encodable, nonce : String, timestamp: String) -> String {
