@@ -18,6 +18,7 @@
 		8E38C38C2A09E0E40023EC28 /* MovieScheduleWidgetIntent.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8E38C38B2A09E0E40023EC28 /* MovieScheduleWidgetIntent.intentdefinition */; };
 		8E38C38D2A09E0E40023EC28 /* MovieScheduleWidgetIntent.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8E38C38B2A09E0E40023EC28 /* MovieScheduleWidgetIntent.intentdefinition */; };
 		8E38C38E2A09ECF00023EC28 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2C66129E51F07005D3E30 /* Storage.swift */; };
+		8E38C38F2A0A2EEA0023EC28 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E72B3F329F26A560026051F /* UIFont+Extensions.swift */; };
 		8E72B3F429F26A560026051F /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E72B3F329F26A560026051F /* UIFont+Extensions.swift */; };
 		8E990D6C29E93B4300D16F89 /* BackgroundCircleNeumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E990D6B29E93B4200D16F89 /* BackgroundCircleNeumorphic.swift */; };
 		8EA7E31E29E3CFBA00A90DDE /* ButtomNeumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA7E31D29E3CFBA00A90DDE /* ButtomNeumorphic.swift */; };
@@ -1164,6 +1165,7 @@
 				8EE8B9732A03547C006105C4 /* MovieScheduleWidget.swift in Sources */,
 				8E38C3862A08CAD00023EC28 /* Constants.swift in Sources */,
 				8E38C38E2A09ECF00023EC28 /* Storage.swift in Sources */,
+				8E38C38F2A0A2EEA0023EC28 /* UIFont+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

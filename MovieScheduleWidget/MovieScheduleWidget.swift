@@ -117,26 +117,32 @@ struct MovieScheduleWidgetEntryView : View {
         case .systemSmall:
             smallView(entry.movies)
         case .systemMedium:
-            let data = Array(entry.movies[0...min(entry.movies.count - 1, 7)])
-            mediumView(data)
+            mediumView(entry.movies)
         case .accessoryRectangular:
             accessoryRectangularView(entry.movies)
         default:
             mediumView(entry.movies)
         }
-        
     }
     @ViewBuilder
     func accessoryRectangularView(_ data : [MovieSchedule.Movie]) -> some View {
         VStack {
-            ForEach(data[0...min(data.count - 1, 1)], id: \.name) { m in
+            if entry.movies.count > 0 {
+                ForEach(data[0...min(data.count - 1, 1)], id: \.name) { m in
+                    HStack {
+                        if let p = m.poster, let uiImage = UIImage(data: p) {
+                            Image(uiImage: uiImage).resizable().scaledToFill().frame(width: 15, height: 15)
+                                .mask(Circle())
+                        }
+                        Text(m.name ?? "").lineLimit(1).foregroundColor(.white).font(Font(UIFont.regular(ofSize: 10)))
+                    }.frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }
+            else {
                 HStack {
-                    if let p = m.poster, let uiImage = UIImage(data: p) {
-                        Image(uiImage: uiImage).resizable().scaledToFill().frame(width: 15, height: 15)
-                            .mask(Circle())
-                    }
-                    Text(m.name ?? "").lineLimit(1).foregroundColor(.white).font(.system(size: 10))
-                }.frame(maxWidth: .infinity, alignment: .leading)
+                    Image(systemName: "xmark").resizable().frame(width: 8, height: 8).foregroundColor(.white)
+                    Text("Movie not found").foregroundColor(.white).font(Font(UIFont.regular(ofSize: 10)))
+                }
             }
         }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading).padding(.all)
     }
@@ -146,19 +152,27 @@ struct MovieScheduleWidgetEntryView : View {
         ZStack {
             Rectangle().fill(Color(.black))
             ZStack {
-                VStack {
-                    ForEach(data[0...min(data.count - 1, 3)], id: \.name) { m in
-                        HStack {
-                            if let p = m.poster, let uiImage = UIImage(data: p) {
-                                Image(uiImage: uiImage).resizable().scaledToFill().frame(width: 24, height: 24)
-                                    .mask(Circle())
-                            }
-                            Text(m.name ?? "").lineLimit(2).foregroundColor(.white).font(.system(size: 10))
-                        }.frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                }.frame(maxWidth: .infinity,  alignment: .topLeading).padding(.trailing, 15)
+                if entry.movies.count > 0 {
+                    VStack {
+                        ForEach(data[0...min(data.count - 1, 3)], id: \.name) { m in
+                            HStack {
+                                if let p = m.poster, let uiImage = UIImage(data: p) {
+                                    Image(uiImage: uiImage).resizable().scaledToFill().frame(width: 24, height: 24)
+                                        .mask(Circle())
+                                }
+                                Text(m.name ?? "").lineLimit(2).foregroundColor(.white).font(Font(UIFont.regular(ofSize: 10)))
+                            }.frame(maxWidth: .infinity, alignment: .leading)
+                                .widgetURL(URL(string: "movietp://\(m.name ?? "")"))
+                        }
+                    }.frame(maxWidth: .infinity,  alignment: .topLeading).padding(.trailing, 15)
+                }
+                else {
+                    ZStack {
+                        Text("Movie not found").foregroundColor(.white).font(Font(UIFont.regular(ofSize: 12)))
+                    }.padding(.trailing, 15)
+                }
                 VStack(alignment: .leading) {
-                    Text("\(entry.date.dayOfWeek() ?? "") \(entry.date.get(.day))").foregroundColor(.red).font(.system(size: 12, weight: .bold))
+                    Text("\(entry.date.dayOfWeek() ?? "") \(entry.date.get(.day))").foregroundColor(.red).font(Font(UIFont.bold(ofSize: 12)))
                         .padding(.bottom, -3)
                 }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading).rotationEffect(.degrees(-90))
             }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading).padding(.all)
@@ -171,26 +185,33 @@ struct MovieScheduleWidgetEntryView : View {
             Rectangle().fill(Color(.black))
             HStack {
                 VStack(alignment: .leading) {
-                    Text("\(entry.date.dayOfWeek() ?? "")").foregroundColor(.red).font(.system(size: 12))
-                    Text("\(entry.date.get(.day))").foregroundColor(.white).font(.system(size: 30, weight: .bold))
+                    Text("\(entry.date.dayOfWeek() ?? "")").foregroundColor(.red).font(Font(UIFont.regular(ofSize: 12)))
+                    Text("\(entry.date.get(.day))").foregroundColor(.white).font(Font(UIFont.bold(ofSize: 30)))
                 }.padding(.trailing, 10)
-                VStack(alignment: .leading) {
-                    let columns = [
-                        GridItem(.flexible()),
-                        GridItem(.flexible()),
-                    ]
-                    LazyVGrid(columns: columns, alignment: .leading) {
-                        ForEach(data, id: \.name) { m in
-                            HStack {
-                                if let p = m.poster, let uiImage = UIImage(data: p) {
-                                    Image(uiImage: uiImage).resizable().scaledToFill().frame(width: 24, height: 24)
-                                        .mask(Circle())
+                VStack(alignment: .center) {
+                    if entry.movies.count > 0 {
+                        let columns = [
+                            GridItem(.flexible()),
+                            GridItem(.flexible()),
+                        ]
+                        LazyVGrid(columns: columns, alignment: .leading) {
+                            ForEach(data[0...min(entry.movies.count - 1, 7)], id: \.name) { m in
+                                HStack {
+                                    if let p = m.poster, let uiImage = UIImage(data: p) {
+                                        Image(uiImage: uiImage).resizable().scaledToFill().frame(width: 24, height: 24)
+                                            .mask(Circle())
+                                    }
+                                    Text(m.name ?? "").lineLimit(2).foregroundColor(.white).font(Font(UIFont.regular(ofSize: 10)))
                                 }
-                                Text(m.name ?? "").lineLimit(2).foregroundColor(.white).font(.system(size: 10))
+                                
                             }
-                            
-                        }
-                    }.frame(maxWidth: .infinity, alignment: .leading)
+                        }.frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    else {
+                        ZStack(alignment: .center) {
+                            Text("Movie not found").foregroundColor(.white).font(Font(UIFont.regular(ofSize: 15)))
+                        }.frame(maxWidth: .infinity)
+                    }
                     
                 }
             }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading).padding(.all)
