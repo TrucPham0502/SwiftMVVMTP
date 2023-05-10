@@ -19,6 +19,8 @@
 		8E38C38D2A09E0E40023EC28 /* MovieScheduleWidgetIntent.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8E38C38B2A09E0E40023EC28 /* MovieScheduleWidgetIntent.intentdefinition */; };
 		8E38C38E2A09ECF00023EC28 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2C66129E51F07005D3E30 /* Storage.swift */; };
 		8E38C38F2A0A2EEA0023EC28 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E72B3F329F26A560026051F /* UIFont+Extensions.swift */; };
+		8E38C3912A0B80610023EC28 /* ScheduleLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E38C3902A0B80610023EC28 /* ScheduleLiveActivity.swift */; };
+		8E38C3922A0B80610023EC28 /* ScheduleLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E38C3902A0B80610023EC28 /* ScheduleLiveActivity.swift */; };
 		8E72B3F429F26A560026051F /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E72B3F329F26A560026051F /* UIFont+Extensions.swift */; };
 		8E990D6C29E93B4300D16F89 /* BackgroundCircleNeumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E990D6B29E93B4200D16F89 /* BackgroundCircleNeumorphic.swift */; };
 		8EA7E31E29E3CFBA00A90DDE /* ButtomNeumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA7E31D29E3CFBA00A90DDE /* ButtomNeumorphic.swift */; };
@@ -208,6 +210,7 @@
 		8E36225E29DD11E40060D16C /* StretchyScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyScrollView.swift; sourceTree = "<group>"; };
 		8E36226029DD3B550060D16C /* ExpandableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableLabel.swift; sourceTree = "<group>"; };
 		8E38C38B2A09E0E40023EC28 /* MovieScheduleWidgetIntent.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = MovieScheduleWidgetIntent.intentdefinition; sourceTree = "<group>"; };
+		8E38C3902A0B80610023EC28 /* ScheduleLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleLiveActivity.swift; sourceTree = "<group>"; };
 		8E72B3F329F26A560026051F /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		8E990D6B29E93B4200D16F89 /* BackgroundCircleNeumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundCircleNeumorphic.swift; sourceTree = "<group>"; };
 		8EA7E31D29E3CFBA00A90DDE /* ButtomNeumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtomNeumorphic.swift; sourceTree = "<group>"; };
@@ -435,6 +438,7 @@
 				8EE8B9742A03547E006105C4 /* Assets.xcassets */,
 				8EE8B9762A03547E006105C4 /* Info.plist */,
 				8E38C38B2A09E0E40023EC28 /* MovieScheduleWidgetIntent.intentdefinition */,
+				8E38C3902A0B80610023EC28 /* ScheduleLiveActivity.swift */,
 			);
 			path = MovieScheduleWidget;
 			sourceTree = "<group>";
@@ -1166,6 +1170,7 @@
 				8E38C3862A08CAD00023EC28 /* Constants.swift in Sources */,
 				8E38C38E2A09ECF00023EC28 /* Storage.swift in Sources */,
 				8E38C38F2A0A2EEA0023EC28 /* UIFont+Extensions.swift in Sources */,
+				8E38C3922A0B80610023EC28 /* ScheduleLiveActivity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1191,6 +1196,7 @@
 				FE5DC5AE29E863F80084D9C4 /* AppData.swift in Sources */,
 				FE5CB03E29E3274A00557D9B /* Notification.Name+Extensions.swift in Sources */,
 				FEA47B6D29F17F02004DB95C /* URL+Extensions.swift in Sources */,
+				8E38C3912A0B80610023EC28 /* ScheduleLiveActivity.swift in Sources */,
 				FEEC60A426FE503300DDA47E /* MovieRepository.swift in Sources */,
 				FE44EEA226FD75F500EC9F85 /* DataTestResponse.swift in Sources */,
 				FE3B3D1D29D8B9EA006EB487 /* HMAC.swift in Sources */,
@@ -1425,7 +1431,7 @@
 				INFOPLIST_FILE = MovieScheduleWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MovieScheduleWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Truc Pham. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1506,7 +1512,7 @@
 				INFOPLIST_FILE = MovieScheduleWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MovieScheduleWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Truc Pham. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

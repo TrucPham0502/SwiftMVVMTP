@@ -9,10 +9,10 @@
 import Foundation
 import WidgetKit
 import SwiftUI
-fileprivate let scheduleUrl = "\(Constants.appEndPointUrl)api/movie/schedule"
-struct Provider: IntentTimelineProvider {
+struct ScheduleProvider: IntentTimelineProvider {
+    private let scheduleUrl = "\(Constants.appEndPointUrl)api/movie/schedule"
     func placeholder(in context: Context) -> MovieSchedule {
-        MovieSchedule(date: Date(),movies: [
+        MovieSchedule(date: Date(),maxCount: 4, movies: [
             .init(name: "Movie name 1", episode: "Episode", poster: UIImage(named: "avatar")?.jpegData(compressionQuality: 1)),
             .init(name: "Movie name 2", episode: "Episode", poster: UIImage(named: "avatar")?.jpegData(compressionQuality: 1)),
             .init(name: "Movie name 3", episode: "Episode", poster: UIImage(named: "avatar")?.jpegData(compressionQuality: 1)),
@@ -21,7 +21,7 @@ struct Provider: IntentTimelineProvider {
     }
     
     func getSnapshot(for configuration: TrucPhamScheduleConfigurationIntent, in context: Context, completion: @escaping (MovieSchedule) -> ()) {
-        let entry = MovieSchedule(date: Date(),filterBookmark: configuration.filterBookmark as? Bool ?? false,movies: [
+        let entry = MovieSchedule(date: Date(),filterBookmark: configuration.filterBookmark as? Bool ?? false, maxCount: 4, movies: [
             .init(name: "Movie name 1", episode: "Episode", poster: UIImage(named: "avatar")?.jpegData(compressionQuality: 1)),
             .init(name: "Movie name 2", episode: "Episode", poster: UIImage(named: "avatar")?.jpegData(compressionQuality: 1)),
             .init(name: "Movie name 3", episode: "Episode", poster: UIImage(named: "avatar")?.jpegData(compressionQuality: 1)),
@@ -36,7 +36,7 @@ struct Provider: IntentTimelineProvider {
         Task {
             @Storage(key: Authorization.key, defaultValue: nil, group: Constants.groupShared)
             var auth : Authorization?
-            let filter = configuration.filterBookmark as? Bool ?? false
+            let filter = configuration.filterBookmark as? Bool ?? true
             if let scheduleData = try? await fetchData(currentDate, id: filter ? auth?.userId : nil) {
                 var arrPosterData : [Data?] = []
                 for i in 0..<scheduleData.movies.count {
@@ -47,7 +47,7 @@ struct Provider: IntentTimelineProvider {
                 let movies = scheduleData.movies.enumerated().map({ ele in
                     return MovieSchedule.Movie(name: ele.element.name, episode: ele.element.episode, poster: arrPosterData[ele.offset])
                 })
-                let timelineData = MovieSchedule(date: currentDate, filterBookmark: filter, weekday: scheduleData.weekday, movies: movies)
+                let timelineData = MovieSchedule(date: currentDate, filterBookmark: filter, maxCount: configuration.maxCount as? Int ?? 2, weekday: scheduleData.weekday, movies: movies)
 //                let nextUpdate = Calendar.current.date(bySetting: .hour, value: 3, of: currentDate)!
                 let timeline = Timeline(entries: [timelineData], policy: .after(Date.tomorrow))
                 completion(timeline)
@@ -97,7 +97,8 @@ struct MovieScheduleResponse: Codable {
 
 struct MovieSchedule : TimelineEntry {
     let date: Date
-    var filterBookmark: Bool = false
+    var filterBookmark: Bool = true
+    var maxCount : Int = 2
     var weekday: String?
     var movies: [Movie] = []
     struct Movie {
@@ -110,25 +111,25 @@ struct MovieSchedule : TimelineEntry {
 
 
 struct MovieScheduleWidgetEntryView : View {
-    var entry: Provider.Entry
+    var entry: ScheduleProvider.Entry
     @Environment(\.widgetFamily) var family
     var body: some View {
         switch family {
         case .systemSmall:
-            smallView(entry.movies)
+            smallView()
         case .systemMedium:
-            mediumView(entry.movies)
+            mediumView()
         case .accessoryRectangular:
-            accessoryRectangularView(entry.movies)
+            accessoryRectangularView()
         default:
-            mediumView(entry.movies)
+            mediumView()
         }
     }
     @ViewBuilder
-    func accessoryRectangularView(_ data : [MovieSchedule.Movie]) -> some View {
+    func accessoryRectangularView() -> some View {
         VStack {
             if entry.movies.count > 0 {
-                ForEach(data[0...min(data.count - 1, 1)], id: \.name) { m in
+                ForEach(entry.movies[0..<min(entry.movies.count, entry.maxCount)], id: \.name) { m in
                     HStack {
                         if let p = m.poster, let uiImage = UIImage(data: p) {
                             Image(uiImage: uiImage).resizable().scaledToFill().frame(width: 15, height: 15)
@@ -148,13 +149,13 @@ struct MovieScheduleWidgetEntryView : View {
     }
     
     @ViewBuilder
-    func smallView(_ data : [MovieSchedule.Movie]) -> some View {
+    func smallView() -> some View {
         ZStack {
             Rectangle().fill(Color(.black))
             ZStack {
                 if entry.movies.count > 0 {
                     VStack {
-                        ForEach(data[0...min(data.count - 1, 3)], id: \.name) { m in
+                        ForEach(entry.movies[0..<min(entry.movies.count, entry.maxCount)], id: \.name) { m in
                             HStack {
                                 if let p = m.poster, let uiImage = UIImage(data: p) {
                                     Image(uiImage: uiImage).resizable().scaledToFill().frame(width: 24, height: 24)
@@ -180,7 +181,7 @@ struct MovieScheduleWidgetEntryView : View {
         
     }
     @ViewBuilder
-    func mediumView(_ data : [MovieSchedule.Movie]) -> some View {
+    func mediumView() -> some View {
         ZStack {
             Rectangle().fill(Color(.black))
             HStack {
@@ -195,7 +196,7 @@ struct MovieScheduleWidgetEntryView : View {
                             GridItem(.flexible()),
                         ]
                         LazyVGrid(columns: columns, alignment: .leading) {
-                            ForEach(data[0...min(entry.movies.count - 1, 7)], id: \.name) { m in
+                            ForEach(entry.movies[0..<min(entry.movies.count, entry.maxCount)], id: \.name) { m in
                                 HStack {
                                     if let p = m.poster, let uiImage = UIImage(data: p) {
                                         Image(uiImage: uiImage).resizable().scaledToFill().frame(width: 24, height: 24)
@@ -221,14 +222,22 @@ struct MovieScheduleWidgetEntryView : View {
 
 struct MovieScheduleWidget: Widget {
     let kind: String = "MovieScheduleWidget"
-    
     var body: some WidgetConfiguration {
-        IntentConfiguration(kind: kind, intent: TrucPhamScheduleConfigurationIntent.self, provider: Provider()) { entry in
-            MovieScheduleWidgetEntryView(entry: entry)
+        if #available(iOSApplicationExtension 16.0, *) {
+            return IntentConfiguration(kind: kind, intent: TrucPhamScheduleConfigurationIntent.self, provider: ScheduleProvider()) { entry in
+                MovieScheduleWidgetEntryView(entry: entry)
+            }
+            .supportedFamilies([.systemMedium, .systemSmall, .accessoryRectangular])
+            .configurationDisplayName("Schedule")
+            .description("The movie schedule for today")
+        } else {
+            return IntentConfiguration(kind: kind, intent: TrucPhamScheduleConfigurationIntent.self, provider: ScheduleProvider()) { entry in
+                MovieScheduleWidgetEntryView(entry: entry)
+            }
+            .supportedFamilies([.systemMedium, .systemSmall])
+            .configurationDisplayName("Schedule")
+            .description("The movie schedule for today")
         }
-        .supportedFamilies([.systemMedium, .systemSmall, .accessoryRectangular])
-        .configurationDisplayName("Schedule")
-        .description("The movie schedule for today")
     }
 }
 

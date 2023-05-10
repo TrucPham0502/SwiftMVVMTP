@@ -8,6 +8,7 @@
 import Foundation
 import RxCocoa
 import UIKit
+import WidgetKit
 
 
 
@@ -439,6 +440,9 @@ class MovieDetailViewController : BaseViewController<MovieDetailViewModel> {
         output.bookmark.drive(onNext: {[weak self] () in
             guard let self = self else { return }
             self.isBookmarks = !self.isBookmarks
+            if #available(iOS 14.0, *) {
+                WidgetCenter.shared.reloadAllTimelines()
+            }
         }).disposed(by: self.disposeBag)
     }
     
