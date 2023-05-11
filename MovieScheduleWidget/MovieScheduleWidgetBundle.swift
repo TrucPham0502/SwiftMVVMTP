@@ -13,5 +13,8 @@ import SwiftUI
 struct MovieScheduleWidgetBundle: WidgetBundle {
     var body: some Widget {
         MovieScheduleWidget()
+        if #available(iOSApplicationExtension 16.1, *) {
+            ScheduleLiveActivity()
+        }
     }
 }

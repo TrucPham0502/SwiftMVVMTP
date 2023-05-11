@@ -12,40 +12,39 @@ import SwiftUI
 import WidgetKit
 
 @available(iOS 16.1, *)
-struct ScheduleAttributes : ActivityAttributes {
-    public struct ContentState : Codable, Hashable {
-        
-    }
-    var name : String
-}
+
 @available(iOS 16.1, *)
 struct ScheduleLiveActivity : Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: ScheduleAttributes.self) { context in
             VStack {
-                Text("Hello")
+                Text(context.state.name)
             }
-            .activityBackgroundTint(.clear)
         } dynamicIsland: { context in
+            // Create the presentations that appear in the Dynamic Island.
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
-                    Text("Leading")
+                    Text(context.state.name)
                 }
                 DynamicIslandExpandedRegion(.trailing) {
-                    Text("Trailing")
+                    Text(context.state.name)
+                }
+                DynamicIslandExpandedRegion(.center) {
+                    Text(context.state.name)
                 }
                 DynamicIslandExpandedRegion(.bottom) {
-                    Text("Bottom")
-                }            } compactLeading: {
-                Text("L")
+                    Text(context.state.name)
+                }
+            } compactLeading: {
+                Text("compactLeading")
             } compactTrailing: {
-                Text("R")
+                Text("compactLeading")
             } minimal: {
-                Text("min")
+                Text("compactLeading")
             }
-            .widgetURL(URL(string: ""))
-            .keylineTint(.red)
+            .keylineTint(.cyan)
         }
-
+        
+        
     }
 }

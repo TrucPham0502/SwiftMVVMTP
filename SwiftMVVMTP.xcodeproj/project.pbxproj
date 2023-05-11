@@ -21,6 +21,8 @@
 		8E38C38F2A0A2EEA0023EC28 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E72B3F329F26A560026051F /* UIFont+Extensions.swift */; };
 		8E38C3912A0B80610023EC28 /* ScheduleLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E38C3902A0B80610023EC28 /* ScheduleLiveActivity.swift */; };
 		8E38C3922A0B80610023EC28 /* ScheduleLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E38C3902A0B80610023EC28 /* ScheduleLiveActivity.swift */; };
+		8E38C3942A0CA1B40023EC28 /* ScheduleAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E38C3932A0CA1B40023EC28 /* ScheduleAttributes.swift */; };
+		8E38C3952A0CA3910023EC28 /* ScheduleAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E38C3932A0CA1B40023EC28 /* ScheduleAttributes.swift */; };
 		8E72B3F429F26A560026051F /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E72B3F329F26A560026051F /* UIFont+Extensions.swift */; };
 		8E990D6C29E93B4300D16F89 /* BackgroundCircleNeumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E990D6B29E93B4200D16F89 /* BackgroundCircleNeumorphic.swift */; };
 		8EA7E31E29E3CFBA00A90DDE /* ButtomNeumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA7E31D29E3CFBA00A90DDE /* ButtomNeumorphic.swift */; };
@@ -211,6 +213,7 @@
 		8E36226029DD3B550060D16C /* ExpandableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableLabel.swift; sourceTree = "<group>"; };
 		8E38C38B2A09E0E40023EC28 /* MovieScheduleWidgetIntent.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = MovieScheduleWidgetIntent.intentdefinition; sourceTree = "<group>"; };
 		8E38C3902A0B80610023EC28 /* ScheduleLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleLiveActivity.swift; sourceTree = "<group>"; };
+		8E38C3932A0CA1B40023EC28 /* ScheduleAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleAttributes.swift; sourceTree = "<group>"; };
 		8E72B3F329F26A560026051F /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		8E990D6B29E93B4200D16F89 /* BackgroundCircleNeumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundCircleNeumorphic.swift; sourceTree = "<group>"; };
 		8EA7E31D29E3CFBA00A90DDE /* ButtomNeumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtomNeumorphic.swift; sourceTree = "<group>"; };
@@ -887,6 +890,7 @@
 				FE5DC5AD29E863F80084D9C4 /* AppData.swift */,
 				FEA47B6A29ED78B9004DB95C /* ErrorCode.swift */,
 				FE41E45B29F2FCEF00329E66 /* AppPageControl.swift */,
+				8E38C3932A0CA1B40023EC28 /* ScheduleAttributes.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1170,6 +1174,7 @@
 				8E38C3862A08CAD00023EC28 /* Constants.swift in Sources */,
 				8E38C38E2A09ECF00023EC28 /* Storage.swift in Sources */,
 				8E38C38F2A0A2EEA0023EC28 /* UIFont+Extensions.swift in Sources */,
+				8E38C3952A0CA3910023EC28 /* ScheduleAttributes.swift in Sources */,
 				8E38C3922A0B80610023EC28 /* ScheduleLiveActivity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1233,6 +1238,7 @@
 				FEA9487F29EA987600125ACF /* SplashScreenViewController.swift in Sources */,
 				FEF76AB8270F4AFE0050B807 /* Ripple.swift in Sources */,
 				FEEC607F26FE3B5500DDA47E /* MovieCollectionLayout.swift in Sources */,
+				8E38C3942A0CA1B40023EC28 /* ScheduleAttributes.swift in Sources */,
 				FEEC608F26FE473700DDA47E /* GlidingCollection.swift in Sources */,
 				8EF2C65229E4E9F8005D3E30 /* CircleInnerShadowView.swift in Sources */,
 				FE6F2BF826FCDB45007CE4BF /* ParseDataError.swift in Sources */,

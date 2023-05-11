@@ -9,7 +9,14 @@
 import Foundation
 import UIKit
 import RxRelay
-
+import ActivityKit
+import FirebaseMessaging
+extension Data {
+    var hexString: String {
+        let hexString = map { String(format: "%02.2hhx", $0) }.joined()
+        return hexString
+    }
+}
 
 class ProfileViewController : BaseViewController<ProfileViewModel> {
    
@@ -31,6 +38,9 @@ class ProfileViewController : BaseViewController<ProfileViewModel> {
 //            .init(icon: .init(named: "ic-user"), title: "Personal Detail", type: .personal),
 //            .init(icon: .init(named: "ic-support"), title: "Support Center", type: .support)
 //        ]),
+        .item([
+            .init(icon: .init(named: "ic-logout"), title: "Movie Schedule", type: .movieSchedule)
+        ]),
         .item([
             .init(icon: .init(named: "ic-logout"), title: "Logout", type: .logout)
         ])
@@ -175,6 +185,27 @@ class ProfileViewController : BaseViewController<ProfileViewModel> {
             switch item.type {
             case .logout:
                 self.naviagtionBack()
+            case .movieSchedule:
+                if #available(iOS 16.1, *) {
+                    let initialContentState = ScheduleAttributes.ContentState(name: "Hello TP")
+                    let activityAttributes = ScheduleAttributes()
+                    if ActivityAuthorizationInfo().areActivitiesEnabled {
+                        do {
+                            let activity = try Activity<ScheduleAttributes>.request(attributes: activityAttributes, contentState: initialContentState, pushType: .token)
+                            print("Activity Added successsfully. id: \(activity.id)")
+                            Task {
+                                for await data in activity.pushTokenUpdates {
+                                    let myToken = data.hexString
+                                    print("Activity Added successsfully. myToken: \(myToken)")
+                                }
+                            }
+                           
+                        }
+                        catch {
+                            print(error.localizedDescription)
+                        }
+                    }
+                }
             default: break
             }
         }).disposed(by: self.disposeBag)

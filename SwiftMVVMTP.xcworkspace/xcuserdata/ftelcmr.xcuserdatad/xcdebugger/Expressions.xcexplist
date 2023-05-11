@@ -3,14 +3,6 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "TransitionDriver.configurateCell(_:backImage:):TransitionDriver.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "backImage">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "MovieCollectionViewCell.layoutSubviews():MovieCollectionViewCell.swift">
          <PersistentStrings>
             <PersistentString
@@ -29,6 +21,22 @@
             </PersistentString>
             <PersistentString
                value = " (self.episodeItemSize.height + 10) * CGFloat(numberRow)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in ProfileViewController.performBinding():ProfileViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "activity.pushToken">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "TransitionDriver.configurateCell(_:backImage:):TransitionDriver.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "backImage">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

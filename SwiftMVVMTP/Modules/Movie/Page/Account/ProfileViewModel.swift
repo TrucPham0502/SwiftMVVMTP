@@ -15,7 +15,7 @@ struct ProfileItemModel {
     let title : String
     let type : DataType
     enum DataType {
-        case logout, personal, support
+        case logout, personal, support, movieSchedule
     }
 }
 class ProfileViewModel : BaseViewModel<ProfileViewModel.Input, ProfileViewModel.Output> {
