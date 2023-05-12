@@ -131,17 +131,13 @@ struct MovieScheduleWidgetEntryView : View {
     @ViewBuilder
     func accessoryCircularView() -> some View {
         ZStack {
-            if entry.movies.count == 0 {
-                Circle().stroke(.white, style: StrokeStyle(lineWidth: 6, lineCap: .round, lineJoin: .round))
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-            else {
-                Circle().trim(from: 0.0, to: CGFloat(entry.movies.count * 10) / 100)
-                    .stroke(.white, style: StrokeStyle(lineWidth: 6, lineCap: .butt, lineJoin: .round))
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
+            Circle().stroke(.white.opacity(0.4), style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            Circle().trim(from: 0.0, to: CGFloat(entry.movies.count * 10) / 100)
+                .stroke(.white, style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             Text("\(entry.movies.count)").font(Font(UIFont.bold(ofSize: 18)))
-        }
+        }.padding(.all, 5)
     }
     
     @ViewBuilder
