@@ -12,4 +12,5 @@ struct ScheduleAttributes : ActivityAttributes {
     public struct ContentState : Codable, Hashable {
         var name : String
     }
+    var url : URL?
 }

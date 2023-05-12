@@ -121,10 +121,29 @@ struct MovieScheduleWidgetEntryView : View {
             mediumView()
         case .accessoryRectangular:
             accessoryRectangularView()
+        case .accessoryCircular:
+            accessoryCircularView()
         default:
             mediumView()
         }
     }
+    
+    @ViewBuilder
+    func accessoryCircularView() -> some View {
+        ZStack {
+            if entry.movies.count == 0 {
+                Circle().stroke(.white, style: StrokeStyle(lineWidth: 6, lineCap: .round, lineJoin: .round))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+            else {
+                Circle().trim(from: 0.0, to: CGFloat(entry.movies.count * 10) / 100)
+                    .stroke(.white, style: StrokeStyle(lineWidth: 6, lineCap: .butt, lineJoin: .round))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+            Text("\(entry.movies.count)").font(Font(UIFont.bold(ofSize: 18)))
+        }
+    }
+    
     @ViewBuilder
     func accessoryRectangularView() -> some View {
         VStack {
@@ -227,7 +246,7 @@ struct MovieScheduleWidget: Widget {
             return IntentConfiguration(kind: kind, intent: TrucPhamScheduleConfigurationIntent.self, provider: ScheduleProvider()) { entry in
                 MovieScheduleWidgetEntryView(entry: entry)
             }
-            .supportedFamilies([.systemMedium, .systemSmall, .accessoryRectangular])
+            .supportedFamilies([.systemMedium, .systemSmall, .accessoryRectangular, .accessoryCircular])
             .configurationDisplayName("Schedule")
             .description("The movie schedule for today")
         } else {

@@ -90,7 +90,7 @@ class PlayerViewController : BaseViewController<PlayerViewModel>{
             ))
         output.item.drive(onNext: {[weak self] media in
             guard let self = self, let media = media else { return }
-            guard !media.media.url.isEmpty, let url = URL(string: media.media.url) else { return }
+            guard !media.media.url.isEmpty, let url = URL(string: media.media.url) else { self.dismiss(animated: false); return }
 //                if value.media.type == .m3u8 {
 //                    self.playWithWebView(url: url)
 //                }

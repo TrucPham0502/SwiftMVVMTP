@@ -54,9 +54,15 @@ extension MovieCollectionView {
     }
     @objc private func viewTap(_ sender : UIGestureRecognizer){
         let pointInSelf = sender.location(in: self)
-        if let indexPath = self.indexPathForItem(at: pointInSelf), let currentCell = self.cellForItem(at: indexPath) as? MovieCollectionViewCell {
-            let point = sender.location(in: currentCell)
-            currentCell.handleTouch(point)
+        if let currentCell = currentCell, currentCell.frame.contains(sender.location(in: currentCell)) {
+            currentCell.handleTouch(sender.location(in: currentCell))
         }
+        else {
+            if let indexPath = self.indexPathForItem(at: pointInSelf), let currentCell = self.cellForItem(at: indexPath) as? MovieCollectionViewCell {
+                let point = sender.location(in: currentCell)
+                currentCell.handleTouch(point)
+            }
+        }
+        
     }
 }

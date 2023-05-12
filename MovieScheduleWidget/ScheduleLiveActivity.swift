@@ -12,12 +12,19 @@ import SwiftUI
 import WidgetKit
 
 @available(iOS 16.1, *)
-
-@available(iOS 16.1, *)
 struct ScheduleLiveActivity : Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: ScheduleAttributes.self) { context in
-            VStack {
+            HStack {
+                if let imageContainer = FileManager.default.containerURL(
+                    forSecurityApplicationGroupIdentifier: Constants.groupShared)?
+                    .appendingPathComponent(context.attributes.url!.lastPathComponent),
+                   let uiImage = UIImage(contentsOfFile: imageContainer.path()) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 50, height: 100)
+                }
                 Text(context.state.name)
             }
         } dynamicIsland: { context in
