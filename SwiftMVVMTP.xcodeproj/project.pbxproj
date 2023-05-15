@@ -20,10 +20,11 @@
 		8E38C38E2A09ECF00023EC28 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2C66129E51F07005D3E30 /* Storage.swift */; };
 		8E38C38F2A0A2EEA0023EC28 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E72B3F329F26A560026051F /* UIFont+Extensions.swift */; };
 		8E38C3912A0B80610023EC28 /* ScheduleLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E38C3902A0B80610023EC28 /* ScheduleLiveActivity.swift */; };
-		8E38C3922A0B80610023EC28 /* ScheduleLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E38C3902A0B80610023EC28 /* ScheduleLiveActivity.swift */; };
 		8E38C3942A0CA1B40023EC28 /* ScheduleAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E38C3932A0CA1B40023EC28 /* ScheduleAttributes.swift */; };
 		8E38C3952A0CA3910023EC28 /* ScheduleAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E38C3932A0CA1B40023EC28 /* ScheduleAttributes.swift */; };
 		8E72B3F429F26A560026051F /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E72B3F329F26A560026051F /* UIFont+Extensions.swift */; };
+		8E8718012A12269000F7151E /* ScheduleLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E38C3902A0B80610023EC28 /* ScheduleLiveActivity.swift */; };
+		8E8718022A122AF200F7151E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EE8B9742A03547E006105C4 /* Assets.xcassets */; };
 		8E990D6C29E93B4300D16F89 /* BackgroundCircleNeumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E990D6B29E93B4200D16F89 /* BackgroundCircleNeumorphic.swift */; };
 		8EA7E31E29E3CFBA00A90DDE /* ButtomNeumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA7E31D29E3CFBA00A90DDE /* ButtomNeumorphic.swift */; };
 		8EA7E32229E3D17300A90DDE /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA7E32129E3D17300A90DDE /* ColorExtension.swift */; };
@@ -1093,6 +1094,7 @@
 			files = (
 				FE6F2BB326FCBC42007CE4BF /* LaunchScreen.storyboard in Resources */,
 				8EF2C65E29E50660005D3E30 /* AuthKey_9C95F2SZ9G.p8 in Resources */,
+				8E8718022A122AF200F7151E /* Assets.xcassets in Resources */,
 				FEA9488129EA990700125ACF /* backgroundVideo.mov in Resources */,
 				8EF2C65F29E50660005D3E30 /* AuthKey_M9Q3DTZ82A.p8 in Resources */,
 				FE48C91B275A22B200DB0CA6 /* lang-vi.json in Resources */,
@@ -1168,6 +1170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E38C3852A08CACB0023EC28 /* Dependency.swift in Sources */,
+				8E8718012A12269000F7151E /* ScheduleLiveActivity.swift in Sources */,
 				8EE8B9712A03547C006105C4 /* MovieScheduleWidgetBundle.swift in Sources */,
 				8E38C38D2A09E0E40023EC28 /* MovieScheduleWidgetIntent.intentdefinition in Sources */,
 				8EE8B9732A03547C006105C4 /* MovieScheduleWidget.swift in Sources */,
@@ -1175,7 +1178,6 @@
 				8E38C38E2A09ECF00023EC28 /* Storage.swift in Sources */,
 				8E38C38F2A0A2EEA0023EC28 /* UIFont+Extensions.swift in Sources */,
 				8E38C3952A0CA3910023EC28 /* ScheduleAttributes.swift in Sources */,
-				8E38C3922A0B80610023EC28 /* ScheduleLiveActivity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
