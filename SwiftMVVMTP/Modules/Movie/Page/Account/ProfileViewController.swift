@@ -204,27 +204,31 @@ class ProfileViewController : BaseViewController<ProfileViewModel> {
                             print("Done downloading \(url.lastPathComponent)!")
                             return destination
                     }
-                    Task {
-                        let url = try? await downloadImage(from: URL(string: "https://i0.wp.com/hhhkungfu.tv/wp-content/uploads/Hoa-Giang-Ho-Chi-Bat-Luong-Nhan-6.jpg?resize=300%2C449&ssl=1")!)
-                        let initialContentState = ScheduleAttributes.ContentState(name: "Hello TP")
-                        let activityAttributes = ScheduleAttributes(url: url)
-                        if ActivityAuthorizationInfo().areActivitiesEnabled {
-                            do {
-                                let activity = try Activity<ScheduleAttributes>.request(attributes: activityAttributes, contentState: initialContentState, pushType: .token)
-                                print("Activity Added successsfully. id: \(activity.id)")
-                                Task {
-                                    for await data in activity.pushTokenUpdates {
-                                        let myToken = data.hexString
-                                        print("Activity Added successsfully. myToken: \(myToken)")
-                                    }
+                    let initialContentState = ScheduleAttributes.ContentState(
+                        teamA: .init(
+                            id: .manchester_city,
+                            scored: [],
+                            primaryColor: "#71AFDF"),
+                        teamB: .init(
+                            id: .manchester_united,
+                            scored:  [],
+                            primaryColor: "#CC4244"))
+                    let activityAttributes = ScheduleAttributes()
+                    if ActivityAuthorizationInfo().areActivitiesEnabled {
+                        do {
+                            let activity = try Activity<ScheduleAttributes>.request(attributes: activityAttributes, contentState: initialContentState, pushType: .token)
+                            print("Activity Added successsfully. id: \(activity.id)")
+                            Task {
+                                for await data in activity.pushTokenUpdates {
+                                    let myToken = data.hexString
+                                    print("Activity Added successsfully. myToken: \(myToken)")
                                 }
-                               
                             }
-                            catch {
-                                print(error.localizedDescription)
-                            }
+                           
                         }
-                        
+                        catch {
+                            print(error.localizedDescription)
+                        }
                     }
                     
                     
