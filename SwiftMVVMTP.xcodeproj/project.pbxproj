@@ -1214,7 +1214,7 @@
 			baseConfigurationReference = 26BA3687B48E27270E377BAD /* Pods-SwiftMVVMTP.beta.xcconfig */;
 			buildSettings = {
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
-				APP_ENDPOINT_URL = "http://21.64.19.44:27017/";
+				APP_ENDPOINT_URL = "https://6002-2402-800-63a9-81d6-21b2-93c9-15b9-5fd7.ngrok-free.app/";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SwiftMVVMTP/SwiftMVVMTPBETA.entitlements;
@@ -1281,7 +1281,7 @@
 			baseConfigurationReference = 11331C83FD29963EACBCD787 /* Pods-SwiftMVVMTP.prod.xcconfig */;
 			buildSettings = {
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
-				APP_ENDPOINT_URL = "http://13.229.105.182:8080/";
+				APP_ENDPOINT_URL = "https://6002-2402-800-63a9-81d6-21b2-93c9-15b9-5fd7.ngrok-free.app/";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SwiftMVVMTP/SwiftMVVMTP.entitlements;
