@@ -34,6 +34,38 @@
             endingLineNumber = "92"
             landmarkName = "viewDidLoad"
             landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "DEC6D375-77E2-46F1-A7D4-C8CC4679C1AF - f90195a1d1bf8e71"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RxSwift.Reactive&lt;&#x3c4;_0_0 where &#x3c4;_0_0: __C.UIViewController&gt;.viewDidLoad.getter : RxSwift.Observable&lt;()&gt;"
+                  moduleName = "Movies TP BETA"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/trucpham/Desktop/Projects/iOS/SwiftMVVMTP/SwiftMVVMTP/Core/Rx/RxBinding.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "92"
+                  endingLineNumber = "92"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  uuid = "DEC6D375-77E2-46F1-A7D4-C8CC4679C1AF - 7d9e46c6ea67e2e8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Array&lt;Any&gt;) -&gt; () in RxSwift.Reactive&lt;&#x3c4;_0_0 where &#x3c4;_0_0: __C.UIViewController&gt;.viewDidLoad.getter : RxSwift.Observable&lt;()&gt;"
+                  moduleName = "Movies TP BETA"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/trucpham/Desktop/Projects/iOS/SwiftMVVMTP/SwiftMVVMTP/Core/Rx/RxBinding.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "92"
+                  endingLineNumber = "92"
+                  offsetFromSymbolStart = "8">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
